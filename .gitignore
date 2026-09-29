@@ -1,0 +1,68 @@
+# Editor settings
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# LaTeX build files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+
+# Abaqus generated analysis files
+*.com
+*.ipm
+*.lck
+*.mdl
+*.msg
+*.odb
+*.pac
+*.prt
+*.res
+*.sel
+*.sim
+*.sta
+*.stt
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*.cache
+
+# Python cache (if scripts are added)
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Ignore a folder and its contents
+Videos/
+Ansys/
+Abaqus/
+
+MiniProjects/miniProjects2025/Submission mini-project 1/
+MiniProjects/miniProjects2025/Submission mini-project 2/
+MiniProjects/miniProjects2025/Submission mini-project 3/

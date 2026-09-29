@@ -1,0 +1,1434 @@
+\documentclass[aspectratio=169]{beamer}
+
+\input{../preambleSlides}
+
+\title{Dynamic analysis of Kirchhoff plates}
+\subtitle{Special structural elements}
+\author{ME473 Dynamic finite element analysis of structures}
+\institute{Stefano Burzio}
+\date{2025}
+
+\begin{document}
+\usenavigationsymbolstemplate{}
+{\setbeamertemplate{footline}{}
+
+  \frame{\titlepage
+    \begin{tikzpicture}[overlay, remember picture]
+      \node[anchor=north east, xshift=-.9cm] at (current page.north east) {\includegraphics[width=2cm]{../images/epfl_logo.png}};
+      \node[anchor=south east, xshift=-.87cm, yshift=.05cm] at (current page.south east)  {\includegraphics[height=4.5cm]{../images/plates.jpeg}};
+    \end{tikzpicture}
+  }
+
+  \begin{frame}{Where do we stand?}
+    \begin{center}
+      \begin{tabular}{|c|l|l|l|}
+        \hline
+        \rowcolor{darkred!20}\textbf{Week} & \textbf{Module}                                & \textbf{Lecture topic}             & \textbf{Mini-projects} \\
+        \hline
+
+        1                                  & \multirow{5}{7em}{Linear elastodynamics}       & Strong and weak forms              &                        \\ \cline{1-1} \cline{3-4}
+        2                                  &                                                & Galerkin method                    &                        \\ \cline{1-1} \cline{3-4}
+        3                                  &                                                & Finite element method              & Groups formation       \\ \cline{1-1} \cline{3-4}
+        4                                  &                                                & Systematization of the procedure   & Project 1 statement    \\
+        \cline{1-1} \cline{3-4}
+        5                                  &                                                & 3d elements, numerical integration &                        \\
+        \hline
+        6                                  & \multirow{4}{7em}{Special structural elements} & Bars and trusses                   &                        \\
+        \cline{1-1} \cline{3-4} 7          &                                                & Planar beams                       & Project 1 submission   \\
+        \cline{1-1} \cline{3-4} 8          &                                                & Frames and grids                   & Project 2 statement    \\
+
+        \cline{1-1} \cline{3-4} 9          &                                                & Kirchhoff-Love plates              &                        \\
+        \hline
+      \end{tabular}
+    \end{center}
+    \vspace{1cm}
+  \end{frame}
+
+  \begin{frame}
+    \textbf{\large Summary}
+    \begin{itemize}
+      \item Recap weeks 6 to 8
+      \item Kirchhoff-Love plate theory
+      \item AMC thin plate bending elements
+      \item CR thin plate bending elements
+    \end{itemize}
+    \vspace{.5cm}
+
+    \textbf{\large Recommended readings}
+    \begin{itemize}
+      \item[(P)] Petyt, Introduction to finite element vibration analysis (chap. 6)
+      \item[(N)] Neto et al., Engineering Computation of Structures (chap. 6.1)
+      \item[(O)] Ochsner, PDE for classical structural members (chap. 6)
+      \item[(G)]  Gmür, Méthode des éléments finis (chap. 3)
+    \end{itemize}
+  \end{frame}
+}
+
+\section{Recap weeks 6 to 8 \\ Vibrations of unidimensional structures}
+ {\setbeamercolor{background canvas}{bg=darkred!5}
+  \setbeamercolor{block body}{bg=darkred!5,fg=black}
+
+  \begin{frame}{Trusses vs frames}
+    \textbf{Truss}
+    \begin{itemize}
+      \item Structure composed of oriented bar (rod) elements, connected by frictionless pins, carrying \textbf{axial forces} only.
+    \end{itemize}
+    \textbf{Frame}
+    \begin{itemize}
+      \item Structure composed of oriented beam elements, connected by welding,  carrying \textbf{transversal, axial forces and torsion}.
+    \end{itemize}
+    \begin{center}
+      \begin{multicols}{2}
+        \includegraphics[height=2.3cm]{../images/truss}
+
+        \includegraphics[height=2.3cm]{../images/truss1}
+      \end{multicols}
+    \end{center}
+  \end{frame}
+
+
+  \begin{frame}{Three-dimensional thin beam structure}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.5]
+        % Oxy plane
+        \fill[blue!10, opacity=0.5] (0,-3,0) -- (10,-3,0) -- (10,3,0) -- (0,3,0) -- cycle;
+
+        % Oxz plane
+        \fill[green!10, opacity=0.5] (0,0,-6) -- (10,0,-6) -- (10,0,6) -- (0,0,6) -- cycle;
+
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,-0.5) rectangle (10,0.5);
+        %axis
+        \draw[ultra thin] (-0.5,0) -- (10,0);
+        %forces
+        \draw[thick,-latex,orange] (0,0) -- (0,1);
+        \draw[thick,->>,orange] (0,0) -- (0,1.5) node[left]{$f_{1y}^\prime, m_{1y}^\prime$};
+        \draw[thick,-latex,orange] (10,0) -- (10,1);
+        \draw[thick,->>,orange] (10,0) -- (10,1.5) node[right]{$f_{2y}^\prime, m_{2y}^\prime$};
+        \draw[thick,-latex,orange] (0,0) -- (1,0);
+        \draw[thick,->>,orange] (0,0) -- (1.5,0) node[right]{$f_{1x}^\prime, m_{1x}^\prime$};
+        \draw[thick,-latex,orange] (10,0) -- (11,0);
+        \draw[thick,->>,orange] (10,0) -- (11.5,0) node[right]{$f_{2x}^\prime, m_{2x}^\prime$};
+        % moments  
+        \draw[thick,-latex,orange] (0,0) -- (0,0,1.5);
+        \draw[thick,->>,orange] (0,0) -- (0,0,2.5) node[left]{$f_{1z}^\prime,m_{1z}^\prime$};
+        \draw[thick,-latex,orange] (10,0) -- (10,0,1.5);
+        \draw[thick,->>,orange] (10,0) -- (10,0,2.5) node[left]{$f_{2z}^\prime,m_{2z}^\prime$};
+        % Mark points
+        \fill (0,0) circle (4pt);
+        \fill (10,0) circle (4pt);
+        \draw[thick] (0,0) ++ (0,-1) circle(0.35cm) node {1};
+        \draw[thick] (10,0) ++ (0,-1)  circle(0.35cm) node {2};
+      \end{tikzpicture}
+    \end{center}
+    Three-dimensional thin beams are uniaxial (slender) element that can support:
+    \begin{itemize}
+      \item axial loads $f_{ix}^\prime$,
+      \item torsional loads $m_{ix}^\prime$,
+      \item bending in the $x^\prime-y^\prime$ plane: $f_{iy}^\prime$ and $m_{iz}^\prime$,
+      \item bending in the $x^\prime-z^\prime$ plane: $f_{iz}^\prime$ and $m_{iy}^\prime$.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Differential equations governing the dynamics of thin beams}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.5]
+        % Oxy plane
+        \fill[Purple!20, opacity=0.5] (0,-3,0) -- (10,-3,0) -- (10,3,0) -- (0,3,0) -- cycle;
+        % Oxz plane
+        \fill[green!10, opacity=0.5] (0,0,-6) -- (10,0,-6) -- (10,0,6) -- (0,0,6) -- cycle;
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,-0.5) rectangle (10,0.5);
+        %axis
+        \draw[ultra thin] (-0.5,0) -- (10.5,0);
+        \draw[thick,-latex] (0,0) -- (1,0) node[right] {$x^\prime$};
+        \draw[thick,-latex] (0,0) -- (0,1) node[above] {$y^\prime$};
+        \draw[thick,-latex] (0,0) -- (0,0,2) node[left=1pt] {$z^\prime$};
+
+        % displacement
+        \draw[thick,-latex,brown] (3.5,0) -- (5,0);
+        \draw[thick,-latex,Purple] (3.5,0) -- (3.5,1.5);
+        \draw[thick,-latex,ForestGreen] (3.5,0) -- (3.5,0,2);
+        \draw[thick,->>,BlueViolet] (5,0) -- (5.5,0) node[right] {{\color{brown}$u_1$}, {\color{BlueViolet}$\phi_1$}};
+        \draw[thick,->>,ForestGreen] (3.5,1.5) -- (3.5,2) node[right] {{\color{Purple}$u_2$}, {\color{ForestGreen}$\phi_2$}};
+        \draw[thick,->>,Purple] (3.5,0,2) -- (3.5,0,2.5) node[below] {{\color{ForestGreen}$u_3$}, {\color{Purple}$\phi_3$}};
+        % length
+        \draw[ultra thin] (3.5,0) -- (3.5, 1.3) ;
+        \draw[ultra thin] (0,0) -- (0, 1.3) ;
+        % Mark points
+        \fill (0,0) circle (4pt);
+        \fill (10,0) circle (4pt);
+        \draw[thick] (0,0) ++ (0,-1) circle(0.35cm) node {1};
+        \draw[thick] (10,0) ++ (0,-1)  circle(0.35cm) node {2};
+      \end{tikzpicture}
+    \end{center}
+    \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+      \vspace{-0.6cm}
+      \begin{align*}
+         & Bars                                & {\color{brown} EA \partial^{2}_{x^\prime x^\prime}u_1(x^\prime, t) = \rho A \ddot{u}_1(x^\prime, t) }                                                      \\
+         & Shafts                              & {\color{BlueViolet} GJ \partial^{2}_{x^\prime x^\prime}\phi_{1}(x^\prime, t) = \rho J \ddot{\phi}_1(x^\prime, t) }                                         \\
+         & Planar\ (Ox^\prime y^\prime)\ beams & {\color{Purple} \partial_{x^\prime x^\prime}^2\big(EI_{z^\prime}\partial_{x^\prime x^\prime}^2u_{2}(x^\prime,t)\big)+\rho A\ddot u_{2}(x^\prime,t)=0 }     \\
+         & Planar\ (Ox^\prime z^\prime)\ beams & {\color{ForestGreen} \partial_{x^\prime x^\prime}^2\big(EI_{y^\prime}\partial_{x^\prime x^\prime}^2u_{3}(x^\prime,t)\big)+\rho A\ddot u_{3}(x^\prime,t)=0}
+      \end{align*}
+    \end{tcolorbox}
+    {\small $I_{y^\prime}$ and $I_{z^\prime}$ are the cross-sectional moments of inertia with respect to the axes $y$ and $z$.}
+  \end{frame}
+
+
+  \begin{frame}{Displacements discretization}
+    \small
+    Total of \textbf{six nodal displacements at each unconstrained node}:
+    \begin{itemize}
+      \item three translation components $q_{ix}^\prime$, $q_{iy}^\prime$ and $q_{iz}^\prime$ along the $x$, $y$, $z$ axes, and
+      \item three rotational components about these axes $\phi_{ix}^\prime$, $\phi_{iy}^\prime$ and $\phi_{iz}^\prime$.
+    \end{itemize}\vspace{0.2cm}
+    $$u^h(x^\prime,t)=  \mathbf H(x^\prime)\mathbf q_{loc} (t)$$
+    \vspace{-1cm}
+    \begin{columns}
+      \begin{column}{0.4\textwidth}
+        $$\tiny \mathbf q_{loc} (t)=\begin{bmatrix}
+            {\color{brown} q_{1x}^\prime(t)}             \\[2pt]
+            {\color{Purple} q_{1y}^\prime(t)}            \\[2pt]
+            {\color{ForestGreen} q_{1z}^\prime(t)}       \\[2pt]
+            {\color{BlueViolet} \phi_{1x}^\prime(t)}     \\[2pt]
+            {\color{ForestGreen} \phi_{1y}^\prime(t)   } \\[2pt]
+            {\color{Purple} \phi_{1z}^\prime(t)}         \\[2pt]
+            {\color{brown} q_{2x}^\prime(t)}             \\[2pt]
+            {\color{Purple} q_{2y}^\prime(t)}            \\[2pt]
+            {\color{ForestGreen} q_{2z}^\prime(t)}       \\[2pt]
+            {\color{BlueViolet} \phi_{2x}^\prime(t)}     \\[2pt]
+            {\color{ForestGreen} \phi_{2y}^\prime(t)   } \\[2pt]
+            {\color{Purple} \phi_{2z}^\prime(t)}         \\[2pt]
+          \end{bmatrix}$$
+      \end{column}
+
+      \begin{column}{0.3\textwidth}
+        \tiny  \begin{align*}
+          h_1(x^\prime) & = 1-x^\prime/\ell                        \\
+          h_2(x^\prime) & =2(x^\prime/\ell)^3-3(x^\prime/\ell)^2+1 \\
+          h_3(x^\prime) & =2(x^\prime/\ell)^3-3(x^\prime/\ell)^2+1 \\
+          h_4(x^\prime) & = 1-x^\prime/\ell                        \\
+          h_5(x^\prime) & =x^\prime(1-x^\prime/\ell)^2             \\
+          h_6(x^\prime) & =x^\prime(1-x^\prime/\ell)^2
+        \end{align*}
+      \end{column}
+
+      \begin{column}{0.3\textwidth}
+        \tiny  \begin{align*}
+          h_7(x^\prime)    & = x^\prime/\ell                           \\
+          h_8(x^\prime)    & =3(x^\prime/\ell)^2-2(x^\prime/\ell)^3    \\
+          h_9(x^\prime)    & =3(x^\prime/\ell)^2-2(x^\prime/\ell)^3    \\
+          h_{10}(x^\prime) & = x^\prime/\ell                           \\
+          h_{11}(x^\prime) & =x^\prime(x^\prime/\ell)(x^\prime/\ell-1) \\
+          h_{12}(x^\prime) & =x^\prime(x^\prime/\ell)(x^\prime/\ell-1)
+        \end{align*}
+      \end{column}
+    \end{columns}
+    \begin{itemize}
+      \item The stiffness matrix $\mathbf K_{loc}$ and mass matrices $\mathbf M_{loc}$ for a three-dimensional beam element are written as the superposition of the \textbf{axial} matrix, the \textbf{torsional} matrix and the \textbf{flexural} matrices in the two bending planes.
+    \end{itemize}
+  \end{frame}
+ }
+
+\section{Classic plate theory}
+
+\begin{frame}{Plate structure}
+  \begin{itemize}
+    \item Plate structures are geometrically similar to structures of the 2D plane stress problem, but it usually carries only transversal loads that lead to \textbf{bending} deformation of the plate.
+    \item For example: floors of a building, aerospace and ships structures, etc...
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=8.5cm]{../images/Plate.png}
+  \end{center}
+  \emph{\footnotesize (Credit: (O))}
+\end{frame}
+
+\begin{frame}{Plate models}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \textbf{Kirchhoff (1888) and Love (1945)}
+      \begin{itemize}
+        \item \emph{Shear free plates}: thin plates where the contribution of shear force on the deformations is neglected.
+        \item Two-dimensional extension of the Bernoulli-Euler beam theory.
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      \textbf{Mindlin (1951) and Reissner (1945)}
+      \begin{itemize}
+        \item \emph{Shear deformable plates}: thick plates where the contribution of shear force on deformations is considered.
+        \item Two-dimensional extension of the Timoshenko beam theory.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \begin{center}
+    \vspace{0.1cm}
+    \begin{tikzpicture}
+      \draw (0,0) -- (10,0);
+      \filldraw (1,0) circle (3pt); % Marker
+      \node[align=center] at (1,-0.5) {1888}; % Year label
+      \node[align=center] at (1,2.3) {Gustav Kirchhoff};
+      \node[align=center] at (1,1) {\includegraphics[height=1.5cm]{../images/Kirchhoff.jpg}};
+      \filldraw (5.5,0) circle (3pt); % Marker
+      \node[align=center] at (5.5,-0.5) {1945}; % Year label
+      \node[align=center] at (5.5,1) {\includegraphics[height=1.5cm]{../images/Love.jpg}\includegraphics[height=1.5cm]{../images/Reissner.jpeg}};
+      \node[align=center] at (5.5,2.3) {Augustus Love \\
+        Eric Reissner};
+      \filldraw (9,0) circle (3pt); % Marker
+      \node[align=center] at (9,-0.5) {1951}; % Year label
+      \node[align=center] at (9,1) {\includegraphics[height=1.5cm]{../images/Mindlin.jpg}};
+      \node[align=center] at (9,2.3) {Raymond Mindlin};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Geometry assumptions}
+  \begin{itemize}
+    \item The thickness of the plate $h$ is constant and much smaller than the planar dimensions $a$ and $b$:
+          $$h/a<0.1 \quad \text{and} \quad h/b<0.1.$$
+    \item \textbf{Inextensibility of transverse fibers}: transverse normal strain is negligible.
+          $$\varepsilon_{33} = 0.$$
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=5cm]{../images/plateGeomAssumptions.jpeg}
+  \end{center}
+  \emph{\footnotesize (Credit:(G))}
+\end{frame}
+
+\begin{frame}{Material and loads assumptions}
+  \textbf{Material}
+  \begin{itemize}
+    \item The material is homogenous and linear-elastic according to Hooke's law for a plane stress state $$\sigma_{33} = \sigma_{13} = \sigma_{23} = 0.$$
+  \end{itemize}
+  \textbf{Loads}
+  \begin{itemize}
+    \item External forces act only perpendicular to the $x-y$ plane, the vector of external moments lies within the $x-y$ plane.
+    \item Displacement $u_3 (x, y,t)$ is small compared to $h$: $u_3 \lesssim 0.2h.$
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=6cm]{../images/Plate.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Kirchhoff assumption}
+  \textbf{Rectilinearity of the normals}: Bernoulli's hypothesis is valid, i.e. a cross-sectional plane stays plane and unwrapped in the deformed state.
+
+  This means that the shear strains $\varepsilon_{13}$ and $\varepsilon_{23}$ due to the distributed shear forces $q_x$ and $q_y$ are neglected.
+  \begin{center}
+    \begin{center}
+      \includegraphics[width=6cm]{../images/KirchhoffPlateHp.png}
+    \end{center}
+  \end{center}
+  \begin{block}{}
+    A straight fiber that is perpendicular to the middle plane of the plate before deformation remain straight and normal to it after deformation.\
+  \end{block}
+  \emph{\footnotesize (Credit: (N))}
+\end{frame}
+
+\begin{frame}{Kinematics assumptions}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \includegraphics[width=5.5cm]{../images/plateKinematicsXZ.png}
+      \vspace{0.3cm}
+
+      \includegraphics[width=5.5cm]{../images/plateKinematicsYZ.png}
+    \end{column}
+
+    \begin{column}{0.3\textwidth}
+      \begin{block}{}
+        \vspace{-0.5cm}
+        \begin{align*}
+          -\varphi_2 & \approx\sin(-\varphi_2)=-\frac{u_1}{z}  \\
+          -\varphi_2 & \approx\tan(-\varphi_2)=\frac{du_3}{dx}
+        \end{align*}
+        $$\implies u_1=-z \frac{du_3}{dx} $$
+      \end{block}
+      \vspace{0.5cm}
+
+      \begin{block}{}
+        \vspace{-0.5cm}
+        \begin{align*}
+          \varphi_1 & \approx\sin(\varphi_1)=-\frac{u_2}{z}  \\
+          \varphi_1 & \approx\tan(\varphi_1)=\frac{du_3}{dy}
+        \end{align*}
+        $$\implies u_2=-z \frac{du_3}{dx} $$
+      \end{block}
+    \end{column}
+
+    \begin{column}{0.3\textwidth}
+      \begin{block}{}
+        \centering
+        \textbf{Transverse displacement $u_3$ is the \emph{only} independent variable:}
+        $$\mathbf u=\begin{bmatrix}
+            -z \dfrac{\partial u_3}{\partial x} \\[10pt]
+            -z \dfrac{\partial u_3}{\partial y} \\[10pt]
+            u_3
+          \end{bmatrix}$$
+      \end{block}
+      \vspace{0.5cm}
+      \tiny{Deformation is exaggerated in the figures for better illustration.}
+    \end{column}
+  \end{columns}
+  \vspace{0.3cm}
+\end{frame}
+
+\begin{frame}{Strain-displacement relation}
+  \begin{itemize}
+    \item Using classical engineering definitions of strain: $$\varepsilon_{ii}=\partial_i u_i\qquad\text{and}\qquad\gamma_{ij}=\partial_i u_j+\partial_j u_i$$ we obtain
+          $$\underbrace{\begin{bmatrix}
+                \varepsilon_{11} \\ \varepsilon_{22} \\ \gamma_{12}
+              \end{bmatrix}}_\text{$\boldsymbol{\varepsilon}$} = -z \underbrace{\begin{bmatrix}
+                \partial^2_{xx} \\[7pt]
+                \partial^2_{yy} \\[7pt]
+                2\partial^2_{xy}
+              \end{bmatrix}}_\text{$\boldsymbol{\nabla}_{k}$}u_3= z  \underbrace{\begin{bmatrix}
+                \kappa_x \\ \kappa_y \\ \kappa_{xy}
+              \end{bmatrix}}_\text{$\boldsymbol{\kappa}$}$$
+    \item $\boldsymbol{\kappa}$ is the matrix that contains the changes in the \textbf{curvature of the plate}, given as $\boldsymbol{\kappa}=-\boldsymbol{\nabla}_{k}u_3$.
+    \item Note that $\varepsilon_{12}=\varepsilon_{23}=0$ due to Kirchhoff assumptions and $\varepsilon_{33}=0$ due to the inextensibility of transverse fibers assumption.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Constitutive equation for isotropic material}
+  \vspace{-0.3cm}
+  \begin{itemize}
+    \item  Classical plate theory assumes a plane stress state:  $$\sigma_{33} = \sigma_{13} =\sigma_{23} =0.$$
+    \item  Constitutive equation for \emph{isotropic} material is $\boldsymbol{\sigma}=\mathbf C\boldsymbol{\varepsilon}$ or $\boldsymbol{\varepsilon}=\mathbf D\boldsymbol{\sigma}$ where
+          \[
+            \begin{bmatrix}
+              \sigma_{11} \\
+              \sigma_{22} \\
+              \sigma_{12}
+            \end{bmatrix}
+            =
+            \frac{E}{1 - \nu^2}
+            \begin{bmatrix}
+              1   & \nu & 0                 \\
+              \nu & 1   & 0                 \\
+              0   & 0   & \frac{1 - \nu}{2}
+            \end{bmatrix}
+            \begin{bmatrix}
+              \varepsilon_{11} \\
+              \varepsilon_{22} \\
+              \gamma_{12}
+            \end{bmatrix},
+          \]
+          or
+          \[
+            \begin{bmatrix}
+              \varepsilon_{11} \\
+              \varepsilon_{22} \\
+              \gamma_{12}
+            \end{bmatrix}
+            =
+            \frac{1}{E}
+            \begin{bmatrix}
+              1    & -\nu & 0          \\
+              -\nu & 1    & 0          \\
+              0    & 0    & 2(\nu + 1)
+            \end{bmatrix}
+            \begin{bmatrix}
+              \sigma_{11} \\
+              \sigma_{22} \\
+              \sigma_{12}
+            \end{bmatrix}.
+          \]
+    \item $\mathbf C$ is the \emph{elasticity matrix} and $\mathbf D=\mathbf C^{-1}$ is the \emph{elastic compliance matrix}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Constitutive equation for orthotropic material}
+  \begin{itemize}
+    \item  The constitutive equation for \emph{orthotropic} material is $\boldsymbol{\sigma}=\mathbf C\boldsymbol{\varepsilon}$ or $\boldsymbol{\varepsilon}=\mathbf D\boldsymbol{\sigma}$ where
+          \begin{equation*}
+            \begin{bmatrix}
+              \sigma_{11} \\
+              \sigma_{22} \\
+              \sigma_{12}
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+              Q_{11} & Q_{12} & 0      \\
+              Q_{12} & Q_{22} & 0      \\
+              0      & 0      & Q_{33}
+            \end{bmatrix}
+            \begin{bmatrix}
+              \varepsilon_{11} \\
+              \varepsilon_{22} \\
+              \gamma_{12}
+            \end{bmatrix}
+          \end{equation*}
+          where
+          \begin{equation*}
+            Q_{11} = \frac{E_1}{1 - \nu_{12} \nu_{21}}, \quad
+            Q_{12} = \frac{\nu_{12} E_2}{1 - \nu_{12} \nu_{21}}, \quad
+            Q_{22} = \frac{E_2}{1 - \nu_{12} \nu_{21}}, \quad
+            Q_{33} = G_{12}
+          \end{equation*}
+    \item  The orthotropic properties of the lamina are given: $E_1$, $E_2$, $\nu_{12}$, $G_{12}$ and $\nu_{21} =\nu_{12}E_2/E_1$ applies.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{External forces}
+  Consider a plate cell of dimensions $dx_1\times dx_2\times h$ that is submitted to external forces, here denoted by $f_3$, and inertial force proportional to the material density.
+  \vspace{0.3cm}
+  \begin{center}
+    \includegraphics[width=13cm]{../images/plateDynamicEq.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Distributed normal and shear stresses}
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \vspace{-0.5cm}
+      \begin{center}
+        \includegraphics[width=6.5cm]{../images/plateStesses.png}
+      \end{center}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      Normal and shear stresses distributions through the thickness of the plate element:
+      \vspace{0.3cm}
+      \begin{itemize}
+        \item linear distributed normal stresses $\sigma_{11}$ and $\sigma_{22}$,
+        \item linear distributed shear stresses \\ $\sigma_{12}$ and $\sigma_{21}$,
+        \item parabolic distributed shear stresses $\sigma_{23}$ and $\sigma_{13}$.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Moments and shear forces}
+  \vspace{-1cm}
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \begin{center}
+        \includegraphics[width=6.5cm]{../images/plateMoments.png}
+      \end{center}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      Moments and shear forces acting along the edge of the plate:
+      \vspace{0.3cm}
+      \begin{itemize}
+        \item bending moments $M_{11}$ and $M_{22}$,
+        \item twisting moment $M_{12}$,
+        \item shear forces $N_{13}$ and $N_{23}$.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.3cm}
+  \[\hspace{-0.3cm}
+    \mathbf{M} =
+    \begin{bmatrix}
+      M_{11} \\
+      M_{22} \\
+      M_{12}
+    \end{bmatrix}
+    =
+    \int_{-\frac{h}{2}}^{\frac{h}{2}} x_3
+    \begin{bmatrix}
+      \sigma_{11} \\
+      \sigma_{22} \\
+      \sigma_{12}
+    \end{bmatrix}
+    \, dx_3
+    =
+    \int_{-\frac{h}{2}}^{\frac{h}{2}} x_3 \, \boldsymbol{\sigma} \, dx_3
+    =
+    -\boldsymbol{C}\boldsymbol{\nabla}_ku_3\int_{-\frac{h}{2}}^{\frac{h}{2}} x_3^2  \, dx_3 =-\frac{h^3}{12}\boldsymbol{C}\boldsymbol{\nabla}_ku_3
+  \]
+\end{frame}
+
+
+\begin{frame}{Dynamic equilibrium equation}
+  \begin{itemize}
+    \item Equilibrium condition for the vertical forces:
+          $$\frac{\partial N_{13}}{\partial x_1}+\frac{\partial N_{23}}{\partial x_2}+f_3-\rho h \ddot{u}_3=0$$
+    \item Equilibrium of moments:
+          $$\frac{\partial M_{11}}{\partial x_1}+\frac{\partial M_{12}}{\partial x_2}-N_{13}=0$$
+          $$\frac{\partial M_{22}}{\partial x_2}+\frac{\partial M_{12}}{\partial x_1}-N_{23}=0$$
+  \end{itemize}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    Combining the three equations above, we obtain the \textbf{dynamic equilibrium equation for Kirchhoff-Love plate bending}:
+    $$\boldsymbol{\nabla}_k^T \mathbf M+f_3=\rho h \ddot{u}_3$$
+  \end{tcolorbox}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Strong form for Kirchhoff-Love plate bending}
+  Let $\Omega=[-a,a]\times[-b,b]$. Find the transverse displacement $u_{3}\in C^4(\Omega\times[0,T])$ such that
+  \begin{equation*}
+    \frac{h^3}{12}\boldsymbol{\nabla}_k^T \boldsymbol{C}\boldsymbol{\nabla}_ku_3+\rho h \ddot{u}_3=f_3 \qquad \text{  on  }\Omega\times]0,T[
+  \end{equation*}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      Boundary conditions (\emph{simply supported}):
+      \[
+        \begin{aligned}
+           & u_3 = 0\qquad \text{in }\partial\Omega\times]0,T[         \\
+           & \mathbf M_n = 0\qquad \text{in }\partial\Omega\times]0,T[ \\
+        \end{aligned}
+      \]
+    \end{column}
+
+    \begin{column}{0.38\textwidth}
+      Initial conditions:
+      \[
+        \begin{aligned}
+           & \color{orange}{u_3(\cdot, 0) =  u_0 \quad \text{in }\Omega}      \\
+           & \color{orange}{\dot{u}_3(\cdot, 0) = v_0 \quad \text{in }\Omega} \\
+        \end{aligned}
+      \]
+    \end{column}
+  \end{columns}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    In case of isotropic material, the strong form equation reduces to
+    $$  D\left(
+      \frac{\partial^4 u_3}{\partial x_1^4}
+      + 2\frac{\partial^4 u_3}{\partial x_1^2 \partial x_2^2}
+      + \frac{\partial^4 u_3}{\partial x_2^4}
+      \right)   + \rho h \ddot{u}_3
+      = f_3$$
+    where $D=Eh^3/(12(1-\nu^2))$.
+  \end{tcolorbox}
+\end{frame}
+}
+
+\begin{frame}{Approximated boundary conditions}
+  \begin{columns}
+    \column{0.35\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.7]
+        \def\a{3}
+        \def\b{4}
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (\a,\b);
+        %axis
+        \draw[-latex,ultra thin] (-0.5,\b/2) -- (\a+1,\b/2) node[right]{$x$};
+        \draw[-latex, ultra thin] (\a/2,-0.5) -- (\a/2,\b+1)node[above]{$y$};
+        % Omega
+        \node at (\a/2+0.3,\b/2+0.3) {$\Omega$};
+        \draw[ultra thin] (3*\a/4,\b) -- (3*\a/4+1,\b+1) node[right]{$\partial\Omega_1$};
+        \draw[ultra thin] (\a,3*\b/4) -- (\a+1,3*\b/4+1) node[right]{$\partial\Omega_2$};
+        \draw[ultra thin] (3*\a/4,0) -- (3*\a/4+1,-1) node[right]{$\partial\Omega_1$};
+        \draw[ultra thin] (0,3*\b/4) -- (-1,3*\b/4+1) node[left]{$\partial\Omega_2$};
+      \end{tikzpicture}
+    \end{center}
+
+    \column{0.7\textwidth}
+    \textbf{Simply supported on all 4 edges}:
+    \begin{itemize}
+      \item  No vertical displacement:
+            $$ u_3 = 0\qquad \text{in }\partial\Omega\times]0,T[   $$
+      \item No moment resistance (free to rotate):
+            \[
+              \begin{aligned}
+                 & M_{11}=-D(\partial_x\varphi_2+\nu\partial_y\varphi_1)=0 \qquad \text{in }\partial\Omega_1\times]0,T[ \\
+                 & M_{22}=-D(\nu\partial_x\varphi_2+\partial_y\varphi_1)=0 \qquad \text{in }\partial\Omega_2\times]0,T[ \\
+              \end{aligned}
+            \]
+            These conditions are replaced by the approximated conditions:
+            \[
+              \begin{aligned}
+                 & \varphi_2 =  -\partial_{x}u_3=0\qquad & \text{in }\partial\Omega_1\times]0,T[ \\
+                 & \varphi_1 = \partial_{y}u_3=0\qquad   & \text{in }\partial\Omega_2\times]0,T[
+              \end{aligned}
+            \]
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Weak form for Kirchhoff-Love simply supported plate}
+  The weak form consists of finding the transverse displacement $u_{3}\in \mathcal U$ such that the following equation is satisfied for every virtual transversal displacement $\delta u_3\in \mathcal V$:
+  \begin{block}{}
+    \[
+      \frac{h^3}{12}\int_\Omega \, (\boldsymbol{\nabla}_k \delta u_3)^T\mathbf C \, \boldsymbol{\nabla}_k u_3  \, d\Omega + \int_\Omega \rho h\, \ddot u_3 \, \delta u_3 \, d\Omega = \int_\Omega f_3\, \delta u_3 \, d\Omega
+    \]
+  \end{block}
+
+  The functional spaces are defined as
+  \begin{align*}
+    \mathcal U & =\big\{u_3(\cdot,t)\in H^2(\Omega)\ |\ u_3=0\text{ in } \partial\Omega\times]0,T[\big\} \\[0.1cm]
+    \mathcal V & =\big\{\delta u_3\in H^2(\Omega)\ |\ \delta u_3=0\text{ in } \partial\Omega\big\}
+  \end{align*}
+\end{frame}
+}
+
+\section{Thin plate bending elements}
+
+\begin{frame}{Overview of thin plate bending elements}
+  Numerous finite elements for plate bending have been developed: \textbf{more than 88 distinct types} can be identified.
+  \begin{center}
+    \begin{tikzpicture}
+      \node[circle, draw, minimum size=3.1cm, fill=darkred!20] (circle) at (0,0){};
+      \node at (0,0.5) {\textbf{Thin}};
+      \node at (0,0) {\textbf{plate}};
+      \node at (0,-0.4) {\textbf{elements}};
+      % Define the list of polynomial degrees
+      \foreach \i/\txt in {1/Quadrangular vs triangular, 2/Conforming vs not conforming ($C^0$ vs $C^1$), 3/Higher order approximation} {
+          % Compute y-shift to center the list
+          \pgfmathsetmacro{\yshift}{(2-\i) * 1.2}
+
+          % Draw rectangles with text
+          \node[draw, minimum width=2cm, minimum height=0.8cm, right=1cm of circle, yshift=\yshift cm] (box\i) {\textbf{\txt}};
+
+          % Draw connecting arrows
+          \draw[-latex] (circle.east) -- (box\i.west);
+        }
+    \end{tikzpicture}
+  \end{center}
+  \begin{itemize}
+    \item  \textbf{Adini-Melosh-Clough element (AMC)}: \\ 12 DOFs quadrangular, not conforming, thin plate bending element.
+    \item  \textbf{Crouzeix–Raviart (CR)}: \\ 16 DOFs quadrangular, conforming, thin plate bending element.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Finite element approximation of Kirchhoff-Love plate}
+  \begin{block}{}
+    \begin{itemize}
+      \item Weak form equation
+            \[
+              \frac{h^3}{12}\int_\Omega \, (\boldsymbol{\nabla}_k \delta u_3)^T\mathbf C \, \boldsymbol{\nabla}_k u_3  \, d\Omega + \int_\Omega \rho h\, \ddot u_3 \, \delta u_3 \, d\Omega = \int_\Omega f_3\, \delta u_3 \, d\Omega
+            \]
+      \item  Semi-discrete weak form
+            $$\mathbf M\ddot{\mathbf q}(t)+\mathbf K\mathbf q(t)=\mathbf r(t)$$
+    \end{itemize}
+  \end{block}
+  \vspace{0.3cm}
+  Finite element approximation using polynomial shape functions:
+  $${}^eu_3^h(x_1, x_2, t) = \sum_{i=1}^{n} {}^e\mathbf h_i(x_1, x_2) {}^e\mathbf  q^i(t) = {}^e\mathbf{H}(\mathbf x){}^e\mathbf{q}(t)$$
+\end{frame}
+
+\begin{frame}{Selection of the displacement approximation function}
+  To ensure convergence it is necessary to consider:
+  \begin{tikzpicture}[scale=0.5]
+    \node (completeness) at (-2,8) {
+      \begin{tcolorbox}[colframe=red!50!black, colback=red!10, coltitle=black, rounded corners, width=6cm]
+        \textbf{Completeness criterion:} \\ highest order of derivatives in the weak form is $2$.
+      \end{tcolorbox}
+    };
+    \node (continuity) at (-2,2) {
+      \begin{tcolorbox}[colframe=red!50!black, colback=red!10, coltitle=black, rounded corners,width=6cm]
+        \textbf{Continuity criterion:} \\ ${}^eu^h_3$, $\partial_{x_1} {}^eu^h_3$, $\partial_{x_2} {}^eu^h_3$ are continuous between elements.
+      \end{tcolorbox}
+    };
+    \node (completeness1) at (13,8) {
+      \begin{tcolorbox}[colframe=red!50!black, colback=red!10, coltitle=black, rounded corners, width=7cm]
+        Complete polynomials of at least degree 2:
+        \vspace{-.1cm}
+        \begin{align*}
+          {}^eu_3^h = & \, a_1+a_2x+a_3y+                   \\
+          +           & \, a_4x^2+a_5xy+a_6y^2+             \\
+          +           & \, \text{\emph{higher order terms}}
+        \end{align*}
+      \end{tcolorbox}
+    };
+    \node (continuity1) at (13,2) {
+      \begin{tcolorbox}[colframe=red!50!black, colback=red!10, coltitle=black, rounded corners, width=7cm]
+        Each node $i$ has 3 DOFs:
+        \begin{itemize}
+          \item ${}^e{d}^i$ vertical displacement,
+          \item ${}^e{\theta}^i_1,{}^e{\theta}^i_2$ rotations.
+        \end{itemize}
+      \end{tcolorbox}
+    };
+    % Drawing arrows
+    \draw[-latex, ] (completeness.east) -- (completeness1.west);
+    \draw[-latex, ] (continuity.east) -- (continuity1.west);
+  \end{tikzpicture}
+\end{frame}
+
+\section{AMC plate bending elements}
+
+\begin{frame}{Selection of the displacement approximation function}
+  \begin{center}
+    \begin{tabular}{ccccccccc|l}
+              &                      &                          &                         & \color{darkred}$1$      &                         &                          &                      &         & Constant  \\
+              &                      &                          & \color{darkred}$x_1$    &                         & \color{darkred}$x_2$    &                          &                      &         & Linear    \\
+              &                      & \color{darkred}$x_1^2$   &                         & \color{darkred}$x_1x_2$ &                         & $\color{darkred}x_2^2$   &                      &         & Quadratic \\
+              & \color{brown}$x_1^3$ &                          & \color{brown}$x_1^2x_2$ &                         & \color{brown}$x_1x_2^2$ &                          & \color{brown}$x_2^3$ &         & Cubic     \\
+      $x_1^4$ &                      & \color{orange}$x_1^3x_2$ &                         & $x_1^2x_2^2$            &                         & \color{orange}$x_1x_2^3$ &                      & $x_2^4$ & Quartic   \\
+    \end{tabular}
+  \end{center}
+  \begin{block}{}
+    \textbf{Displacement approximation} for rectangular elements with four nodes and thus 12 DOFs: complete cubic polynomial, augmented with two (\emph{geometrically invariant}) quartic terms
+    \vspace{-0.2cm}
+    \begin{align*}
+      {}^eu_3^h(x_1,x_2,t) = & \, {\color{darkred}a_1 + a_2 x_1 + a_3 x_2 + a_4 x_1^2 + a_5 x_1 x_2 + a_6 x_2^2} +                                              \\
+      +                      & \,{\color{brown} a_7 x_1^3 + a_8 x_1^2 x_2 + a_9 x_1 x_2^2 + a_{10} x_2^3} + {\color{orange}a_{11} x_1^3 x_2 + a_{12} x_1 x_2^3}
+    \end{align*}
+  \end{block}
+  \begin{itemize}
+    \item[\Checkmark] Displacement approximation solves the unloaded strong form equation.
+    \item[\Checkmark] Continuity in displacement along the interfaces of the elements.
+    \item[\XSolidBrush] Slopes continuity along the interfaces are not ensured (\emph{not conforming}).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Coordinate transform}
+  The coordinate transformation:
+  \begin{align*}
+    {}^eT : \Omega^a              & \to {}^e\Omega                                                                       \\
+    \boldxi   =\{\xi_1, \xi_2\}^T & \mapsto \mathbf x(\boldxi) = \{x_1(\boldxi), x_2(\boldxi)\}^T = \{a\xi_1, b\xi_2\}^T
+  \end{align*}
+  maps any point $\boldxi$ in $\Omega^a=[-1,1]\times [-1,1]$ to its corresponding point of coordinate $\mathbf x(\boldxi)$ in ${}^e\Omega=[-a,a]\times [-b,b]$:
+  \begin{center}
+    \begin{tikzpicture}[scale=1.8]
+      % \draw[step=1.0,black,thin] (-2,0) grid (4,4);
+      % Draw x1x2 square 
+      \draw[thick] (2,0.25) -- (4,0.25) -- (4,1.75) -- (2,1.75) -- cycle;
+      \draw[ultra thin,-latex] (1.7,1) -- (4.5,1) node[right]{$x_1$};
+      \draw[ultra thin,-latex] (3,0) -- (3,2) node[above]{$x_2$};
+      \draw[ultra thin,latex-latex] (4.15,0.25) -- (4.15,1.75) node[midway, above right]{$2b$};
+      \draw[ultra thin,latex-latex] (2,0.1) -- (4,0.1) node[midway, below right]{$2a$};
+      \node at (3.1,1.1) {${}^e\Omega$};
+      \node[draw,shape=circle,fill=black,minimum size=2mm,line width=0.3mm,inner sep=0] at (2,0.25) {};
+      \node[draw,shape=circle,fill=black,minimum size=2mm,line width=0.3mm,inner sep=0] at (4,0.25) {};
+      \node[draw,shape=circle,fill=black,minimum size=2mm,line width=0.3mm,inner sep=0] at (4,1.75) {};
+      \node[draw,shape=circle,fill=black,minimum size=2mm,line width=0.3mm,inner sep=0] at (2,1.75) {};
+      % Draw master square
+      \draw[fill=orange!30,thick,orange!10] (-1.5,0.5) -- (-0.5,0.5) -- (-0.5,1.5) -- (-1.5,1.5) -- cycle;
+      \draw[thick] (-1.5,0.5) -- (-0.5,0.5) -- (-0.5,1.5) -- (-1.5,1.5) -- cycle;
+      \draw[ultra thin,-latex] (-1.8,1) -- (-0.2,1) node[right]{$\xi_1$};
+      \draw[ultra thin,-latex] (-1,0.2) -- (-1,1.8) node[above]{$\xi_2$};
+      \node at (-0.9,1.1) {$\Omega^a$};
+      \node[orange,draw,shape=circle,fill=orange,minimum size=2mm,line width=0.3mm,inner sep=0] at (-1.5,0.5) {};
+      \node[orange,draw,shape=circle,fill=orange,minimum size=2mm,line width=0.3mm,inner sep=0] at (-0.5,0.5) {};
+      \node[orange,draw,shape=circle,fill=orange,minimum size=2mm,line width=0.3mm,inner sep=0] at (-0.5,1.5) {};
+      \node[orange,draw,shape=circle,fill=orange,minimum size=2mm,line width=0.3mm,inner sep=0] at (-1.5,1.5) {};
+      \node[orange,above right] at (-1.5,0.5) {$1$};
+      \node[orange,below right] at (-1.5,1.5) {$4$};
+      \node[orange,above left] at (-0.5,0.5) {$2$};
+      \node[orange,below left] at (-0.5,1.5) {$3$};
+      \draw[ultra thin,latex-latex] (-1.5,0.35) -- (-0.5,0.35) node[midway, below right]{$2$};
+      \draw[ultra thin,latex-latex] (-1.65,0.5) -- (-1.65,1.5) node[midway, above left]{$2$};
+      % Arrow
+      \draw[thick,-latex] (-0.2,0.7) arc [start angle=-100, end angle=-80, radius=5.8] node[midway, below]{${}^eT$};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Approximate displacement in local coordinates}
+  \vspace{-1cm}
+  \begin{align*}
+    {}^eu_3^h(\boldxi,t) & =\sum_{i=1}^4  {}^a\mathbf h_i(\boldxi) {}^e\mathbf  q^i(t)= {}^a\mathbf{H}(\boldxi){}^e\mathbf{q}(t)                \\[-2em]
+                         & =\begin{bmatrix}
+                              {}^a \mathbf h_1(\boldxi) & {}^a\mathbf  h_2(\boldxi) & {}^a \mathbf h_3(\boldxi) & {}^a\mathbf  h_4(\boldxi)
+                            \end{bmatrix}\begin{bmatrix}
+                                           {}^e\mathbf  q^1(t) \\[2pt] {}^e\mathbf  q^2(t) \\[2pt] {}^e\mathbf  q^3(t) \\[2pt] {}^e\mathbf  q^4(t)
+                                         \end{bmatrix}
+  \end{align*}
+  \begin{columns}
+    \begin{column}{.58\textwidth}
+      where
+      \begin{itemize}
+        \item  ${}^e\mathbf  q^i(t)=\begin{bmatrix}
+                  {}^ed^i(t) \\[2pt] {}^e{\theta}^i_1(t) \\[2pt] {}^e{\theta}^i_2(t)
+                \end{bmatrix}=\left[\begin{array}{lll}
+                    {}^eu_3^h(\boldxi^i,t) \\[2pt] \partial_{\xi_2}{}^eu_3^h(\boldxi^i,t)/b \\[2pt] -\partial_{\xi_1}{}^eu_3^h(\boldxi^i,t)/a
+                  \end{array}\right]$ \vspace{0.3cm}
+        \item $\boldxi^i$ are the local coordinates of node $i$.
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.48\textwidth}
+      \begin{center}
+        \includegraphics[height=3cm]{../images/plateLocal.png}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{DOFs in local coordinates}
+  \begin{itemize}
+    \item Assumed form of the displacement function:
+  \end{itemize}
+  \vspace{0.6cm}
+  {\small
+    $$\hspace{-0.3cm}
+      \begin{bmatrix}
+        {}^eu_3^h \\[2pt] \partial_{\xi_2}{}^eu_3^h\\[2pt] \partial_{\xi_1}{}^eu_3^h
+      \end{bmatrix}  =\underbrace{\left[\begin{array}{cccccccccccc}
+            1 & \xi_1 & \xi_2 & \xi_1^2 & \xi_1\xi_2 & \xi_2^2 & \xi_1^3  & \xi_1^2\xi_2 & \xi_1\xi_2^2 & \xi_2^3  & \xi_1^3\xi_2  & \xi_1\xi_2^3  \\
+            0 & 0     & 1     & 0       & \xi_1      & 2\xi_2  & 0        & \xi_1^2      & 2\xi_1\xi_2  & 3\xi_2^2 & \xi_1^3       & 3\xi_1\xi_2^2 \\
+            0 & 1     & 0     & 2\xi_1  & \xi_2      & 0       & 3\xi_1^2 & 2\xi_1\xi_2  & \xi_2^2      & 0        & 3\xi_1^2\xi_2 & \xi_2^3
+          \end{array}\right]}_\text{$\mathbf{P}(\boldxi)$}\underbrace{\begin{bmatrix}
+          \alpha_1(t) \\
+          \vdots      \\
+          \alpha_{12}(t)
+        \end{bmatrix}}_\text{$\boldsymbol{\alpha}(t)$}
+    $$
+  }
+  \begin{itemize}
+    \item Then the DOFs in local coordinates are:
+          $$\ {}^e\mathbf  q^i(t)=\underbrace{\begin{bmatrix}
+                1 & 0   & 0    \\
+                0 & 1/b & 0    \\
+                0 & 0   & -1/a
+              \end{bmatrix}\mathbf P(\boldxi^i)}_\text{$\bar{\mathbf P}(\boldxi^i)$}\ \boldsymbol{\alpha}(t)$$
+  \end{itemize}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Shape functions matrix for the AMC element}
+  \begin{itemize}
+    \item   Since
+          $${}^e\mathbf  q(t)=\begin{bmatrix}
+              {}^e\mathbf  q^1(t) \\[2pt] {}^e\mathbf  q^2(t) \\[2pt] {}^e\mathbf  q^3(t) \\[2pt] {}^e\mathbf  q^4(t)
+            \end{bmatrix}=\underbrace{\begin{bmatrix}
+                \bar{\mathbf P}(\boldxi^1) \\[2pt] \bar{\mathbf P}(\boldxi^2) \\[2pt] \bar{\mathbf P}(\boldxi^3) \\[2pt]\bar{\mathbf P}(\boldxi^4)
+              \end{bmatrix}}_\text{$\mathbf A$}\boldsymbol{\alpha}(t)\hspace{1cm}\Rightarrow\hspace{1cm} \boldsymbol{\alpha}(t)=\mathbf A^{-1}\,{}^e\mathbf  q(t)$$
+    \item   Then the shape functions matrix is ${}^a\mathbf H=\begin{bmatrix}
+              {}^a \mathbf h_1 & {}^a\mathbf  h_2 & {}^a \mathbf h_3 & {}^a\mathbf  h_4
+            \end{bmatrix}=\mathbf P_1\mathbf A^{-1}$ where
+          $$ {}^a\mathbf  h_i(\boldxi) =\begin{bmatrix}
+              (1 + \xi_1^i \xi_1)(1 + \xi_2^i \xi_2)(2 + \xi_1^i \xi_1 + \xi_2^i \xi_2 - \xi_1^2 - \xi_2^2)/8 \\
+              b(1 + \xi_1^i \xi_1)(\xi_2^i + \xi_2)(\xi_2^2 - 1)/8                                            \\
+              -a(\xi_1^i + \xi_1)(\xi_1^2 - 1)(1 + \xi_2^i \xi_2)/8
+            \end{bmatrix}^T$$
+          and $\boldxi^i=\{\xi_1^i,\xi_2^i\}^T$ are the local coordinates of node $i$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Deformation, stiffness, mass matrices and loads vector}
+  \begin{itemize}
+    \item ${}^a\mathbf B=\boldsymbol\nabla_k{}^a\mathbf H$ is a ($3\times 12$) matrix:
+          \begin{align*}
+            {}^a\mathbf B
+            =\begin{bmatrix}
+               \frac{1}{a^2}\partial^2_{\xi_1}     \\[5pt]
+               \frac{1}{b^2}\partial^2_{\xi_2}     \\[5pt]
+               \frac{2}{ab}\partial^2_{\xi_1\xi_2} \\[5pt]
+             \end{bmatrix}\begin{bmatrix}
+                            {}^a \mathbf h_1 & {}^a\mathbf  h_2 & {}^a \mathbf h_3 & {}^a\mathbf  h_4
+                          \end{bmatrix}=\left[
+              \begin{array}{ccc}
+                \begin{bmatrix}
+                  \frac{1}{a^2}\partial^2_{\xi_1}     \\[5pt]
+                  \frac{1}{b^2}\partial^2_{\xi_2}     \\[5pt]
+                  \frac{2}{ab}\partial^2_{\xi_1\xi_2} \\[5pt]
+                \end{bmatrix}{}^a \mathbf h_1 & \dots & \begin{bmatrix}
+                                                          \frac{1}{a^2}\partial^2_{\xi_1}     \\[5pt]
+                                                          \frac{1}{b^2}\partial^2_{\xi_2}     \\[5pt]
+                                                          \frac{2}{ab}\partial^2_{\xi_1\xi_2} \\[5pt]
+                                                        \end{bmatrix}{}^a \mathbf h_4
+              \end{array} \right]
+          \end{align*}
+          \vspace{0.1cm}
+    \item ${}^e\mathbf K$ and ${}^e\mathbf M$ are ($12\times 12$) matrices and ${}^e\mathbf r$ is a ($12\times 1$) vector:
+          \begin{align*}
+            {}^e\mathbf K & =\frac{h^3}{12}\int_\Omega {}^a\mathbf B^T\mathbf C{}^a\mathbf B \, d\Omega=\frac{h^3ab}{12}\int_{-1}^1\int_{-1}^1 {}^a\mathbf B^T\mathbf C{}^a\mathbf B\, d\xi_1d\xi_2, \\
+            {}^e\mathbf M & =\int_\Omega \rho h\, {}^a\mathbf H^T{}^a\mathbf H \, d\Omega=\rho hab \int_{-1}^1\int_{-1}^1 {}^a\mathbf H^T {}^a\mathbf H\, d\xi_1d\xi_2,                              \\
+            \mathbf r(t)  & =\int_{\Omega} {}^a\mathbf H^{T}f_3(t)\, d\Omega=ab f_3(t)\int_{-1}^1\int_{-1}^1 {}^a\mathbf H^T \, d\xi_1d\xi_2.
+          \end{align*}
+  \end{itemize}
+\end{frame}
+}
+
+\begin{frame}{Post processing}
+  \begin{itemize}
+    \item The \textbf{approximated stresses} ${}^e\sigma_{11}^h$ and ${}^e\sigma_{22}^h$ and ${}^e\sigma_{12}^h$ at any point $(x_1,x_2,x_3)$ of the element $e$ are given in term of the nodal displacements:
+          \vspace{0.3cm}
+          $${}^e\boldsymbol{\sigma}^h=\mathbf C{}^e\boldsymbol{\varepsilon}^h=-x_3\mathbf C\boldsymbol{\nabla}_k {}^eu_3^h=-x_3\mathbf C{}^e\mathbf B{}^e\mathbf{q}(t)$$
+          \vspace{-0.3cm}
+    \item The \textbf{approximated bending moments} ${}^eM_{11}^h$ and ${}^eM_{22}^h$ and twisting moment ${}^eM_{12}^h$ per unit length are given by:
+          \vspace{0.3cm}
+          \[{}^e\mathbf M=\begin{bmatrix}
+              {}^eM_{11}^h \\
+              {}^eM_{22}^h \\
+              {}^eM_{12}^h
+            \end{bmatrix}
+            =
+            \int_{-\frac{h}{2}}^{\frac{h}{2}} x_3
+            \begin{bmatrix}
+              {}^e\sigma_{11}^h \\
+              {}^e\sigma_{22}^h \\
+              {}^e\sigma_{12}^h
+            \end{bmatrix}
+            \, dx_3 =-\frac{h^3}{12}\boldsymbol{C}{}^e\mathbf B{}^e\mathbf{q}(t)
+          \]
+  \end{itemize}
+\end{frame}
+
+\section{Example: isotropic square plate in free vibrations}
+
+\begin{frame}{Example: isotropic square plate in free vibrations}
+  \begin{block}{}
+    Use AMC elements to estimate the five lowest frequencies of an isotropic square plate ($\ell\times\ell$) which is simply supported on all four edges (SSSS).
+  \end{block}
+  \vspace{0.5cm}
+  \begin{columns}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[width=4cm]{../images/plateModThick.png}
+    \end{column}
+    \begin{column}{0.7\textwidth}
+      Compare the results with the analytical solution
+      $$\omega_{m,n} =\pi^2\frac{m^2 + n^2}{\ell^2}\sqrt{\frac{D}{\rho h}}\ \text{rad/s},$$
+    \end{column}
+  \end{columns}
+  where $\ell$ is the length of each side and $(m, n)$ are the number of half-waves in the $x$- and $y$-directions and $D$ is flexural rigidity of the plate:
+  $$D = \frac{E h^3}{12(1-\nu^2)}.$$
+\end{frame}
+
+
+
+\begin{frame}{Simply supported isotropic square plate}
+  Discretization with a rectangular mesh of $2\times 2$ AMC elements.
+  \begin{columns}
+    \column{0.45\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=1]
+        \def\a{4}
+        \def\b{4}
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (\a,\b);
+        % Draw the elements  
+        \draw[thick] (\a/2,0) -- (\a/2,\b);
+        \draw[thick] (0,\b/2) -- (\a,\b/2);
+        \node at (\a/4,\b/4) {${}^1\Omega$};
+        \node at (\a/4,3*\b/4) {${}^2\Omega$};
+        \node at (3*\a/4,\b/4) {${}^3\Omega$};
+        \node at (3*\a/4,3*\b/4) {${}^4\Omega$};
+        %axis
+        \draw[-latex,ultra thin] (-0.5,\b/2) -- (\a+1,\b/2) node[right]{$x$};
+        \draw[-latex, ultra thin] (\a/2,-0.5) -- (\a/2,\b+1)node[above]{$y$};
+        % length
+        \draw[latex-latex, ultra thin]  (0,\b+0.5)  to node[midway,above] {$a$}(\a/2,\b+0.5) ;
+        \draw[latex-latex, ultra thin]  (\a/2,\b+0.5)  to node[midway,above] {$a$}(\a,\b+0.5) ;
+        \draw[ultra thin] (\a/2,0) --(\a/2, \b+1);
+        \draw[ultra thin] (\a,0) --(\a, \b+1) ;
+        \draw[ultra thin] (0,\b/2) --(\a+1, \b/2);
+        \draw[ultra thin] (0,\b) --(\a+1, \b);
+        \draw[ultra thin] (\a,0) -- (\a+1,0);
+        \draw[ultra thin] (0,\b) -- (0,\b+1);
+        \draw[latex-latex, ultra thin]  (\a+0.8,\b/2)  to node[midway,right] {$a$}(\a+0.8,0) ;
+        \draw[latex-latex, ultra thin]  (\a+0.8,\b)  to node[midway,right] {$a$}(\a+0.8,\b/2) ;
+        % Nodes 
+        \draw[fill=white, draw=black]  (0,0) node[below right]{$\mathbf x_1$} circle (3pt);
+        \draw[fill=white, draw=black]  (0,\b/2) node[below right]{$\mathbf x_2$} circle (3pt);
+        \draw[fill=white, draw=black]  (0,\b) node[below right]{$\mathbf x_3$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,0) node[below right]{$\mathbf x_4$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,\b/2) node[below right]{$\mathbf x_5$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,\b) node[below right]{$\mathbf x_6$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,0) node[below right]{$\mathbf x_7$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,\b/2) node[below right]{$\mathbf x_8$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,\b) node[below right]{$\mathbf x_9$} circle (3pt);
+      \end{tikzpicture}
+    \end{center}
+
+    \column{0.5\textwidth}
+    {\begin{itemize}\setlength\itemsep{0.05em}
+        \item $2a=1$ length $[m]$
+        \item $2a=1$ height $[m]$
+        \item $h=0.01$ thickness $[m]$
+        \item $E=210$ Young's modulus $[GPa]$
+        \item $\nu=0.3$ Poisson's ratio
+        \item $\rho=7800$ material density $[kg/m^3]$
+      \end{itemize}}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Symmetry and boundary conditions}
+
+  {\small We exploit the symmetry of the problem by modeling only one-quarter of the plate with 4 AMC elements, applying appropriate boundary conditions to account for the symmetric and antisymmetric modes along the edges.}
+  \vspace{-0.8cm}
+  \begin{columns}
+    \begin{column}{.30\textwidth}
+      \begin{figure}[H]
+        \begin{center}
+          \includegraphics[height=4.5cm]{../images/AMCsimmetry.png}
+          \caption{One-quarter of the plate represented by four rectangular elements.}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{.7\textwidth}
+      \vspace{0.1cm}
+      \begin{itemize}
+        \item \textbf{Simple support}:
+              \begin{itemize}
+                \item sides 1-3: \( u_3 = \theta_2 =0\) at nodes 1, 2, and 3,
+                \item sides 1-7: \( u_3=\theta_1=0\) at nodes 1, 4, and 7.
+              \end{itemize}
+        \item \textbf{Symmetric modes}:
+              \begin{itemize}
+                \item with respect to side 3-9: \( \theta_2=0\) at nodes 3, 6, and 9,
+                \item with respect to side 7-9: \( \theta_1=0 \) at nodes 7, 8, and 9.
+              \end{itemize}
+        \item \textbf{Antisymmetric modes}:
+              \begin{itemize}
+                \item  with respect to side 3-9: \( u_3 = \theta_1=0 \) at nodes 3, 6, and 9.
+                \item with respect to side 7-9:  \( u_3= \theta_2 =0\) at nodes 7, 8, and 9.
+              \end{itemize}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Frequencies approximation for square plate with AMC elements}
+  \vspace{-1cm}
+  Comparison of exact and approximate natural frequencies with a mesh of $2\times 2$ AMC elements for a thin SSSS square plate.
+  \vspace{0.3cm}
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{ccccc}
+      \hline
+      $m$ & $n$ & Exact Freq. [Hz] & Approx. Freq. [Hz] & Rel. Error (\%) \\
+      \hline
+      1   & 1   & 49.171           & 44.892             & -8.7032         \\
+      1   & 2   & 122.93           & 126.82             & 3.1687          \\
+      2   & 1   & 122.93           & 126.82             & 3.1687          \\
+      2   & 2   & 196.69           & 270.44             & 37.496          \\
+      1   & 3   & 245.86           & 309.92             & 26.059          \\
+      3   & 1   & 245.86           & 517.41             & 110.45          \\
+      2   & 3   & 319.61           & 517.41             & 61.886          \\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Frequencies approximation for square plate with AMC elements}
+  In these figures, we present the convergence and relative errors of the first five natural frequencies of a square plate, obtained using AMC elements for different mesh refinements.
+  \vspace{-0.5cm}
+  \begin{columns}
+    \begin{column}{.48\textwidth}
+      \begin{figure}[H]
+        \begin{center}
+          \includegraphics[height=5.5cm]{../images/AMCConv.jpg}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{.48\textwidth}
+      \begin{figure}[H]
+        \begin{center}
+          \includegraphics[height=5.5cm]{../images/AMCrelerr.jpg}
+        \end{center}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Modal shapes}
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[height=3.5cm]{../images/AMCModPatt.png}
+      \caption{Mode shapes for a simply supported (SSSS) square plate.}
+    \end{center}
+  \end{figure}
+  \vspace{.5cm}
+  \emph{\footnotesize (Credit: Pagani, Azzara, Carrera - Geometrically nonlinear analysis and vibration of in-plane-loaded variable angle tow composite plates and shells)}
+\end{frame}
+
+\begin{frame}{Modal patterns}
+  \begin{center}
+    \begin{tikzpicture}
+      % Define the size of each image
+      \def\imgsize{4.5cm}
+      % Define the spacing between images
+      \def\spacingX{0.1cm}
+      \def\spacingY{-0.8cm}
+      % Place the images in a grid
+      \node at (0, 0) {\includegraphics[width=\imgsize]{../images/AMCmode1.jpg}};
+      \node at (\imgsize+\spacingX, 0) {\includegraphics[width=\imgsize]{../images/AMCmode2.jpg}};
+      \node at (2*\imgsize+2*\spacingX, 0) {\includegraphics[width=\imgsize]{../images/AMCmode3.jpg}};
+      \node at (\imgsize/2+\spacingX/2, -\imgsize-\spacingY) {\includegraphics[width=\imgsize]{../images/AMCmode4.jpg}};
+      \node at (3*\imgsize/2+3*\spacingX/2, -\imgsize-\spacingY) {\includegraphics[width=\imgsize]{../images/AMCmode5.jpg}};
+    \end{tikzpicture}
+  \end{center}
+
+\end{frame}
+
+\section{CR thin plate bending elements}
+
+
+\begin{frame}{Selection of the displacement approximation function}
+  \begin{center}
+    \begin{tabular}{ccccccccc|l}
+       &                      &                          &                            & \color{darkred}$1$          &                             &                          &                      &  & Constant  \\
+       &                      &                          & \color{darkred}$x_1$       &                             & \color{darkred}$x_2$        &                          &                      &  & Linear    \\
+       &                      & \color{darkred}$x_1^2$   &                            & \color{darkred}$x_1x_2$     &                             & $\color{darkred}x_2^2$   &                      &  & Quadratic \\
+       & \color{brown}$x_1^3$ &                          & \color{brown}$x_1^2x_2$    &                             & \color{brown}$x_1x_2^2$     &                          & \color{brown}$x_2^3$ &  & Cubic     \\
+       &                      & \color{orange}$x_1^3x_2$ &                            & \color{orange} $x_1^2x_2^2$ &                             & \color{orange}$x_1x_2^3$ &                      &  & Quartic   \\
+       &                      &                          & \color{orange}$x_1^3x_2^2$ &                             & \color{orange} $x_1^2x_2^3$ &                          &                      &  & Quintic   \\
+       &                      & \color{orange}           &                            & \color{orange} $x_1^3x_2^3$ &                             &                          &                      &  & Sextic
+      \\
+    \end{tabular}
+  \end{center}
+  \begin{block}{}
+    \textbf{Displacement approximation} for rectangular elements with four nodes and 16 DOFs (4 DOFs per node): complete cubic polynomial, augmented with three quartic, two quintic and one sextic terms:
+    \vspace{-0.2cm}
+    \begin{align*}
+      {}^eu_3^h (x_1,x_2,t)= & \, {\color{darkred}a_1 + a_2 x_1 + a_3 x_2 + a_4 x_1^2 + a_5 x_1 x_2 + a_6 x_2^2} +                              \\
+      +                      & \,{\color{brown} a_7 x_1^3 + a_8 x_1^2 x_2 + a_9 x_1 x_2^2 + a_{10} x_2^3} +                                     \\
+      +                      & \,{\color{orange}a_{11} x_1^3 x_2 + a_{12} x_1 x_2^3+a_{13}x^2y^2 + a_{14}x^3y^2 + a_{15}x^2y^3 + a_{16}x^3y^3 }
+    \end{align*}
+  \end{block}
+\end{frame}
+
+\begin{frame}{\emph{Recall}: transversal bending for Euler-Bernoulli beam}
+  Approximated transversal displacement $u^h_2$ as a function of the nodal DOFs:
+  $${}^eu_2^h(\xi,t)=\mathbf H(\xi)\mathbf q(t)=[h_1(\xi),\ h_2(\xi),\ h_3(\xi),\ h_4(\xi)]\begin{bmatrix}
+      d^1(t) \\ \theta^1(t)\\ d^2(t)\\ \theta^2(t)
+    \end{bmatrix}$$
+  \begin{columns}
+    \column{0.4\textwidth}
+    \begin{center}
+      \vspace{-1.2cm}
+      \begin{tikzpicture}[scale=1]
+        % Define points
+        \coordinate (A) at (0, 0);
+        \coordinate (B) at (3, 0);
+        % Mark points
+        \fill (A) circle (2.5pt);
+        \fill (B) circle (2.5pt);
+        % Label the element
+        \draw[ultra thick] (A) --(B);
+        \draw[thick] (A) ++ (0,-0.5) circle(0.25cm) node {1};
+        \draw[thick] (B) ++ (0,-0.5)  circle(0.25cm) node {2};
+        %Axis 
+        \draw[-latex,ultra thin] (-0.5,0) --(3.5,0) node[right]{$\xi$};
+        \draw[-latex, ultra thin] (1.5,-0.5) -- (1.5,3.5);
+        %Draw function
+        \draw[ultra thick,domain=0:3, smooth, variable=\x]
+        plot ({\x}, {(1+0.5*\x-2*\x*\x/3+1*\x*\x*\x/4)});
+        \draw[thick,,darkred,domain=0:0.5, smooth, variable=\x]
+        plot ({\x}, {(1+0.5*\x)});
+        \draw[thick,,darkred,domain=3:3.3, smooth, variable=\x]
+        plot ({\x}, {(3.25*\x-6.5)});
+        \node[darkred, above] at (0.7, 1) {$\theta^1$};
+        \draw[-latex] (0.5,1) arc (0:13:1) ;
+        \node[darkred, above] at (3.7, 3.3) {$\theta^2$};
+        \draw[-latex] (3.5,3.25) arc (0:45:1) ;
+        \draw[ultra thin] (-0.5,1) -- (0.5,1);
+        \draw[ultra thin] (2.5,3.25) -- (3.5,3.25);
+        \draw[ultra thin, latex-latex] (0,1) -- (0,0) node[midway, left] {$d^1$};
+        \draw[ultra thin, latex-latex] (3,3.25) -- (3 ,0) node[midway, right] {$d^2$};
+      \end{tikzpicture}
+    \end{center}
+
+    \column{0.6\textwidth}
+    \textbf{$C^1$ Hermite shape functions on $[-1,1]$:}
+    \begin{align*}
+      h_1(\xi) & =(\xi^3-3\xi+2)/4      \\
+      h_3(\xi) & =(-\xi^3+3\xi+2)/4     \\
+      h_2(\xi) & =(\xi^3-\xi^2-\xi+1)/4 \\
+      h_4(\xi) & =(\xi^3+\xi^2-\xi-1)/4
+    \end{align*}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Shape functions matrix: a first try}
+  \begin{itemize}
+    \item Let $\xi^i$ be the coordinate of the node $i$. Then the Hermite shape functions matrix is $\mathbf H(\xi)=[f_1\ g_1\ f_2\ g_2]$ where
+          \begin{align*}
+            f_i(\xi) & =(-\xi^i\xi^3+3\xi^i\xi+2)/4 & g_i(\xi) & =(\xi^3+\xi^i\xi^2-\xi-\xi^i)/4.
+          \end{align*}
+    \item The shape functions matrix for the plate bending element is a product of Hermite functions:
+          $${}^a\mathbf H=\begin{bmatrix}
+              {}^a \mathbf h_1 & {}^a\mathbf  h_2 & {}^a \mathbf h_3 & {}^a\mathbf  h_4
+            \end{bmatrix}$$ where
+          $$ {}^a\mathbf  h_i(\boldxi) =\begin{bmatrix}
+              f_i(\xi_1)f_i(\xi_2)   \\
+              bf_i(\xi_1)g_i(\xi_2 ) \\
+              -a g_i(\xi_1)f_i(\xi_2 )
+            \end{bmatrix}^T.$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Zero-twist constraint}
+  \begin{itemize}
+    \item The approximate displacement in local coordinate is defined as:
+          $$  {}^eu_3^h(\boldxi,t) =\sum_{i=1}^4  {}^a\mathbf h_i(\xi_1, \xi_2) {}^e\mathbf  q^i(t)= {}^a\mathbf{H}(\boldxi){}^e\mathbf{q}(t)$$
+    \item[\XSolidBrush] The twist $$\frac{\partial^2}{\partial\xi_1\partial\xi_2}{}^eu_3^h$$ is zero at the four nodal points. Thus the plate will tend to a zero twist condition as an increasing number of elements are used.
+  \end{itemize}
+  \begin{block}{}
+    \textbf{Solution:} introduce twist $$\theta_{12}^i=\frac{\partial^2}{\partial\xi_1\partial\xi_2}{}^eu_3^h(\boldxi^i,t)$$ as an extra degree of freedom.
+  \end{block}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Shape functions matrix for the CR element}
+  The approximate displacement in local coordinate is defined as:
+  $$  {}^eu_3^h(\boldxi,t) =\sum_{i=1}^4  {}^a\mathbf h_i(\boldxi) {}^e\mathbf  q^i(t)= {}^a\mathbf{H}(\boldxi){}^e\mathbf{q}(t)$$
+  \begin{itemize}
+    \item  4 DOFs per node: ${}^e\mathbf  q^i(t)=\begin{bmatrix}
+              {}^ed^i(t) \\[2pt] {}^e{\theta}^i_1(t) \\[2pt] {}^e{\theta}^i_2(t) \\[2pt] {}^e{\theta}^i_{12}(t)
+            \end{bmatrix}=\left[\begin{array}{lll}
+                {}^eu_3^h(\boldxi^i,t) \\[2pt] \partial_{\xi_2}{}^eu_3^h(\boldxi^i,t)/b \\[2pt] -\partial_{\xi_1}{}^eu_3^h(\boldxi^i,t)/a \\[2pt] \partial^2_{\xi_1\xi_2}{}^eu_3^h(\boldxi^i,t)/(ab)
+              \end{array}\right]$ \vspace{0.3cm}
+    \item The shape function matrix is ${}^a\mathbf H=\begin{bmatrix}
+              {}^a \mathbf h_1 & {}^a\mathbf  h_2 & {}^a \mathbf h_3 & {}^a\mathbf  h_4
+            \end{bmatrix}$ where
+          $$ {}^a\mathbf  h_i(\boldxi) =\begin{bmatrix}
+              f_i(\xi_1)f_i(\xi_2)     \\
+              bf_i(\xi_1)g_i(\xi_2 )   \\
+              -a g_i(\xi_1)f_i(\xi_2 ) \\
+              ab g_i(\xi_1)g_i(\xi_2 )
+            \end{bmatrix}^T$$
+  \end{itemize}
+\end{frame}
+}
+
+\section{Example: isotropic square plate in free vibrations}
+
+\begin{frame}{Frequencies estimate for square plate with CR element}
+  \begin{block}{}
+    A mesh of $2\times 2$ CR elements is used to estimate the fundamental frequencies of a square plate ($\ell\times\ell$) which is simply supported on all four edges (SSSS).
+  \end{block}
+  \vspace{-0.3cm}
+  \begin{columns}
+    \column{0.45\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.9]
+        \def\a{4}
+        \def\b{4}
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (\a,\b);
+        % Draw the elements  
+        \draw[thick] (\a/2,0) -- (\a/2,\b);
+        \draw[thick] (0,\b/2) -- (\a,\b/2);
+        \node at (\a/4,\b/4) {${}^1\Omega$};
+        \node at (\a/4,3*\b/4) {${}^2\Omega$};
+        \node at (3*\a/4,\b/4) {${}^3\Omega$};
+        \node at (3*\a/4,3*\b/4) {${}^4\Omega$};
+        %axis
+        \draw[-latex,ultra thin] (-0.5,\b/2) -- (\a+1,\b/2) node[right]{$x$};
+        \draw[-latex, ultra thin] (\a/2,-0.5) -- (\a/2,\b+1)node[above]{$y$};
+        % length
+        \draw[latex-latex, ultra thin]  (0,\b+0.5)  to node[midway,above] {$a$}(\a/2,\b+0.5) ;
+        \draw[latex-latex, ultra thin]  (\a/2,\b+0.5)  to node[midway,above] {$a$}(\a,\b+0.5) ;
+        \draw[ultra thin] (\a/2,0) --(\a/2, \b+1);
+        \draw[ultra thin] (\a,0) --(\a, \b+1) ;
+        \draw[ultra thin] (0,\b/2) --(\a+1, \b/2);
+        \draw[ultra thin] (0,\b) --(\a+1, \b);
+        \draw[ultra thin] (\a,0) -- (\a+1,0);
+        \draw[ultra thin] (0,\b) -- (0,\b+1);
+        \draw[latex-latex, ultra thin]  (\a+0.8,\b/2)  to node[midway,right] {$a$}(\a+0.8,0) ;
+        \draw[latex-latex, ultra thin]  (\a+0.8,\b)  to node[midway,right] {$a$}(\a+0.8,\b/2) ;
+        % Nodes 
+        \draw[fill=white, draw=black]  (0,0) node[below right]{$\mathbf x_1$} circle (3pt);
+        \draw[fill=white, draw=black]  (0,\b/2) node[below right]{$\mathbf x_2$} circle (3pt);
+        \draw[fill=white, draw=black]  (0,\b) node[below right]{$\mathbf x_3$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,0) node[below right]{$\mathbf x_4$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,\b/2) node[below right]{$\mathbf x_5$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,\b) node[below right]{$\mathbf x_6$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,0) node[below right]{$\mathbf x_7$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,\b/2) node[below right]{$\mathbf x_8$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,\b) node[below right]{$\mathbf x_9$} circle (3pt);
+      \end{tikzpicture}
+    \end{center}
+
+    \column{0.5\textwidth}
+    {\begin{itemize}\setlength\itemsep{0.05em}
+        \item $2a=1$ length $[m]$
+        \item $2a=1$ height $[m]$
+        \item $h=0.01$ thickness $[m]$
+        \item $E=210e9$ Young's modulus $[Pa]$
+        \item $\nu=0.3$ Poisson's ratio
+        \item $\rho=7800$ material density $[kg/m^3]$
+      \end{itemize}}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Frequencies approximation for square plate with CR elements}
+  \vspace{-1cm}
+  Comparison of exact and approximate natural frequencies with a mesh of $2\times 2$ CR elements for a thin SSSS square plate.
+  \vspace{0.3cm}
+  \begin{table}[h!]
+    \centering
+    \label{tab:freq_comparison_CR}
+    \begin{tabular}{ccccr}
+      \hline
+      $m$ & $n$ & Exact Freq. [Hz] & Approx. Freq. [Hz] & Rel. Error (\%) \\
+      \hline
+      1   & 1   & 49.171           & 49.277             & 0.21558         \\
+      1   & 2   & 122.93           & 132                & 7.3816          \\
+      2   & 1   & 122.93           & 132                & 7.3816          \\
+      2   & 2   & 196.69           & 209.01             & 6.2666          \\
+      1   & 3   & 245.86           & 295.69             & 20.269          \\
+      3   & 1   & 245.86           & 295.69             & 20.27           \\
+      2   & 3   & 319.61           & 366.03             & 14.523          \\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}{Comparison: AMC vs CR plate bending element}
+  In these figures, we present the convergence and relative errors of the first five natural frequencies of a square plate, obtained using AMC and CR elements for different mesh refinements.
+  \vspace{-0.5cm}
+  \begin{columns}
+    \begin{column}{.48\textwidth}
+      \begin{figure}[H]
+        \begin{center}
+          \includegraphics[height=5.5cm]{../images/CRConv.jpg}
+        \end{center}
+      \end{figure}
+    \end{column}
+    \begin{column}{.48\textwidth}
+      \begin{figure}[H]
+        \begin{center}
+          \includegraphics[height=5.5cm]{../images/CRrelerr.jpg}
+        \end{center}
+      \end{figure}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Comparison: AMC vs CR plate bending element}
+  \begin{figure}[H]
+    \begin{center}
+      \includegraphics[height=6cm]{../images/CRandAMCThickness.jpg}
+      \caption{Evolution of the approximated and exact fundamental frequencies with thickness for a SSSS square plate.}
+    \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Comparison: AMC vs CR plate bending element}
+  \textbf{AMC element (\emph{Non conforming})}
+  \begin{itemize}
+    \item 3 degrees of freedom per node: \( u_3\), \( \theta_1 \), \( \theta_2 \).
+    \item Only displacement \( u_3 \) is continuous across elements; rotations may have jumps.
+    \item Nonconforming element: does not fully satisfy \( C^1 \) continuity.
+    \item Simpler and computationally cheaper; suitable for practical applications.
+  \end{itemize}
+  \vspace{0.5cm}
+
+  \textbf{CR element (\emph{Conforming})}
+  \begin{itemize}
+    \item 4 degrees of freedom per node: \( u_3 \), \( \theta_1 \), \( \theta_2 \), and \(  \theta_{12} \).
+    \item Displacement \( u_3 \) and rotations \( \theta_1, \theta_2 \) are continuous across element boundaries.
+    \item Fully conforming to the \( C^1 \) continuity required by Kirchhoff plate theory.
+    \item Higher computational cost and complexity.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\emph{Why would you use AMC element if it's nonconforming?}}
+  \begin{itemize}
+    \item Computationally cheaper than full $C^1$ elements (fewer DOFs).
+    \item It still converges (theoretical results for nonconforming FEMs show convergence \emph{under certain conditions}).
+    \item Suitable when small slope discontinuities are acceptable (e.g., dynamic problems, large meshes).
+    \item Tends to underestimate the natural frequencies, making it a useful benchmark for detecting overstiffness in numerical model.
+  \end{itemize}
+\end{frame}
+
+\end{document}

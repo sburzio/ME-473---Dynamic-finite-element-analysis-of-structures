@@ -1,0 +1,3 @@
+The folder FE_analysis contains the matlab scripts used for analyzing the three final bridge designs. The results and figures presented in section "3 Results" are obtained using these scripts.
+
+The folder Bridge_Optimization contains the matlab scripts (GA-optimizer) used for defining the three final bridge designs. See section "2.2 Optimization" in the report. 

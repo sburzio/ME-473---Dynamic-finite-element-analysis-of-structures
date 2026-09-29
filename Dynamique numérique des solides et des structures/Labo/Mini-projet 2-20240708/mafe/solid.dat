@@ -1,0 +1,41 @@
+PROB
+TITL
+  Analyse dynamique d'une plaque libre 3D
+MESH
+  234    000111    1    1    0    0
+DYNA
+    0    1    0   12       
+MASS
+    3    0                        
+EXEC
+    1    1    0
+PRNT
+    0    0    1    0    0    1
+PLOT
+    1   80    1    1    1    1
+EXIT
+NODE
+COOR
+    9    0        0.       0.4        0.    4   -1
+    1    0        0.        0.        0.    4   18
+  217    0       0.6        0.        0.    4    9
+  225    0       0.6       0.4        0.    4
+   18    0        0.       0.4     0.005    4
+   10    0        0.        0.     0.005    4
+  226    0       0.6        0.     0.005    4
+  234    0       0.6       0.4     0.005    0
+EXIT
+ELEM
+ELST
+    1  320   96  223    1
+MATL
+    1    2.1E11       0.3    7.85E3      .833
+BLCK
+    3   12    8    1    0    0    0
+    1  217  225  234
+EXIT
+ALGO
+EIGV
+   99    0    0        0.    1    1    1   -1.E+04    0        0.        0.    0 
+STOP
+

@@ -1,0 +1,112 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\def\labelitemi{--}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Dynamic finite element analysis of structures}
+%\author{The Author}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\noindent Mechanical Engineering 2024-2025 Master semester 2
+
+\noindent Specialization/orientation: Mechanics of solids and structures
+
+\noindent CFU: 3
+
+\noindent Language: English
+ 
+\noindent Semester: Spring
+
+\noindent Lectures: 2 hours per week x 14 weeks
+
+\noindent Exercises: 1 hour per week x 14 weeks
+
+\noindent Exam: summer session (written)
+
+\subsection*{Summary}
+The course covers linear 3D elastodynamics analysis of structures using the finite element method. Students will learn to construct the elemental stiffness, mass, damping, Coriolis, and angular and centrifugal acceleration matrices for rotating or non-rotating, conservative or dissipative systems. 
+
+Beam elements and thin to moderately thick shell finite elements are then developed. Potential numerical issues (such as shear locking, rigid-body modes, etc.) are discussed, and solutions to overcome these difficulties are presented.
+
+In the second part, the course focuses on solving the free response (modal analysis) of conservative structures with a large number of degrees of freedom using the subspace method. Finally, it addresses the solution of the forced response (time-domain analysis) of dissipative structures with many degrees of freedom using Newmark methods.
+
+\subsection*{Keywords}
+Finite element, Beam and shell elements, Structural dynamics, Subspace method, Newmark methods
+
+\subsection*{Content}
+\begin{itemize}
+\item Strong and weak forms of the governing equations in solid mechanics 
+\item Extension of the finite element method to 3D dynamic structural problems
+\item Development of solid and shell finite elements
+\item  Strain matrix, local and global coordinate systems, assembly of local elements 
+\item Development of modal parameter extraction methods
+\item Numerical analysis of the forced regime of structures
+\item Examples and case studies in MATLAB
+\end{itemize}
+
+
+\subsection*{Learning Prerequisites}
+\begin{itemize}
+\item Finite element method
+\item Finite element modelling and simulation
+\item Structural mechanics
+\item Solid mechanics
+\item Mechanical vibrations
+\end{itemize}
+
+\subsection*{Concepts importants à maîtriser}
+\begin{itemize}
+\item Apply the concepts of structural dynamics to predict the vibratory behaviour, free or forced, conservative or damped, of continuous systems or systems with multiple degrees of freedom. (S3)
+\item Derive a finite element formulation of a physical problem from its strong-form differential equations (using the principle of virtual work or a variational approach). (S9)
+\item Implement the theoretical concepts of the finite element method to carry out a complete study of a real-world problem based on a project specification, and provide a critical analysis of the results obtained. (S10)
+\end{itemize}
+
+\subsection*{Learning outcomes}
+By the end of the course, the student must be able to:
+\begin{itemize}
+\item Mathematically formulate a structural dynamics problem corresponding to a real-world application; select and implement an appropriate modeling method and solution algorithm, whether for transient, harmonic, or modal dynamics, in either the physical or modal domain. (S15)
+\item Scientifically explain and implement a numerical method for multiphysics modeling and simulation appropriate to a complex physical problem. Abstract and derive a model of the dominant physical behaviors, along with the initial and boundary conditions. (S16)
+\end{itemize}
+
+\subsection*{Transversal skills}
+\begin{itemize}
+\item Assess one's own level of skill acquisition, and plan their on-going learning goals.
+\item Use both general and domain specific IT resources and tools.
+\item Write a scientific or technical report
+\item Make an oral presentation.
+\item Plan and carry out activities in a way which makes optimal use of available time and other resources.
+\end{itemize}
+
+\subsection*{Teaching methods}
+Ex cathedra lectures, exercises in the classroom and computer lab sessions.
+
+\subsection*{Expected student activities}
+\begin{itemize}
+\item Attendance in class
+\item Solving theoretical and practical problems presented in exercise series.
+\item Complete of several mini-projects
+\item Write scientific reports
+\end{itemize}
+	
+
+
+\subsection*{Assessment methods}
+50\% mini-projects during the semester and 50\% final oral exam
+
+\subsection*{Ressources}
+\begin{itemize}
+\item Thomas Gmür, Méthode des éléments finis en mécanique des structures, Presses polytechniques et universitaires romandes (PPUR), Lausanne, 2018, ISBN 978-2-88915-158-5. 
+\item Thomas Gmür, Dynamique des structures – Analyse modale numérique, Presses polytechniques et universitaires romandes (PPUR), Lausanne, 2014 (2ème édition), ISBN 978-2-88074-813-5
+\item Thomas J. R. Hughes, The Finite Element Method – Linear Static and Dynamic Finite Element Analysis, Prentice-Hall, Englewood Cliffs, NJ, 1987 (Dover Publications, 2000), ISBN 978-0-48641-181-1
+\end{itemize}
+
+\end{document}  

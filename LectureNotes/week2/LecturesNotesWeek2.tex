@@ -1,0 +1,72 @@
+\documentclass[12pt]{article}
+
+\input{../preambleLecturesNotes.tex}
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Lecture notes week 2}\hspace*{\fill}
+
+\hrulefill
+
+
+\subsubsection*{Semi-discrete formulation of elastodynamics.} In linear elastodynamics, the displacement field \( \mathbf  \mathbf u(\mathbf x, t) \) satisfies the strong form:
+\[
+    \nabla^T \mathbf C \nabla\mathbf  u + \mathbf f = \rho \ddot{\mathbf u},
+\]
+where \(\mathbf  C \) is the elasticity tensor, \( \mathbf f \) the body force, and \( \rho \) the density.
+
+We obtain the weak form by multiplying by a virtual displacement \( \bolddelta \mathbf u \) and integrating over the domain:
+\[
+    \int_\Omega (\nabla \bolddelta u)^T \mathbf C \nabla \mathbf u \, d\Omega + \int_\Omega \rho \bolddelta \mathbf u^T \ddot{\mathbf u} \, d\Omega = \int_\Gamma \bolddelta \mathbf u^T \hat{\mathbf f} \, d\Gamma + \int_\Omega \bolddelta \mathbf u^T \mathbf f \, d\Omega.
+\]
+
+Using the Galerkin method, we approximate:
+\begin{itemize}
+    \item \(\mathbf u(\mathbf x,t) \approx\mathbf u^h(\mathbf x,t) =\mathbf H(\mathbf x) \mathbf q(t) \),
+    \item \( \bolddelta\mathbf u(\mathbf x) \approx \bolddelta\mathbf u^h(\mathbf x) = \mathbf H(\mathbf x) \bolddelta \mathbf q \),
+\end{itemize}
+where \( \mathbf H(\mathbf x) \) contains the shape functions and \( \mathbf q(t) \) the nodal degrees of freedom.
+
+This yields the semi-discrete weak form:
+\[
+    \mathbf M \ddot{\mathbf q}(t) + \mathbf K \mathbf q(t) = \mathbf r(t),
+\]
+with:
+\begin{align*}
+    \mathbf M    & = \int_\Omega \rho \mathbf H^T \mathbf H \, d\Omega,                                                 \\
+    \mathbf K    & = \int_\Omega \mathbf B^T\mathbf C\mathbf B \, d\Omega,                                              \\
+    \mathbf r(t) & = \int_\Gamma \mathbf H^T \hat{\mathbf f} \, d\Gamma + \int_\Omega \mathbf H^T \mathbf f \, d\Omega.
+\end{align*}
+Here, \( \mathbf B = \nabla\mathbf H \) is the strain-displacement matrix.
+
+\subsubsection*{Initial conditions}
+Given \( \mathbf u(\mathbf x,0) = \mathbf u_0(\mathbf x) \), \( \dot{\mathbf u}(\mathbf x,0) = \mathbf v_0(x) \), the initial values for \( \mathbf q(t) \) and \( \dot{\mathbf q}(t) \) are:
+\[
+    \mathbf q(0) =\mathbf u_0(\mathbf x_j), \quad \dot{\mathbf q}(0) = \mathbf v_0(\mathbf x_j).
+\]
+
+\subsubsection*{Boundary conditions}
+On \( \Gamma_u \), we enforce:
+\[
+    \mathbf q_j(t) = \hat{\mathbf u}(\mathbf x_j,t), \quad \bolddelta\mathbf  q_j = 0.
+\]
+
+\subsubsection*{Advantages}
+\begin{itemize}
+    \item Systematic approximation method.
+    \item Reuses the same shape functions for test and trial functions.
+    \item Converges efficiently with suitable shape functions.
+\end{itemize}
+
+\subsubsection*{Drawbacks}
+\begin{itemize}
+    \item Heavily dependent on the chosen basis.
+    \item No direct physical interpretation of \( q(t) \).
+    \item Boundary and initial conditions may be cumbersome in practice.
+\end{itemize}
+
+\end{document}

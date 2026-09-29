@@ -1,0 +1,447 @@
+\documentclass[12pt]{article}
+
+\input{../preambleExam}
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Practice exam - solutions}\hspace*{\fill}
+
+\hrulefill
+
+\subsection*{Problem 1}
+\paragraph*{(a) Definition of functional spaces.} The admissible displacement space \( \mathcal{U} \) and the test function space \( \mathcal{V} \) are defined as:
+\[
+	\mathcal{U} = \left\{ u_2(\cdot,t) \in H^2(0,\ell) \,\middle|\, u_2(0)=u_2(\ell)=0,\, \partial_xu_2(0,t)=\partial_xu_2(\ell,t)=0\ \forall t\in]0,T[ \right\},
+\]
+\[
+	\mathcal{V} = \left\{ \delta u_2 \in H^2(0,\ell) \,\middle|\, \delta u_2(0)=\delta u_2(\ell)=0,\, \delta u_2'(0)=\delta u_2'(\ell)=0 \right\}.
+\]
+
+\paragraph*{(b) Semi-discrete weak form using two Hermite beam elements.} Let the beam be divided into two equal elements of length \( \ell/2 \). The Hermite beam element has 4 degrees of freedom:
+\[
+	{}^e\mathbf{q} = \begin{bmatrix} u_1 & \theta_1 & u_2 & \theta_2 \end{bmatrix}^T,
+\]
+where \( u_i \) is the transverse displacement and \( \theta_i \) is the rotation at node \( i \) of the element. For an element of length \( L \), flexural rigidity \( EI \), and mass per unit length \( \rho A \), the elementary stiffness matrix is:
+\[
+	{}^e\mathbf{K} = \frac{EI}{L^3} \begin{bmatrix}
+		12  & 6L   & -12 & 6L   \\
+		6L  & 4L^2 & -6L & 2L^2 \\
+		-12 & -6L  & 12  & -6L  \\
+		6L  & 2L^2 & -6L & 4L^2
+	\end{bmatrix},
+\]
+and the consistent mass matrix is:
+\[
+	{}^e\mathbf{M} = \frac{\rho A L}{420} \begin{bmatrix}
+		156  & 22L   & 54   & -13L  \\
+		22L  & 4L^2  & 13L  & -3L^2 \\
+		54   & 13L   & 156  & -22L  \\
+		-13L & -3L^2 & -22L & 4L^2
+	\end{bmatrix}.
+\]
+We assemble the global matrices using standard connectivity. The global system has 6 DOFs:
+\[
+	\mathbf{q}(t) = \begin{bmatrix}
+		u_1 & \theta_1 & u_2 & \theta_2 & u_3 & \theta_3
+	\end{bmatrix}^T.
+\]
+The element 1 spans from node 1 to node 2, with local DOFs:
+\[
+	{}^1\mathbf{q} = [q_1,\ q_2,\ q_3,\ q_4 ]^T,
+\]
+while element 2 spans from node 2 to node 3, with local DOFs:
+\[
+	{}^{2}\mathbf{q} = [q_3,\ q_4,\ q_5,\ q_6 ]^T.
+\]
+We assemble the global stiffness matrix \( \mathbf{K} \) using the connectivity:
+\[
+	\mathbf{K} =
+	\begin{bmatrix}
+		^{1}k_{11} & ^{1}k_{12} & ^{1}  k_{13}            & ^{1}k_{14}              & 0          & 0          \\
+		^{1}k_{21} & ^{1}k_{22} & ^{1}k_{23}              & ^{1}k_{24}              & 0          & 0          \\
+		^{1}k_{31} & ^{1}k_{32} & ^{1}k_{33}+{}^{2}k_{11} & ^{1}k_{34}+{}^{2}k_{12} & ^{2}k_{13} & ^{2}k_{14} \\
+		^{1}k_{41} & ^{1}k_{42} & ^{1}k_{23}+{}^{2}k_{21} & ^{1}k_{44}+{}^{2}k_{22} & ^{2}k_{23} & ^{2}k_{24} \\
+		0          & 0          & ^{2} k_{31}             & ^{2}k_{32}              & ^{2}k_{33} & ^{2}k_{34} \\
+		0          & 0          & ^{2}k_{41}              & ^{2}k_{42}              & ^{2}k_{43} & ^{2}k_{44}
+	\end{bmatrix}= \frac{EI}{\ell^3}\begin{bmatrix}
+		96      & 24\ell   & -96     & 24\ell    & 0       & 0       \\
+		24 \ell & 8 \ell^2 & -24\ell & 4\ell^2   & 0       & 0       \\
+		-96     & -24\ell  & 192     & 0         & -96     & 24 \ell \\
+		24\ell  & 4\ell^2  & 0       & 16 \ell^2 & -24\ell & 4\ell^2 \\
+		0       & 0        & -96     & -24 \ell  & 96      & -24\ell \\
+		0       & 0        & 24\ell  & 4\ell^2   & -24\ell & 8\ell^2
+	\end{bmatrix},
+\]
+and similarly for \( \mathbf{M} \):
+$$\mathbf{M} =\frac{\rho A\ell}{840}
+	\begin{bmatrix}
+		156       & 11\ell     & 54       & -13\ell/2  & 0        & 0          \\
+		11\ell    & \ell^2     & 13\ell/2 & -3\ell^2/4 & 0        & 0          \\
+		54        & 13\ell/2   & 312      & 0          & 54       & -13\ell/2  \\
+		-13\ell/2 & -3\ell^2/4 & 0        & 2\ell^2    & 13\ell/2 & -3\ell^2/4 \\
+		0         & 0          & 2\ell^2  & 13\ell/2   & 156      & -11\ell    \\
+		0         & 0          & 13\ell/2 & 156        & -11\ell  & \ell^2
+	\end{bmatrix}$$
+Clamped ends at \( x=0 \) and \( x=\ell \) impose:
+\[
+	u_1 = \theta_1 = 0, \quad u_3 = \theta_3 = 0.
+\]
+Hence, the reduced system involves only \( u_2 \), \( \theta_2 \). The reduced mass and stiffness matrices \( \mathbf{M}_r, \mathbf{K}_r \) are obtained by eliminating rows and columns corresponding to fixed DOFs.
+\[
+	\mathbf{K}_r =  \frac{EI}{\ell^3}\begin{bmatrix}
+		192 & 0        \\
+		0   & 16\ell^2
+	\end{bmatrix}, \quad
+	\mathbf{M}_r = \frac{\rho A\ell}{840} \begin{bmatrix}
+		312 & 0       \\
+		0   & 2\ell^2
+	\end{bmatrix}.
+\]
+
+The reduced semi-discrete system reads:
+\[
+	\mathbf{M}_r \ddot{\mathbf{q}}_r(t) + \mathbf{K}_r \mathbf{q}_r(t) = \mathbf 0, \quad \mathbf{q}_r = \begin{bmatrix} u_2 \\ \theta_2 \end{bmatrix}.
+\]
+
+\paragraph*{(c) Generalized eigenvalue problem.} From part (b), the undamped free vibration problem of leads to the following generalized eigenvalue problem:
+\[
+	\mathbf{K}_r  = \lambda \mathbf{M}_r
+\]
+We now solve: $\text{det}\left(\mathbf{K}_r  - \lambda \mathbf{M}_r\right)=0$, that is
+\begin{align*}
+	\text{det}\left(\frac{EI}{\ell^3}\begin{bmatrix} 192 & 0 \\ 0 & 16\ell^2
+	                                 \end{bmatrix}-\rho A\ell \lambda\begin{bmatrix} 13/35 & 0 \\ 0 & \ell^2/420
+	                                                                 \end{bmatrix}\right)                                                        & =0, \\
+	\left(192\frac{EI}{\ell^3}-\frac{13}{35}\rho A\ell\lambda \right)\left(16\frac{EI}{\ell}-\frac{1}{420}\rho A\ell^3\lambda  \right) & = 0.
+\end{align*}
+This leads to two eigenvalues:
+\[
+	\lambda_1 = \omega_1^2 = \frac{6720}{13} \frac{EI}{\rho A\ell^4}, \quad
+	\lambda_2 = \omega_2^2 =  \frac{6720}{13} \frac{EI}{\rho A\ell^4}
+\]
+
+Thus, the lowest two natural frequencies are:
+\[
+	\omega_1 \approx 22.736 \sqrt{\frac{EI}{\rho A\ell^4}}, \quad
+	\omega_2  \approx 81.976 \sqrt{\frac{EI}{\rho A\ell^4}}
+\]
+The eigenvectors (mode shapes) are simply:
+\[
+	\mathbf p_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad
+	\mathbf p_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}
+\]
+These indicate that:
+\begin{itemize}
+	\item In the first mode, the transverse displacement \( u_2 \) dominates and rotation is negligible (symmetric bending mode).
+	\item In the second mode, the rotation \( \theta_2 \) dominates, indicating antisymmetric curvature.
+\end{itemize}
+
+\paragraph*{(d) Accuracy of approximated natural frequencies.} For the Euler-Bernoulli beam model, finite element approximations using Hermite (cubic) shape functions are known to produce upper bounds for the true natural frequencies. This occurs because the trial space used in the Galerkin method (i.e., the space of shape functions) is a subspace of the exact solution space. Consequently, the Rayleigh-Ritz principle implies that:
+\[
+	\omega_{\text{approx}} \geq \omega_{\text{exact}}.
+\]
+The relative error in the natural frequency can be defined as:
+\[
+	\text{error} = \frac{\omega_h - \omega_{\text{exact}}}{\omega_{\text{exact}}}
+\]
+For Hermite beam elements, the convergence rate is typically quartic:
+\[
+	\omega_{\text{approx}} - \omega_{\text{exact}} = \mathcal{O}(h^4),
+\]
+where \( h \) denotes the characteristic element size (e.g., \( h = \ell / N \), with \( N \) the number of elements).
+
+Thus, doubling the number of elements (from 2 to 4) means the computed frequency moves closer to the exact value. However, since FEM tends to overestimate the frequencies, this means the computed fundamental frequency will decrease compared to the coarser two-element model approach the exact frequency from above. That is,
+\[
+	\omega_{\text{exact}}<\omega_{\text{approx}}^{(4\text{-elem})} < \omega_{\text{approx}}^{(2\text{-elem})}.
+\]
+
+
+\paragraph*{(e) Transient response to a harmonic point load.} The semi-discrete equation of motion is:
+\[
+	\mathbf{M}_r \ddot{\mathbf{q}}(t) + \mathbf{K}_r \mathbf{q}(t) = \mathbf{f}_r(t)
+\]
+with initial conditions:
+\[
+	\mathbf{q}(0) = \dot{\mathbf{q}}(0) = \mathbf{0}
+\]
+The harmonic localized load \( F(t) = A \sin(\bar{\omega} t) \) is applied at \( x = \ell/2 \). This location corresponds to the internal node of the mesh (node 2), so the load affects only the displacement DOF \( u_2 \), i.e., \( q_3 \) in the global system. After reduction (clamped boundaries applied), the force vector is:
+\[
+	\mathbf{f}_r(t) =
+	\begin{bmatrix}
+		A \sin(\bar{\omega} t) \\
+		0
+	\end{bmatrix}.
+\]
+We express the solution as a linear combination of mode shapes:
+\[
+	\mathbf{q}(t) = z_1(t) {\mathbf p}_1 + z_2(t) {\mathbf p}_2,
+\]
+where \( {\mathbf p}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \), \( {\mathbf p}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix} \). This gives two scalar independent second-order ODEs:
+\begin{align*}
+	\frac{13}{35}\ddot{z}_1(t) + 192 z_1 (t) & = A \sin(\bar{\omega} t), \\
+	\frac{1}{420} \ddot{z}_2(t) + 16 z_2 (t) & = 0
+\end{align*}
+The initial conditions are \( z_i(0) = \dot{z}_i(0) = 0 \).
+\begin{itemize}
+	\item For \( z_1(t) \): standard forced vibration response:
+	      \[
+		      z_1(t) = \frac{13A}{35(\omega_1^2 - \bar{\omega}^2)}
+		      \left( \sin(\bar{\omega} t) - \frac{\bar{\omega}}{\omega_1} \sin(\omega_1 t) \right)
+		      \quad \text{(for } \omega_1 \neq \bar{\omega})
+	      \]
+	\item For \( z_2(t) \): homogeneous solution:
+	      \[
+		      z_2(t) = 0
+	      \]
+	\item Total response:
+	      \[
+		      \mathbf{q}(t) = z_1(t) {\mathbf p}_1 + z_2(t) {\mathbf p}_2
+		      = \frac{13A}{35(\omega_1^2 - \bar{\omega}^2)}
+		      \left( \sin(\bar{\omega} t) - \frac{\bar{\omega}}{\omega_1} \sin(\omega_1 t) \right)
+		      \begin{bmatrix} 1 \\ 0 \end{bmatrix}
+	      \]
+\end{itemize}
+That is, only the displacement DOF \( u_2 \) responds to the external excitation, while the rotational DOF \( \theta_2 \) remains zero.
+
+
+
+
+\subsection*{Problem 2}
+\paragraph*{(a) Strong and weak forms.} The transverse displacement \( u_3(x, y, t) \) satisfies the wave equation:
+\[
+	\rho \, \ddot{u}_3 - S \, \Delta u_3 = p\quad \text{in } \Omega \text{ and } t\in]0,T[,
+\]
+where \( \Delta = \partial_{xx}^2 + \partial_{yy}^2 \) is the Laplacian, and \( \Omega \) is the triangular domain. Let \( \Gamma_D \), \( \Gamma_K \), and \( \Gamma_F \) denote the clamped, spring-supported, and free boundaries, respectively. Then:
+
+\begin{itemize}
+	\item On \( \Gamma_D =\{(x,y)\in\mathbb R^2\ :\ x=0,\ 0\leq y\leq 1\}\) we have \( u_3 = 0 \) (clamped),
+	\item On \( \Gamma_K=\{(1,1)\} \) we have \( S \, \frac{\partial u_3}{\partial n} + k u_3 = 0 \) (spring-supported),
+	\item On \( \Gamma_F=\{(x,y)\in\mathbb R^2\ :\ 0< x<1,\ y=1 \text{ or } 0< x<1,\ y=x\} \) we have \( \frac{\partial u_3}{\partial n} = 0 \) (free edges).
+\end{itemize}
+The initial conditions are
+\[
+	u_3(x, y, 0) = 0, \quad \dot{u}_3(x, y, 0) = 0 \qquad \forall (x,y)\in\Omega.
+\]
+To obtain the weak form, we multiply the strong form by an admissible virtual displacement \( \delta u_3 \in \mathcal{V} \) and integrate over \( \Omega \):
+
+\[
+	\int_{\Omega} \rho \, \ddot{u}_3 \, \delta u_3 \, d\Omega - \int_{\Omega} S \, \Delta u_3 \, \delta u_3 \, d\Omega = \int_{\Omega} p \, \delta u_3 \, d\Omega.
+\]
+Using integration by parts on the second term yield to:
+\[
+	-\int_{\Omega} S \, \Delta u_3 \, \delta u_3 \, d\Omega=\int_{\Omega} S \, (\nabla \delta u_3)^T\nabla u_3 \, d\Omega - \int_{\partial \Omega} S \, \frac{\partial u_3}{\partial n} \, \delta u_3 \, d\Gamma,
+\]
+
+and enforcing the boundary conditions on \(\partial \Omega= \Gamma_D\cup  \Gamma_K\cup  \Gamma_F \), the weak form becomes:
+\[
+	\int_{\Omega} \rho \, \ddot{u}_3 \, \delta u_3 \, d\Omega + \int_{\Omega} S \, (\nabla \delta u_3)^T\nabla u_3 \, d\Omega  + k u_3(1,1)\, \delta u_3(1,1) = \int_{\Omega} p \, \delta u_3 \, d\Omega .
+\]
+This expression must hold for all virtual displacements \( \delta u_3 \in \mathcal{V} \), where
+\[
+	\mathcal{V} = \{ v \in H^1(\Omega) \mid v = 0 \text{ on } \Gamma_D \},
+\]
+and real displacements \( u_3 \in \mathcal{U} \), where
+\[
+	\mathcal{U} = \{ u(\cdot,t) \in H^1(\Omega) \mid u(\cdot,t) = 0 \text{ on } \Gamma_D,\ t\in]0,T[ \}.
+\]
+
+\paragraph*{(b) Finite element discretization.} We discretize the triangular membrane using a single bilinear triangular finite element with three nodes. Let the transverse displacement at each node be denoted by \( u_3^i(t) \), \( i = 1,2,3 \). We consider a triangular element with vertices:
+\[
+	\mathbf{x}_1 = (0,0), \quad \mathbf{x}_2 = (1,1), \quad \mathbf{x}_3 = (0,1).
+\]
+We write the global  shape functions \( h_i(x, y) = a_i + b_i x + c_i y \), and determine their coefficients by solving the system: $h_i(x_j, y_j) = \delta_{ij}$. This yields:
+\[
+	h_1(x,y)  = 1 - y, \quad
+	h_2(x,y)  = x,     \quad
+	h_3(x,y)  = -x+y.
+\]
+The consistent mass and stiffness matrices are defined by:
+\[
+	{}^e\mathbf{M}_{ij} = \int_0^1\int_0^y \rho \, h_i(x,y) \, h_j(x,y) \, dx\, dy,
+\]
+with $\rho = 1$ and
+\[
+	{}^e\mathbf{K}_{ij} = \int_0^1\int_0^y S \, (\nabla h_i)^T\nabla h_j \, dx\, dy + k h_i(1,1) \, h_j(1,1),
+\]
+with $S = 2$ and $k=10$. We verify that
+$$
+	\begin{aligned}
+		\mathbf M_{13} & = \int_0^1 \int_0^y (1 - y)(-x+y) \, dx\, dy
+		= \frac{1}{2}\int_0^1 (1 - y) y^2 \, dy                       \\
+		               & = \frac{1}{2}\int_0^1 y^2-y^3 \, dy
+		=  \frac{1}{2}\left[ \frac{y^3}{3} - \frac{y^4}{4} \right]_0^1
+		=  \frac{1}{2}\left(\frac{1}{3} - \frac{1}{4}\right)  = \frac{1}{24}
+	\end{aligned}
+$$
+Moreover, the gradients of the shape functions are constant:
+\[
+	\nabla h_1  = [-1, -1]^T, \quad \nabla h_2  = [1, 0]^T,   \quad
+	\nabla h_3  = [0, 1]^T.
+\]
+Therefore
+$$
+	\mathbf K_{22} = \int_0^1 \int_0^y 2(\nabla h_2)^T\nabla h_2 \, dx \, dy
+	+ 10 = 2\int_0^1 \int_0^y \, dx\, dy  + 10  = 11
+$$
+To compute the element load vector ${}^e\mathbf{r}$ for a triangular membrane element under a uniform transverse load $p$, we use the standard finite element expression, which for uniform loads, $p(x, y, t) = A \, \theta(t)$ with $A = 3$, simplifies to:
+$${}^e\mathbf{r}(t) = 3 \, \theta(t) \int_{\Omega^e}
+	\begin{bmatrix}
+		h_1(x, y) \\
+		h_2(x, y) \\
+		h_3(x, y)
+	\end{bmatrix}
+	\, d\Omega=3 \, \theta(t) \int_0^1 \int_0^y   \begin{bmatrix}
+		1-y \\
+		x   \\
+		-x+y
+	\end{bmatrix} \, dydx =   \frac{\theta(t)}{2}\begin{bmatrix}
+		1 \\
+		1 \\
+		1
+	\end{bmatrix}.$$
+We now reduce the system by enforcing the following boundary conditions. Assume:
+\begin{itemize}
+	\item Nodes 1 and 3 are clamped: \( u_3^1 = 0 \) and \( u_3^3 = 0 \),
+	\item Node 2 is the free node (unknown).
+\end{itemize}
+We extract the second row and column of the element matrices to form the reduced equation of motion for node 2:
+\[
+	\frac{1}{12} \, \ddot{u}_3^2(t) + 11u_3^2(t) = \frac{1}{2} \, \theta(t)
+\]
+
+with initial conditions:
+\[
+	u_3^2(0) = 0, \quad \dot{u}_3^2(0) = 0.
+\]
+\paragraph*{(c) Rayleigh's quotient.} We assume the boundary conditions fix nodes 1 and 3, so only node 2 is free:
+\[
+	u_3^1 = u_3^3 = 0, \quad u_3^2 \neq 0.
+\]
+Let the (normalized) mode shape vector be: $\mathbf{w} =[0,\ 1,\ 0]^T$. The Rayleigh's quotient is defined as:
+\[
+	\mathcal R(\mathbf w) = \frac{\mathbf{w}^T \mathbf{K} \mathbf{w}}{\mathbf{w}^T \mathbf{M} \mathbf{w}}.
+\]
+Extract the \( (2,2) \) entries of \( \mathbf{K} \) and \( \mathbf{M} \): $\mathbf{w}^T \mathbf{K} \mathbf{w} = \mathbf K_{22} = 11$ and $\mathbf{w}^T \mathbf{M} \mathbf{w} = \mathbf M_{22} = \frac{1}{12}$. Thus,
+\[
+	\omega^2 = \frac{11}{\frac{1}{12}} = 132, \quad \omega = \sqrt{132} = 11.49.
+\]
+Assuming angular frequency \( \omega = 2\pi f \), we compute the fundamental frequency (in Hz):
+\[
+	f = \frac{\omega}{2\pi} = \frac{2\sqrt{33}}{2\pi}\approx 1.829 \ \text{Hz}.
+\]
+
+
+\paragraph*{(d) Central difference method.}
+
+We consider the reduced equation of motion for the single scalar degree of freedom \( q(t)=u^2_3(t) \), corresponding to the vertical displacement at node 2 of the reduced system derived in part (b):
+\[
+	M \ddot{q}(t) + K q(t) = r(t),
+\]
+with $M = 1/12$, $K = 11$, and $r(t) = \theta(t)/2$. The standard central difference update formulas for the for the scalar case with $\Delta t = 3/2$ are
+\[
+	{q}^{n+1} = 27{r}^n - 295 {q}^n - {q}^{n-1}.
+\]
+and the artificial step:
+\[
+	{q}^{-1} = -\frac{295}{2}{q}^0 - \frac{3}{2} \, \dot{q}^0 + \frac{27}{2}{r}^0.
+\]
+
+Given $q^0 = \dot{q}^0 = 0$, and $r^0 = 1/2$, we compute:
+\[
+	q^{-1} = \frac{27}{4}.
+\]
+We use the update formula to compute $q^1$:
+\[
+	q^1 = 27r^0 -295q^0 - q^{-1} = \frac{27}{4} = 6.75
+\]
+We apply one more time the update formula to compute $q^2$. Notice that $r^1=r(\Delta t)=\theta(\Delta t)/2=1/2$, therefore
+\[
+	q^2 = 27r^1 -295q^1 - q^{0} = -\frac{7911}{4} = -1977.75.
+\]
+
+
+\paragraph*{(e) Newmark's method.}
+We apply the Newmark method with average acceleration (\( \beta = \frac{1}{4}, \gamma = \frac{1}{2} \)) to compute the displacement at the first two time steps for the scalar equation:
+\[
+	M \ddot{q}(t) + K q(t) = r(t),
+\]
+with:
+\[
+	M = \frac{1}{12}, \quad K = 11, \quad r(t) = \frac{1}{2} \, \theta(t), \quad \Delta t = \frac{3}{2}, \quad q^0 = 0, \quad \dot{q}^0 = 0.
+\]
+The initial acceleration \( \ddot{q}^0 \) is
+\[
+	\ddot{q}^0 = M^{-1} (r^0 - K q^0) = 6.
+\]
+To compute \( q^1 \), we use the kinematic scheme for displacement in Newmark's method:
+\[
+	q^1 = q^0 + \Delta t \dot{q}^0 + \frac{\Delta t^2}{2} \left( (1 - 2\beta) \ddot{q}^0 + 2\beta \ddot{q}^1 \right),
+\]
+with \( \beta = \tfrac{1}{4} \), \( \Delta t = \tfrac{3}{2} \). This simplifies to:
+\begin{equation}
+	q^1 = \frac{9}{16} \ddot{q}^0 + \frac{9}{16} \ddot{q}^1 = \frac{9}{16}(6 + \ddot{q}^1).
+	\label{kin1}
+\end{equation}
+Moreover use the equation of motion at \( t_1 =\Delta t\):
+\begin{equation}
+	M \ddot{q}^1 + K q^1 = \frac{1}{2} \quad \Rightarrow \quad \ddot{q}^1 = 6 - 132q^1.
+	\label{eqMot1}
+\end{equation}
+Substitute \eqref{eqMot1} into the expression \eqref{kin1}:
+\[
+	q^1 = \frac{9}{16} \left( 12 - 132q^1\right) \quad \Rightarrow \quad q^1 = \frac{27}{301}=0.090.
+\]
+Then compute the acceleration at the first time step:
+\[
+	\ddot{q}^1 = 6 - 132q^1 = -\frac{1758}{301} =-5.841,
+\]
+and the velocity at the first time step using kinematic scheme for velocity in Newmark's method
+\[
+	\dot{q}^1 = \dot{q}^0 + \Delta t \left( \frac{1}{2} \ddot{q}^0 + \frac{1}{2} \ddot{q}^1 \right)
+	= \frac{18}{301}=0.060.
+\]
+We shall now compute \( q^2 \) using a similar produce. Use first the kinematic scheme for displacement in Newmark's method:
+\[
+	q^2 = q^1 + \Delta t \, \dot{q}^1 + \frac{9}{16} (\ddot{q}^1 + \ddot{q}^2),
+\]
+and, secondly, use the equation of motion evaluated at the second time step (notice that $r^2=\theta(2\Delta t)/2=0$):
+\[
+	M \ddot{q}^2 + K q^2 = 0 \quad \Rightarrow
+	\ddot{q}^2 = -132q^2.
+\]
+Substitute and solve:
+\begin{align*}
+	q^2   & = q^1 + \Delta t \, \dot{q}^1 + \frac{9}{16} (\ddot{q}^1 - 132q^2) \\
+	{q}^2 & = -0.042.
+\end{align*}
+Comparison with central difference method:
+\begin{table}[h!]
+	\centering
+	\renewcommand{\arraystretch}{1.4}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Method}        & \boldmath$q^1$ & \boldmath$q^2$ \\
+		\hline
+		Central difference     & $6.75$         & $-1977.75$     \\
+		Newmark (average acc.) & $0.090$        & $-0.042$       \\
+		\hline
+	\end{tabular}
+\end{table}
+
+The central difference method produces numerically unstable results for this problem, as seen in the explosive growth of the displacement at the second step. This is due to the time step $\Delta t = \frac{3}{2}$ being larger than the critical stability limit for the central difference scheme. In contrast, the Newmark method remains unconditionally stable and yields physically plausible displacements and velocities.
+
+Hence, for problems with large time steps or high stiffness-to-mass ratios, implicit schemes like Newmark’s method are strongly preferred due to their robustness and stability.
+
+\textbf{Remark:} the central difference method may become unstable if the time step $\Delta t$ is too large compared to the critical value:
+$$\Delta t_{\text{crit}} < \frac{2}{\omega_{\max}} = \frac{2}{\sqrt{K/M}} = \frac{2}{\sqrt{132}} \approx 0.174$$
+But in this exercise, $\Delta t = 1.5 \gg 0.174$, so the instability and explosive growth are reported.
+
+
+
+
+
+\end{document}

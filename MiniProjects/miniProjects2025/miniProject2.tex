@@ -1,0 +1,161 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{latexsym,amsfonts,amssymb,amsthm,amsmath}
+\usepackage{tikz}
+\usepackage{stanli}
+\usetikzlibrary{calc,through}
+\usepackage{multicol}
+\usepackage{geometry} 
+\usepackage{enumitem}
+
+\definecolor{darkred}{rgb}{0.6,0,0}
+
+\setlength{\parindent}{0in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\textwidth}{7in}
+\setlength{\textheight}{9.3in}
+\setlength{\topmargin}{-1in}
+\setlength{\headheight}{18pt}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\title{ME473 Dynamic Finite Element Analysis Mini-Project}
+\author{Stefano Burzio}
+\date{}
+
+\begin{document}
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Mini-project 2}\hspace*{\fill}
+\begin{center}
+  \textbf{\Large Design of a 2d truss crane}
+\end{center}
+
+\hrulefill
+\vspace{0.3cm}
+\newline
+{Project organization:}
+\vspace{0.2cm}
+\newline
+\begin{minipage}[t]{0.38\textwidth}
+  \begin{itemize}[itemsep=0.005cm]
+    \item Groups: 3 to 4 students
+    \item 20\% of final grade
+    \item Pdf report: maximum 10 pages
+  \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.58\textwidth}
+  \begin{itemize}[itemsep=0.005cm]
+    \item Programming language: \texttt{MATLAB}
+    \item Submission: November 28, 2025
+    \item Total workload: 40h (approx. 10h per student)
+  \end{itemize}
+\end{minipage}
+\vspace{0.3cm}
+
+\hrulefill
+\vspace{0.3cm}
+
+Your task is to design a crane truss structure for three different materials and make sure each individual structure you created fulfils the detailed static and dynamic requirements. The crane must lift a vertical point load of $25$ kN applied at the tip of the jib (node $3$), which extends vertically $h=20$ meters above the ground level and horizontally $\ell=14$ meters from the base left support (node $2$). The two supports at the base (nodes $1$ and $2$) are fixed to the ground and are separated by a distance of $d=2$ meters.
+
+\subsubsection*{Anchor points and load configuration}
+The crane is fixed at the following supports on a horizontal plane:
+\begin{multicols}{2}
+  \begin{itemize}
+    \item Base left: (0, 0)
+    \item Base right: (2, 0)
+  \end{itemize}
+\end{multicols}
+
+\begin{center}
+  \begin{tikzpicture}[scale=0.8]
+    % Crane nodes
+    \coordinate (BaseLeft) at (0,0);
+    \coordinate (BaseRight) at (2,0);
+    \coordinate (MastTop) at (0,8);
+    \coordinate (JibTip) at (8,8);
+    \coordinate (Diagonal) at (4,4);
+    % Distances members
+    \draw[latex-latex,dashed,thin] (BaseLeft) -- (MastTop) node[midway,left] {\small $h=20$ m};
+    \draw[latex-latex,dashed,thin] (MastTop) -- (JibTip) node[midway,above] {\small $\ell=14$ m};
+    \draw[latex-latex,dashed,thin] (BaseLeft) -- (BaseRight) node[midway,above] {\small $d=2$ m};
+    % Supports
+    \support{1}{BaseLeft};
+    \support{1}{BaseRight};
+
+    % Load at jib tip
+    \draw[thick,latex-] (JibTip) -- ++(0,1.5) node[right] {25 kN};
+    % Nodes
+    \node[left=1pt,darkred] at (BaseLeft) {1};
+    \node[right=1pt,darkred] at (BaseRight) {2};
+    \node[right=1pt,darkred] at (JibTip) {3};
+    % Draw points
+    \foreach \p in {BaseLeft, BaseRight, JibTip} {
+        \draw[thick,fill=white] (\p) circle (3pt);
+      }
+  \end{tikzpicture}
+\end{center}
+
+\subsubsection*{Crane design requirements}
+The crane must be modeled as a planar truss. All joints are idealized as frictionless pinned connections. You are required to perform both a static and a dynamic analysis for each of the three materials listed below, treating each case as a distinct crane design. A distinct truss design must be developed for each of these three materials.
+\begin{center}
+  \begin{tabular}{l|c|c|c}
+    {Material}       & {E (GPa)} & {Density (kg/m$^3$)} & {Cross-Sectional area} \\
+    \hline
+    Structural steel & 200       & 7850                 & 15–50 cm$^2$           \\
+    Aluminum alloy   & 69        & 2700                 & 20–70 cm$^2$           \\
+    Engineered wood  & 12        & 600                  & 30–100 cm$^2$          \\
+  \end{tabular}
+\end{center}
+
+\subsubsection*{Static analysis}
+Each crane design must satisfy the following:
+
+\begin{enumerate}
+  \item The structure must remain fully elastic with displacements below \textbf{60 mm}.
+  \item The total material volume must not exceed:
+        \begin{itemize}
+          \item Structural steel: \textbf{1 m$^3$},
+          \item Aluminum alloy: \textbf{1.7 m$^3$},
+          \item Engineered wood: \textbf{2 m$^3$}.
+        \end{itemize}
+\end{enumerate}
+
+\subsubsection*{Dynamic analysis}
+A separate modal analysis must be performed for each of the three trusses designs corresponding to the different materials. The following requirement must be satisfied:
+\begin{enumerate}
+  \item[3.] Compute the first three natural frequencies and mode shapes. The first natural frequency must \emph{not} fall within \textbf{0 to 5 Hz}.
+\end{enumerate}
+
+\emph{Bonus}: To ensure dynamic stability and avoid resonance with common excitation sources, you should aim for a first natural frequency \textbf{above 20 Hz}, where feasible.
+
+\subsubsection*{Deliverables}
+\begin{enumerate}
+  \item \texttt{MATLAB:}
+        \begin{multicols}{2}
+          \begin{itemize}
+            \item Nodes and elements definitions
+            \item Stiffness and mass matrices assembly
+            \item Static and modal analysis
+            \item Plots and visualizations
+          \end{itemize}
+        \end{multicols}
+
+  \item \textbf{Report:}
+        \begin{itemize}
+          \item Crane layout with labeled pins and bars,
+          \item Summary of \texttt{MATLAB} results (displacements, stresses, frequencies and mode shapes),
+          \item Discussion of your findings.
+        \end{itemize}
+\end{enumerate}
+
+\end{document}

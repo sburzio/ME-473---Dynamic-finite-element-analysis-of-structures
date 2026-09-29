@@ -1,0 +1,92 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\def\labelitemi{--}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Dynamic finite element analysis of structures}
+%\author{The Author}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\noindent Mechanical Engineering 2024-2025 Master semester 2
+
+\noindent Specialization/orientation: Mechanics of solids and structures
+
+\noindent CFU: 3
+
+\noindent Language: English
+ 
+\noindent Semester: Spring
+
+\noindent Lectures: 2 hours per week x 14 weeks
+
+\noindent Exercises: 1 hour per week x 14 weeks
+
+\noindent Exam: summer session (written)
+
+\subsection*{Summary}
+The course covers linear elastic numerical analysis of structures using the finite element method. Students will learn to master numerical methods commonly used in static and dynamic structural analysis, applying these techniques to solve realistic problems in both academic and industrial contexts.
+
+\subsection*{Content}
+\begin{itemize}
+\item Strong and weak forms of the governing equations in solid mechanics 
+\item Extension of the finite element method to 3D dynamic structural problems
+\item Development of solid and shell finite elements
+\item  Strain matrix, local and global coordinate systems, assembly of local elements 
+\item Development of modal parameter extraction methods
+\item Numerical analysis of the forced regime of structures
+\item Examples and case studies in MATLAB
+\end{itemize}
+
+
+\subsection*{Learning Prerequisites}
+\begin{itemize}
+\item Finite element method
+\item Finite element modelling and simulation
+\item Structural mechanics
+\item Solid mechanics
+\item Mechanical vibrations
+\end{itemize}
+
+\subsection*{Learning outcomes}
+By the end of the course, the student must be able to:
+\begin{itemize}
+\item Formulate and solve a problem in numerical structural analysis.
+\item Develop a critical awareness of the sources of errors inherent to the FE modelling practice.
+\item Use an appropriate multi-physics modelling and simulation to solve a complex physical problem.
+\end{itemize}
+
+\subsection*{Transversal skills}
+\begin{itemize}
+\item Use a work methodology appropriate to the task.
+\item Plan and carry out activities in a way which makes optimal use of available time and other resources.
+\item Use both general and domain specific IT resources and tools.
+\item Write a scientific or technical report.
+\end{itemize}
+
+\subsection*{Teaching methods}
+Ex cathedra lectures, exercises in the classroom and computer lab sessions.
+
+\subsection*{Expected student activities}
+Solution of assignments, active participation in case studies (in-class exercices)
+
+
+\subsection*{Assessment methods}
+40\% mini-projects during the semester and 60\% final written exam
+
+\subsection*{Ressources}
+\begin{itemize}
+\item Thomas Gmür, Méthode des éléments finis en mécanique des structures, Presses polytechniques et universitaires romandes (PPUR), Lausanne, 2018, ISBN 978-2-88915-158-5. 
+\item Thomas Gmür, Dynamique des structures – Analyse modale numérique, Presses polytechniques et universitaires romandes (PPUR), Lausanne, 2014 (2ème édition), ISBN 978-2-88074-813-5
+\item Thomas J. R. Hughes, The Finite Element Method – Linear Static and Dynamic Finite Element Analysis, Prentice-Hall, Englewood Cliffs, NJ, 1987 (Dover Publications, 2000), ISBN 978-0-48641-181-1
+\end{itemize}
+
+\end{document}  

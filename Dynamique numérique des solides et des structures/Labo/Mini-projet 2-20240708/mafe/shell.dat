@@ -1,0 +1,41 @@
+PROB
+TITL
+ Analyse modale d’une plaque (elements finis de coque)
+MESH
+  117    110001    1    1    0    1
+DYNA
+    0    1    0   12
+MASS
+    3    0
+EXEC
+    1    1    0
+PRNT
+    0    0    1    0    0    1
+PLOT
+    1   80    1    1    1    1
+EXIT
+NODE
+COOR
+    9             0.       0.4        0.    2   -1
+    1             0.        0.        0.    2    9
+  109            0.6        0.        0.    2
+  117            0.6       0.4        0.
+MIDV
+    1    0        0.        0.        1.     0.005
+MIDN
+    1    1    1
+  117    1
+EXIT
+ELEM
+ELST
+    1  220   96  333    1
+MATL
+    1    2.1E11        .3    7.85E3      .833
+BLCK
+    2   12    8    0    0    0    0
+    1  109  117
+EXIT
+ALGO
+EIGV
+    0    0    0        0.    1    1    1   -1.E+04    0        0.        0.    0
+STOP

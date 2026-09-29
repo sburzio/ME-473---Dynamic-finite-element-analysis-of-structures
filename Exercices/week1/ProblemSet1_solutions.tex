@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+
+\input{../preambleProblemSets}
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Problem set 1 - solutions}\hspace*{\fill}
+
+\hrulefill
+
+\subsection*{Problem 1}
+To derive the weak form, let \( \delta u_3 \in H^1(\Omega) \) be an arbitrary virtual transversal displacement (test function) such that \( \delta u_3 = 0 \) on \( \Gamma \). Multiply the strong form equation by \( \delta u_3 \) and integrate over the domain \( \Omega \) to obtain:
+\[
+    \int_{\Omega} \left( S \nabla^2 u_3 + p - \rho \ddot{u}_3 \right) \delta u_3 \, d\Omega = 0.
+\]
+
+Using the divergence theorem to handle the term involving \( \nabla^2 u_3 \), we obtain:
+\[
+    -\int_{\Omega} S (\nabla \delta u_3)^{T}\nabla u_3 \, d\Omega + \int_{\Gamma} S \frac{\partial u_3}{\partial n} \delta u_3 \, d\Gamma + \int_{\Omega} p \delta u_3 \, d\Omega - \int_{\Omega} \rho \ddot{u}_3\delta u_3 \, d\Omega = 0.
+\]
+
+Since \( \delta u_3 = 0 \) on \( \Gamma \), the boundary term vanishes, resulting in the weak form:
+\[
+    -\int_{\Omega} S (\nabla \delta u_3)^{T}\nabla u_3 \, d\Omega + \int_{\Omega} p \delta u_3 \, d\Omega = \int_{\Omega} \rho \ddot{u}_3 \delta u_3 \, d\Omega,
+\]
+for all \( \delta u_3 \in H^1_0(\Omega) \), where \( H^1_0(\Omega) \) denotes the space of Sobolev functions that vanishes on \( \Gamma \).
+
+\emph{Remark:} The initial conditions, expressed in integral form, are:
+\[
+    \int_{\Omega} \rho u_3(x, y, 0) \delta u_3(x, y)\, dxdy =\int_{\Omega} \rho u_{03}(x, y)\delta u_3(x, y)\, dxdy
+\]
+and
+\[
+    \int_{\Omega} \rho \dot{u}_3(x, y, 0) \delta u_3(x, y)\, dxdy =\int_{\Omega} \rho \dot{u}_{03}(x, y)\delta u_3(x, y)\, dxdy.
+\]
+Notice that the integration is performed solely with respect to the spatial variables, excluding the time variable. Consequently, the initial conditions concerning the configuration of the structure at time \( t = 0 \) require separate treatment. At this stage, it may not be immediately apparent why these conditions are expressed in this particular integral form. However, when we proceed to discretise the weak form, this specific representation of the initial conditions will prove to be highly advantageous and essential for the subsequent formulation.
+
+
+\subsection*{Problem 2}
+The integral formulation associated with the matrix differential equation is
+$$
+    \int_0^{\ell} \boldsymbol\delta \mathbf{u}^{T}\left[\nabla_\sigma^{\mathrm{T}} \mathbf{C}\left(\nabla_u \mathbf{u}\right)+\mathbf{f}\right] \mathrm{d} x=\int_0^{\ell} \boldsymbol\delta \mathbf{u}^{T} \mathbf{M} \ddot{\mathbf{u}}\, d x
+$$
+where $\boldsymbol\delta \mathbf{u}=\left\{\delta u_2, \delta \theta_3\right\}^{\mathrm{T}}$ denotes the vector of generalized virtual displacements.
+Let us write the differential operator $\nabla_\sigma$ relative to the constraints in the form of the following sum
+$$
+    \nabla_\sigma=(\partial_{ x}) \mathbf{I}+\mathbf{J}
+$$
+where $\mathbf I$ is the identity matrix of order 2 and $\mathbf{J}$ is given by the matrix
+$$
+    J=\left[\begin{array}{ll}
+            0 & 1 \\
+            0 & 0
+        \end{array}\right].
+$$
+Then the previous integral equation becomes
+$$
+    \int_0^{\ell} \boldsymbol\delta \mathbf{u}^{T} [\partial_{ x}(\mathbf{C} \nabla_u \mathbf{u})]\, dx+\int_0^{\ell} \boldsymbol\delta \mathbf{u}^{T}(\mathbf{J}^{\mathrm{T}} \mathbf{C} \nabla_u \mathbf{u}+\mathbf{f})\, dx =\int_0^{\ell} \boldsymbol\delta \mathbf{u}^{T} \mathbf{M} \ddot{\mathbf{u}}\, dx.
+$$
+Integration by parts of the first integral and grouping of common-factor terms leads to the following expression
+$$
+    \int_0^{\ell} [\boldsymbol\delta \mathbf{u}^{T}\mathbf{J}^{T}-\partial_{x}(\delta \mathbf{u})^T]\mathbf{C}
+    \nabla_u \mathbf{u}\, dx+\int_0^{\ell} \delta \mathbf{u}^{T} \mathbf{f}\, dx+\Big[\boldsymbol\delta \mathbf{u}^{T} \mathbf{C} \nabla_u \mathbf{u}\Big]_0 ^{\ell}=\int_0^{\ell} \boldsymbol\delta \mathbf{u}^{T} \mathbf{M} \ddot{\mathbf{u}}\, d x.
+$$
+In accordance with the definition of the differential operator $\nabla_{\sigma}$ for generalized displacements, and given the essential and natural boundary conditions respectively at $x=0$ and $x=\ell$, the weak formulation of the problem consists in finding the solution $\mathbf{u} \in \mathcal U$ which satisfies the equation
+$$
+    \begin{aligned}
+         & \int_0^{\ell}\left(\nabla_u \boldsymbol\delta \mathbf{u}\right)^{\mathrm{T}} \mathbf{C}\left(\nabla_u \mathbf{u}\right) \mathrm{d} x+\int_0^{\ell} \boldsymbol\delta \mathbf{u}^{\mathrm{T}} \mathbf{M} \ddot{\mathbf{u}}\, d x =\int_0^{\ell} \boldsymbol\delta \mathbf{u}^{\mathrm{T}} \mathbf{f} d x+\boldsymbol\delta \mathbf{u}^{\mathrm{T}}(\ell)\mathbf{\hat f} \quad \forall \boldsymbol\delta \mathbf{u} \in \mathcal{V}
+    \end{aligned}
+$$
+where the function classes $\mathcal U$ and $\mathcal V$ are defined as follows
+$$
+    \begin{aligned}
+         & \mathcal U=\left\{\mathbf{u}=\left\{u_2, \theta_3\right\}^{\mathrm{T}} \mid u_2(\cdot,t) \in H^1(] 0, \ell[) ; \theta_3(\cdot,t) \in H^1(] 0, \ell[) ; u_2(0, t)=\theta_3(0, t)=0\right\},                                     \\
+         & \mathcal V=\left\{\boldsymbol\delta \mathbf{u}=\left\{\delta u_2, \delta \theta_3\right\}^{\mathrm{T}} \mid \delta u_2 \in H^1(] 0, \ell[) ; \delta \theta_3 \in H^1(] 0, \ell[) ; \delta u_2(0)=\delta \theta_3(0)=0\right\}.
+    \end{aligned}
+$$
+\emph{Remark:} Thanks to the elimination of the $\nabla_\sigma$ derivation operator during integration by parts, the weak form of transverse beam vibrations is close to that of three-dimensional elastodynamics (albeit with some adaptations), whereas the analogy between the two strong formulations was more delicate.
+
+A final remark regarding the initial conditions, \( \mathbf{u}(x,0) = \mathbf{u_0} \) and \( \dot{\mathbf{u}}(x,0) = \mathbf{v_0} \), is necessary. To reformulate these conditions in terms of an integral equation, we multiply them by the virtual displacement \( \delta \mathbf{u} \) and the mass matrix \( \mathbf{M} \), followed by integration over the interval \( [0,\ell] \). This procedure follows a strategy similar to that used in deriving the integral form of the governing equations. As a result, we obtain the following two conditions, which must be coupled with the weak form derived earlier:
+
+\begin{align*}
+    \int_0^{\ell} \boldsymbol\delta \mathbf{u}^{\mathrm{T}} \mathbf{M} \mathbf{u} (x,0)\, d x      & = \int_0^{\ell} \boldsymbol\delta \mathbf{u}^{\mathrm{T}} \mathbf{M} \mathbf{u}_0\, dx,  \\
+    \int_0^{\ell} \boldsymbol\delta \mathbf{u}^{\mathrm{T}} \mathbf{M} \dot{\mathbf{u}}(x,0)\, d x & = \int_0^{\ell} \boldsymbol\delta \mathbf{u}^{\mathrm{T}} \mathbf{M} \mathbf{v}_0 \, dx.
+\end{align*}
+
+Here, \( \mathbf{u}_0 \) and \( \mathbf{v}_0 \) represent the vectors of initial generalized displacements and initial generalized velocities, respectively.
+
+\end{document}

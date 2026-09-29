@@ -1,0 +1,865 @@
+\documentclass[aspectratio=169]{beamer}
+
+\input{../preambleSlides}
+
+\title{Transient analysis}
+\subtitle{Analysis of free and forced vibrations}
+\author{ME473 Dynamic finite element analysis of structures}
+\institute{Stefano Burzio}
+\date{2025}
+
+\begin{document}
+\usenavigationsymbolstemplate{}
+{\setbeamertemplate{footline}{}
+
+  \frame{\titlepage
+    \begin{tikzpicture}[overlay, remember picture]
+      \node[anchor=north east, xshift=-.9cm] at (current page.north east)
+      {\includegraphics[width=2cm]{../images/epfl_logo.png}};
+      \node[anchor=south east, xshift=-.87cm, yshift=.05cm] at (current page.south east)  {\includegraphics[height=3.7cm]{../images/eigenmodeCircularMembrane.png}};
+    \end{tikzpicture}
+  }
+
+  \begin{frame}{Where do we stand?}
+    \vspace{-0.3cm}
+    \begin{center}
+      \begin{tabular}{|c|l|l|l|}
+        \hline
+        \rowcolor{darkred!20}\textbf{Week} & \textbf{Module}                                & \textbf{Lecture topic}             & \textbf{Mini-projects} \\
+        \hline
+
+        1                                  & \multirow{6}{7em}{Linear elastodynamics}       & Strong and weak forms              &                        \\ \cline{1-1} \cline{3-4}
+        2                                  &                                                & Galerkin method                    &                        \\ \cline{1-1} \cline{3-4}
+        3                                  &                                                & Finite element method              & Groups formation       \\ \cline{1-1} \cline{3-4}
+        4                                  &                                                & Systematization of the procedure   & Project 1 statement    \\
+        \cline{1-1} \cline{3-4}
+        5                                  &                                                & 3d elements, numerical integration &                        \\
+        \hline
+        6                                  & \multirow{5}{7em}{Special structural elements} & Bars and trusses                   &                        \\
+        \cline{1-1} \cline{3-4} 7          &                                                & Planar beams                       & Project 1 submission   \\
+        \cline{1-1} \cline{3-4} 8          &                                                & Frames and grids                   & Project 2 statement    \\
+
+        \cline{1-1} \cline{3-4} 9          &                                                & Kirchhoff-Love plates              &                        \\
+        \cline{1-1} \cline{3-4}
+        10                                 &                                                & Reissner-Mindlin plates            &                        \\
+        \cline{1-1} \cline{3-4}
+        11                                 &                                                & Shells                             & Project 2 submission   \\
+        \hline
+        12                                 & \multirow{2}{7em}{Free and forced vibrations}  & Analysis of free vibrations        & Project 3 statement    \\
+        \cline{1-1} \cline{3-4}
+        13                                 &                                                & Analysis of free vibrations        &                        \\
+        \cline{1-1} \cline{3-4}
+        14                                 &                                                & Transient analysis                 &                        \\
+        \hline
+      \end{tabular}
+    \end{center}
+    \vspace{1cm}
+  \end{frame}
+
+  \begin{frame}
+    \textbf{\large Summary}
+    \begin{itemize}
+      \item Recap week 13
+      \item Analysis of forced vibrations
+      \item Direct integration methods
+    \end{itemize}
+    \vspace{.5cm}
+
+    \textbf{\large Recommended readings}
+    \begin{itemize}
+      \item[(B)] Bathe, Finite Element Procedures in Engineering Analysis (chap. 9)
+      \item[(P)] Petyt, Introduction to finite element vibration analysis (chap. 12)
+      \item[(G)] Gmür, Dynamique des structures (§5.1 and 5.2)
+    \end{itemize}
+  \end{frame}
+}
+
+\section{General end-of-course information}
+
+\begin{frame}{Final examination}
+  \begin{itemize}
+    \item \textbf{Date:} January 14th
+    \item \textbf{Location:} Room CM1221
+    \item \textbf{Duration:} 20 min individual presentation followed by a 10
+          min discussion
+    \item \textbf{Report:} Submit the project report via Moodle by January 9th
+  \end{itemize}
+  \vspace{0.9cm}
+
+  \begin{columns}[T]
+    \begin{column}{.3\textwidth}
+      \vspace{-0.7cm}
+      \begin{center}
+        \includegraphics[width=3cm]{../images/mugMecaEng.png}
+
+        \color{darkred}\textbf{Avoid unnecessary stress!}
+      \end{center}
+    \end{column}
+    \begin{column}{.7\textwidth}
+      \vspace{-0.4cm}
+      \textbf{Preparation recommendations:}
+      \begin{itemize}
+        \item Review the lecture notes and relevant textbook chapters.
+        \item Thoroughly review the assigned problem sets.
+        \item Use Ed-discussion forum or drop by my office (ME A2 390) if you have any questions.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{CAPE evaluation survey}
+  \begin{center}
+    \includegraphics[width=4.5cm]{../images/Questionnaire-standardEN.pdf}
+
+    \color{darkred}\textbf{Please complete the in-depth evaluation survey!}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}{}
+  \begin{columns}[T]
+    \begin{column}{.4\textwidth}
+      \begin{center}
+        \vspace{-0.5cm}
+
+        \includegraphics[width=2.5cm]{../images/IwantYou.jpg}
+        \vspace{0.3cm}
+
+        \includegraphics[width=4.5cm]{../images/rocket.png}
+        \vspace{0.3cm}
+
+        \includegraphics[width=4.5cm]{../images/deepFiniteElem.png}
+
+      \end{center}
+    \end{column}
+    \begin{column}{.65\textwidth}
+      \textbf{Student assistant (AE) needed !}
+      \begin{itemize}
+        \item We are seeking one, possibly two, teaching assistants (AEs) to support the course through:
+              \begin{itemize}
+                \item Assistance with exercise sessions
+                \item Supervision of student mini-projects
+              \end{itemize}
+      \end{itemize}
+      \textbf{Semester projects}
+      \begin{itemize}
+        \item Structural and dynamic analysis via FEM
+        \item Neural networks meet finite elements
+      \end{itemize}
+      \textbf{Master projects}
+      \begin{itemize}
+        \item In collaboration with D-Orbit (topic to be finalized)
+        \item Experimental modal analysis
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\section{Recap week 13}
+ {\setbeamercolor{background canvas}{bg=darkred!5}
+  \setbeamercolor{block body}{bg=darkred!5,fg=black}
+
+  \begin{frame}
+    \begin{columns}
+      \begin{column}{0.42\textwidth}
+        \vspace{-0.3cm}
+        \begin{center}
+          \begin{tikzpicture}[scale=0.7]
+            \node (dvp) at (0,6) {
+              \begin{tcolorbox}[colframe=red!50!black, colback=red!10, coltitle=black, rounded corners,width=5cm]
+                \centering \textbf{Free undamped discrete vibration problem}: \\[5pt] $\mathbf{M} \ddot{\mathbf{q}}(t) + \mathbf{K} \mathbf{q}(t) = \mathbf{0}$
+              \end{tcolorbox}
+            };
+            \node (ans) at (0,1.8) {
+              \begin{tcolorbox}[colframe=white, colback=white, coltitle=black, rounded corners, width=5cm]
+                \centering \textbf{Ansatz}: \\[5pt] $\mathbf q(t)=\alpha \mathbf p \cos(\omega t+\varphi)$
+              \end{tcolorbox}
+            };
+            \node (gep) at (0,-2) {
+              \begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=5cm]
+                \centering \textbf{Generalized eigenvalue problem}: \\[5pt] $(\mathbf{K} - \omega^2 \mathbf{M}) \mathbf{p} = 0$
+              \end{tcolorbox}
+            };
+            % Drawing arrows
+            \draw[-latex, thick] (dvp.south) -- (ans.north);
+            \draw[-latex, thick] (ans.south) -- (gep.north);
+          \end{tikzpicture}
+        \end{center}
+      \end{column}
+      \begin{column}{0.54\textwidth}
+        \textbf{Solving the eigenvalue problem:}
+        $$n=\text{dim}(\mathbf K)=\text{dim}(\mathbf M)$$
+        There are $n$ eigenvalues $\lambda_j$ and $n$ corresponding eigenvectors $\mathbf p_j$ such that:
+        \begin{block}{}
+          \textbf{Eigenvalues} (\emph{natural frequencies} squared): $\lambda_j=\omega_j^2$ are the roots of the characteristic polynomial:
+          $$\text{det}(\mathbf K-\lambda\mathbf M)=0.$$
+        \end{block}
+        \begin{block}{}
+          \textbf{Eigenvectors} (\emph{modal shapes}): $\mathbf p_j$ are the solution of the equation
+          $$(\mathbf{K} - \lambda_j \mathbf{M})\mathbf p_j=\mathbf 0.$$
+        \end{block}
+      \end{column}
+    \end{columns}
+  \end{frame}
+
+
+  \begin{frame}{Rigid body modes}
+    In the semi-discrete weak form obtained via finite element discretization:
+    \begin{itemize}
+      \item The \textbf{mass matrix} \( \mathbf{M} \) is symmetric and strictly positive definite.
+      \item The \textbf{stiffness matrix} \( \mathbf{K} \) is symmetric and positive semi-definite:
+            \[
+              \mathbf{K} \mathbf{p} = \mathbf{0} \quad \text{for certain nonzero vectors } \mathbf{p}.
+            \]
+    \end{itemize}
+    Consequently, the eigenvalues \( \omega_j^2 \) of the generalized eigenvalue problem are all \emph{real} and \emph{non-negative}:
+    \[
+      0 \,\leq\, \omega_1 \leq \omega_2 \leq \dots \leq \omega_n.
+    \]
+
+    \begin{block}{}
+      \textbf{Rigid body modes:} zero eigenvalues (i.e., \( \omega_j = 0 \)) correspond to \emph{rigid body motions}, where the system undergoes displacement without internal deformation.
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{Orthonormalization of mode shapes}
+    \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+      The eigenvectors (mode shapes) \( \mathbf{p}_j \) are \emph{orthonormal} with respect to the mass matrix \( \mathbf{M} \) and the stiffness matrix \( \mathbf{K} \).
+    \end{tcolorbox}
+    \vspace{0.3cm}
+    Modal matrix $\mathbf P=\left[ \begin{array}{c;{2pt/2pt}c;{2pt/2pt}c;{2pt/2pt}c}
+          \mathbf p_{1} & \mathbf p_{2} & \dots & \mathbf p_{n} \\
+        \end{array}\right]$
+    then
+    $$  \mathbf P^T\mathbf M\mathbf P  =\mathbf I       \qquad\text{and}\qquad
+      \mathbf P^T\mathbf K\mathbf P  =\mathbf\Lambda$$
+    where $\mathbf I$ is the identity matrix of order $n$ and $\mathbf\Lambda$ the spectral matrix:
+    $$\mathbf\Lambda=\text{diag}(\lambda_1,\dots,\lambda_n)=\text{diag}(\omega_1^2,\dots,\omega_n^2).$$
+  \end{frame}
+
+  \begin{frame}{Rayleigh's quotient}
+    \small
+    \begin{itemize}
+      \item Rayleigh's quotient of a generic vector $\mathbf w$:
+            \[
+              \mathcal R(\mathbf w) = \frac{\mathbf w^T \mathbf K \mathbf w}{\mathbf w^T \mathbf M \mathbf w}
+            \]
+      \item For a given eigenvector \( \mathbf{p}_i  \), the Rayleigh quotient provides the corresponding eigenvalue \( \omega_i^2 \):$$\mathcal R(\mathbf p_i) = \omega_i^2.$$
+      \item The first variation of Rayleigh's quotient is zero at the eigenvectors:
+            \[
+              \delta \mathcal{R}(\mathbf{w}) = 0 \quad \text{if and only if} \quad \mathbf{w} = \mathbf{p}_i,
+            \]
+            where \(\mathbf{p}_i\) is an eigenvector.
+      \item \textbf{Bounding theorem:}
+            \vspace{0.2cm}
+            \(
+            \lambda_1 \leq \mathcal{R}(\mathbf{w}) \leq \lambda_n
+            \)
+    \end{itemize}
+    \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+      The Rayleigh quotient can be used to approximate the smallest eigenvalue \( \omega_1^2 \) by minimizing \( \mathcal R(\mathbf w) \) over all non-zero vectors \( \mathbf w \).
+    \end{tcolorbox}
+  \end{frame}
+
+  \begin{frame}{Inverse iteration algorithm}
+    \small
+    \textbf{Goal:} Compute \textbf{one} eigenvector using iterative refinement. \\[2mm]
+
+    \textbf{Algorithm:}
+    \begin{enumerate}
+      \item Choose initial guess \(\mathbf p^{(0)}\), spectral shift \(\sigma\), tolerance \(\varepsilon\).
+      \item Define shifted stiffness: \(\mathbf K_\sigma = \mathbf K + \sigma \mathbf M\)
+      \item For \(k = 1,2,\dots\) until convergence:
+            \begin{enumerate}
+              \item Solve: \(\mathbf K_\sigma \, \bar{\mathbf p}^{(k)} = \mathbf M \, \mathbf p^{(k-1)}\)
+              \item Normalize: \(\mathbf p^{(k)} = \bar{\mathbf p}^{(k)} / \sqrt{(\bar{\mathbf p}^{(k)})^T \mathbf M \bar{\mathbf p}^{(k)}}\)
+              \item Check: \(\|\mathbf p^{(k)} - \mathbf p^{(k-1)}\| < \varepsilon\)
+            \end{enumerate}
+      \item Output: eigenvector \(\mathbf p^{(k)}\), eigenvalue \(\lambda^{(k)} = \mathcal R(\mathbf p^{(k)})\)
+    \end{enumerate}
+
+    \vspace{2mm}
+    \textbf{Key points:}
+    \begin{itemize}
+      \item Converges to eigenvector closest to \(\sigma\) if \(\mathbf p^{(0)}\) not \(\mathbf M\)-orthogonal to it.
+      \item Without shift (\(\sigma=0\)) $\to$ eigenvector of smallest eigenvalue.
+      \item Convergence rate: \(\rho = \frac{|\lambda_j - \sigma|}{|\lambda_{j+1}-\sigma|}\)
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Subspace iteration method}
+    \small
+    \textbf{Goal:} Compute the lowest \(n_{modes} \ll n\) eigenpairs \((\mathbf p_i, \lambda_i)\) of using a \(q\)-dimensional subspace iteration.\\[1mm]
+
+    \textbf{Key ideas and advantages:}
+    \begin{itemize}
+      \item Iteration is performed on a subspace \(\mathcal S_k = \text{span}(\mathbf p_1^{(k)},\dots,\mathbf p_q^{(k)})\), not individual vectors.
+      \item At each iteration, inverse iteration is applied to all \(q\) vectors in the subspace and then orthogonalized via Rayleigh-Ritz.
+      \item Easier to initialize a subspace close to the span of required eigenvectors than individual vectors.
+    \end{itemize}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.8]
+        \draw[-latex] (0,0) -- (15,0) node[below] {\small Iteration steps};
+        \filldraw (0,0) circle (3pt); % Marker
+        \filldraw (7,0) circle (3pt); % Marker
+        \filldraw (12,0) circle (3pt); % Marker
+        \node[align=center,below] at (0,-0.2) {$0$};
+        \node[align=center, below] at (7,-0.2) {$1$};
+        \node[align=center,below] at (12,-0.2) {$2$};
+        % Drawing boxes
+        \node[align=center] (iter0) at (0,1.1) {
+          \begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=2.5cm]
+            \centering $\mathbf P^{(0)}$, $\mathcal S_0$
+          \end{tcolorbox}
+        };
+
+        \node[align=center] (iter1)at (7,1.2) {\begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=2.5cm]
+            $\mathbf P^{(1)}$, $\mathcal S_{1}$ \\  $\mathbf \Lambda^{(1)}$
+          \end{tcolorbox}
+        };
+
+        \node[align=center] (iter2) at (12,1.2) {\begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=2.5cm]
+            $\mathbf P^{(2)}$, $\mathcal S_{2}$ \\  $\mathbf \Lambda^{(2)}$
+          \end{tcolorbox}
+        };
+
+        % Drawing arrows
+        \draw[-latex] (iter0.east) -- (iter1.west)  node[midway, above, align=center] {\small Inverse iteration \\ on $q$ vectors};
+        \draw[-latex] (iter0.east) -- (iter1.west)  node[midway, below, align=center] {\small Orthogonalization \\ via Rayleigh-Ritz};
+        \draw[-latex] (iter1.east) -- (iter2.west);
+      \end{tikzpicture}
+    \end{center}
+
+  \end{frame}
+
+  \begin{frame}{Subspace iteration algorithm}
+    \small
+    \textbf{Inputs:} \(\mathbf K, \mathbf M, n_{modes}, q>n_{modes}, \mathbf P^{(0)}\in \mathbb{R}^{n\times q}, \sigma, \varepsilon\)\\[1mm]
+
+    \textbf{Iteration:} For \(k=1,2,\dots\) until convergence:
+    \begin{enumerate}
+      \item Solve \( \mathbf K_\sigma \, \overline{\mathbf P^{(k)}} = \mathbf M \mathbf P^{(k-1)} \) (inverse iteration on \(q\) vectors)
+      \item Project and solve small eigenproblem:
+            \[
+              \mathbf K^{(k)} = (\overline{\mathbf P^{(k)}})^T \mathbf K \overline{\mathbf P^{(k)}}, \quad
+              \mathbf M^{(k)} = (\overline{\mathbf P^{(k)}})^T \mathbf M \overline{\mathbf P^{(k)}}
+            \]
+            \[
+              \mathbf K^{(k)} \mathbf Z^{(k)} = \mathbf M^{(k)} \mathbf Z^{(k)} \mathbf \Lambda^{(k)}
+            \]
+      \item Update modal matrix: \( \mathbf P^{(k)} = \overline{\mathbf P^{(k)}} \mathbf Z^{(k)} \), ensure \( (\mathbf P^{(k)})^T \mathbf M \mathbf P^{(k)} = \mathbf I \)
+      \item Check convergence: \( \frac{|\lambda_i^{(k)} - \lambda_i^{(k-1)}|}{\lambda_i^{(k)}} < \varepsilon \)
+    \end{enumerate}
+
+    \textbf{Notes:}
+    \begin{itemize}
+      \item Orthogonalization is critical to prevent collinearity of iteration vectors.
+      \item Starting vectors should be linearly independent; larger \(q\) increases convergence rate but also computational cost.
+      \item After convergence, use Sturm sequence to verify the number of eigenvalues computed.
+    \end{itemize}
+  \end{frame}
+
+ }
+
+\section{Analysis of forced vibrations}
+
+\begin{frame}{Forced vibrations of non-rotating conservative systems}
+  The discretization of linear three-dimensional elastodynamics, as well as the analysis of vibrations in beams and plates via FEM, all lead to a system of ODE:
+  \[
+    \mathbf{M} \ddot{\mathbf{q}}(t) + \mathbf{K} \mathbf{q}(t) = \mathbf{r}(t), \qquad \forall t\in[0,T]
+  \]
+  \begin{columns}[T]
+    \begin{column}{.4\textwidth}
+      \vspace{-1.1cm}
+      \begin{center}
+        \begin{tikzpicture}[scale=1.5]
+          %\draw[step=1.0,black,thin] (0,0) grid (4,4);
+          % Draw the potato-like shape
+          \shade [ball color= gray!90!black, opacity=.3] plot [thick,smooth cycle, tension=1] coordinates  {(1,2) (2,3.2) (3,3) (3.3,2) (3.2,1) (2,1.3) (1,1)};
+          \draw[thin] plot [smooth cycle, tension=1] coordinates {(1,2) (2,3.2) (3,3) (3.3,2) (3.2,1) (2,1.3) (1,1)};
+          \draw[ultra thick, orange] plot [smooth, tension=1.3] coordinates {(1,2) (2,3.2) (3,3)};
+          \draw[fill=darkred!30,thick,darkred!10] (2,2) -- (3,3) -- (2,3.2) -- (1.7,2.3) -- cycle;
+          \node[below right] at (2,2) {$\mathbf x_i$};
+          \draw[-latex,darkred] (2,2) -- (2.15,2.4) node[darkred, left]{$\mathbf q^i$};
+          % Label the boundary Gamma
+          \node at (3.5,2.7) {$\Gamma$};
+          \node[orange, above] at (2.5,3.4) {$\Gamma_u$};
+          \draw[thick] (1,2) -- (2,3.2) -- (3,3) -- (3.3,2) -- (3.2,1) -- (2,1.3) -- (1,1) -- cycle;
+          \draw[thick] (1,2) -- (2,2) -- (3,3) -- (3.3,2);
+          \draw[thick] (2,1.3) -- (2,2) -- (3.3,2);
+          \draw[thick] (1,1) -- (2,2) -- (1.7,2.3) -- (2,3.2);
+          \draw[thick] (1.7,2.3) -- (1,2);
+          \node[darkred,draw,shape=circle,fill=darkred,minimum size=2mm,line width=0.3mm,inner sep=0] at (2,2) {};
+          \node[draw,shape=circle,fill=white,minimum size=2mm,line width=0.3mm,inner sep=0] at (1,1) {};
+          \node[orange,draw,shape=circle,fill=orange,minimum size=2mm,line width=0.3mm,inner sep=0] at (1,2) {};
+          \node[draw,shape=circle,fill=white,minimum size=2mm,line width=0.3mm,inner sep=0] at (2,1.3) {};
+          \node[orange,draw,shape=circle,fill=orange,minimum size=2mm,line width=0.3mm,inner sep=0] at (2,3.2) {};
+          \node[draw,shape=circle,fill=white,minimum size=2mm,line width=0.3mm,inner sep=0] at (1.7,2.3) {};
+          \node[orange,draw,shape=circle,fill=orange,minimum size=2mm,line width=0.3mm,inner sep=0] at (3,3) {};
+          \node[draw,shape=circle,fill=white,minimum size=2mm,line width=0.3mm,inner sep=0] at (3.2,1) {};
+          \node[draw,shape=circle,fill=white,minimum size=2mm,line width=0.3mm,inner sep=0] at (3.3,2) {};
+          \node[orange,above left] at (1,2) {$\mathbf q^{k_1}$};
+          \node[orange,above left] at (2,3.2) {$\mathbf q^{k_2}$};
+          \node[orange,above right] at (3,3) {$\mathbf q^{k_3}$};
+        \end{tikzpicture}
+      \end{center}
+    \end{column}
+    \begin{column}{.65\textwidth}
+      \vspace{-0.5cm}
+      \begin{itemize}
+        \item Generalized nodal displacements: $$\mathbf q(t)=[\mathbf q^1(t),\dots, \mathbf q^n(t)]^T.$$
+        \item Excitation (force) vector: $\mathbf{r}(t)\neq \mathbf 0$
+        \item \textbf{Boundary conditions:} $\mathbf q^k=\hat{\mathbf q}^k$ for all $k$ such that $\mathbf x_k\in\Gamma_u$.
+        \item  \textbf{Initial conditions:} $\mathbf q(0)=\mathbf u_0$ and $\dot{\mathbf q}(0)=\mathbf v_0$
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \begin{block}{}
+    \centering Interest in finding the \textbf{temporal response} $\mathbf q(t)$ of the structure.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Modal basis}
+  \begin{center}
+    \begin{tikzpicture}
+      \node[draw, rounded corners, minimum width=2cm, minimum height=1cm, fill=darkred!30] (Q) {$\mathbf{q}(t)$};
+      \node[draw, rounded corners, minimum width=2cm, minimum height=1cm, right=4cm of Q, fill=gray!30] (Z) {$\mathbf{z}(t)$};
+      \draw[-latex] (Q) -- (Z) node[midway, above] {Change of basis};
+    \end{tikzpicture}
+  \end{center}
+  \[
+    \mathbf{q}(t) = \mathbf{P} \mathbf{z}(t) = \sum_{i=1}^{n} \mathbf{p}_{i} z_i(t)
+  \]
+  \vspace{-0.5cm}
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $\mathbf{z}$: vector of modal coordinates
+      \item $\mathbf{P}$: modal matrix
+      \item $\mathbf{p}_{i}$: eigenvector of order $i$
+      \item $z_i$: modal coordinate of order $i$
+    \end{itemize}
+  \end{multicols}
+  \begin{block}{}
+    \textbf{Insertion of the change of basis in the forced regime equation:}
+    \vspace{-0.1cm}
+    \begin{align*}
+      \mathbf{M} \mathbf{P}\ddot{\mathbf{z}}(t)  + \mathbf{K} \mathbf{P} \mathbf{z}(t)                                            & = \mathbf{r}(t)                       \\
+      \mathbf{P}^\mathrm{T} \mathbf{M} \mathbf{P} \ddot{\mathbf{z}}(t) +\mathbf{P}^\mathrm{T} \mathbf{K} \mathbf{P} \mathbf{z}(t) & = \mathbf{P}^\mathrm{T} \mathbf{r}(t)
+    \end{align*}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Decoupling of the forced regime}
+  \begin{block}{}
+    \textbf{Accounting for the orthogonality of eigenmodes}
+    \[
+      \mathbf{P}^\mathrm{T} \mathbf{M} \mathbf{P} = \mathbf{I}
+      \qquad\text{and}\qquad
+      \mathbf{P}^\mathrm{T} \mathbf{K} \mathbf{P} = \boldsymbol{\Lambda}
+    \]
+    \vspace{-0.8cm}
+    \begin{itemize}
+      \item $\mathbf{I}$: identity matrix
+      \item $\boldsymbol{\Lambda}=\mathrm{diag}(\omega_{1}^2, \dots, \omega_{i}^2, \dots, \omega_{n}^2)$: diagonal matrix of eigenvalues,
+    \end{itemize}
+  \end{block}
+  \textbf{Decoupling of the forced regime system:}
+  \begin{align*}
+    {\color{darkred}\mathbf{P}^\mathrm{T} \mathbf{M} \mathbf{P}} \ddot{\mathbf{z}}(t) +
+    {\color{orange}\mathbf{P}^\mathrm{T} \mathbf{K} \mathbf{P}} \mathbf{z}(t) & =
+    {\color{brown}\mathbf{P}^\mathrm{T} \mathbf{r}(t)}                                                         \\
+    \ddot{\mathbf{z}}(t)+ {\color{orange}\boldsymbol{\Lambda}} \mathbf{z}(t)  & = {\color{brown}\mathbf{s}(t)}
+  \end{align*}
+  \vspace{-0.5cm}
+  \begin{itemize}
+    \item Projected initial conditions: $\mathbf{z}(0) = \mathbf{P}^\mathrm{T} \mathbf M\mathbf{u}_0$ and $\dot{\mathbf{z}}(0) = \mathbf{P}^\mathrm{T}\mathbf M\mathbf{v}_0$.
+    \item $\mathbf{s}(t)=\mathbf{P}^\mathrm{T} \mathbf{r}(t)$: projection of $\mathbf{r}(t)$ onto the modal basis $\mathbf{P}$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exact solution}
+  \small
+  \vspace{-0.3cm}
+  \begin{block}{}
+    \textbf{Component-wise form of the decoupled forced regime:} ($i = 1,2,\dots,n$)
+    \begin{align*}
+      \ddot{z}_i(t) + \omega_{i}^2 z_i(t) & = s_{i}(t)                                        \\
+      z_i(0)                              & = \mathbf{p}_{i}^\mathrm{T} \mathbf M\mathbf{u}_0 \\
+      \dot{z}_i(0)                        & = \mathbf{p}_{i}^\mathrm{T}\mathbf M \mathbf{v}_0
+    \end{align*}
+  \end{block}
+  Exact solution by Laplace transform (convolution or Duhamel's integral):
+  \begin{align*}
+    z_i(t) ={} & z_i(0)\cos(\omega_i t)
+    + \frac{\dot z_i(0)}{\omega_i}\sin(\omega_i t)
+    + \frac{1}{\omega_i}
+    \int_0^t \sin\!\big(\omega_i (t-\tau)\big)\, s_i(\tau)\,\mathrm d\tau
+  \end{align*}
+  \begin{block}{}
+    \vspace{-0.3cm}
+    \begin{align*}
+      \mathbf{q}(t) & =  \sum_{i=1}^n \mathbf{p}_{i}z_i(t) = \sum_{i=1}^n \mathbf{p}_{i} \left( \mathbf{p}_{i}^{\mathrm{T}} \mathbf{M} \mathbf{u}_0 \cos(\omega_{i} t)
+      + \frac{1}{\omega_{i}} \mathbf{p}_{i}^{\mathrm{T}} \mathbf{M} \mathbf{v}_0 \sin(\omega_{i} t) \right)                                                            \\
+                    & + \sum_{i=1}^n \mathbf{p}_{i} \left( \frac{1}{\omega_{i}} \int_0^t s_{i}(t - \tau) \sin(\omega_{i} \tau) \, \mathrm{d}\tau\right)
+    \end{align*}
+  \end{block}
+\end{frame}
+
+\section{Direct integration methods}
+
+\begin{frame}{Finite difference method for time integration}
+  \begin{itemize}
+    \item Solve dynamic equilibrium equations by replacing time derivatives with discrete approximations.
+    \item Time domain $[0,T]$ is discretized into $N_t$ equal intervals $\Delta t = T / N_t$:
+          $$t_k=k\Delta t\qquad k=0,\dots N_t.$$
+    \item Displacement, velocity, and acceleration are approximated within each time step $t_k$.
+  \end{itemize}
+  \vspace{-0.6cm}
+  \begin{center}
+    \begin{tikzpicture}
+      \draw (0,0) -- (12,0);
+      % Ticks every 0.5
+      \foreach \x in {0,2,...,12} {
+          \draw[shift={(\x,0)}, color=black] (0pt,2pt) -- (0pt,-2pt);
+        }
+      \filldraw (0,0) circle (3pt); % Marker
+      \filldraw (6,0) circle (3pt); % Marker
+      \filldraw (8,0) circle (3pt); % Marker
+      \filldraw (12,0) circle (3pt); % Marker
+      \node[align=center] at (0,1.1) {
+        \begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=1.5cm]
+          \centering $\mathbf  u_0$ \\ $\mathbf v_0$ \\
+        \end{tcolorbox}
+      };
+      \node[align=center,below] at (0,-0.2) {$t=0$};
+      \node[align=center] at (6,1.2) {\begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=1.7cm]
+          $\mathbf z^{(k)}$ \\  $\dot{\mathbf z}^{(k)}$ \\ $\ddot{\mathbf z}^{(k)}$
+        \end{tcolorbox}
+      };
+      \node[align=center, below] at (6,-0.2) {$t=t_k$};
+      \node[align=center] at (8,1.2) {\begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=2cm]
+          $\mathbf z^{(k+1)}$ \\  $\dot{\mathbf z}^{(k+1)}$ \\ $\ddot{\mathbf z}^{(k+1)}$
+        \end{tcolorbox}
+      };
+      \node[align=center,below] at (8,-0.2) {$t=t_{k+1}$};
+      \node[align=center,below] at (12,-0.2) {$t=T$};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Approximate solution via the finite difference method}
+  \begin{block}{}
+    \textbf{General kinematic scheme (for second-order differential equation):}
+    \[
+      \begin{bmatrix}
+        z_i^{(k)} \\
+        \dot{z}_i^{(k)}
+      \end{bmatrix}
+      =
+      \sum_{j=1}^{q} \alpha_j
+      \begin{bmatrix}
+        z_i^{(k-j)} \\
+        \dot{z}_i^{(k-j)}
+      \end{bmatrix}
+      +
+      \Delta t \sum_{{\color{darkred}j=0}}^{q} \beta_j
+      \begin{bmatrix}
+        \dot{z}_i^{(k-j)} \\
+        \ddot{z}_i^{(k-j)}
+      \end{bmatrix},
+      \quad k = 1, 2, \dots; \quad k \geq q
+    \]
+
+    \vspace{1em}
+
+    \begin{itemize}
+      \item $z_i^{(k)}, \dot{z}_i^{(k)}, \ddot{z}_i^{(k)}$: component $i$ of displacement, velocity, and acceleration at time step $k$,
+      \item $q$, $\alpha_j$, $\beta_j$ for $j=1,\dots,q$: given constants,
+      \item $\Delta t = t_k - t_{k-1}$: time step,
+      \item $k$: time step index.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Types of time integration schemes}
+  \textbf{Single-step methods} (\(q = 1\)):
+  \begin{itemize}
+    \item Use only the state at the previous time step to compute the current time step.
+    \item Widely used due to balance between accuracy and efficiency.
+    \item \emph{Example:} Newmark methods are commonly used in finite element software.
+  \end{itemize}
+  \textbf{Multi-step methods} (\(q > 1\)):
+  \begin{itemize}
+    \item Use multiple previous time steps to compute the current time step.
+    \item \emph{Examples:} Houbolt’s method, Wilson-\(\theta\) method, Park’s algorithm,
+  \end{itemize}
+  \textbf{Explicit vs implicit} ($\beta_0$):
+  \begin{itemize}
+    \item Explicit: \( \beta_0 = 0 \), current values are computed directly from known past values.
+    \item Implicit: \( \beta_0 \ne 0 \), require solving equations at each time step.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classification of finite difference methods}
+  \textbf{General kinematic scheme:}
+  \[
+    \begin{bmatrix}
+      z_i^{(k)} \\
+      \dot{z}_i^{(k)}
+    \end{bmatrix}
+    =
+    \sum_{j=1}^{q} \alpha_j
+    \begin{bmatrix}
+      z_i^{(k-j)} \\
+      \dot{z}_i^{(k-j)}
+    \end{bmatrix}
+    +
+    \Delta t \sum_{j=0}^{q} \beta_j
+    \begin{bmatrix}
+      \dot{z}_i^{(k-j)} \\
+      \ddot{z}_i^{(k-j)}
+    \end{bmatrix}, \quad k = 1, 2, \dots; \quad k \geq q
+  \]
+  \begin{itemize}
+    \item $q = 1$ : one-step scheme $\rightarrow$ \textcolor{darkred}{Newmark method(s)}
+          \begin{itemize}
+            \item $\beta_0 = 0$ : \emph{explicit scheme} \hfill $z_i^{(k)} \leftarrow z_i^{(k-1)}, \dot{z}_i^{(k-1)}$
+            \item $\beta_0 \ne 0$ : \emph{implicit scheme} \hfill $z_i^{(k)} \leftarrow z_i^{(k-1)}, \dot{z}_i^{(k-1)}, \ddot{z}_i^{(k)}$
+          \end{itemize}
+    \item $q > 1$ : multi-step scheme $\rightarrow$ Park, Houbolt, Wilson, ...
+          \begin{itemize}
+            \item $\beta_0 = 0$ : \emph{explicit scheme}
+            \item $\beta_0 \ne 0$ : \emph{implicit scheme}
+          \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Newmark's one-step method ($t=0$)}
+  \textbf{Resolution of dynamic equations using a one-step Newmark's methods:}
+  \begin{itemize}
+    \item Initial conditions:
+          \begin{align*}
+            z_i^{(0)}       & = \mathbf{p}_{i}^\mathrm{T} \mathbf M\mathbf{u}_0 \\
+            \dot{z}_i^{(0)} & = \mathbf{p}_{i}^\mathrm{T}\mathbf M \mathbf{v}_0
+          \end{align*}
+    \item Dynamic equation:
+          $$\ddot{z}_i^{(k)} + \omega_{i}^2 z_i^{(k)}  = s_{i}^{(k)}$$
+  \end{itemize}
+  \begin{block}{}
+    \textbf{Computation of initial acceleration:}
+    $$\ddot{z}_i^{(0)} = - \omega_{i}^2 z_i^{(0)}  + s_{i}^{(0)}$$
+  \end{block}
+\end{frame}
+
+\begin{frame}{Newmark's one-step method ($t=t_{k-1}$ to $t=t_{k}$)}
+  \textbf{Kinematic scheme for one-step Newmark's methods:}
+  \[
+    \begin{bmatrix}
+      z_i^{(k)} \\
+      \dot{z}_i^{(k)}
+    \end{bmatrix}
+    =
+    \textcolor{darkred}{\alpha_1}
+    \begin{bmatrix}
+      z_i^{(k-1)} \\
+      \dot{z}_i^{(k-1)}
+    \end{bmatrix}
+    +
+    \Delta t \left(
+    \textcolor{darkred}{\beta_0}
+    \begin{bmatrix}
+      \dot{z}_i^{(k)} \\
+      \ddot{z}_i^{(k)}
+    \end{bmatrix}
+    +
+    \textcolor{darkred}{\beta_1}
+    \begin{bmatrix}
+      \dot{z}_i^{(k-1)} \\
+      \ddot{z}_i^{(k-1)}
+    \end{bmatrix}
+    \right)
+    \quad (k = 1, 2, \ldots)
+  \]
+  \begin{itemize}
+    \item \(\alpha_1\), \(\beta_0\), and \(\beta_1\): parameters characterizing the different variants of the schemes.
+    \item To compute \(\alpha_1\), \(\beta_0\), and \(\beta_1\) we use Taylor expansion with integral remainder:
+          \begin{align*}
+            \underbrace{z_i(t_k)}_\text{$z_i^{(k)}$}            & = \underbrace{z_i(t_{k-1})}_\text{$z_i^{(k-1)}$} + \Delta t \, \underbrace{\dot{z}_i(t_{k-1})}_\text{$\dot z_i^{(k-1)}$} +{\color{brown} \int_{t_{k-1}}^{t_k} (t_k - \tau) \ddot{z}_i(\tau) \, d\tau }
+            \\
+            \underbrace{\dot{z}_i(t_k)}_\text{$\dot z_i^{(k)}$} & = \underbrace{\dot{z}_i(t_{k-1})}_\text{$\dot z_i^{(k-1)}$}+{\color{orange} \int_{t_{k-1}}^{t_k} \ddot{z}_i(\tau) \, d\tau}
+          \end{align*}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{First-order integral remainder approximation}
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+      \textbf{Taylor series for acceleration:} \newline
+      let $\beta\in]0,1/2[$ a constant, then
+        {\small
+          \[
+            \begin{aligned}
+               & \times (1 - 2\beta) \qquad & \ddot{z}_i(t_{k-1}) & = \ddot{z}_i(\tau) - (\tau - t_{k-1}) \dddot{z}_i(\tau) + \ldots \\
+               & \times 2\beta \quad        & \ddot{z}_i(t_k)     & = \ddot{z}_i(\tau) + (t_k - \tau) \dddot{z}_i(\tau) + \ldots
+            \end{aligned}
+          \]
+          \noindent\makebox[\linewidth]{\rule{\textwidth}{0.4pt}}
+
+          $$ \Rightarrow (1 - 2\beta) \ddot{z}_i(t_{k-1}) + 2\beta \ddot{z}_i(t_k) \approx \ddot{z}_i(\tau)$$}
+    \end{column}
+
+    \begin{column}{.36\textwidth}
+      \vspace{-0.3cm}
+      \begin{tikzpicture}[scale=1.2]
+        % Axes
+        \draw[-latex] (-0.2,0) -- (3.2,0) node[right] {$t$};
+        \draw[-latex] (0,-0.2) -- (0,2.2) node[above] {};
+        % Time ticks
+        \draw[dashed] (0.5,0) -- (0.5,0.4);
+        \draw[dashed] (2.5,0) -- (2.5,1.8);
+        \draw[dashed] (0,0.4) node[left]{$\ddot{z}_i(t_{k-1})$} -- (0.5,0.4);
+        \draw[dashed] (0,1.8) node[left]{$\ddot{z}_i(t_{k})$} -- (2.5,1.8);
+        \draw[dashed] (0,1.44)node[left] {$\ddot{z}_i(\tau)$} -- (1.4,1.44) ;
+        % Curve (approximation of increasing velocity)
+        \draw[very thick, domain=0.5:2.5, smooth, variable=\x] plot ({\x},{14/20*\x+0.05-0.5*(\x-0.5)*(\x-2.5)});
+        % Points and arrows
+        \filldraw (0.5,0.4) circle (1pt);
+        \filldraw (2.5,1.8) circle (1pt);
+        % Time labels
+        \node at (0.5,-0.2) {$t_{k-1}$};
+        \node at (2.5,-0.2) {$t_{k}$};
+        \draw[dashed] (1.3,0) -- (1.3,1.44) ;
+        \node at (1.3,-0.2) {$\tau$};
+        % derivative
+        \draw[darkred] (1.3,1.44) -- (1.9,1.44);
+        \draw[darkred] (1.3,1.44) -- (1.9,1.98);
+        \draw[-latex,darkred] (1.3,1.44) ++(0:0.4) arc[start angle=0, end angle=42, radius=0.4];
+        \node[darkred] at (2.2,1.6) {$ \dddot{z}_i(\tau) $};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+  Notice that terms in \(\dddot{z}_i(\tau)\) and higher are neglected because they are multiplied in displacement by \(\Delta t^3\), and in velocity by \(\Delta t^2\).
+\end{frame}
+
+\begin{frame}{Taylor formula with integral remainder for modal displacements}
+  Integral quadrature in Taylor expansion:
+  \begin{align*}
+    {\color{brown}\int_{t_{k-1}}^{t_k} (t_k - \tau) \ddot{z}_i(\tau) \, d\tau} & = \int_{t_{k-1}}^{t_k} (t_k - \tau)\left[(1 - 2\beta) \ddot{z}_i^{(k-1)} + 2\beta \ddot{z}_i^{(k)} \right]  \, d\tau \\
+                                                                               & =\dots                                                                                                               \\
+                                                                               & =\Delta t^2 \left[ \left( \frac{1}{2} - \beta \right) \ddot{z}_i^{(k-1)} + \beta \ddot{z}_i^{(k)}\right]
+  \end{align*}
+  \begin{block}{}
+    \textbf{Kinematic scheme for displacements:}
+    $${z}_i^{(k)}={z}_i^{(k-1)}+\Delta t \dot{z}_i^{(k-1)}+{\color{brown}\Delta t^2 \left[ \left( \frac{1}{2} - \beta \right) \ddot{z}_i^{(k-1)}\right]+\beta\Delta t^2  \ddot{z}_i^{(k)}}$$
+  \end{block}
+\end{frame}
+
+\begin{frame}{First-order integral remainder approximation}
+  \textbf{Taylor series for acceleration:} let $\gamma\in]0,1[$ a second constant, then
+  $$ \Rightarrow (1 - \gamma) \ddot{z}_i(t_{k-1}) +\gamma \ddot{z}_i(t_k) \approx \ddot{z}_i(\tau)$$
+  \textbf{Integral quadrature in Taylor expansion:}
+  $$ {\color{orange}\int_{t_{k-1}}^{t_k} \ddot{z}_i(\tau) \, d\tau} = \int_{t_{k-1}}^{t_k}\left[(1 - \gamma) \ddot{z}_i^{(k-1)} + \gamma \ddot{z}_i^{(k)} \right]  \, d\tau = \Delta t \left[ \left( 1 - \gamma \right) \ddot{z}_i^{(k-1)} + \gamma \ddot{z}_i^{(k)}\right] $$
+  \begin{block}{}
+    \textbf{Kinematic scheme for velocity:}
+    $$\dot{z}_i^{(k)}=\dot{z}_i^{(k-1)}+{\color{orange}\Delta t \left[ \left( 1-\gamma \right) \ddot{z}_i^{(k-1)}\right]+\gamma\Delta t  \ddot{z}_i^{(k)}}$$
+  \end{block}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{description item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\setbeamercolor{description/description body}{fg=white}
+\color{white}
+\begin{frame}{Newmark's one-step method ($t=t_{k-1}$ to $t=t_{k}$)}
+  \begin{itemize}
+    \item[] Stability control parameter \(\beta\): \( 0 \leq \beta \leq 1/4 \)
+    \item[] Numerical dissipation parameter \(\gamma\): \( 1/2 \leq \gamma \leq 3/4\).
+  \end{itemize}
+  \begin{itemize}
+    \item \textbf{Kinematic scheme for displacement:}
+          $${z}_i^{(k)}={z}_i^{(k-1)}+\Delta t \dot{z}_i^{(k-1)}+\Delta t^2 \left[ \left( \frac{1}{2} - \beta \right) \ddot{z}_i^{(k-1)}\right]+\beta\Delta t^2  \ddot{z}_i^{(k)}$$
+
+    \item \textbf{Kinematic scheme for velocity:}
+          $$\dot{z}_i^{(k)}=\dot{z}_i^{(k-1)}+\Delta t \left[ \left( 1-\gamma \right) \ddot{z}_i^{(k-1)}\right]+\gamma\Delta t  \ddot{z}_i^{(k)}$$
+    \item \textbf{Dynamic equation:}
+          $$\ddot{z}_i^{(k)} + \omega_{i}^2 z_i^{(k)}  = s_{i}^{(k)}$$
+  \end{itemize}
+\end{frame}
+}
+
+
+\begin{frame}
+  \frametitle{Average acceleration method (Trapezoidal rule)}
+  \begin{columns}
+    \begin{column}{.48\textwidth}
+      \textbf{Special case:}   \[
+        \beta = \frac{1}{4}\quad\text{and}\quad \gamma = \frac{1}{2}
+      \]
+      Then for $t_{k-1}\leq \tau \leq t_{k}$ we have
+      \[
+        \ddot{z}_i(\tau) = \frac{\ddot{z}_i(t_{k-1}) + \ddot{z}_i(t_k)}{2}
+      \]
+    \end{column}
+
+    \begin{column}{.48\textwidth}
+      \vspace{-0.3cm}
+      \begin{tikzpicture}[scale=1.4]
+        % Axes
+        \draw[-latex] (-0.2,0) -- (3.2,0) node[right] {$t$};
+        \draw[-latex] (0,-0.2) -- (0,2.2) node[above] {};
+        % Time ticks
+        \draw[dashed] (0.5,0) -- (0.5,1.0);
+        \draw[dashed] (2.5,0) -- (2.5,1.8);
+        \draw[dashed] (0,0.4) node[left]{$\ddot{z}_i(t_{k-1})$} -- (0.5,0.4);
+        \draw[dashed] (0,1.8) node[left]{$\ddot{z}_i(t_{k})$} -- (2.5,1.8);
+        \draw[dashed] (0,1.1)node[left] {$\ddot{z}_i(\tau)$} -- (0.5,1.1) ;
+        % Flat acceleration line (average)
+        \draw[very thick] (0.5,1.1) -- (2.5,1.1);
+        % Points and arrows
+        \filldraw (0.5,1.1) circle (1pt);
+        \filldraw (2.5,1.1) circle (1pt);
+        \filldraw (0.5,0.4) circle (1pt);
+        \filldraw (2.5,1.8) circle (1pt);
+        % Time labels
+        \node at (0.5,-0.2) {$t_{k-1}$};
+        \node at (2.5,-0.2) {$t_{k}$};
+        \draw[dashed] (1,0) -- (1,1.1) ;
+        \node at (1,-0.2) {$\tau$};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}\vspace{0.3cm}
+  \begin{block}{}
+    \textbf{Kinematic schemes for displacement and velocity:}
+    \begin{align*}
+      z_i^{(k)}       & = z_i^{(k-1)} + \Delta t \dot{z}_i^{(k-1)} + \frac{1}{4} \Delta t^2 \left( \ddot{z}_i^{(k-1)} + \ddot{z}_i^{(k)} \right) \\
+      \dot{z}_i^{(k)} & = \dot{z}_i^{(k-1)} + \frac{1}{2} \Delta t \left( \ddot{z}_i^{(k-1)} + \ddot{z}_i^{(k)} \right)
+    \end{align*}
+  \end{block}
+\end{frame}
+
+\begin{frame}{}
+  \begin{center}
+    \includegraphics[width=4cm]{../images/attention.jpeg}
+  \end{center}
+  \begin{quote}
+    ``The person who learns the most in any classroom is the teacher.''\\[1em]
+    \hfill --- James Clear
+  \end{quote}
+  \begin{center}
+    \color{darkred}\textbf{Please complete the in-depth evaluation survey!}
+  \end{center}
+\end{frame}
+
+\end{document}
