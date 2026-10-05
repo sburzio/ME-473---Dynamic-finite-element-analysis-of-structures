@@ -341,21 +341,110 @@
           \end{cases*}$$
   \end{frame}
 
-  \begin{frame}{\emph{Consequence 1}: explicit use of local shape functions is avoided
-      }
-      \begin{itemize}
-          \item The coordinate transformation  \({}^eT^{-1} \) maps shape functions on  \( {}^e\Omega \) to the master element space \( \Omega^a \):
-                \[
-                    {}^e\mathbf H(\mathbf x)={}^a\mathbf H({}^eT^{-1}(\mathbf x))
-                \]
-          \item An example of a relationship between local and archetypal shape function: $${}^1h_8(x,y)={}^ah_2\big(\xi_1(x,y),\xi_2(x,y)\big)$$
-      \end{itemize}
-      \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black,]
+  \begin{frame}{\emph{Consequence 1}: explicit use of local shape functions is avoided}
+      \vspace{-0.4cm}
+      \begin{columns}[T,onlytextwidth]
+          \begin{column}{0.56\textwidth}
+              \begin{itemize}
+                  \item The coordinate transformation ${}^eT^{-1}$ maps shape functions on ${}^e\Omega$ to the master element space $\Omega^a$:
+                        \[
+                            {}^e\mathbf H(\mathbf x)
+                            =
+                            {}^a\mathbf H({}^eT^{-1}(\mathbf x))
+                        \]
+                  \item An example of a relationship between local and archetypal shape functions:
+                        \[
+                            {}^1h_8(x,y)
+                            =
+                            {}^ah_2\big({}^1T^{-1}(x,y)\big)
+                            =
+                            {}^ah_2\big(\xi_1(x,y),\xi_2(x,y)\big)
+                        \]
+              \end{itemize}
+          \end{column}
+
+          \begin{column}{0.42\textwidth}
+              \centering
+              \vspace{0.4cm}
+              \begin{tikzpicture}[scale=1]
+                  % Draw the potato-like shape
+                  \shade [ball color=gray!90!black, opacity=.3]
+                  plot [thick,smooth cycle, tension=1]
+                  coordinates {(1,2) (2,3.2) (3,3) (3.3,2) (3.2,1) (2,1.3) (1,1)};
+
+                  \draw[ultra thick]
+                  plot [thick,smooth cycle, tension=1]
+                  coordinates {(1,2) (2,3.2) (3,3) (3.3,2) (3.2,1) (2,1.3) (1,1)};
+
+                  \draw[fill=darkred!30,thick,darkred!10] (2,2) -- (3,3) -- (2,3.2) -- cycle;
+
+                  % Label the nodes
+                  \node[below left] at (1,1) {$1$};
+                  \node[above left] at (1,2) {$2$};
+                  \node[below] at (2,1.3) {$3$};
+                  \node[above left] at (2,2) {$4$};
+                  \node[above] at (2,3.2) {$5$};
+                  \node[below right] at (3.2,1) {$6$};
+                  \node[right] at (3.3,2) {$7$};
+                  \node[above right] at (3,3) {$8$};
+                  \node at (2.3,2.7) {${}^1\Omega$};
+
+                  \draw[thick] (1,2) -- (2,3.2) -- (3,3) -- (3.3,2)
+                  -- (3.2,1) -- (2,1.3) -- (1,1) -- cycle;
+                  \draw[thick] (1,2) -- (2,2) -- (3,3) -- (3.3,2);
+                  \draw[thick] (2,1.3) -- (2,2) -- (3.3,2);
+                  \draw[thick] (1,1) -- (2,2) -- (2,2.3) -- (2,3.2);
+
+                  \node[darkred,draw,shape=circle,fill=darkred,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (2,2) {};
+                  \node[draw,shape=circle,fill=white,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (1,1) {};
+                  \node[draw,shape=circle,fill=white,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (1,2) {};
+                  \node[draw,shape=circle,fill=white,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (2,1.3) {};
+                  \node[darkred,draw,shape=circle,fill=darkred,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (2,3.2) {};
+                  \node[darkred,draw,shape=circle,fill=darkred,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (3,3) {};
+                  \node[draw,shape=circle,fill=white,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (3.2,1) {};
+                  \node[draw,shape=circle,fill=white,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (3.3,2) {};
+
+                  % Master triangle
+                  \draw[fill=darkred!30,thick,darkred!10]
+                  (-1.5,1.5) -- (-0.5,1.5) -- (-1.5,2.5) -- cycle;
+                  \draw[thick] (-1.5,1.5) -- (-0.5,1.5) -- (-1.5,2.5) -- cycle;
+                  \draw[ultra thin,-latex] (-1.8,1.5) -- (-0.2,1.5) node[right] {$\xi_1$};
+                  \draw[ultra thin,-latex] (-1.5,1.2) -- (-1.5,2.8) node[above] {$\xi_2$};
+
+                  \node[darkred,draw,shape=circle,fill=darkred,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (-1.5,1.5) {};
+                  \node[darkred,draw,shape=circle,fill=darkred,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (-0.5,1.5) {};
+                  \node[darkred,draw,shape=circle,fill=darkred,minimum size=2mm,
+                      line width=0.3mm,inner sep=0] at (-1.5,2.5) {};
+                  \node[darkred,above left] at (-1.5,1.5) {$1$};
+                  \node[darkred,above right] at (-0.5,1.5) {$2$};
+                  \node[darkred,above right] at (-1.5,2.5) {$3$};
+                  \node at (-1.2,1.8) {$\Omega^a$};
+                  \draw[thick,-latex] (-0.3,2) arc[start angle=120,end angle=95,radius=5]
+                  node[midway,above] {${}^1T$};
+              \end{tikzpicture}
+          \end{column}
+      \end{columns}
+
+      \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
           \begin{itemize}
-              \item[\HandRight] In general, the inverse transformations ${}^eT^{-1}:\big(\xi_1(x,y),\xi_2(x,y)\big)$ are not easy to compute since the expressions in $\mathbf x(\boldxi)$ are nonlinear.
-              \item[\HandRight] Although the local functions ${}^e h_j$ can have intricate expressions, their explicit computation is not required !
+              \item[\HandRight] In general, the inverse transformations
+                    ${}^eT^{-1}:\big(\xi_1(x,y),\xi_2(x,y)\big)$ are not easy to compute
+                    since the expressions in $\mathbf x(\boldsymbol{\xi})$ are nonlinear.
+              \item[\HandRight] Although the local functions ${}^e h_j$ can have
+                    intricate expressions, their explicit computation is not required!
           \end{itemize}
       \end{tcolorbox}
+
   \end{frame}
 
   \begin{frame}{\emph{Consequence 2}: integration over archetypal elements}
@@ -413,7 +502,7 @@
                 $$
                     {}^1\mathbf K = \int_{\Omega^a} \begin{bmatrix}
                         \dots &                                                                                                                                                      & \dots \\
-                              & \left(\boldsymbol{\nabla}_{\boldxi}{}^ah_i {}^1\mathbf J^{-1}\right)^T\mathbf C\left( \boldsymbol{\nabla}_{\boldxi}{}^ah_j {}^1\mathbf J^{-1}\right) &       \\
+                              & \left({}^1\mathbf J^{-1}\boldsymbol{\nabla}_{\boldxi}{}^ah_i \right)^T\mathbf C\left( {}^1\mathbf J^{-1}\boldsymbol{\nabla}_{\boldxi}{}^ah_j \right) &       \\
                         \dots &                                                                                                                                                      & \dots \\
                     \end{bmatrix} \, {}^1j \, d\xi_2d\xi_1
                 $$
@@ -933,6 +1022,7 @@
 \end{frame}
 
 \begin{frame}{Trilinear prismatic Lagrangian element}
+    \vspace{-0.2cm}
     \begin{columns}
         % Left Column
         \begin{column}{0.48\textwidth}
@@ -1139,7 +1229,7 @@
 \begin{frame}{Numerical integration over hexahedral solid elements}
     This allows us to compute the stiffness matrix, the mass matrix and the load vector numerically as:
     \begin{align*}
-        {}^e\mathbf K & \approx\sum_{i=1}^{r_1} \sum_{j=1}^{r_2} \sum_{k=1}^{r_3} \omega_i^1 \omega_j^2 \omega_k^3 \left[ (\boldsymbol{\nabla}_{\boldxi}{}^a\mathbf H {}^e\mathbf J^{-1})^T \mathbf C (\boldsymbol{\nabla}_{\boldxi} {}^a\mathbf H {}^e\mathbf J^{-1}) {}^e j \right]_{\xi_1=\xi_1^i, \xi_2=\xi_2^j, \xi_3=\xi_3^k}                                     \\[10pt]
+        {}^e\mathbf K & \approx\sum_{i=1}^{r_1} \sum_{j=1}^{r_2} \sum_{k=1}^{r_3} \omega_i^1 \omega_j^2 \omega_k^3 \left[ ( {}^e\mathbf J^{-1}\boldsymbol{\nabla}_{\boldxi}{}^a\mathbf H)^T \mathbf C ({}^e\mathbf J^{-1}\boldsymbol{\nabla}_{\boldxi} {}^a\mathbf H ) {}^e j \right]_{\xi_1=\xi_1^i, \xi_2=\xi_2^j, \xi_3=\xi_3^k}                                     \\[10pt]
         {}^e\mathbf M & \approx\sum_{i=1}^{r_1} \sum_{j=1}^{r_2} \sum_{k=1}^{r_3}  \omega_i^1 \omega_j^2 \omega_k^3 \left[  \rho\, {}^a\mathbf H^T{}^a\mathbf H \right]_{\xi_1=\xi_1^i, \xi_2=\xi_2^j, \xi_3=\xi_3^k}                                                                                                                                                   \\[10pt]
         {}^e\mathbf r & \approx\sum_{i=1}^{r_1} \sum_{j=1}^{r_2} \tilde\omega_i^1 \tilde\omega_j^2 \left[ {}^a\mathbf H^T\mathbf{\hat f} \right]_{\xi_1= \tilde\xi_1^i, \xi_2= \tilde\xi_2^j}+\sum_{i=1}^{r_1} \sum_{j=1}^{r_2} \sum_{k=1}^{r_3} \omega_i^1 \omega_j^2 \omega_k^3 \left[ {}^a\mathbf H^T\mathbf f \right]_{\xi_1=\xi_1^i, \xi_2=\xi_2^j, \xi_3=\xi_3^k}
     \end{align*}
@@ -1416,8 +1506,8 @@
                 \item Note that in case of distortion:
                       \begin{itemize}
                           \item Jacobian is a function of $\boldxi$ : ${}^ej={}^ej(\boldxi)$\vspace{0.2cm}
-                          \item ${}^e\mathbf J^{-1}={}^e\mathbf J^{-1}(\boldxi)$ function of $\boldxi$ at the denominator.
-                          \item $\frac{\partial {}^e\mathbf H}{\partial \bold x}=\frac{\partial {}^a\mathbf H}{\partial \bold \xi} {}^e\mathbf J^{-1}$ is not a polynomial function of $\boldxi$ anymore.
+                          \item ${}^e\mathbf J^{-1}={}^e\mathbf J^{-1}(\boldxi)$ function of $\boldxi$ at the denominator.\vspace{0.2cm}
+                          \item $\frac{\partial {}^e\mathbf H}{\partial \bold x}={}^e\mathbf J^{-1}\frac{\partial {}^a\mathbf H}{\partial \boldxi} $ is not a polynomial function of $\boldxi$ anymore.
                       \end{itemize}
             \end{itemize}
         \end{column}

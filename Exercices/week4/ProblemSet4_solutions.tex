@@ -121,7 +121,8 @@ connectivity{4} = [4; 5; 6];
 \end{verbatim}
 
 \subsubsection*{Compute elementary matrices and vectors}
-This code computes the Jacobian matrix, its inverse, and determinant for each element in a finite element model. Then it loops over all elements, calculating elementary thermal conductivity and heat capacity matrices and the heat source vector.
+This code computes the Jacobian matrix, its inverse, and determinant for each element in a finite element model. Then it loops over all elements, calculating elementary thermal conductivity and heat capacity matrices and the heat source vector. Symbolic integration is used here below to compute the elementary quantities : notice the use of the function $\mathrm{int\_over\_trg\_2D}$ to compute the integral over the archetype triangular 2d element. For a more efficient code one should use Gaussian quadrature, hence replace $\mathrm{int\_over\_trg\_2D}$ with $\mathrm{gaussian\_trg\_bilin}$. 
+
 \begin{verbatim}    
 % Compute Jacobian
 transf = cell(1, number_elements); 
@@ -151,11 +152,9 @@ r_elem = cell(1, number_elements);
 Ba = simplify([diff(Ha,xi1); diff(Ha,xi2)]);
     
 for e=1:number_elements
-    K_elem{e} = int(int(k * transpose(jac_inv{e}*Ba)*jac_inv{e}*Ba*jac_det{e},
-                    xi2,[0,1-xi1]),xi1,[0,1]);
-    M_elem{e} = int(int(rho * c * transpose(Ha) * Ha  * jac_det{e},
-                    xi2,[0,1-xi1]),xi1,[0,1]);
-    r_elem{e} = int(int(f0 * transpose(Ha) * jac_det{e},xi2,[0,1-xi1]),xi1,[0,1]);
+    K_elem{e} = int_over_trg_2D(k * transpose(jac_inv{e}*Ba)*jac_inv{e}*Ba*jac_det{e});
+    M_elem{e} = int_over_trg_2D(rho * c * transpose(Ha) * Ha  * jac_det{e});
+    r_elem{e} = int_over_trg_2D(f0 * transpose(Ha) * jac_det{e});
 end
 \end{verbatim}
 

@@ -1870,7 +1870,7 @@
           \]
     \item When the integrand involves the operator \( \boldsymbol{\nabla} \), then:
           \[
-            \int_{{}^e\Omega} \boldsymbol{\nabla}_{\mathbf{x}} F(\mathbf{x}) \, d\mathbf x = \int_{\Omega^a} \boldsymbol{\nabla}_{\boldsymbol{\xi}} F(\mathbf{x}(\boldsymbol{\xi})) {}^e\mathbf{J}^{-1} \, {}^e j \, d\boldxi
+            \int_{{}^e\Omega} \boldsymbol{\nabla}_{\mathbf{x}} F(\mathbf{x}) \, d\mathbf x = \int_{\Omega^a} {}^e\mathbf{J}^{-1}\boldsymbol{\nabla}_{\boldsymbol{\xi}} F(\mathbf{x}(\boldsymbol{\xi}))  \, {}^e j \, d\boldxi
           \]
           since
           \[
@@ -1891,7 +1891,7 @@
             {}^e\mathbf B =\left[\begin{array}{c;{2pt/2pt}c;{2pt/2pt}c}
                 \boldsymbol{\nabla}_{\mathbf x} {}^eh_1 & \dots & \boldsymbol{\nabla}_{\mathbf x} {}^eh_{{}^ep}
               \end{array} \right]= \left[\begin{array}{c;{2pt/2pt}c;{2pt/2pt}c}
-                \boldsymbol{\nabla}_{\boldxi} {}^ah_1{}^e\mathbf J^{-1} & \dots & \boldsymbol{\nabla}_{\boldxi} {}^ah_{{}^ep}{}^e\mathbf J^{-1}
+                {}^e\mathbf J^{-1}\boldsymbol{\nabla}_{\boldxi} {}^ah_1 & \dots & {}^e\mathbf J^{-1}\boldsymbol{\nabla}_{\boldxi} {}^ah_{{}^ep}
               \end{array} \right] .
           \]
   \end{itemize}
@@ -1900,7 +1900,7 @@
 \begin{frame}{Automating the integration}
   Using the coordinate transform ${}^eT$ and master shape functions, the integrals in the definitions of ${}^e\mathbf K$, ${}^e\mathbf M$ and ${}^e\mathbf r$, can be carried out directly on a standard domain $\Omega^a$:
   \begin{align*}
-    {}^e\mathbf K    & = \int_{\Omega^a}\left(  \boldsymbol{\nabla}_{\boldxi}{}^a\mathbf H {}^e{\color{darkred}\mathbf J^{-1}}\right)^T\mathbf C\left( \boldsymbol{\nabla}_{\boldxi}{}^a\mathbf H {}^e{\color{darkred}\mathbf J^{-1}}\right) \, {\color{darkred}{}^ej} \, d\boldxi \\[12pt]
+    {}^e\mathbf K    & = \int_{\Omega^a}\left( {}^e{\color{darkred}\mathbf J^{-1}} \boldsymbol{\nabla}_{\boldxi}{}^a\mathbf H \right)^T\mathbf C\left( {}^e{\color{darkred}\mathbf J^{-1}}\boldsymbol{\nabla}_{\boldxi}{}^a\mathbf H \right) \, {\color{darkred}{}^ej} \, d\boldxi \\[12pt]
     {}^e\mathbf M    & =\int_{\Omega^a} \rho\, {}^a\mathbf H^T{}^a\mathbf H \, {\color{darkred}{}^ej} \, d\boldxi                                                                                                                                                                  \\[12pt]
     {}^e\mathbf r(t) & =\int_{\Gamma_\sigma^a} {}^a\mathbf H^{T}\mathbf{\hat f} \,{\color{darkred}{}^ej\big|_{\Gamma_\sigma^a}}\, d\Gamma+\int_{\Omega^a} {}^a\mathbf H^{T}\mathbf f\,{\color{darkred}{}^ej}\, d\boldxi
   \end{align*}
