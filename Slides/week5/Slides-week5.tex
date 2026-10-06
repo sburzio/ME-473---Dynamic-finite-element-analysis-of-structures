@@ -26,15 +26,13 @@
         \hline
         \rowcolor{darkred!20}\textbf{Week} & \textbf{Module}                          & \textbf{Lecture topic}             & \textbf{Mini-projects} \\
         \hline
-
         1                                  & \multirow{5}{7em}{Linear elastodynamics} & Strong and weak forms              &                        \\ \cline{1-1} \cline{3-4}
-        2                                  &                                          & Galerkin method                    &                        \\ \cline{1-1} \cline{3-4}
-        3                                  &                                          & Finite element method              & Groups formation       \\ \cline{1-1} \cline{3-4}
-        4                                  &                                          & Systematization of the procedure   & Project 1 statement    \\
+        2                                  &                                          & Galerkin and FE methods            &                        \\ \cline{1-1} \cline{3-4}
+        3                                  &                                          & Systematisation of the procedure   & Groups formation       \\ \cline{1-1} \cline{3-4}
+        4                                  &                                          & 3d elements, numerical integration & Project 1 statement    \\
         \cline{1-1} \cline{3-4}
-        5                                  &                                          & 3d elements, numerical integration &                        \\
         \hline
-        6                                  & Special                                  & Bars and trusses                   &                        \\
+        5                                  & Special                                  & Bars and trusses                   &                        \\
                                            & structural                               &                                    &                        \\
                                            & elements                                 &                                    &                        \\
         \hline
@@ -49,9 +47,15 @@
       \item Recap weeks 1 to 4
       \item Eigenvalues and eigenvectors errors bounds
       \item Trusses in 2d
-      \item Matlab example of a 2d truss in free vibrations
+            \begin{itemize}
+              \item Illustrative example of a 2d truss structure
+              \item Matlab example of a 2d truss in free vibrations
+            \end{itemize}
       \item Trusses in 3d
-      \item Matlab example of a 3d truss in free vibrations
+            \begin{itemize}
+              \item Matlab example of a 3d truss in free vibrations
+              \item Ansys example of a transient analysis of a Basketball hoop frame
+            \end{itemize}
     \end{itemize}
     \vspace{.5cm}
 
@@ -65,7 +69,7 @@
   \end{frame}
 }
 
-\section{Recap weeks 1 to 4 \\ FEM for elastodynamics of solids}
+\section{\emph{Brief} recap of weeks 1 to 4 \\ FEM for elastodynamics of solids}
  {\setbeamercolor{background canvas}{bg=darkred!5}
   \setbeamercolor{block body}{bg=darkred!5,fg=black}
 
@@ -122,7 +126,7 @@
         };
         \node (pde) at (-2,5) {
           \begin{tcolorbox}[colframe=brown!50!black, colback=brown!10, coltitle=black, rounded corners, width=4.5cm]
-            \centering PDE: \\ $\nabla^T\mathbf C\nabla \mathbf u+\mathbf f=\rho\mathbf{\ddot{u}}$
+            \centering PDE: \\ $\boldsymbol\nabla^T\mathbf C\boldsymbol\nabla \mathbf u+\mathbf f=\rho\mathbf{\ddot{u}}$
           \end{tcolorbox}
         };
         \node (bc1) at (-2,3) {
@@ -132,7 +136,7 @@
         };
         \node (bc2) at (-2,1) {
           \begin{tcolorbox}[colframe=brown!50!black, colback=brown!10, coltitle=black, rounded corners,width=4.5cm]
-            \centering BC on $\Gamma_\sigma$: \\ $\mathbf N^T\mathbf  C\nabla\mathbf  u=\mathbf{\hat f}$
+            \centering BC on $\Gamma_\sigma$: \\ $\mathbf N^T\mathbf  C\boldsymbol\nabla\mathbf  u=\mathbf{\hat f}$
           \end{tcolorbox}
         };
 
@@ -148,7 +152,7 @@
         };
         \node (funcsp) at (8,2.5) {
           \begin{tcolorbox}[colframe=red!50!black, colback=red!10, coltitle=black, rounded corners,width=8.5cm]
-            \centering Displacement approximation: \\      $\mathbf u^{h}(\mathbf x,t)      =\mathbf H(\mathbf x)\mathbf q(t) = \sum_{i=1}^{p}h_{i}(\mathbf x)\mathbf q_{i}(t) $
+            \centering Displacement approximation: \\[3pt]      $\mathbf u^{h}(\mathbf x,t)      =\mathbf H(\mathbf x)\mathbf q(t) = \sum_{i=1}^{p}h_{i}(\mathbf x)\mathbf q_{i}(t) $
           \end{tcolorbox}
         };
         \node (ic2) at (8,-0.5) {
@@ -212,6 +216,132 @@
       \end{column}
     \end{columns}
   \end{frame}
+
+
+  \begin{frame}{Types of analysis}
+    \begin{columns}[T,onlytextwidth]
+      % ============================================================
+      % STATIC
+      % ============================================================
+      \begin{column}{0.31\textwidth}
+        \begin{block}{Static analysis}
+          \centering
+          \small
+          \emph{Constant loads}
+
+          \vspace{0.25cm}
+
+          Determines the structural deformation
+          $\mathbf q$ due to constant loads.
+        \end{block}
+      \end{column}
+
+      % ============================================================
+      % MODAL
+      % ============================================================
+      \begin{column}{0.31\textwidth}
+        \begin{block}{Modal analysis}
+          \centering
+          \small
+          \emph{Natural frequencies}
+
+          \vspace{0.25cm}
+
+          Studies the intrinsic dynamic properties of the structure.
+        \end{block}
+      \end{column}
+
+      % ============================================================
+      % TRANSIENT
+      % ============================================================
+      \begin{column}{0.31\textwidth}
+
+        \begin{block}{Transient analysis}
+          \centering
+          \small
+          \emph{Time-dependent loads}
+
+          \vspace{0.25cm}
+
+          Determines the structural response
+          $\mathbf q(t)$ to time-dependent excitations
+          $\mathbf r(t)$.
+        \end{block}
+      \end{column}
+    \end{columns}
+
+    \vspace{-0.5cm}
+
+    \begin{columns}[T,onlytextwidth]
+      % ============================================================
+      % STATIC
+      % ============================================================
+      \begin{column}{0.31\textwidth}
+        \begin{block}{}
+          \centering
+          \small
+          \[
+            \mathbf K\mathbf q=\mathbf r
+          \]
+          \vspace{-0.45cm}
+          \footnotesize
+          \begin{itemize}
+            \item No inertia effects
+            \item No time dependence
+            \item Equilibrium between internal and external forces
+          \end{itemize}
+        \end{block}
+      \end{column}
+
+      % ============================================================
+      % MODAL
+      % ============================================================
+      \begin{column}{0.31\textwidth}
+        \begin{block}{}
+          \centering
+          \small
+          \[
+            \mathbf M\ddot{\mathbf q}(t)
+            +
+            \mathbf K\mathbf q(t)
+            =
+            \mathbf 0
+          \]
+          \vspace{-0.45cm}
+          \footnotesize
+          \begin{itemize}
+            \item No external excitation
+            \item Resonance when excitation frequency $\approx$ natural frequency
+          \end{itemize}
+        \end{block}
+      \end{column}
+
+      % ============================================================
+      % TRANSIENT
+      % ============================================================
+      \begin{column}{0.31\textwidth}
+
+        \begin{block}{}
+          \centering
+          \small
+          \[
+            \mathbf M\ddot{\mathbf q}(t)
+            +
+            \mathbf K\mathbf q(t)
+            =
+            \mathbf r(t)
+          \]
+          \vspace{-0.45cm}
+          \footnotesize
+          \begin{itemize}
+            \item Inertia effects included
+            \item Response evolves in time
+            \item Used for impacts, vibrations and dynamic loading
+          \end{itemize}
+        \end{block}
+      \end{column}
+    \end{columns}
+  \end{frame}
  }
 
 \section{Eigenvalues and eigenvectors errors bounds}
@@ -232,7 +362,7 @@
     \item \( h \) represents the characteristic mesh size,
     \item \( m \) is the degree of the highest complete polynomial used,
     \item \( k \) is the the highest derivative order appearing in the weak form,
-    \item \( c \) is a constant independent of \( h \),
+    \item \( c \) is a constant independent of \( h \).
   \end{itemize}
 \end{frame}
 
@@ -402,26 +532,28 @@
 \section{Trusses in 2d}
 
 \begin{frame}{What is a truss structure?}
-  \textbf{Plane truss}
-  \begin{itemize}
-    \item Structure composed of \emph{oriented bar (rod) elements} that all lies in a common plane and are connected by \emph{frictionless pins}.
-    \item Loads are acting only in the common plane and they must be applied at the nodes or joints.
-    \item Very common type of structures used in steel buildings, bridges, towers, etc...
-  \end{itemize}
-  \begin{center}
-    \begin{multicols}{2}
-      \includegraphics[height=2.3cm]{../images/truss}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \textbf{Plane truss}
+      \small
+      \begin{itemize}
+        \item A structure composed of oriented bar (rod) elements that lie in a common plane and are connected by frictionless pins.
+        \item Loads act only in the common plane and are applied at the nodes or joints.
+        \item Trusses are commonly used in steel buildings, bridges, towers, and other structures.
+      \end{itemize}
 
-      \includegraphics[height=2.3cm]{../images/truss1}
-    \end{multicols}
-  \end{center}
-\end{frame}
+      \vspace{0.3em}
+      \centering
+      \includegraphics[height=2cm]{../images/truss}\hspace{0.5em}
+      \includegraphics[height=2cm]{../images/truss1}
+    \end{column}
 
-\begin{frame}{Examples of 2d trusses}
-  \centering
-  \vfill
-  \includegraphics[height=7cm]{../images/truss3}
-  \vfill
+    \begin{column}{0.42\textwidth}
+      \centering
+      \vspace{0.5cm}
+      \includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{../images/truss3}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Kinematic assumptions}
@@ -489,9 +621,9 @@
     \column{0.4\textwidth}
     {\tiny \begin{itemize}
         \item $A$ cross-sectional area
+        \item $\ell$ length
         \item $E$ Young's modulus (isotropic bar)
         \item $\rho$ material density
-        \item $\ell$ length
         \item $u$ axial displacement
         \item $x^\prime$ (local) axial coordinate
       \end{itemize}}
@@ -510,7 +642,7 @@
               \dot{u}(x^\prime, 0) = v_0(x^\prime) \\
             \end{cases}$$
     \item Semi-discrete weak form:
-          \[\bolddelta\mathbf{q}_{loc}^T\big(\mathbf{M}_{loc} \ddot{\mathbf{q}}_{loc}(t) + \mathbf{K}_{loc} \mathbf{q}_{loc}(t) - \mathbf{f}_{loc}(t)\big)=0 \]
+          \[\bolddelta\mathbf{q}_{loc}^T\big[\mathbf{M}_{loc} \ddot{\mathbf{q}}_{loc}(t) + \mathbf{K}_{loc} \mathbf{q}_{loc}(t) - \mathbf{f}_{loc}(t)\big]=0 \]
   \end{itemize}
 \end{frame}
 
@@ -577,8 +709,8 @@
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
-      \item Displacement vector in local coordinates:\vspace{-0.3cm}  $$\mathbf{q}_{loc} = [q_1, q_2]^T.$$
-      \item Displacement vector in global coordinates:\vspace{-0.3cm} $$\mathbf q = [q_{1x},q_{1y},q_{2x},q_{2y}]^T.$$
+      \item Displacement vector in local coordinates:\vspace{-0.3cm}  $${\color{orange}\mathbf{q}_{loc}}= [q_1, q_2]^T.$$
+      \item Displacement vector in global coordinates:\vspace{-0.3cm} $${\color{darkred}\mathbf q}= [q_{1x},q_{1y},q_{2x},q_{2y}]^T.$$
     \end{itemize}
     \column{0.5\textwidth}
     \begin{center}
@@ -670,7 +802,7 @@
 \setbeamercolor{itemize item}{fg=white}
 \setbeamercolor{itemize/enumerate body}{fg=white}
 \color{white}
-\begin{frame}{Elementary stiffness and consistent mass matrices in global coordinates}
+\begin{frame}{Element stiffness and consistent mass matrices in global coordinates}
   \begin{itemize}
     \item Element stiffness matrix in global coordinates:
           \begin{align*}
@@ -751,8 +883,8 @@
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
-      \item Nodal force vector in local coordinates:\vspace{-0.3cm}$$\mathbf{f}_{loc} = [f_{1}, f_{2}]^T.$$
-      \item Nodal force vector in global coordinates:\vspace{-0.3cm} $$\mathbf{f} = [f_{1x}, f_{1y}, f_{2x}, f_{2y}]^T.$$
+      \item Nodal force vector in local coordinates:\vspace{-0.3cm}$${\color{orange}\mathbf{f}_{loc}} = [f_{1}, f_{2}]^T.$$
+      \item Nodal force vector in global coordinates:\vspace{-0.3cm} $${\color{darkred}\mathbf{f}} = [f_{1x}, f_{1y}, f_{2x}, f_{2y}]^T.$$
     \end{itemize}
     \column{0.5\textwidth}
     \begin{center}
@@ -873,6 +1005,98 @@
           \]
     \item Apply constraints by removing or modifying rows and columns corresponding to constrained DOFs.
   \end{itemize}
+  \begin{columns}[T,onlytextwidth]
+    % Pin and roller
+    \begin{column}{0.33\textwidth}
+      \centering
+      \textbf{Pin--roller}
+
+      \begin{tikzpicture}[scale=0.75, every node/.style={font=\scriptsize}]
+        \coordinate (1) at (0,0);
+        \coordinate (2) at (2,0);
+        \coordinate (3) at (1,1.3);
+
+        \point{a}{0}{0};
+        \point{b}{1.5}{0};
+        \support{1}{a}[0];
+        \support{2}{b}[0];
+
+        \draw[ultra thick] (1)--(2)--(3)--cycle;
+        \foreach \p in {1,2,3}
+        \draw[thick,fill=white] (\p) circle (3pt);
+
+        \node[above left,darkred] at (1) {1};
+        \node[above right,darkred] at (2) {2};
+        \node[above,darkred] at (3) {3};
+
+        \draw[-latex,thin,darkred] (1) -- ++(0.7,0);
+        \draw[-latex,thin,darkred] (1) -- ++(0,0.7);
+        \draw[-latex,thin,darkred] (2) -- ++(0,0.7);
+      \end{tikzpicture}
+
+      \scriptsize Pin: $q_{1x}=q_{1y}=0$; \\ roller: $q_{2y}=0$.
+    \end{column}
+
+    % Two pinned supports
+    \begin{column}{0.33\textwidth}
+      \centering
+      \textbf{Pin-pin}
+
+      \begin{tikzpicture}[scale=0.75, every node/.style={font=\scriptsize}]
+        \coordinate (1) at (0,0);
+        \coordinate (2) at (2,0);
+        \coordinate (3) at (1,1.3);
+
+        \point{a}{0}{0};
+        \point{b}{1.5}{0};
+        \support{1}{a}[0];
+        \support{1}{b}[0];
+
+        \draw[ultra thick] (1)--(2)--(3)--cycle;
+        \foreach \p in {1,2,3}
+        \draw[thick,fill=white] (\p) circle (3pt);
+
+        \node[above left,darkred] at (1) {1};
+        \node[above right,darkred] at (2) {2};
+        \node[above,darkred] at (3) {3};
+
+        \draw[-latex,thin,darkred] (1) -- ++(0.7,0);
+        \draw[-latex,thin,darkred] (1) -- ++(0,0.7);
+        \draw[-latex,thin,darkred] (2) -- ++(0,0.7);
+        \draw[-latex,thin,darkred] (2) -- ++(0.7,0);
+      \end{tikzpicture}
+
+      \scriptsize Pin: $q_{1x}=q_{1y}=0$; \\ Pin: $q_{2x}=q_{2y}=0$.
+    \end{column}
+
+    % Cantilever
+    \begin{column}{0.33\textwidth}
+      \centering
+      \textbf{Pin-free}
+
+      \begin{tikzpicture}[scale=0.75, every node/.style={font=\scriptsize}]
+        \coordinate (1) at (0,0);
+        \coordinate (2) at (2,0);
+        \coordinate (3) at (1,1.3);
+
+        \point{a}{0}{0};
+        \support{1}{a}[0];
+
+        \draw[ultra thick] (1)--(2)--(3)--cycle;
+        \foreach \p in {1,2,3}
+        \draw[thick,fill=white] (\p) circle (3pt);
+
+        \node[above left,darkred] at (1) {1};
+        \node[above right,darkred] at (2) {2};
+        \node[above,darkred] at (3) {3};
+
+        \draw[-latex,thin,darkred] (1) -- ++(0.7,0);
+        \draw[-latex,thin,darkred] (1) -- ++(0,0.7);
+      \end{tikzpicture}
+
+      \scriptsize Pin: $q_{1x}=q_{1y}=0$.
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Modal analysis}
@@ -929,7 +1153,9 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Illustrative example - problem description}
+\section{Illustrative example of a 2d truss structure}
+
+\begin{frame}{Problem description}
   \begin{columns}
     \begin{column}{.45\textwidth}
       \includegraphics[width=6.5cm]{../images/trussExample.png}
@@ -960,19 +1186,40 @@
   \noindent{\tiny\emph{Credit: Ferreira and Fantuzzi, MATLAB Codes for Finite Element Analysis}}
 \end{frame}
 
-\begin{frame}{Illustrative example - element stiffness matrices}
-  \small \begin{align*}
-    {}^1\mathbf{K} & = {}^1\mathbf T^T \mathbf{K}_{loc} {}^1\mathbf T                                                                                                                 \\
-                   & =\frac{EA}{{}^1\ell} \begin{bmatrix}
-                                            \cos(90^\circ) & 0              \\
-                                            \sin(90^\circ) & 0              \\
-                                            0              & \cos(90^\circ) \\
-                                            0              & \sin(90^\circ)
-                                          \end{bmatrix} \begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} \begin{bmatrix}
-                                                                                                         \cos(90^\circ) & \sin(90^\circ) & 0              & 0              \\
-                                                                                                         0              & 0              & \cos(90^\circ) & \sin(90^\circ)\end{bmatrix} \\
-                   & = \frac{78500}{3} \begin{bmatrix} 0 & 0 & 0 & 0 \\  0 & 1 & 0 & -1 \\ 0 & 0 & 0 & 0 \\ 0& -1 & 0 & 1 \end{bmatrix}
-  \end{align*}
+\begin{frame}{Element matrices in global coordinates}
+  \vspace{-0.7cm}
+  \begin{itemize}
+    \item     \small\textbf{Element stiffness matrices}
+  \end{itemize}
+  \vspace{0.1cm}
+  {\centering
+  \resizebox{\textwidth}{!}{$\displaystyle
+    {}^1\mathbf{K}
+    = {}^1\mathbf{T}^{T}\mathbf{K}_{\mathrm{loc}}{}^1\mathbf{T}
+    = \frac{EA}{{}^1\ell}
+    \begin{bmatrix}
+      \cos(90^\circ) & 0              \\
+      \sin(90^\circ) & 0              \\
+      0              & \cos(90^\circ) \\
+      0              & \sin(90^\circ)
+    \end{bmatrix}
+    \begin{bmatrix}
+      1  & -1 \\
+      -1 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+      \cos(90^\circ) & \sin(90^\circ) & 0              & 0              \\
+      0              & 0              & \cos(90^\circ) & \sin(90^\circ)
+    \end{bmatrix}
+    = \frac{78500}{3}
+    \begin{bmatrix}
+      0 & 0  & 0 & 0  \\
+      0 & 1  & 0 & -1 \\
+      0 & 0  & 0 & 0  \\
+      0 & -1 & 0 & 1
+    \end{bmatrix}
+  $}
+  }
   By analogy:
   $${}^2\mathbf{K} =
     \frac{78500}{6\sqrt{2}}
@@ -990,95 +1237,83 @@
       0  & 0 & 0  & 0
     \end{bmatrix}
   $$
+  \vspace{-0.3cm}
+  \begin{itemize}
+    \item     \small\textbf{Element consistent mass matrices}
+  \end{itemize}
+  \vspace{0.1cm}
+  {\centering
+    \resizebox{\textwidth}{!}{${}^1\mathbf{M} = \frac{28417}{10}
+        \begin{bmatrix}
+          0 & 0 & 0 & 0 \\
+          0 & 2 & 0 & 1 \\
+          0 & 0 & 0 & 0 \\
+          0 & 1 & 0 & 2
+        \end{bmatrix}
+        \qquad
+        {}^2\mathbf{M} =
+        \frac{28417}{20}\sqrt{2}
+        \begin{bmatrix}
+          2 & 2 & 1 & 1 \\
+          2 & 2 & 1 & 1 \\
+          1 & 1 & 2 & 2 \\
+          1 & 1 & 2 & 2
+        \end{bmatrix}
+        \qquad
+        {}^3\mathbf{M} =
+        \frac{28417}{10}
+        \begin{bmatrix}
+          2 & 0 & 1 & 0 \\
+          0 & 0 & 0 & 0 \\
+          1 & 0 & 2 & 0 \\
+          0 & 0 & 0 & 0
+        \end{bmatrix}
+      $}}
 \end{frame}
 
+\begin{frame}{Assembly of the global stiffness and consistent mass matrices}
+  \centering
+  \scriptsize
 
-\begin{frame}{Illustrative example - element consistent mass matrices}
-  \small \begin{align*}
-    {}^1\mathbf{M} & = {}^1\mathbf T^T \mathbf{M}_{loc} {}^1\mathbf T                                                                                                                     \\
-                   & =\frac{\rho A{}^1\ell}{6} \begin{bmatrix}
-                                                 \cos(90^\circ) & 0              \\
-                                                 \sin(90^\circ) & 0              \\
-                                                 0              & \cos(90^\circ) \\
-                                                 0              & \sin(90^\circ)
-                                               \end{bmatrix} \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}  \begin{bmatrix}
-                                                                                                             \cos(90^\circ) & \sin(90^\circ) & 0              & 0              \\
-                                                                                                             0              & 0              & \cos(90^\circ) & \sin(90^\circ)\end{bmatrix} \\
-                   & = \frac{28417}{10}
-    \begin{bmatrix}
-      0 & 0 & 0 & 0 \\
-      0 & 2 & 0 & 1 \\
-      0 & 0 & 0 & 0 \\
-      0 & 1 & 0 & 2
-    \end{bmatrix}
-  \end{align*}
-  By analogy:
-  $${}^2\mathbf{M} =
-    \frac{28417}{20}\sqrt{2}
-    \begin{bmatrix}
-      2 & 2 & 1 & 1 \\
-      2 & 2 & 1 & 1 \\
-      1 & 1 & 2 & 2 \\
-      1 & 1 & 2 & 2
-    \end{bmatrix}
-    \qquad {}^3\mathbf{M} =
-    \frac{28417}{10}
-    \begin{bmatrix}
-      2 & 0 & 1 & 0 \\
-      0 & 0 & 0 & 0 \\
-      1 & 0 & 2 & 0 \\
-      0 & 0 & 0 & 0
-    \end{bmatrix}
-  $$
+  \begin{tabular}{c|c|c|c}
+    Local index & {\color{darkred}bar 1} & {\color{orange}bar 2} & {\color{brown}bar 3} \\
+    \hline
+    1           & {\color{darkred}1}     & {\color{orange}1}     & {\color{brown}1}     \\
+    2           & {\color{darkred}2}     & {\color{orange}3}     & {\color{brown}4}
+  \end{tabular}
+
+  \vspace{0.5cm}
+  \textbf{Global stiffness matrix : }
+  \resizebox{8cm}{!}{$\displaystyle
+      \mathbf K=\frac{78500}{6}\begin{bmatrix}
+        {\color{brown}2}+{\color{orange}1/\sqrt 2} & {\color{orange}1/\sqrt 2}                    & 0 & 0                   & {\color{orange}-1/\sqrt 2} & {\color{orange}-1/\sqrt 2} & {\color{brown}-2} & 0 \\
+        {\color{orange}1/\sqrt 2}                  & {\color{darkred}2}+{\color{orange}1/\sqrt 2} & 0 & {\color{darkred}-2} & {\color{orange}-1/\sqrt 2} & {\color{orange}-1/\sqrt 2} & 0                 & 0 \\
+        0                                          & 0                                            & 0 & 0                   & 0                          & 0                          & 0                 & 0 \\
+        0                                          & {\color{darkred}-2}                          & 0 & {\color{darkred}2}  & 0                          & 0                          & 0                 & 0 \\
+        {\color{orange}-1/\sqrt 2}                 & {\color{orange}-1/\sqrt 2}                   & 0 & 0                   & {\color{orange}1/\sqrt 2}  & {\color{orange}1/\sqrt 2}  & 0                 & 0 \\
+        {\color{orange}-1/\sqrt 2}                 & {\color{orange}-1/\sqrt 2}                   & 0 & 0                   & {\color{orange}1/\sqrt 2}  & {\color{orange}1/\sqrt 2}  & 0                 & 0 \\
+        {\color{brown}-2}                          & 0                                            & 0 & 0                   & 0                          & 0                          & {\color{brown}2}  & 0 \\
+        0                                          & 0                                            & 0 & 0                   & 0                          & 0                          & 0                 & 0
+      \end{bmatrix}
+    $}
+
+  \vspace{0.5cm}
+  \textbf{Global mass matrix : }
+  \resizebox{8cm}{!}{$\displaystyle
+      \mathbf M=\frac{28417}{20}\begin{bmatrix}
+        {\color{brown}4}+{\color{orange}2\sqrt 2} & {\color{orange}2\sqrt 2}                    & 0 & 0                  & {\color{orange}\sqrt 2}  & {\color{orange}\sqrt 2}  & {\color{brown}2} & 0 \\
+        {\color{orange}2\sqrt 2}                  & {\color{darkred}4}+{\color{orange}2\sqrt 2} & 0 & {\color{darkred}2} & {\color{orange}\sqrt 2}  & {\color{orange}\sqrt 2}  & 0                & 0 \\
+        0                                         & 0                                           & 0 & 0                  & 0                        & 0                        & 0                & 0 \\
+        0                                         & {\color{darkred}2}                          & 0 & {\color{darkred}4} & 0                        & 0                        & 0                & 0 \\
+        {\color{orange}-\sqrt 2}                  & {\color{orange}-\sqrt 2}                    & 0 & 0                  & {\color{orange}2\sqrt 2} & {\color{orange}2\sqrt 2} & 0                & 0 \\
+        {\color{orange}\sqrt 2}                   & {\color{orange}\sqrt 2}                     & 0 & 0                  & {\color{orange}2\sqrt 2} & {\color{orange}2\sqrt 2} & 0                & 0 \\
+        {\color{brown}2}                          & 0                                           & 0 & 0                  & 0                        & 0                        & {\color{brown}4} & 0 \\
+        0                                         & 0                                           & 0 & 0                  & 0                        & 0                        & 0                & 0
+      \end{bmatrix}
+    $}
 \end{frame}
 
-\begin{frame}{Illustrative example - assembly of the global stiffness matrix}
-  \begin{center}
-    \begin{tabular}{c|c|c|c}
-      Local index & {\color{darkred}bar 1} & {\color{orange}bar 2} & {\color{brown}bar 3} \\
-      \hline
-      1           & {\color{darkred}1}     & {\color{orange}1}     & {\color{brown}1}     \\
-      2           & {\color{darkred}2}     & {\color{orange}3}     & {\color{brown}4}     \\
-    \end{tabular}
-  \end{center}
-  \vspace{0.4cm}
-
-  $$\mathbf K=\frac{78500}{6}\begin{bmatrix}
-      {\color{brown}2}+{\color{orange}1/\sqrt 2} & {\color{orange}1/\sqrt 2}                    & 0 & 0                   & {\color{orange}-1/\sqrt 2} & {\color{orange}-1/\sqrt 2} & {\color{brown}-2} & 0 \\
-      {\color{orange}1/\sqrt 2}                  & {\color{darkred}2}+{\color{orange}1/\sqrt 2} & 0 & {\color{darkred}-2} & {\color{orange}-1/\sqrt 2} & {\color{orange}-1/\sqrt 2} & 0                 & 0 \\
-      0                                          & 0                                            & 0 & 0                   & 0                          & 0                          & 0                 & 0 \\
-      0                                          & {\color{darkred}-2}                          & 0 & {\color{darkred}2}  & 0                          & 0                          & 0                 & 0 \\
-      {\color{orange}-1/\sqrt 2}                 & {\color{orange}-1/\sqrt 2}                   & 0 & 0                   & {\color{orange}1/\sqrt 2}  & {\color{orange}1/\sqrt 2}  & 0                 & 0 \\
-      {\color{orange}-1/\sqrt 2}                 & {\color{orange}-1/\sqrt 2}                   & 0 & 0                   & {\color{orange}1/\sqrt 2}  & {\color{orange}1/\sqrt 2}  & 0                 & 0 \\
-      {\color{brown}-2}                          & 0                                            & 0 & 0                   & 0                          & 0                          & {\color{brown}2}  & 0 \\
-      0                                          & 0                                            & 0 & 0                   & 0                          & 0                          & 0                 & 0 \\
-    \end{bmatrix}$$
-\end{frame}
-
-\begin{frame}{Illustrative example - assembly of the global mass matrix}
-  \begin{center}
-    \begin{tabular}{c|c|c|c}
-      Local index & {\color{darkred}bar 1} & {\color{orange}bar 2} & {\color{brown}bar 3} \\
-      \hline
-      1           & {\color{darkred}1}     & {\color{orange}1}     & {\color{brown}1}     \\
-      2           & {\color{darkred}2}     & {\color{orange}3}     & {\color{brown}4}     \\
-    \end{tabular}
-  \end{center}
-  \vspace{0.4cm}
-
-  $$\mathbf M=\frac{28417}{20}\begin{bmatrix}
-      {\color{brown}4}+{\color{orange}2\sqrt 2} & {\color{orange}2\sqrt 2}                    & 0 & 0                  & {\color{orange}\sqrt 2}  & {\color{orange}\sqrt 2}  & {\color{brown}2} & 0 \\
-      {\color{orange}2\sqrt 2}                  & {\color{darkred}4}+{\color{orange}2\sqrt 2} & 0 & {\color{darkred}2} & {\color{orange}\sqrt 2}  & {\color{orange}\sqrt 2}  & 0                & 0 \\
-      0                                         & 0                                           & 0 & 0                  & 0                        & 0                        & 0                & 0 \\
-      0                                         & {\color{darkred}2}                          & 0 & {\color{darkred}4} & 0                        & 0                        & 0                & 0 \\
-      {\color{orange}-\sqrt 2}                  & {\color{orange}-\sqrt 2}                    & 0 & 0                  & {\color{orange}2\sqrt 2} & {\color{orange}2\sqrt 2} & 0                & 0 \\
-      {\color{orange}\sqrt 2}                   & {\color{orange}\sqrt 2}                     & 0 & 0                  & {\color{orange}2\sqrt 2} & {\color{orange}2\sqrt 2} & 0                & 0 \\
-      {\color{brown}2}                          & 0                                           & 0 & 0                  & 0                        & 0                        & {\color{brown}4} & 0 \\
-      0                                         & 0                                           & 0 & 0                  & 0                        & 0                        & 0                & 0 \\
-    \end{bmatrix}$$
-\end{frame}
-
-\begin{frame}{Illustrative example - applied loads and boundary conditions}
+\begin{frame}{Applied loads and boundary conditions}
   \begin{columns}
     \begin{column}{.35\textwidth}
       \includegraphics[width=4.5cm]{../images/trussExample.png}
@@ -1096,11 +1331,11 @@
         \end{bmatrix}$$
     \end{column}
   \end{columns}
-  \vspace{1cm}
-  \noindent{\tiny\emph{Credit: Ferreira and Fantuzzi, MATLAB Codes for Finite Element Analysis}}
-\end{frame}
-
-\begin{frame}{Example - equations of motions for free nodes}
+  \vspace{0.3cm}
+  \begin{itemize}
+    \item The free DOFs are $q_{1x}$ and $q_{1y}$.
+  \end{itemize}
+  The equations of motions for free nodes are given by :
   $${\frac{28417}{20}}\begin{bmatrix}
       4+2\sqrt{2} & 2\sqrt{2} \\
       2\sqrt{2} 4+2\sqrt{2}
@@ -1114,6 +1349,8 @@
     \end{bmatrix}=\begin{bmatrix}
       0 \\ -10000
     \end{bmatrix}$$
+
+  \noindent{\tiny\emph{Credit: Ferreira and Fantuzzi, MATLAB Codes for Finite Element Analysis}}
 \end{frame}
 
 \begin{frame}{An example of a 2d truss in free vibration}
@@ -1127,8 +1364,8 @@
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
-      \item Displacements in local coord. does not change w.r.t the one in 2d:   $$\mathbf{q}_{loc} = [q_1, q_2]^T.$$
-      \item Displacements in global coordinates projected from nodes 1 and 2 have now 6 components: $$\mathbf q = [q_{1x},q_{1y},q_{1z},q_{2x},q_{2y},q_{2z}]^T.$$
+      \item Displacements in local coord. does not change w.r.t the one in 2d:   $${\color{orange}\mathbf{q}_{loc}} = [q_1, q_2]^T.$$
+      \item Displacements in global coordinates projected from nodes 1 and 2 have now 6 components: $${\color{darkred}\mathbf q} = [q_{1x},q_{1y},q_{1z},q_{2x},q_{2y},q_{2z}]^T.$$
     \end{itemize}
     \column{0.5\textwidth}
     \begin{center}

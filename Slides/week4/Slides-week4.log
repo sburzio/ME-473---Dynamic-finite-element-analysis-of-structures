@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  5 OCT 2026 09:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  5 OCT 2026 12:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1203,7 +1203,7 @@ Overfull \hbox (18.89723pt too wide) in paragraph at lines 37--37
 ] [5
 
 ]
-Overfull \hbox (6.59325pt too wide) in paragraph at lines 142--142
+Overfull \hbox (6.59325pt too wide) in paragraph at lines 148--148
  [] 
  []
 
@@ -1212,37 +1212,37 @@ Overfull \hbox (6.59325pt too wide) in paragraph at lines 142--142
 ] [7
 
 ]
-LaTeX Font Info:    Trying to load font information for U+ding on input line 233.
+LaTeX Font Info:    Trying to load font information for U+ding on input line 239.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/bbding/Uding.fd
 File: Uding.fd 1996/02/01 v1.0 BBding font definitions
 ) [8
 
 ]
-Overfull \hbox (7.06645pt too wide) in paragraph at lines 269--269
+Overfull \hbox (7.06645pt too wide) in paragraph at lines 275--275
  []\OT1/cmr/bx/n/10.95 Transformations 
  []
 
 [9
 
 ]
-Overfull \hbox (9.42712pt too wide) in paragraph at lines 342--342
+Overfull \hbox (9.42712pt too wide) in paragraph at lines 348--348
 [][] 
  []
 
 
-Overfull \hbox (11.72089pt too wide) in paragraph at lines 342--342
+Overfull \hbox (11.72089pt too wide) in paragraph at lines 348--348
 [][]  
  []
 
 [10
 
 ]
-Overfull \hbox (45.65422pt too wide) detected at line 448
+Overfull \hbox (45.65422pt too wide) detected at line 454
 [][]\OML/cmm/m/it/10.95 h[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x; y\OT1/cmr/m/n/10.95 ) = [][]\OML/cmm/m/it/10.95 h[][][][]T[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x; y\OT1/cmr/m/n/10.95 )[] = [][]\OML/cmm/m/it/10.95 h[][]^^X[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x; y\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 ; ^^X[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x; y\OT1/cmr/m/n/10.95 )[]
  []
 
 
-Overfull \vbox (6.40974pt too high) detected at line 448
+Overfull \vbox (6.40974pt too high) detected at line 454
  []
 
 [11
@@ -1260,7 +1260,7 @@ Overfull \vbox (6.40974pt too high) detected at line 448
 ] [17
 
 ]
-Overfull \hbox (15.04834pt too wide) in paragraph at lines 592--592
+Overfull \hbox (15.04834pt too wide) in paragraph at lines 598--598
  [] 
  []
 
@@ -1269,7 +1269,7 @@ Overfull \hbox (15.04834pt too wide) in paragraph at lines 592--592
 ] [19
 
 ]
-Overfull \hbox (3.96724pt too wide) in paragraph at lines 672--672
+Overfull \hbox (3.96724pt too wide) in paragraph at lines 678--678
 [][]  
  []
 
@@ -1280,28 +1280,28 @@ Overfull \hbox (3.96724pt too wide) in paragraph at lines 672--672
 ] [22
 
 ]
-Overfull \hbox (5.87067pt too wide) in paragraph at lines 901--901
+Overfull \hbox (5.87067pt too wide) in paragraph at lines 907--907
 [][]  
  []
 
 [23
 
 ]
-Overfull \hbox (5.87067pt too wide) in paragraph at lines 963--963
+Overfull \hbox (5.87067pt too wide) in paragraph at lines 969--969
 [][]  
  []
 
 [24
 
 ]
-Overfull \hbox (5.87067pt too wide) in paragraph at lines 1022--1022
+Overfull \hbox (5.87067pt too wide) in paragraph at lines 1028--1028
 [][]  
  []
 
 [25
 
 ]
-Overfull \vbox (3.42212pt too high) detected at line 1086
+Overfull \vbox (3.42212pt too high) detected at line 1092
  []
 
 [26
@@ -1320,28 +1320,28 @@ Overfull \vbox (3.42212pt too high) detected at line 1086
 <../images/gaussPoint1.png, id=311, 536.0025pt x 406.51875pt>
 File: ../images/gaussPoint1.png Graphic file (type png)
 <use ../images/gaussPoint1.png>
-Package pdftex.def Info: ../images/gaussPoint1.png  used on input line 1374.
+Package pdftex.def Info: ../images/gaussPoint1.png  used on input line 1380.
 (pdftex.def)             Requested size: 187.57097pt x 142.26378pt.
 <../images/gaussPoint2.png, id=313, 555.07375pt x 569.12625pt>
 File: ../images/gaussPoint2.png Graphic file (type png)
 <use ../images/gaussPoint2.png>
-Package pdftex.def Info: ../images/gaussPoint2.png  used on input line 1374.
+Package pdftex.def Info: ../images/gaussPoint2.png  used on input line 1380.
 (pdftex.def)             Requested size: 138.75114pt x 142.26378pt.
  [32
 
  <../images/gaussPoint1.png> <../images/gaussPoint2.png>]
-Overfull \vbox (1.53621pt too high) detected at line 1404
+Overfull \vbox (1.53621pt too high) detected at line 1410
  []
 
 [33
 
 ]
-Overfull \hbox (15.83502pt too wide) in paragraph at lines 1444--1444
+Overfull \hbox (15.83502pt too wide) in paragraph at lines 1450--1450
 [][]  
  []
 
 
-Overfull \vbox (1.53621pt too high) detected at line 1444
+Overfull \vbox (1.53621pt too high) detected at line 1450
  []
 
 [34
@@ -1350,7 +1350,7 @@ Overfull \vbox (1.53621pt too high) detected at line 1444
 
 ]
 
-Package amsfonts Warning: Obsolete command \bold; \mathbf should be used instead on input line 1562.
+Package amsfonts Warning: Obsolete command \bold; \mathbf should be used instead on input line 1568.
 
 [36
 
@@ -1371,7 +1371,7 @@ Package amsfonts Warning: Obsolete command \bold; \mathbf should be used instead
 ] [44
 
 ]
-Overfull \hbox (18.68262pt too wide) in paragraph at lines 1744--1744
+Overfull \hbox (18.68262pt too wide) in paragraph at lines 1750--1750
 [][]  
  []
 
@@ -1404,7 +1404,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  128i,20n,134p,894b,1259s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Slides-week4.pdf (45 pages, 652109 bytes).
+Output written on Slides-week4.pdf (45 pages, 652183 bytes).
 PDF statistics:
  574 PDF objects out of 1000 (max. 8388607)
  412 compressed objects within 5 object streams

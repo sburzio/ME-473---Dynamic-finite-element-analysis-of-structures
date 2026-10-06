@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  29 SEP 2026 11:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  6 OCT 2026 16:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/burzio/Documents/EPFL/Genie mecanique/ME-473 - Dynamic finite element analysis of structures/Slides/week6/Slides-week6.tex"
-(/Users/burzio/Documents/EPFL/Genie mecanique/ME-473 - Dynamic finite element analysis of structures/Slides/week6/Slides-week6.tex
+**"/Users/burzio/Documents/EPFL/Genie mecanique/ME-473 - Dynamic finite element analysis of structures/Slides/week5/Slides-week5.tex"
+(/Users/burzio/Documents/EPFL/Genie mecanique/ME-473 - Dynamic finite element analysis of structures/Slides/week5/Slides-week5.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
 (/usr/local/texlive/2024/texmf-dist/tex/latex/beamer/beamer.cls
@@ -1063,8 +1063,8 @@ Package: ocgbase 2022/08/04 v0.22 support package for ocgx2.sty
 )
 TextBlockOrigin set to 80mm x 45mm
 \c@thm=\count421
-) (./Slides-week6.aux)
-\openout1 = `Slides-week6.aux'.
+) (./Slides-week5.aux)
+\openout1 = `Slides-week5.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
@@ -1139,9 +1139,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring ON on input line 11.
- (./Slides-week6.out) (./Slides-week6.out)
+ (./Slides-week5.out) (./Slides-week5.out)
 \@outlinefile=\write5
-\openout5 = `Slides-week6.out'.
+\openout5 = `Slides-week5.out'.
 
  (/usr/local/texlive/2024/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
@@ -1164,13 +1164,13 @@ File: translations-basic-dictionary-english.trsl (english translation file `tran
 Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 11.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
- (./Slides-week6.nav)
-<../images/epfl_logo.png, id=33, 1027.84pt x 578.16pt>
+ (./Slides-week5.nav)
+<../images/epfl_logo.png, id=37, 1027.84pt x 578.16pt>
 File: ../images/epfl_logo.png Graphic file (type png)
 <use ../images/epfl_logo.png>
 Package pdftex.def Info: ../images/epfl_logo.png  used on input line 20.
 (pdftex.def)             Requested size: 56.9055pt x 32.00621pt.
-<../images/roofTrussStructure.png, id=34, 1204.5pt x 803.0pt>
+<../images/roofTrussStructure.png, id=38, 1204.5pt x 803.0pt>
 File: ../images/roofTrussStructure.png Graphic file (type png)
 <use ../images/roofTrussStructure.png>
 Package pdftex.def Info: ../images/roofTrussStructure.png  used on input line 20.
@@ -1182,15 +1182,15 @@ Overfull \vbox (18.6pt too high) detected at line 20
 [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../images/epfl_logo.png> <../images/roofTrussStructure.png>]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 42.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (18.89723pt too wide) in paragraph at lines 44--44
+Overfull \hbox (18.89723pt too wide) in paragraph at lines 42--42
  [] 
  []
 
@@ -1205,14 +1205,14 @@ Missing character: There is no ; in font nullfont!
 [5
 
 ]
-Overfull \hbox (21.52634pt too wide) in paragraph at lines 164--164
+Overfull \hbox (21.52634pt too wide) in paragraph at lines 168--168
  [] 
  []
 
 [6
 
 ]
-Overfull \hbox (6.59325pt too wide) in paragraph at lines 214--214
+Overfull \hbox (6.59325pt too wide) in paragraph at lines 218--218
  [] 
  []
 
@@ -1226,94 +1226,93 @@ Overfull \hbox (6.59325pt too wide) in paragraph at lines 214--214
 
 ] [11
 
+] [12
+
 ]
-<../images/fortrailbridge.png, id=142, 1927.2pt x 1211.52625pt>
+<../images/fortrailbridge.png, id=161, 1927.2pt x 1211.52625pt>
 File: ../images/fortrailbridge.png Graphic file (type png)
 <use ../images/fortrailbridge.png>
-Package pdftex.def Info: ../images/fortrailbridge.png  used on input line 268.
+Package pdftex.def Info: ../images/fortrailbridge.png  used on input line 398.
 (pdftex.def)             Requested size: 135.77057pt x 85.35826pt.
-<../images/fortrailbridgeScheme.png, id=144, 835.12pt x 260.975pt>
+<../images/fortrailbridgeScheme.png, id=163, 835.12pt x 260.975pt>
 File: ../images/fortrailbridgeScheme.png Graphic file (type png)
 <use ../images/fortrailbridgeScheme.png>
-Package pdftex.def Info: ../images/fortrailbridgeScheme.png  used on input line 268.
+Package pdftex.def Info: ../images/fortrailbridgeScheme.png  used on input line 398.
 (pdftex.def)             Requested size: 273.14381pt x 85.35826pt.
- [12
+ [13
 
  <../images/fortrailbridge.png> <../images/fortrailbridgeScheme.png>]
-<../images/fortrailbridgePartScheme.png, id=159, 572.1375pt x 307.1475pt>
+<../images/fortrailbridgePartScheme.png, id=178, 572.1375pt x 307.1475pt>
 File: ../images/fortrailbridgePartScheme.png Graphic file (type png)
 <use ../images/fortrailbridgePartScheme.png>
-Package pdftex.def Info: ../images/fortrailbridgePartScheme.png  used on input line 298.
+Package pdftex.def Info: ../images/fortrailbridgePartScheme.png  used on input line 428.
 (pdftex.def)             Requested size: 212.00183pt x 113.81102pt.
 
-Overfull \hbox (12.83253pt too wide) in paragraph at lines 298--298
-[][] 
- []
-
-[13
-
- <../images/fortrailbridgePartScheme.png>]
-<../images/fortrailbridgeSchemeMath.png, id=171, 798.985pt x 451.6875pt>
-File: ../images/fortrailbridgeSchemeMath.png Graphic file (type png)
-<use ../images/fortrailbridgeSchemeMath.png>
-Package pdftex.def Info: ../images/fortrailbridgeSchemeMath.png  used on input line 331.
-(pdftex.def)             Requested size: 201.31847pt x 113.81102pt.
-
-Overfull \hbox (2.14917pt too wide) in paragraph at lines 331--331
+Overfull \hbox (12.83253pt too wide) in paragraph at lines 428--428
 [][] 
  []
 
 [14
 
- <../images/fortrailbridgeSchemeMath.png>]
-<../images/fortrailbridgeSchemeDisassembled.png, id=183, 580.1675pt x 313.17pt>
-File: ../images/fortrailbridgeSchemeDisassembled.png Graphic file (type png)
-<use ../images/fortrailbridgeSchemeDisassembled.png>
-Package pdftex.def Info: ../images/fortrailbridgeSchemeDisassembled.png  used on input line 364.
-(pdftex.def)             Requested size: 210.84312pt x 113.81102pt.
+ <../images/fortrailbridgePartScheme.png>]
+<../images/fortrailbridgeSchemeMath.png, id=190, 798.985pt x 451.6875pt>
+File: ../images/fortrailbridgeSchemeMath.png Graphic file (type png)
+<use ../images/fortrailbridgeSchemeMath.png>
+Package pdftex.def Info: ../images/fortrailbridgeSchemeMath.png  used on input line 461.
+(pdftex.def)             Requested size: 201.31847pt x 113.81102pt.
 
-Overfull \hbox (11.67383pt too wide) in paragraph at lines 364--364
+Overfull \hbox (2.14917pt too wide) in paragraph at lines 461--461
 [][] 
  []
 
 [15
 
+ <../images/fortrailbridgeSchemeMath.png>]
+<../images/fortrailbridgeSchemeDisassembled.png, id=201, 580.1675pt x 313.17pt>
+File: ../images/fortrailbridgeSchemeDisassembled.png Graphic file (type png)
+<use ../images/fortrailbridgeSchemeDisassembled.png>
+Package pdftex.def Info: ../images/fortrailbridgeSchemeDisassembled.png  used on input line 494.
+(pdftex.def)             Requested size: 210.84312pt x 113.81102pt.
+
+Overfull \hbox (11.67383pt too wide) in paragraph at lines 494--494
+[][] 
+ []
+
+[16
+
  <../images/fortrailbridgeSchemeDisassembled.png>]
-<../images/fortrailbridgeSchemeSolution.png, id=194, 631.35875pt x 386.44376pt>
+<../images/fortrailbridgeSchemeSolution.png, id=212, 631.35875pt x 386.44376pt>
 File: ../images/fortrailbridgeSchemeSolution.png Graphic file (type png)
 <use ../images/fortrailbridgeSchemeSolution.png>
-Package pdftex.def Info: ../images/fortrailbridgeSchemeSolution.png  used on input line 400.
+Package pdftex.def Info: ../images/fortrailbridgeSchemeSolution.png  used on input line 530.
 (pdftex.def)             Requested size: 185.94093pt x 113.81102pt.
- [16
+ [17
 
- <../images/fortrailbridgeSchemeSolution.png>] [17
+ <../images/fortrailbridgeSchemeSolution.png>] [18
 
 ]
-<../images/truss.png, id=213, 235.88126pt x 137.51375pt>
+<../images/truss.png, id=231, 235.88126pt x 137.51375pt>
 File: ../images/truss.png Graphic file (type png)
 <use ../images/truss.png>
-Package pdftex.def Info: ../images/truss.png  used on input line 418.
-(pdftex.def)             Requested size: 112.25711pt x 65.44142pt.
-<../images/truss1.png, id=214, 235.88126pt x 137.51375pt>
+Package pdftex.def Info: ../images/truss.png  used on input line 557.
+(pdftex.def)             Requested size: 97.61174pt x 56.9055pt.
+<../images/truss1.png, id=232, 235.88126pt x 137.51375pt>
 File: ../images/truss1.png Graphic file (type png)
 <use ../images/truss1.png>
-Package pdftex.def Info: ../images/truss1.png  used on input line 418.
-(pdftex.def)             Requested size: 112.25711pt x 65.44142pt.
- [18
-
- <../images/truss.png> <../images/truss1.png>]
-<../images/truss3.png, id=225, 528.97626pt x 428.60126pt>
+Package pdftex.def Info: ../images/truss1.png  used on input line 557.
+(pdftex.def)             Requested size: 97.61174pt x 56.9055pt.
+<../images/truss3.png, id=233, 528.97626pt x 428.60126pt>
 File: ../images/truss3.png Graphic file (type png)
 <use ../images/truss3.png>
-Package pdftex.def Info: ../images/truss3.png  used on input line 425.
-(pdftex.def)             Requested size: 245.80998pt x 199.16928pt.
+Package pdftex.def Info: ../images/truss3.png  used on input line 557.
+(pdftex.def)             Requested size: 167.29834pt x 135.55292pt.
  [19
 
- <../images/truss3.png>]
-<../images/truss2.png, id=236, 188.705pt x 159.59625pt>
+ <../images/truss.png> <../images/truss1.png> <../images/truss3.png>]
+<../images/truss2.png, id=246, 188.705pt x 159.59625pt>
 File: ../images/truss2.png Graphic file (type png)
 <use ../images/truss2.png>
-Package pdftex.def Info: ../images/truss2.png  used on input line 467.
+Package pdftex.def Info: ../images/truss2.png  used on input line 599.
 (pdftex.def)             Requested size: 77.37817pt x 65.44142pt.
  [20
 
@@ -1332,7 +1331,7 @@ Package pdftex.def Info: ../images/truss2.png  used on input line 467.
 ] [27
 
 ]
-LaTeX Font Info:    Trying to load font information for U+ding on input line 748.
+LaTeX Font Info:    Trying to load font information for U+ding on input line 880.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/bbding/Uding.fd
 File: Uding.fd 1996/02/01 v1.0 BBding font definitions
 ) [28
@@ -1343,7 +1342,18 @@ File: Uding.fd 1996/02/01 v1.0 BBding font definitions
 
 ] [31
 
-] [32
+]
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+[32
 
 ] [33
 
@@ -1351,55 +1361,55 @@ File: Uding.fd 1996/02/01 v1.0 BBding font definitions
 
 ] [35
 
+] [36
+
 ]
-<../images/trussExample.png, id=372, 556.57938pt x 505.38812pt>
+<../images/trussExample.png, id=390, 556.57938pt x 505.38812pt>
 File: ../images/trussExample.png Graphic file (type png)
 <use ../images/trussExample.png>
-Package pdftex.def Info: ../images/trussExample.png  used on input line 961.
+Package pdftex.def Info: ../images/trussExample.png  used on input line 1187.
 (pdftex.def)             Requested size: 184.9429pt x 167.93532pt.
 
-Overfull \hbox (5.69176pt too wide) in paragraph at lines 961--961
+Overfull \hbox (5.69176pt too wide) in paragraph at lines 1187--1187
 [][]  
  []
 
-[36
+[37
 
- <../images/trussExample.png>] [37
-
-] [38
+ <../images/trussExample.png>] [38
 
 ] [39
 
-] [40
-
 ]
 File: ../images/trussExample.png Graphic file (type png)
 <use ../images/trussExample.png>
-Package pdftex.def Info: ../images/trussExample.png  used on input line 1101.
+Package pdftex.def Info: ../images/trussExample.png  used on input line 1354.
 (pdftex.def)             Requested size: 128.0374pt x 116.25995pt.
-<../images/trussExample1.png, id=417, 999.735pt x 812.03375pt>
+<../images/trussExample1.png, id=418, 999.735pt x 812.03375pt>
 File: ../images/trussExample1.png Graphic file (type png)
 <use ../images/trussExample1.png>
-Package pdftex.def Info: ../images/trussExample1.png  used on input line 1101.
+Package pdftex.def Info: ../images/trussExample1.png  used on input line 1354.
 (pdftex.def)             Requested size: 128.0374pt x 103.99448pt.
 
-Overfull \hbox (8.5346pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (8.5346pt too wide) in paragraph at lines 1354--1354
 [][]  
  []
 
 
-Overfull \hbox (14.7986pt too wide) detected at line 1101
+Overfull \hbox (14.7986pt too wide) detected at line 1354
 [][][] $[]$[][][][][][][][] $[]$[][][][][][][][] $[]$[][][][][][] 
  []
 
-[41
 
- <../images/trussExample1.png>]
-Overfull \hbox (2.05766pt too wide) detected at line 1117
+Overfull \hbox (2.05766pt too wide) detected at line 1354
 [] [] [] \OT1/cmr/m/n/10.95 + [] [] [] = []
  []
 
-[42
+[40
+
+ <../images/trussExample1.png>] [41
+
+] [42
 
 ] [43
 
@@ -1411,34 +1421,30 @@ Overfull \hbox (2.05766pt too wide) detected at line 1117
 
 ] [47
 
-] [48
-
-] [49
-
 ]
 \tf@nav=\write6
-\openout6 = `Slides-week6.nav'.
+\openout6 = `Slides-week5.nav'.
 
 \tf@toc=\write7
-\openout7 = `Slides-week6.toc'.
+\openout7 = `Slides-week5.toc'.
 
 \tf@snm=\write8
-\openout8 = `Slides-week6.snm'.
+\openout8 = `Slides-week5.snm'.
 
- (./Slides-week6.aux)
+ (./Slides-week5.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
-Package rerunfilecheck Info: File `Slides-week6.out' has not changed.
-(rerunfilecheck)             Checksum: 92DF61411124A511AB5DCD0932291B75;1082.
+Package rerunfilecheck Info: File `Slides-week5.out' has not changed.
+(rerunfilecheck)             Checksum: 43C494AB041AEC69C18002F3E51F239A;1414.
  ) 
 Here is how much of TeX's memory you used:
- 50481 strings out of 474116
- 1226309 string characters out of 5743682
- 1958187 words of memory out of 5000000
- 71858 multiletter control sequences out of 15000+600000
- 572878 words of font info for 90 fonts, out of 8000000 for 9000
+ 50541 strings out of 474116
+ 1227102 string characters out of 5743682
+ 1973187 words of memory out of 5000000
+ 71914 multiletter control sequences out of 15000+600000
+ 575750 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,19n,134p,894b,1265s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
@@ -1447,11 +1453,11 @@ pdfTeX warning (dest): name{https://ethz.ch/content/dam/ethz/special-interest/ba
 
 pdfTeX warning (dest): name{https://www.theforthbridges.org/about-the-forth-bridges/forth-bridge/} has been referenced but does not exist, replaced by a fixed one
 
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Slides-week6.pdf (49 pages, 5517384 bytes).
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Slides-week5.pdf (47 pages, 5554193 bytes).
 PDF statistics:
- 621 PDF objects out of 1000 (max. 8388607)
- 438 compressed objects within 5 object streams
- 106 named destinations out of 1000 (max. 500000)
- 159 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 625 PDF objects out of 1000 (max. 8388607)
+ 439 compressed objects within 5 object streams
+ 103 named destinations out of 1000 (max. 500000)
+ 173 words of extra memory for PDF output out of 10000 (max. 10000000)
 
