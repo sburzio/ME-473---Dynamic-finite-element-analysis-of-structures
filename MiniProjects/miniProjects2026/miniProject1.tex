@@ -31,12 +31,12 @@
 
 \begin{document}
 \noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
-Stefano Burzio \hfill 2025\\
+Stefano Burzio \hfill 2026\\
 \vspace{0.3cm}
 
-\hspace*{\fill}\textbf{\Large Mini-project 2}\hspace*{\fill}
+\hspace*{\fill}\textbf{\Large Mini-project 1}\hspace*{\fill}
 \begin{center}
-  \textbf{\Large Design of a 2d truss bridge}
+  \textbf{\Large Design of a 2d bridge}
 \end{center}
 
 \hrulefill
@@ -48,7 +48,7 @@ Stefano Burzio \hfill 2025\\
 \begin{minipage}[t]{0.38\textwidth}
   \begin{itemize}[itemsep=0.005cm]
     \item Groups: 3 to 5 students
-    \item 10\% of final grade
+    \item 20\% of final grade
     \item Pdf report: maximum 10 pages
   \end{itemize}
 \end{minipage}
@@ -56,7 +56,7 @@ Stefano Burzio \hfill 2025\\
 \begin{minipage}[t]{0.58\textwidth}
   \begin{itemize}[itemsep=0.005cm]
     \item Programming language: \texttt{MATLAB}
-    \item Submission: April 17, 2025
+    \item Submission: November 13, 2026
     \item Total workload:  32h (approx. 8h per student)
   \end{itemize}
 \end{minipage}
@@ -65,7 +65,7 @@ Stefano Burzio \hfill 2025\\
 \hrulefill
 \vspace{0.3cm}
 
-You are tasked with designing and analyzing a 2d truss bridge using four fixed anchor points. The bridge must span a 20 meter gap and support a vertical point load applied at the center of the span.
+You are tasked with designing and analyzing a 2d bridge using four fixed anchor points. The bridge must span a 20 meter gap and support a vertical point load applied at the center of the span.
 
 \subsubsection*{Anchor points and load configuration}
 The bridge connects the following four supports on a horizontal plane:
@@ -126,16 +126,18 @@ The bridge connects the following four supports on a horizontal plane:
 \end{center}
 
 \subsubsection*{Truss design requirements}
-The bridge must be modeled as a 2d truss. All joints are idealized as frictionless pinned connections, meaning no moments are transferred between members. A vertical point load of 50 kN is applied at node 5, located at a defined height a, that can be choosen freely.
+The bridge must be modeled as both a planar truss and a planar frame. A vertical point load of 50 kN is applied at node 5, located at a defined height a, that can be chosen freely, and should represent a lower chord joints.
 
-You are required both to perform both a static and a dynamic analysis for each of the three materials listed below, treating each case as a distinct full-bridge design. A distinct truss design must be developed for each of these three materials.
+You are required both to perform both a static and a dynamic analysis for each of the three materials listed below, treating each case as a distinct full-bridge design. Compare the results obtains for each material and discuss the differences in terms of the modeling assumptions, planar truss vs planar frame.
+
+\newpage
 \begin{center}
-  \begin{tabular}{l|c|c|c}
-    {Material}       & {E (GPa)} & {Density (kg/m$^3$)} & {Cross-Sectional Area} \\
+  \begin{tabular}{l|c|c|c|c}
+    {Material}          & {E (GPa)} & {Density (kg/m$^3$)} & {Cross-sectional area} & {Volume cap} \\
     \hline
-    Structural steel & 200       & 7850                 & 15–50 cm$^2$           \\
-    Aluminum alloy   & 69        & 2700                 & 20–70 cm$^2$           \\
-    Engineered wood  & 12        & 600                  & 30–100 cm$^2$          \\
+    Structural steel    & 200       & 7850                 & 15–50 cm$^2$           & 1 m$^3$      \\
+    Reinforced concrete & 30        & 2500                 & 300-600 cm$^2$         & 4 m$^3$      \\
+    Engineered wood     & 12        & 600                  & 30–100 cm$^2$          & 1.7 m$^3$    \\
   \end{tabular}
 \end{center}
 
@@ -143,12 +145,7 @@ You are required both to perform both a static and a dynamic analysis for each o
 Each bridge design must strictly adhere to realistic structural behavior by ensuring static performance under load. This means the following two requirements must be satisfied:
 \begin{enumerate}
   \item The entire structure must remain fully within the elastic range of the chosen material—no yielding or permanent deformation is allowed. Additionally, the displacement at any node must not exceed \textbf{40 mm}, in accordance with the L/500 criterion.
-  \item Your design should aim to optimize the total material volume. The total volume of the structure must not exceed the specified limit:
-        \begin{itemize}
-          \item Structural steel: \textbf{1 m$^3$},
-          \item Aluminum alloy: \textbf{1.7 m$^3$},
-          \item Engineered wood: \textbf{2 m$^3$}.
-        \end{itemize}
+  \item Your designs should aim to optimize the total material volume. The total volume of the structure must not exceed the specified volume cap for each material.
 \end{enumerate}
 
 \subsubsection*{Dynamic analysis}
@@ -158,7 +155,10 @@ A separate modal analysis must be performed for each of the three trusses corres
   \item[3.] For each design, compute the first three natural frequencies and the corresponding mode shapes. The first natural frequency must \emph{not} fall within the range of \textbf{1.5 to 10 Hz}.
 \end{enumerate}
 
-Bonus: To ensure dynamic stability and avoid resonance with common excitation sources, you should aim for a first natural frequency \textbf{above 50 Hz}, where feasible.
+\emph{Bonus 1}: To ensure dynamic stability and avoid resonance with common excitation sources, you should aim for a first natural frequency \textbf{above 50 Hz}, where feasible.
+
+\emph{Bonus 2}: Reproduce one of your MATLAB models (either the planar truss or the 2D beam, for one selected material) in ANSYS. Perform static and modal analyses, then compare with your MATLAB results. Briefly explain any differences.
+
 
 \subsubsection*{Deliverables}
 \begin{enumerate}
