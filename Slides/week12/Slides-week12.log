@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  8 DEC 2025 14:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  7 OCT 2026 12:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -777,13 +777,19 @@ File: tikzlibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: pgflibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarythrough.code.tex
 File: tikzlibrarythrough.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen328
+\pgfarrowlength=\dimen329
+\pgfarrowwidth=\dimen330
+\pgfarrowlinewidth=\dimen331
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/pgfplots/pgfplots.sty (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
 Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
  (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
 \t@pgfplots@toka=\toks58
 \t@pgfplots@tokb=\toks59
 \t@pgfplots@tokc=\toks60
-\pgfplots@tmpa=\dimen328
+\pgfplots@tmpa=\dimen332
 \c@pgfplots@coordindex=\count356
 \c@pgfplots@scanlineindex=\count357
  (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex)) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_loader.code.tex (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex)
@@ -800,12 +806,12 @@ Package pgfplots: loading complementary utilities for your pgf version...
 \c@pgfplotslibrarysurf@no=\count360
  (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.pgfsys-pdftex.def))) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex)) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex))) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.contourlua.code.tex)
 \pgfplots@numplots=\count361
-\pgfplots@xmin@reg=\dimen329
-\pgfplots@xmax@reg=\dimen330
-\pgfplots@ymin@reg=\dimen331
-\pgfplots@ymax@reg=\dimen332
-\pgfplots@zmin@reg=\dimen333
-\pgfplots@zmax@reg=\dimen334
+\pgfplots@xmin@reg=\dimen333
+\pgfplots@xmax@reg=\dimen334
+\pgfplots@ymin@reg=\dimen335
+\pgfplots@ymax@reg=\dimen336
+\pgfplots@zmin@reg=\dimen337
+\pgfplots@zmax@reg=\dimen338
 ) (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryplotmarks.code.tex
 File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/local/texlive/2024/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
@@ -822,7 +828,7 @@ Package: siunitx 2024-02-15 v3.3.12 A comprehensive (SI) units package
 \l__siunitx_number_group_first_int=\count369
 \l__siunitx_number_group_size_int=\count370
 \l__siunitx_number_group_minimum_int=\count371
-\l__siunitx_angle_tmp_dim=\dimen335
+\l__siunitx_angle_tmp_dim=\dimen339
 \l__siunitx_angle_marker_box=\box105
 \l__siunitx_angle_unit_box=\box106
 \l__siunitx_compound_count_int=\count372
@@ -830,40 +836,40 @@ Package: siunitx 2024-02-15 v3.3.12 A comprehensive (SI) units package
 Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages (CN)
 )
 \l__siunitx_table_tmp_box=\box107
-\l__siunitx_table_tmp_dim=\dimen336
-\l__siunitx_table_column_width_dim=\dimen337
+\l__siunitx_table_tmp_dim=\dimen340
+\l__siunitx_table_column_width_dim=\dimen341
 \l__siunitx_table_integer_box=\box108
 \l__siunitx_table_decimal_box=\box109
 \l__siunitx_table_uncert_box=\box110
 \l__siunitx_table_before_box=\box111
 \l__siunitx_table_after_box=\box112
-\l__siunitx_table_before_dim=\dimen338
-\l__siunitx_table_carry_dim=\dimen339
+\l__siunitx_table_before_dim=\dimen342
+\l__siunitx_table_carry_dim=\dimen343
 \l__siunitx_unit_tmp_int=\count373
 \l__siunitx_unit_position_int=\count374
 \l__siunitx_unit_total_int=\count375
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 36.
+Package hyperref Info: Option `colorlinks' set `true' on input line 38.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \c@tracingmulticols=\count376
 \mult@box=\box113
-\multicol@leftmargin=\dimen340
+\multicol@leftmargin=\dimen344
 \c@unbalance=\count377
 \c@collectmore=\count378
 \doublecol@number=\count379
 \multicoltolerance=\count380
 \multicolpretolerance=\count381
-\full@width=\dimen341
-\page@free=\dimen342
-\premulticols=\dimen343
-\postmulticols=\dimen344
+\full@width=\dimen345
+\page@free=\dimen346
+\premulticols=\dimen347
+\postmulticols=\dimen348
 \multicolsep=\skip77
 \multicolbaselineskip=\skip78
 \partial@page=\box114
 \last@line=\box115
 \mc@boxedresult=\box116
-\maxbalancingoverflow=\dimen345
+\maxbalancingoverflow=\dimen349
 \mult@rightbox=\box117
 \mult@grightbox=\box118
 \mult@firstbox=\box119
@@ -907,9 +913,9 @@ Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \c@minrows=\count382
 \c@columnbadness=\count383
 \c@finalcolumnbadness=\count384
-\last@try=\dimen346
-\multicolovershoot=\dimen347
-\multicolundershoot=\dimen348
+\last@try=\dimen350
+\multicolovershoot=\dimen351
+\multicolundershoot=\dimen352
 \mult@nat@firstbox=\box157
 \colbreak@box=\box158
 \mc@col@check@num=\count385
@@ -918,15 +924,15 @@ Package: textpos 2022/07/23 v1.10.1
 Package textpos Info: choosing support for LaTeX3 on input line 60.
 \TP@textbox=\box159
 \TP@holdbox=\box160
-\TPHorizModule=\dimen349
-\TPVertModule=\dimen350
-\TP@margin=\dimen351
-\TP@absmargin=\dimen352
+\TPHorizModule=\dimen353
+\TPVertModule=\dimen354
+\TP@margin=\dimen355
+\TP@absmargin=\dimen356
 
 Grid set 16 x 16 = 28.45274pt x 16.00467pt
-\TPboxrulesize=\dimen353
-\TP@ox=\dimen354
-\TP@oy=\dimen355
+\TPboxrulesize=\dimen357
+\TP@ox=\dimen358
+\TP@oy=\dimen359
 \TP@tbargs=\toks65
 TextBlockOrigin set to 0pt x 0pt
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/subcaption.sty
@@ -935,14 +941,14 @@ Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
  (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen356
-\captionmargin=\dimen357
-\caption@leftmargin=\dimen358
-\caption@rightmargin=\dimen359
-\caption@width=\dimen360
-\caption@indent=\dimen361
-\caption@parindent=\dimen362
-\caption@hangindent=\dimen363
+\caption@tempdima=\dimen360
+\captionmargin=\dimen361
+\caption@leftmargin=\dimen362
+\caption@rightmargin=\dimen363
+\caption@width=\dimen364
+\caption@indent=\dimen365
+\caption@parindent=\dimen366
+\caption@hangindent=\dimen367
 Package caption Info: beamer document class detected.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/caption/caption-beamer.sto
 File: caption-beamer.sto 2022/01/06 v2.0c Adaption of the caption package to the beamer document classes (AR)
@@ -962,19 +968,19 @@ Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip79
 \multirow@cntb=\count390
 \multirow@dima=\skip80
-\bigstrutjot=\dimen364
+\bigstrutjot=\dimen368
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/bbding/bbding.sty
 Package: bbding 1999/04/15 v1.01 Dingbats symbols
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/arydshln/arydshln.sty
 Package: arydshln 2019/02/21 v1.76 
-\dashlinedash=\dimen365
-\dashlinegap=\dimen366
+\dashlinedash=\dimen369
+\dashlinegap=\dimen370
 \adl@box=\box161
-\adl@height=\dimen367
-\adl@heightsave=\dimen368
-\adl@depth=\dimen369
-\adl@depthsave=\dimen370
-\adl@finaldepth=\dimen371
+\adl@height=\dimen371
+\adl@heightsave=\dimen372
+\adl@depth=\dimen373
+\adl@depthsave=\dimen374
+\adl@finaldepth=\dimen375
 \adl@columns=\count391
 \adl@ncol=\count392
 \adl@currentcolumn=\count393
@@ -986,7 +992,7 @@ Package: arydshln 2019/02/21 v1.76
 \adl@cla=\count399
 \adl@clb=\count400
 \adl@everyvbox=\toks66
-\adl@LTpagetotal=\dimen372
+\adl@LTpagetotal=\dimen376
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
 Package: tcolorbox 2024/01/10 version 6.2.0 text color boxes
  (/usr/local/texlive/2024/texmf-dist/tex/latex/environ/environ.sty
@@ -1002,7 +1008,7 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \c@tcblayer=\count402
 \c@tcolorbox@number=\count403
 \l__tcobox_tmpa_box=\box166
-\l__tcobox_tmpa_dim=\dimen373
+\l__tcobox_tmpa_dim=\dimen377
 \tcb@temp=\box167
 \tcb@temp=\box168
 \tcb@temp=\box169
@@ -1039,8 +1045,8 @@ Package: ocgbase 2022/08/04 v0.22 support package for ocgx2.sty
 )
 \@anim@box=\box172
 \@anim@measbox=\box173
-\@anim@tmpdima=\dimen374
-\@anim@tmpdimb=\dimen375
+\@anim@tmpdima=\dimen378
+\@anim@tmpdimb=\dimen379
 \@anim@num=\count409
 \@anim@curframe=\count410
 \@anim@curframe@zb=\count411
@@ -1116,13 +1122,13 @@ LaTeX Font Info:    ... okay on input line 11.
 (/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count422
-\scratchdimen=\dimen376
+\scratchdimen=\dimen380
 \scratchbox=\box174
 \nofMPsegments=\count423
 \nofMParguments=\count424
 \everyMPshowfont=\toks67
 \MPscratchCnt=\count425
-\MPscratchDim=\dimen377
+\MPscratchDim=\dimen381
 \MPnumerator=\count426
 \makeMPintoPDFobject=\count427
 \everyMPtoPDFconversion=\toks68
@@ -1159,41 +1165,37 @@ Package translations Info: loading dictionary `translations-basic-dictionary' fo
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  (./Slides-week12.nav)
-<../images/epfl_logo.png, id=45, 1027.84pt x 578.16pt>
+<../images/epfl_logo.png, id=29, 1027.84pt x 578.16pt>
 File: ../images/epfl_logo.png Graphic file (type png)
 <use ../images/epfl_logo.png>
-Package pdftex.def Info: ../images/epfl_logo.png  used on input line 20.
+Package pdftex.def Info: ../images/epfl_logo.png  used on input line 21.
 (pdftex.def)             Requested size: 56.9055pt x 32.00621pt.
-<../images/ModalDecomposition.png, id=46, 551.81157pt x 217.5628pt>
-File: ../images/ModalDecomposition.png Graphic file (type png)
-<use ../images/ModalDecomposition.png>
-Package pdftex.def Info: ../images/ModalDecomposition.png  used on input line 20.
-(pdftex.def)             Requested size: 216.50232pt x 85.35826pt.
+<../images/eigenmodeCircularMembrane.png, id=30, 1284.8pt x 722.7pt>
+File: ../images/eigenmodeCircularMembrane.png Graphic file (type png)
+<use ../images/eigenmodeCircularMembrane.png>
+Package pdftex.def Info: ../images/eigenmodeCircularMembrane.png  used on input line 21.
+(pdftex.def)             Requested size: 187.14401pt x 105.2751pt.
 
-Overfull \vbox (18.6pt too high) detected at line 20
+Overfull \vbox (18.6pt too high) detected at line 21
  []
 
 [1
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../images/epfl_logo.png> <../images/ModalDecomposition.png (PNG copy)>]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 52.
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../images/epfl_logo.png> <../images/eigenmodeCircularMembrane.png>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 52.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \vbox (13.6pt too high) detected at line 52
- []
-
-
-Overfull \hbox (23.5814pt too wide) in paragraph at lines 52--52
+Overfull \hbox (23.5814pt too wide) in paragraph at lines 51--51
  [] 
  []
 
 
-Overfull \vbox (21.91539pt too high) detected at line 52
+Overfull \vbox (8.3154pt too high) detected at line 51
  []
 
 [2
@@ -1203,24 +1205,42 @@ Overfull \vbox (21.91539pt too high) detected at line 52
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [4
 
 ]
-<../images/shell6.jpeg, id=83, 1936.23375pt x 774.895pt>
-File: ../images/shell6.jpeg Graphic file (type jpg)
-<use ../images/shell6.jpeg>
-Package pdftex.def Info: ../images/shell6.jpeg  used on input line 85.
-(pdftex.def)             Requested size: 284.3659pt x 113.81102pt.
+<../images/mugMecaEng.png, id=66, 1626.075pt x 1506.62875pt>
+File: ../images/mugMecaEng.png Graphic file (type png)
+<use ../images/mugMecaEng.png>
+Package pdftex.def Info: ../images/mugMecaEng.png  used on input line 102.
+(pdftex.def)             Requested size: 85.35826pt x 79.0831pt.
  [5
 
- <../images/shell6.jpeg>] [6
+ <../images/mugMecaEng.png>]
 
-]
-<../images/shellQuad8.jpeg, id=108, 1646.15pt x 726.715pt>
-File: ../images/shellQuad8.jpeg Graphic file (type jpg)
-<use ../images/shellQuad8.jpeg>
-Package pdftex.def Info: ../images/shellQuad8.jpeg  used on input line 112.
-(pdftex.def)             Requested size: 354.46796pt x 156.49014pt.
+pdfTeX warning: pdflatex (file ../images/Questionnaire-standardEN.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<../images/Questionnaire-standardEN.pdf, id=78, 597.23125pt x 845.1575pt>
+File: ../images/Questionnaire-standardEN.pdf Graphic file (type pdf)
+<use ../images/Questionnaire-standardEN.pdf>
+Package pdftex.def Info: ../images/Questionnaire-standardEN.pdf  used on input line 110.
+(pdftex.def)             Requested size: 128.0374pt x 181.18947pt.
+[6
+
+ <../images/Questionnaire-standardEN.pdf>]
+<../images/IwantYou.jpg, id=109, 360.59718pt x 396.7322pt>
+File: ../images/IwantYou.jpg Graphic file (type jpg)
+<use ../images/IwantYou.jpg>
+Package pdftex.def Info: ../images/IwantYou.jpg  used on input line 150.
+(pdftex.def)             Requested size: 71.13188pt x 78.25537pt.
+<../images/rocket.png, id=110, 835.12pt x 262.9825pt>
+File: ../images/rocket.png Graphic file (type png)
+<use ../images/rocket.png>
+Package pdftex.def Info: ../images/rocket.png  used on input line 150.
+(pdftex.def)             Requested size: 128.0374pt x 40.31644pt.
+<../images/deepFiniteElem.png, id=111, 592.2125pt x 200.75pt>
+File: ../images/deepFiniteElem.png Graphic file (type png)
+<use ../images/deepFiniteElem.png>
+Package pdftex.def Info: ../images/deepFiniteElem.png  used on input line 150.
+(pdftex.def)             Requested size: 128.0374pt x 43.40239pt.
  [7
 
- <../images/shellQuad8.jpeg>] [8
+ <../images/IwantYou.jpg> <../images/rocket.png> <../images/deepFiniteElem.png>] [8
 
 ] [9
 
@@ -1228,49 +1248,59 @@ Package pdftex.def Info: ../images/shellQuad8.jpeg  used on input line 112.
 
 ] [11
 
-] [12
+]
+Overfull \vbox (2.63167pt too high) detected at line 257
+ []
+
+[12
 
 ] [13
 
-] [14
-
-] [15
-
 ]
-Overfull \vbox (0.42682pt too high) detected at line 290
+Overfull \hbox (18.59146pt too wide) in paragraph at lines 328--328
+ [] 
  []
 
-[16
+[14
+
+]
+Overfull \vbox (4.7603pt too high) detected at line 355
+ []
+
+[15
+
+] [16
 
 ] [17
 
 ] [18
 
-]
-Overfull \vbox (4.09546pt too high) detected at line 360
- []
-
-[19
+] [19
 
 ] [20
 
+] [21
+
 ]
-Overfull \hbox (2.84286pt too wide) detected at line 402
-[][][] $[]$[][][][][][][][] $[]$[][][][][][] 
+Overfull \hbox (2.6005pt too wide) in paragraph at lines 545--545
+[]$\OT1/cmr/bx/n/10.95 z[]$ 
  []
 
-[21
 
-] [22
+Overfull \hbox (2.6005pt too wide) in paragraph at lines 545--545
+[]$ 
+ []
+
+
+Overfull \hbox (2.6005pt too wide) in paragraph at lines 545--545
+[]$ 
+ []
+
+[22
 
 ] [23
 
-]
-Overfull \hbox (10.14433pt too wide) in paragraph at lines 444--444
- [] 
- []
-
-[24
+] [24
 
 ] [25
 
@@ -1278,7 +1308,17 @@ Overfull \hbox (10.14433pt too wide) in paragraph at lines 444--444
 
 ] [27
 
-] [28
+]
+Overfull \hbox (15.51254pt too wide) detected at line 746
+[][]
+ []
+
+
+Overfull \hbox (21.76593pt too wide) in paragraph at lines 746--746
+[]  
+ []
+
+[28
 
 ] [29
 
@@ -1286,41 +1326,17 @@ Overfull \hbox (10.14433pt too wide) in paragraph at lines 444--444
 
 ] [31
 
-]
-Overfull \vbox (5.7939pt too high) detected at line 586
- []
-
-[32
-
-] [33
-
-] [34
-
-] [35
-
-] [36
-
-] [37
-
-] [38
-
-] [39
-
-] [40
+] [32
 
 ]
-LaTeX Font Info:    Trying to load font information for U+ding on input line 736.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/bbding/Uding.fd
-File: Uding.fd 1996/02/01 v1.0 BBding font definitions
-) [41
+<../images/attention.jpeg, id=348, 225.84375pt x 225.84375pt>
+File: ../images/attention.jpeg Graphic file (type jpg)
+<use ../images/attention.jpeg>
+Package pdftex.def Info: ../images/attention.jpeg  used on input line 857.
+(pdftex.def)             Requested size: 113.81102pt x 113.81412pt.
+ [33
 
-] [42
-
-] [43
-
-] [44
-
-]
+ <../images/attention.jpeg>]
 \tf@nav=\write6
 \openout6 = `Slides-week12.nav'.
 
@@ -1336,21 +1352,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `Slides-week12.out' has not changed.
-(rerunfilecheck)             Checksum: 23AC30F255B3C817477A201D373A3B9C;2510.
+(rerunfilecheck)             Checksum: 67D5A61AA28C2B2F6D4263B16152B4A4;872.
  ) 
 Here is how much of TeX's memory you used:
- 49838 strings out of 474116
- 1209258 string characters out of 5743682
- 1950187 words of memory out of 5000000
- 71227 multiletter control sequences out of 15000+600000
- 573648 words of font info for 92 fonts, out of 8000000 for 9000
+ 50305 strings out of 474116
+ 1222403 string characters out of 5743682
+ 1949187 words of memory out of 5000000
+ 71720 multiletter control sequences out of 15000+600000
+ 574632 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,27n,134p,896b,1147s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Slides-week12.pdf (44 pages, 621848 bytes).
+ 128i,17n,134p,896b,1536s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on Slides-week12.pdf (33 pages, 3504242 bytes).
 PDF statistics:
- 558 PDF objects out of 1000 (max. 8388607)
- 410 compressed objects within 5 object streams
- 97 named destinations out of 1000 (max. 500000)
- 133 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 470 PDF objects out of 1000 (max. 8388607)
+ 326 compressed objects within 4 object streams
+ 71 named destinations out of 1000 (max. 500000)
+ 121 words of extra memory for PDF output out of 10000 (max. 10000000)
 

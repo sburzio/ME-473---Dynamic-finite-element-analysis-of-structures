@@ -1,0 +1,219 @@
+\documentclass[12pt]{article}
+
+\input{../preambleProblemSets}
+
+
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Problem set 10 - solutions}\hspace*{\fill}
+
+\hrulefill
+
+\subsection*{Problem 1}
+\textbf{1. Unconstrained and constrained degrees of freedom.} The bar is clamped at node 1, hence the corresponding displacement is constrained to zero: $d_1(t) = 0$. The unknown degrees of freedom are the displacements along the longitudinal axis at the unconstrained nodes 2 and 3, which are collected in the vector
+\[
+    \mathbf q_f(t) = \begin{bmatrix} d_2(t) \\ d_3(t) \end{bmatrix}
+\]
+To proceed, the global stiffness and mass matrices are partitioned accordingly, yielding:
+\[
+    \mathbf{K}_f = \frac{EA}{3\ell}
+    \begin{bmatrix}
+        16 & -8 \\
+        -8 & 7
+    \end{bmatrix}, \quad
+    \mathbf{M}_f = \frac{\rho A \ell}{6}
+    \begin{bmatrix}
+        4 & 0 \\
+        0 & 1
+    \end{bmatrix}, \quad\text{and}\quad
+    \mathbf r_f(t) = \begin{bmatrix} 0 \\ \delta(t) \end{bmatrix}.
+\]
+The differential equations governing the forced response of the bar is then written, taking into account the essential boundary condition at the clamped end, as follows:
+\[
+    \frac{\rho A \ell}{6}
+    \begin{bmatrix}
+        4 & 0 \\
+        0 & 1
+    \end{bmatrix} \begin{bmatrix} \ddot{d}_2(t) \\ \ddot{d}_3(t) \end{bmatrix}
+    + \frac{EA}{3\ell}
+    \begin{bmatrix}
+        16 & -8 \\
+        -8 & 7
+    \end{bmatrix} \begin{bmatrix} d_2(t) \\ d_3(t) \end{bmatrix}
+    = \begin{bmatrix} 0 \\ \delta(t) \end{bmatrix}
+\]
+The structure is initially at rest, thus the initial conditions are:
+\begin{align*}
+    {d}_2(0) =  {d}_3(0)         & = 0, \\
+    \dot{d}_2(0) =  \dot{d}_3(0) & = 0.
+\end{align*}
+\textbf{2. Exact solution.} To determine the dynamic behavior of the bar under the action of an external load, we first evaluate the solution of equation  without the right-hand side (free response), which will then allow us to apply the modal superposition method using the modal parameters obtained in the first step.
+
+We solve the generalized eigenvalue problem : $\mathbf{K}_f p_i = \lambda_i \mathbf{M}_f p_i $, for $i=1,2$. To simplify computations let:
+\[
+    \mathbf{K}_f = K_0
+    \begin{bmatrix}
+        16 & -8 \\
+        -8 & 7
+    \end{bmatrix}, \quad
+    \mathbf{M}_f = M_0
+    \begin{bmatrix}
+        4 & 0 \\
+        0 & 1
+    \end{bmatrix}
+\]
+with $K_0 = \frac{EA}{3\ell}$ and  $M_0 = \frac{\rho A \ell}{6}$. We solve: $\left( \mathbf{K}_f - \lambda \mathbf{M}_f \right) \mathbf p =\mathbf 0$. The characteristic polynomial is:
+\[
+    \det\left(
+    \begin{bmatrix}
+            16K_0 - 4M_0 \lambda & -8K_0              \\
+            -8K_0                & 7K_0 - M_0 \lambda
+        \end{bmatrix}
+    \right) = 0
+\]
+This simplifies to a quadratic in \( \lambda \):
+$$4M_0^2 \lambda^2 - 44K_0 M_0 \lambda + 48K_0^2 = 0,$$
+which reduces to:
+$$\lambda^2 - 22 \frac{E}{\rho\ell} \lambda + 48\frac{E^2}{\rho^2\ell^2} = 0.$$
+Solving this yields the eigenvalues:
+$$ \lambda_1=(11-\sqrt{73})\frac{E}{\rho\ell^2}=2.4560\frac{E}{\rho\ell^2} \qquad\text{and}\qquad \lambda_2=(11+\sqrt{73})\frac{E}{\rho\ell^2}=19.5440\frac{E}{\rho\ell^2}.$$
+and corresponding natural frequencies:
+$$ \omega_1=1.5672\sqrt{\frac{E}{\rho\ell^2}} \qquad\text{and}\qquad \omega_2=4.4209 \sqrt{\frac{E}{\rho\ell^2}}.$$
+Substituting the eigenvalues into the generalized eigenvalue problem allows us to extract the mode shapes $\mathbf{p}_{1}$ and $\mathbf{p}_{2}$, which we then normalize with respect to the diagonal mass matrix $\mathbf{M}_f$.
+\[
+    \mathbf{p}_{1} = \frac{1}{\sqrt{\rho A \ell}}
+    \begin{bmatrix}
+        1.0066 \\
+        1.3952
+    \end{bmatrix}, \quad
+    \mathbf{p}_{2} =\frac{1}{\sqrt{\rho A \ell}}
+    \begin{bmatrix}
+        -0.6976 \\
+        2.0133
+    \end{bmatrix}
+\]
+Let \( \mathbf{P} = \begin{bmatrix} \mathbf p_1 & \mathbf p_2 \end{bmatrix} \) be the modal matrix of eigenvectors normalized with respect to \( \mathbf{M}_f \):
+\[
+    \mathbf{P}^T \mathbf{M}_f \mathbf{P} = \mathbf{I}.
+\]
+The modal parameters are now known. The modal superposition technique can be employed to determine the time response of the bar to a given excitation. We introduce the change of variables:
+\[
+    \mathbf q_f(t) = \mathbf{P} \mathbf z_f(t),
+\]
+which transforms the governing system into a set of uncoupled equations:
+$$\ddot{\mathbf z}_f(t) + \boldsymbol{\Lambda} \mathbf z_f(t) = \mathbf{P}^T \mathbf r_f(t)$$
+where \( \boldsymbol{\Lambda} = \text{diag}(\omega_1^2, \omega_2^2) \). Since \( \mathbf r_f(t) = \begin{bmatrix} 0 \\ \delta(t) \end{bmatrix} \), we have:
+\[
+    \mathbf s_f(t)=\mathbf{P}^T \mathbf r_f(t) = \begin{bmatrix} p_{12} \\ p_{22} \end{bmatrix} \delta(t).
+\]
+The system decouples into two second-order scalar differential equations:
+($i=1,2$):
+$$\ddot{z}_i(t)+\omega^2_iz_i(t)  =p_{i2}\delta(t).$$
+The exact solution, using Duhamel's integral or Laplace transforms, is:
+\begin{align*}
+    z_i(t) & =\frac{1}{\omega_{i}} \int_0^t p_{i2}\delta(t - \tau) \sin(\omega_{i} \tau) \, \mathrm{d}\tau \\
+           & = \frac{1}{\omega_{i}} p_{i2} \sin(\omega_{i}t).
+\end{align*}
+Returning to the physical coordinates via \( \mathbf{q}_f(t) = \mathbf{P} \mathbf{z}_f(t) \), we obtain the full dynamic response:
+$$ \mathbf{q}_f(t) =\mathbf{p}_{1}z_1(t)+\mathbf{p}_{2}z_2(t).$$
+Explicitly, the displacements at nodes 2 and 3 are:
+\begin{align*}
+    d_2(t) & = \frac{p_{11} \, p_{12}}{\omega_1} \sin(\omega_1 t)+ \frac{p_{21} \, p_{22}}{\omega_2} \sin(\omega_2 t) =\frac{1}{A\sqrt{\rho E}}\big( 0.8958 \sin(1.5672\, t)
+    - 0.3178 \sin(4.4209\ t)\big)                                                                                                                                            \\
+    d_3(t) & = \frac{(p_{12})^2}{\omega_1} \sin(\omega_1 t) + \frac{(p_{22})^2}{\omega_2} \sin(\omega_2 t)= \frac{1}{A\sqrt{\rho E}}\big( 1.2431 \sin(1.5672\, t)
+    + 0.9168 \sin(4.4209\, t)\big)
+\end{align*}
+
+
+\textbf{3. Average acceleration Newmark method.} Recall from the previous section that the modal equations are:
+\begin{align*}
+    \ddot{z}_1(t) +  2.4560 \, \frac{E}{\rho A \ell^2} \, z_1(t) = 1.3952 \, \frac{1}{\sqrt{\rho A \ell}} \, \delta(t), \\
+    \ddot{z}_2(t) + 19.544 \, \frac{E}{\rho A \ell^2} \, z_2(t) = 2.0133 \, \frac{1}{\sqrt{\rho A \ell}} \, \delta(t).
+\end{align*}
+At \( t = 0 \), the bar is at rest $z_1(0) = \dot{z}_1(0) = 0$ and $z_2(0) = \dot{z}_2(0) = 0$, thus $z_1^{(0)} =\dot{z}_1^{(0)}=0$ and $z_2^{(0)}  =\dot{z}_2^{(0)}=0.$
+Based on the geometric and material properties of the bar and the definition of the time excitation function, the problem reduces to step-by-step iteration using the following dynamic relations:
+\begin{equation}
+    \begin{aligned}
+        \ddot{z}_1^{(0)} + (8105.7)^2 z_1^{(0)}  & = 15747, \\
+        \ddot{z}_2^{(0)} + (22866.2)^2 z_2^{(0)} & = 22723.
+    \end{aligned}
+    \label{eq:dyn}
+\end{equation}
+and for every time step index $k\geq 1$:
+\begin{equation}
+    \begin{aligned}
+        \ddot{z}_1^{(k)} + (8105.7)^2 z_1^{(k)}  & = 0, \\
+        \ddot{z}_2^{(k)} + (22866.2)^2 z_2^{(k)} & = 0.
+    \end{aligned}
+    \label{eq:dyn1}
+\end{equation}
+We begin by completing the initial phase of the Newmark's scheme: that is computing the accelerations at the initial time step using dynamic equations \eqref{eq:dyn}. Since the initial modal coordinates are zero, the initial modal accelerations become:
+\begin{align*}
+    \ddot{z}_1^{(0)} & = 15747 - (8105.7)^2 z_1^{(0)} = 15747  \\
+    \ddot{z}_2^{(0)} & = 22723 - (22866.2)^2 z_2^{(0)} = 22723
+\end{align*}
+
+To compute the modal displacements, velocities, and accelerations at $t = \Delta t$, we employ the two kinematic relations associated with the Newmark average acceleration method, which for each $i = 1, 2$ take the form:
+\begin{equation}
+    \begin{aligned}
+        z_i^{(k)}       & = \underbrace{z_i^{(k-1)} + \Delta t \, \dot{z}_i^{(k-1)} + 0.25 \Delta t^2 \ddot{z}_i^{(k-1)} }_\text{$\hat{z}_i^{(k-1)}$}+ 0.25 \Delta t^2\ddot{z}_i^{(k)} \\[10pt]
+        \dot{z}_i^{(k)} & = \underbrace{\dot{z}_i^{(k-1)} + 0.5 \Delta t \ddot{z}_i^{(k-1)}}_\text{$\hat{\dot{z}}_i^{(k-1)}$} + 0.5 \Delta t \ddot{z}_i^{(k)}                          \\
+    \end{aligned}
+    \label{eq:kin}
+\end{equation}
+here $k = 1, 2, \dots$ denotes the time step index. It is clear that due to the implicit nature of the resolution method, the modal accelerations from the dynamic equations \eqref{eq:dyn1}, can only be extracted after being inserted into the kinematic relations \eqref{eq:kin}.
+
+At the first iteration of the process, the prediction, obtained from the truncated kinematic relations \eqref{eq:kin} (displacements and modal velocities) using the values from the initial step, yields the following result:
+\begin{align*}
+    \hat{z}_1^{(1)}       & = z_1^{(0)} + \Delta t \, \dot{z}_1^{(0)} + 0.25 \Delta t^2 \ddot{z}_1^{(0)} = 0.25 \cdot (10^{-4})^2 \cdot 15747 = 0.39368 \cdot 10^{-4} \\
+    \hat{\dot{z}}_1^{(1)} & = \dot{z}_1^{(0)} + 0.5 \Delta t \ddot{z}_1^{(0)} = 0.5 \cdot (10^{-4}) \cdot 15747 = 0.78737                                             \\
+    \hat{z}_2^{(1)}       & = z_2^{(0)} + \Delta t \, \dot{z}_2^{(0)} + 0.25 \Delta t^2 \ddot{z}_2^{(0)} = 0.25 \cdot (10^{-4})^2 \cdot 22723 = 0.56808 \cdot 10^{-4} \\
+    \hat{\dot{z}}_2^{(1)} & = \dot{z}_2^{(0)} + 0.5 \Delta t \ddot{z}_2^{(0)} = 0.5 \cdot (10^{-4}) \cdot 22723 = 1.1362
+\end{align*}
+
+This predictions $\hat{z}_i^{(1)}$ and $\hat{\dot{z}}_i^{(1)}$ are then substituted into the dynamic equations \eqref{eq:dyn1} and kinematic equations \eqref{eq:kin}, to yield the following implicit relations:
+\begin{equation*}
+    \begin{aligned}
+        \ddot{z}_1^{(1)} & = - (8105.7)^2 z_1^{(1)} = - (8105.7)^2 (\hat{z}_1^{(1)}+ 0.25 \Delta t^2\ddot{z}_1^{(1)} ) \\
+        \ddot{z}_2^{(1)} & = -(22866.2)^2 z_2^{(1)} = - (22866.2)^2( \hat{z}_2^{(1)}+ 0.5 \Delta t \ddot{z}_2^{(1)}  )
+    \end{aligned}
+\end{equation*}
+Solving for the accelerations gives:
+\begin{equation*}
+    \begin{aligned}
+        \ddot{z}_1^{(1)} & = \left[- (8105.7)^2 \hat{z}_1^{(1)} \right] \big/ \left[ 1 + 0.25 \cdot (8105.7)^2 \cdot \Delta t^2 \right]              \\
+                         & = \left[- (8105.7)^2 \cdot 0.39368 \cdot 10^{-4} \right] \big/ \left[ 1 + 0.25 \cdot (8105.7)^2 \cdot (10^{-4})^2 \right] \\
+                         & = -2221.6516
+    \end{aligned}
+\end{equation*}
+
+\begin{equation*}
+    \begin{aligned}
+        \ddot{z}_2^{(1)} & = \left[- (22866.2)^2 \hat{z}_2^{(1)} \right] \big/ \left[ 1 + 0.25 \cdot (22866.2)^2 \cdot \Delta t^2 \right]                \\
+                         & = \left[  - (22866.2)^2 \cdot 0.56808 \cdot 10^{-4} \right] \big/ \left[ 1 + 0.25 \cdot (22866.2)^2 \cdot (10^{-4})^2 \right] \\
+                         & = -12874.1985
+    \end{aligned}
+\end{equation*}
+It is then possible to correct the kinematic predictions $\hat{z}_i^{(1)}$ and $\hat{\dot{z}}_i^{(1)}$ by incorporating the above values to complete the equations and obtain the modal displacements and velocities at the first time step:
+\begin{equation*}
+    \begin{aligned}
+        z_1^{(1)}       & = \hat{z}_1^{(1)} + 0.25 \, \Delta t^2 \, \ddot{z}_1^{(1)}
+        = 0.39368 \cdot 10^{-4} + 0.25 \cdot (10^{-4})^2 \cdot (-2221.6516)
+        = 3.3813 \cdot 10^{-5}                                                          \\
+        \dot{z}_1^{(1)} & = \hat{\dot{z}}_1^{(1)} + 0.5 \, \Delta t \, \ddot{z}_1^{(1)}
+        = 0.78737 + 0.5 \cdot 10^{-4} \cdot (-2221.6516)
+        = 0.6763                                                                        \\
+        z_2^{(1)}       & = \hat{z}_2^{(1)} + 0.25 \, \Delta t^2 \, \ddot{z}_2^{(1)}
+        = 0.56808 \cdot 10^{-4} + 0.25 \cdot (10^{-4})^2 \cdot (-12874.1985)
+        = 0.49245 \cdot 10^{-4}                                                         \\
+        \dot{z}_2^{(1)} & = \hat{\dot{z}}_2^{(1)} + 0.5 \, \Delta t \, \ddot{z}_2^{(1)}
+        = 1.1362 + 0.5 \cdot 10^{-4} \cdot (-12874.1985)
+        = 0.4925
+    \end{aligned}
+\end{equation*}
+\end{document}

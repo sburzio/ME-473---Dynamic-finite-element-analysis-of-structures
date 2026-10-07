@@ -1,0 +1,207 @@
+\documentclass[12pt]{article}
+
+\input{../preambleProblemSets}
+
+
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Problem set 6 - solutions}\hspace*{\fill}
+
+\hrulefill
+
+\subsection*{Problem 1}
+\paragraph{1. Weak form:} we multiply the governing equation by a virtual transversal displacement \( \delta u_2(x) \) and integrate by parts over the domain:
+\[
+    \int_0^\ell \left( EI \frac{\partial^4 u_2}{\partial x^4} + \rho A \ddot{u}_2 \right) \delta u_2 \, dx = 0
+\]
+
+Split the integral in the first term in two and integrate by parts on each interval to reduce the order of derivatives on \( u_2 \):
+\begin{align*}
+    \int_0^\ell EI \frac{\partial^4 u_2}{\partial x^4} \delta u_2 \, dx
+     & =  \int_0^{\ell/2} EI \frac{\partial ^4 u_2}{\partial x^4} \delta u_2 \, dx + \int_{\ell/2}^\ell EI \frac{\partial^4 u_2}{\partial x^4} \delta u_2 \, dx                                                                                      \\
+     & = - \int_0^\ell EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2^\prime  \, dx + \left[ EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2 \right]_0^{\ell/2}+\left[ EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2 \right]_{\ell/2}^\ell.
+\end{align*}
+Due to zero virtual displacement boundary conditions $ \delta u_2(0) = \delta u_2(\ell) = 0$, and the continuity condition, along with the assumption that the virtual displacement $\delta u_2$ is continuous at $x=\ell/2$, all boundary terms vanish except for the contribution at $x=\ell/2$:
+$$\int_0^\ell EI \frac{\partial^4 u_2}{\partial x^4} \delta u_2 \, dx=- \int_0^\ell EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2^\prime \, dx-P\delta u_2\left( \frac{\ell}{2} \right)$$
+To further reduce the order of derivatives on $u_2$, we apply integration by parts a second time to the first term in the above expression:
+$$- \int_0^\ell EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2^\prime  \, dx   =\int_0^\ell EI \frac{\partial^2 u_2}{\partial x^2} \delta u_2^{\prime\prime}  \, dx - \left[ EI \frac{\partial^2 u_2}{\partial x^2} \delta u_2^\prime \right]_0^\ell.
+$$
+Due to zero bending moment boundary conditions
+\[
+    \frac{\partial^2 u_2}{\partial x^2}(0,t) = \frac{\partial^2 u_2}{\partial x^2}(\ell,t) = 0.
+\]
+both boundary terms vanish. Hence, the weak form is:
+\[
+    \int_0^\ell EI \frac{\partial^2 u_2}{\partial x^2} \delta u_2^{\prime\prime}  \, dx + \int_0^\ell \rho A \ddot{u}_2 \, \delta u_2 \, dx = P \, \delta u_2\left( \frac{\ell}{2} \right).
+\]
+Function spaces:
+\begin{align*}
+    u_2        & \in \mathcal U = \left\{ v(\cdot,t) \in H^2(0,\ell) \,\middle|\, v(0,t) = v(\ell,t) = 0 \right\} \\
+    \delta u_2 & \in \mathcal V = \left\{ v \in H^2(0,\ell) \,\middle|\, v(0) = v(\ell) = 0 \right\}              \\
+\end{align*}
+
+
+\paragraph{2. Finite element approximation:} we approximate $u_2^h(x,t) = \sum_{j=1}^4 h_j(x)q_j(t)$ and $\delta u_2^h(x) = \sum_{j=1}^4 h_j(x)\delta q_j$. Plug these two ansatz into the weak form to obtain
+\[
+    \sum_{i=1}^4\sum_{j=1}^4\delta q_j \Big( \int_0^\ell EI \frac{d^2 h_i}{\partial x^2} \frac{d^2 h_j}{\partial x^2} \, dx\ q_i(t)
+    + \int_0^\ell \rho A h_i h_j \, dx\ \ddot{q}_i(t)
+    \Big)= \sum_{j=1}^4 P h_j\left( \frac{\ell}{2} \right)\delta q_j
+\]
+
+\paragraph{3. Matrix form:} we define
+\[
+    k_{ij} = \int_0^\ell EI \frac{d^2 h_i}{\partial x^2} \frac{d^2 h_j}{\partial x^2} \, dx, \quad
+    m_{ij} = \int_0^\ell \rho A h_i h_j \, dx, \quad
+    r_j = P \, h_j\left( \frac{\ell}{2} \right).
+\]
+Then the semi-discrete system is:
+\[
+    \mathbf{K} \mathbf{q}(t) + \mathbf{M} \ddot{\mathbf{q}}(t) = \mathbf{r}
+\]
+where \( \mathbf{q}(t) = [q_1(t), \dots, q_4(t)]^T. \)
+
+\subsection*{Problem 2}
+For a simply supported Euler-Bernoulli beam, the transverse displacements at both ends are constrained to zero, while the rotations are free. Using Hermite shape functions, a single beam element has four nodal degrees of freedom (DOFs):
+\[
+    \mathbf{q} = \begin{bmatrix} u_1 & \theta_1 & u_2 & \theta_2 \end{bmatrix}^T
+\]
+where node 1 corresponds to \( x = 0 \) and node 2 to \( x = \ell \). The boundary conditions impose \( u_1 = 0 \) and \( u_2 = 0 \), which means the free DOFs are the two nodal rotations:
+\[
+    \mathbf{q}_f = \begin{bmatrix} \theta_1 & \theta_2 \end{bmatrix}^T
+\]
+\paragraph{Static reduced system:} The stiffness matrix for a single Euler-Bernoulli beam element, as derived from the slides, is given by:
+\[
+    \mathbf{K} = \frac{EI}{\ell^3}
+    \begin{bmatrix}
+        12    & 6\ell   & -12    & 6\ell   \\
+        6\ell & 4\ell^2 & -6\ell & 2\ell^2 \\
+        -12   & -6\ell  & 12     & -6\ell  \\
+        6\ell & 2\ell^2 & -6\ell & 4\ell^2
+    \end{bmatrix}
+\]
+By eliminating rows and columns associated with the constrained DOFs (1 and 3), we obtain the reduced stiffness matrix:
+\[
+    \mathbf{K}_\text{red} = \frac{EI}{\ell^3}
+    \begin{bmatrix}
+        4\ell^2 & 2\ell^2 \\
+        2\ell^2 & 4\ell^2
+    \end{bmatrix}=  \frac{2EI}{\ell}\begin{bmatrix}
+        2 & 1 \\
+        1 & 2
+    \end{bmatrix}
+\]
+The external load vector is constructed by evaluating the Hermite shape functions at the midpoint \( x = \ell/2 \), where the point load \( P \) is applied. This gives:
+\[
+    \mathbf{r} = P \mathbf H^T(\ell/2) = P \begin{bmatrix} \tfrac{1}{2} & \tfrac{\ell}{8} & \tfrac{1}{2} & -\tfrac{\ell}{8} \end{bmatrix}^T
+\]
+Restricting this to the free DOFs yields:
+\[
+    \mathbf{r}_\text{red} = \frac{P\ell}{8} \begin{bmatrix} +1 \\ -1 \end{bmatrix}
+\]
+We solve the reduced system \( \mathbf{K}_\text{red} \mathbf{q}_f = \mathbf{r}_\text{red} \), stemming from the static discrete equation, for the free DOFs \( \mathbf{q}_f \):
+\begin{align*}
+    \frac{2EI}{\ell}\begin{bmatrix}
+                        2 & 1 \\
+                        1 & 2
+                    \end{bmatrix}
+    \begin{bmatrix}
+        \theta_1 \\ \theta_2
+    \end{bmatrix}
+     & =
+    \frac{P\ell}{8} \begin{bmatrix} +1 \\ -1 \end{bmatrix} \\
+    \begin{bmatrix}
+        2 & 1 \\
+        1 & 2
+    \end{bmatrix}
+    \begin{bmatrix}
+        \theta_1 \\ \theta_2
+    \end{bmatrix}
+     & =
+    \frac{P\ell^2}{16EI}
+    \begin{bmatrix}
+        +1 \\ -1
+    \end{bmatrix}                                         \\
+    \begin{bmatrix}
+        \theta_1 \\ \theta_2
+    \end{bmatrix}
+     & =
+    \frac{P\ell^2}{48EI}
+    \begin{bmatrix}
+        2  & -1 \\
+        -1 & 2
+    \end{bmatrix}
+    \begin{bmatrix}
+        +1 \\ -1
+    \end{bmatrix}
+    =
+    \frac{P\ell^2}{16EI}
+    \begin{bmatrix}
+        +1 \\ -1
+    \end{bmatrix}
+\end{align*}
+To compute the approximate transverse displacement at the midpoint, we evaluate the interpolated solution at \( x = \ell/2 \):
+$$\delta^h=u_2^h(\ell/2)=\mathbf H(\ell/2)\mathbf q= \begin{bmatrix} \tfrac{1}{2} & \tfrac{\ell}{8} & \tfrac{1}{2} & -\tfrac{\ell}{8} \end{bmatrix} \begin{bmatrix} 0 \\  P\ell^2/16EI \\  -P\ell^2/16EI\\ 0 \end{bmatrix}=\frac{P \ell^3}{64 EI}.$$
+Thus, the approximated model underestimates the deflection magnitude, with a relative error of:
+\[
+    \left| \frac{\delta^h - \delta^\text{exact}}{\delta^\text{exact}} \right|
+    = \left| \frac{\frac{P \ell^3}{64 EI} - \frac{P \ell^3}{48 EI}}{\frac{P \ell^3}{48 EI}} \right| = \frac{1}{4} = 25\%.
+\]
+This difference arises due to the use of a single finite element and highlights the limited accuracy in capturing higher-order curvature effects.
+
+\paragraph{First natural frequency:} the reduced consistent mass matrix for the free rotational degrees of freedom, as obtained from the slides, is given by:
+\[
+    \mathbf{M}_\text{red} = \frac{\rho A \ell}{420}
+    \begin{bmatrix}
+        4\ell^2  & -3\ell^2 \\
+        -3\ell^2 & 4\ell^2
+    \end{bmatrix}=\frac{\rho A \ell^3}{420}
+    \begin{bmatrix}
+        4  & -3 \\
+        -3 & 4
+    \end{bmatrix}.
+\]
+To determine the first natural frequency of the beam, we solve the generalized eigenvalue problem:
+\[
+    \mathbf{K}_\text{red} \mathbf{q}_f - \lambda \mathbf{M}_\text{red} \mathbf{q}_f=\mathbf 0.
+\]
+where \( \lambda = \omega^2 \) is the eigenvalue corresponding to the square of the angular frequency. Substituting the expressions for the stiffness and mass matrices yields:
+\begin{align*}
+    \det\left( \frac{2EI}{\ell} \begin{bmatrix}
+                                    2 & 1 \\
+                                    1 & 2
+                                \end{bmatrix}
+    - \lambda\frac{\rho A \ell^3}{420}
+    \begin{bmatrix}
+        4  & -3 \\
+        -3 & 4
+    \end{bmatrix}\right)                                                                                                    & =0,  \\[5pt]
+    \det\begin{bmatrix}
+            \frac{4EI}{\ell} - \lambda\frac{4 \rho A\ell^3 }{420}  & \frac{2EI}{\ell} + \lambda\frac{3  \rho A\ell^3 }{420} \\[5pt]
+            \frac{2EI}{\ell} + \lambda \frac{3 \rho A \ell^3}{420} & \frac{4EI}{\ell} -  \lambda\frac{4\rho A\ell^3 }{420}
+        \end{bmatrix} & =0,     \\[5pt]
+    \left( \frac{4EI}{\ell} - \lambda \frac{4\rho A\ell^3 }{420} \right)^2-
+    \left( \frac{2EI}{\ell} + \lambda \frac{3 \rho A\ell^3 }{420} \right)^2                                                 & =0 . \\[5pt]
+    \left( \frac{2EI}{\ell} - \lambda \frac{7\rho A\ell^3 }{420} \right)
+    \left( \frac{6EI}{\ell} - \lambda \frac{\rho A\ell^3 }{420} \right)                                                     & =0 .
+\end{align*}\vspace{-0.3cm}
+
+The two roots of the characteristic equation $\det(\mathbf{K}_\text{red} - \lambda \mathbf{M}_\text{red}) = 0$, corresponding to the eigenvalue, are:
+$$
+    \lambda_1 = \frac{120\, EI}{\rho A\, \ell^4},\quad \text{and}\quad \lambda_2 = \frac{2520\, EI}{\rho A\, \ell^4},
+$$
+which gives the square of the first and second natural angular frequencies. Thus, the corresponding approximate fundamental natural frequency is:
+\[
+    f_1^h  = \frac{\omega_1}{2\pi} = \frac{\sqrt{\lambda_1}}{2\pi}=\frac{\sqrt{120}}{2\pi\ell^2}\sqrt{ \frac{EI}{\rho A} }.
+\]
+The relative error against the exact value is:
+$$\left| \frac{f_1^h - f_1^\text{exact}}{f_1^\text{exact}} \right|
+    = \left| \frac{\sqrt{120} - \pi^2}{\pi^2} \right|=0.1099\%.$$
+This result reveals that the approximate frequency obtained using a single Hermite beam element significantly overestimates (around $10\%$) the exact fundamental frequency. This large discrepancy stems from the overly stiff behavior of the reduced-order model when only rotational degrees of freedom are retained. The use of a single finite element fails to capture the distributed inertia and deformation characteristics of the continuous beam, particularly for dynamic problems. To achieve a more accurate estimation of the natural frequencies, a finer spatial discretization—i.e., using multiple beam elements—is essential, as it better approximates the curvature of the mode shapes and the correct mass distribution.
+
+\paragraph{Bonus task:} implement a \texttt{MATLAB} script to model the simply supported beam using two Euler-Bernoulli beam elements with Hermite shape functions. Assemble the global stiffness and mass matrices, apply boundary conditions, and reduce the system to the free DOFs. Compute the first approximated natural frequency and compare it with the exact one. Briefly comment on the improvement compared to the single-element approximation.
+\end{document}

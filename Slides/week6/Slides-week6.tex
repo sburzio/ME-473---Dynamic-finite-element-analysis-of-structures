@@ -1,0 +1,2172 @@
+\documentclass[aspectratio=169]{beamer}
+
+\input{../preambleSlides}
+
+\title{Dynamic analysis of beams, frames and grids}
+\subtitle{Special structural elements}
+\author{ME473 Dynamic finite element analysis of structures}
+\institute{Stefano Burzio}
+\date{2025}
+
+\begin{document}
+\usenavigationsymbolstemplate{}
+{\setbeamertemplate{footline}{}
+
+  \frame{\titlepage
+    \begin{tikzpicture}[overlay, remember picture]
+      \node[anchor=north east, xshift=-.9cm] at (current page.north east) {\includegraphics[width=2cm]{../images/epfl_logo.png}};
+      \node[anchor=south east, xshift=-.87cm, yshift=.05cm] at (current page.south east)  {\includegraphics[width=8cm]{../images/frame.png}};
+    \end{tikzpicture}
+  }
+
+  \begin{frame}{Where do we stand?}
+    \begin{center}
+      \begin{tabular}{|c|l|l|l|}
+        \hline
+        \rowcolor{darkred!20}\textbf{Week} & \textbf{Module}                          & \textbf{Lecture topic}             & \textbf{Mini-projects} \\
+        \hline
+        1                                  & \multirow{5}{7em}{Linear elastodynamics} & Strong and weak forms              &                        \\ \cline{1-1} \cline{3-4}
+        2                                  &                                          & Galerkin and FE methods            &                        \\ \cline{1-1} \cline{3-4}
+        3                                  &                                          & Systematisation of the procedure   & Groups formation       \\ \cline{1-1} \cline{3-4}
+        4                                  &                                          & 3d elements, numerical integration & Project 1 statement    \\
+        \cline{1-1} \cline{3-4}
+        \hline
+        5                                  & \multirow{2}{7em}{Special structural}    & Bars and trusses                   &                        \\
+        \cline{1-1} \cline{3-4} 6          &                                          & Beams, frames and grids            &                        \\
+                                           & elements                                 &                                    &                        \\
+        \hline
+      \end{tabular}
+    \end{center}
+    \vspace{1cm}
+  \end{frame}
+
+  \begin{frame}
+    \textbf{\large Summary}
+    \begin{itemize}
+      \item Recap week 5
+      \item Euler-Bernoulli planar beams
+      \item Timoshenko planar beams
+      \item Plane frames
+      \item Plane grids
+      \item Three-dimensional frames
+    \end{itemize}
+    \vspace{.5cm}
+
+    \textbf{\large Recommended readings}
+    \begin{enumerate}
+      \item Logan, A first course in the finite element method, 6th ed.
+            (chap. 4 and 5)
+      \item Paz and Leigh, Structural dynamics, 6th ed.  (chap. 10, 11, 12 and 13)
+      \item Ferreira and Fantuzzi, MATLAB Codes for Finite Element Analysis, 2nd ed. (chap. 6, 7, 8, 9 and 10)
+    \end{enumerate}
+  \end{frame}
+}
+
+\section{Recap week 6 \\  Vibrations of bars and trusses}
+ {\setbeamercolor{background canvas}{bg=darkred!5}
+  \setbeamercolor{block body}{bg=darkred!5,fg=black}
+
+  \begin{frame}{Non-oriented bar element}
+    \begin{columns}
+      \column{0.5\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=0.5]
+          % Draw the rectangle
+          \filldraw[fill=gray!60, draw=black,thick] (0,-0.5) rectangle (10,0.5);
+          %axis
+          \draw[ultra thin] (-0.5,0) -- (10,0);
+          %forces
+          \draw[thick,-latex,orange] (0,0) -- (1,0) node[right]{$f_{1x}^\prime$};
+          \draw[thick,-latex,orange] (10,0) -- (11,0) node[right]{$f_{2x}^\prime$};
+          % Mark points
+          \fill (0,0) circle (4pt);
+          \fill (10,0) circle (4pt);
+          \draw[thick] (0,0) ++ (0,-1) circle(0.35cm) node {1};
+          \draw[thick] (10,0) ++ (0,-1)  circle(0.35cm) node {2};
+          % displacement
+          \draw[thick,-latex,darkred] (3.5,0) -- (4.5,0);
+          \node[darkred,right] at (4.5,0) {$u_1$};
+          % length
+          \draw[ultra thin] (3.5,0) -- (3.5, 1.3) ;
+          \draw[ultra thin] (0,0) -- (0, 1.3) ;
+          \draw[-latex, ultra thin]  (0,1)  to node[sloped,midway,above] {$x^\prime$}(3.5,1) ;
+          \draw[ultra thin]  (5,-0.3) -- (6,-1.5) node[right]{$\ell,E,A,\rho$};
+        \end{tikzpicture}
+      \end{center}
+
+      \column{0.55\textwidth}
+      \begin{block}{}
+        Differential equation governing the dynamics:
+        $$ EA \partial^{2}_{x^\prime x^\prime}u_1(x^\prime, t) = \rho A \ddot{u}_1(x^\prime, t) $$
+      \end{block}
+    \end{columns}
+    \vspace{0.3cm}
+
+    \begin{itemize}
+      \item Displacements approximation in local coordinate:
+            \[u^h_1(x^\prime,t)=  \mathbf H(x^\prime)\mathbf q_{loc} (t)=\begin{bmatrix}  h_1(x^\prime) & h_2(x^\prime)\end{bmatrix} \begin{bmatrix}  q_{1x}^\prime(t) \\ q_{2x}^\prime(t)\end{bmatrix}\]
+      \item Linear local shape functions:
+            $$h_1(x^\prime)  =1-\frac{x^\prime}{\ell} \qquad\text{and}\qquad h_2(x^\prime)  =\frac{x^\prime}{\ell}$$
+      \item Semi-discrete weak form:
+            \[\bolddelta\mathbf{q}_{loc}^T\big[\mathbf{M}_{loc} \ddot{\mathbf{q}}_{loc}(t) + \mathbf{K}_{loc} \mathbf{q}_{loc}(t) - \mathbf{f}_{loc}(t)\big]=0 \]
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Non-oriented bar element discretization}
+    \begin{itemize}
+      \item Element stiffness matrix in local coordinates:
+            \[ \mathbf{K}_{loc} =\int_0^{\ell}  EA\ \frac{d\mathbf{H}}{dx^\prime}^T\frac{d\mathbf{H}}{dx^\prime}\ dx^\prime =\int_0^{\ell}  EA \begin{bmatrix} (h_1^\prime)^2 & h_1^\prime h_2^\prime \\  h_2^\prime h_1^\prime &  (h_2^\prime)^2 \end{bmatrix} dx^\prime =\frac{EA}{\ell} \begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} \]
+      \item Element consistent mass matrix in local coordinates:
+            \[ \mathbf{M}_{loc} =\int_0^{\ell}  \rho A\ \mathbf{H}^T\mathbf{H}\ dx^\prime =\int_0^{\ell}\rho A \begin{bmatrix} (h_1)^2 &h_1 h_2 \\  h_2 h_1 &  (h_2)^2 \end{bmatrix} dx^\prime =\frac{\rho A\ell }{6} \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix} \]
+      \item Element applied loads vector in local coordinates:
+            \[ \mathbf{f}_{loc}(t) =\begin{bmatrix} h_1(0) \\ h_2(0)\end{bmatrix}f_{1x}^\prime(t) + \begin{bmatrix} h_1(\ell) \\ h_2(\ell)\end{bmatrix}f_{2x}^\prime(t) = \begin{bmatrix} f_{1x}^\prime(t) \\ f_{2x}^\prime(t) \end{bmatrix} \]
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Arbitrarly oriented bar element}
+    \begin{columns}
+      \column{0.5\textwidth}
+      \begin{itemize}
+        \item Displacements in local coordinates:\vspace{-0.3cm}  $${\color{orange}\mathbf{q}_{loc}} = [q_{1x}^\prime, q_{2x}^\prime]^T$$
+        \item Displacements in global coordinates:\vspace{-0.3cm} $${\color{darkred} \mathbf q} = [q_{1x},q_{1y},q_{2x},q_{2y}]^T$$
+        \item   \textbf{Relation between local and global displacements:}
+      \end{itemize}
+      \column{0.5\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=1]
+          % Draw background grid
+          %\draw[step=1cm,gray,very thin] (0,0) grid (12,6);
+          % Define coordinates
+          \coordinate (A) at (0,0);
+          \coordinate (B) at (2.5,1);
+          \coordinate (C) at (5,2);
+          % Draw the truss members
+          \draw[ultra thin] (A) -- (B);
+          \draw[ultra thick] (B) -- (C);
+          % Global coordinate system
+          \draw[-latex, ultra thin] (0,0) -- (0,3) node[left] {$y$};
+          \draw[-latex, ultra thin] (0,0) -- (6,0) node[below] {$x$};
+          % Local coordinate systems
+          \draw[-latex, darkred,thick] (B) -- ++(0,0.4) node[left] {$q_{1y}$};
+          \draw[-latex, darkred,thick] (B) -- ++(1,0) node[right] {$q_{1x}$};
+          \draw[-latex, darkred,thick] (C) -- ++(0,0.4) node[left] {$q_{2y}$};
+          \draw[-latex, darkred,thick] (C) -- ++(1,0) node[right] {$q_{2x}$};
+          % Local primed coordinate system
+          \draw[-latex,thick] (B) -- (21.8:3.5) node[midway, above] {\small $x^\prime$};
+          % Angles and labels
+          \draw[-latex] (1,0) arc (0:21.8:1);
+          \node at (1.3,0.25) {$\theta$};
+          % Local x' axis
+          \draw[-latex, orange, thick] (B) -- ++(1,0.4) node[above] {$q_{1x}^\prime$};
+          \draw[-latex, orange, thick] (C) -- ++(1,0.4) node[above] {$q_{2x}^\prime$};
+          % Draw supports (circles at joints)
+          \filldraw (B) circle (2pt);
+          \filldraw (C) circle (2pt);
+          % Nodes coord
+          \draw[dashed,ultra thin] (B) -- (2.5,0) node[below] {$x_1$};
+          \draw[dashed,ultra thin] (B) -- (0,1) node[left] {$y_1$};
+          \draw[dashed,ultra thin] (C) -- (5,0) node[below] {$x_2$};
+          \draw[dashed,ultra thin] (C) -- (0,2) node[left] {$y_2$};
+          % Nodes labels
+          \draw[thick] (B) ++ (0,-0.4) circle(0.2cm) node {1};
+          \draw[thick] (C) ++ (0,-0.4)  circle(0.2cm) node {2};
+        \end{tikzpicture}
+      \end{center}
+    \end{columns}
+    \vspace{0.3cm}
+    $$\underbrace{\begin{bmatrix}
+          q_{1x}^\prime \\ q_{2x}^\prime
+        \end{bmatrix}}_\text{$\mathbf q_{loc}$}=\underbrace{\begin{bmatrix}
+          \cos(\theta) & \sin(\theta) & 0            & 0            \\
+          0            & 0            & \cos(\theta) & \sin(\theta)
+        \end{bmatrix}}_\text{$\mathbf T$}\underbrace{\begin{bmatrix}
+          q_{1x} \\ q_{1y} \\ q_{2x} \\ q_{2y}
+        \end{bmatrix}}_\text{$\mathbf q$}
+    $$
+  \end{frame}
+
+  \begin{frame}{Discretization of arbitrarly oriented bar}
+    \begin{itemize}
+      \item Element stiffness matrix in global coordinates:
+            $$\mathbf{K} = \mathbf T^T \mathbf{K}_{loc} \mathbf T   =\frac{EA}{\ell}\begin{bmatrix}
+                \cos^2(\theta) & \sin(\theta)\cos(\theta) & -\cos^2(\theta)           & -\sin(\theta)\cos(\theta) \\
+                               & \sin^2(\theta)           & -\sin(\theta)\cos(\theta) & -\sin^2(\theta)           \\
+                               &                          & \cos^2(\theta)            & \sin(\theta)\cos(\theta)  \\
+                \text{Symm.}   &                          &                           & \sin^2(\theta)            \\
+              \end{bmatrix}$$
+      \item Element consistent mass matrix in global coordinates:
+            $$\mathbf{M} = \mathbf T^T \mathbf{M}_{loc} \mathbf T =\frac{\rho A\ell}{6}\begin{bmatrix}
+                2\cos^2(\theta) & 2\sin(\theta)\cos(\theta) & \cos^2(\theta)           & \sin(\theta)\cos(\theta)  \\
+                                & 2\sin^2(\theta)           & \sin(\theta)\cos(\theta) & \sin^2(\theta)            \\
+                                &                           & 2\cos^2(\theta)          & 2\sin(\theta)\cos(\theta) \\
+                \text{Symm.}    &                           &                          & 2\sin^2(\theta)           \\
+              \end{bmatrix}
+            $$
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Illustrative example}
+    \begin{block}{}
+      \textbf{Plane truss:} structure composed of oriented bar elements that all lies in a common plane and are connected by frictionless pins.
+    \end{block}
+    \vspace{0.3cm}
+    \begin{columns}
+      \begin{column}{.45\textwidth}
+        \includegraphics[width=4.5cm]{../images/trussExample.png}
+      \end{column}
+
+      \begin{column}{.6\textwidth}
+        \small \begin{tabular}{c|c|c|c}
+          Elements & Nodes & ${}^e\theta$  & ${}^e\ell$       \\
+          \hline
+          1        & 1,\ 2 & $90^{\circ}$  & $120$ mm         \\
+          2        & 1,\ 3 & $45^{\circ} $ & $120\sqrt{2}$ mm \\
+          3        & 1,\ 4 & $0^{\circ} $  & $120$ mm         \\
+        \end{tabular}
+
+        \vspace{0.2cm}
+        Elementary stiffness and mass matrices:
+        $$\begin{aligned}
+            {}^e\mathbf K & = {}^e\mathbf T\mathbf K_{loc}{}^e\mathbf T \\
+            {}^e\mathbf M & = {}^e\mathbf T\mathbf M_{loc}{}^e\mathbf T
+          \end{aligned}\hspace{1.5cm} e=1,2,3$$
+      \end{column}
+    \end{columns}
+    \begin{block}{}
+      Global stiffness and mass matrices: $\mathbf K = \A_{e=1}^3 {}^e\mathbf K$ and $\mathbf M = \A_{e=1}^3 {}^e\mathbf M$.
+    \end{block}
+  \end{frame}
+ }
+
+\section{Euler-Bernoulli planar beams}
+
+\begin{frame}{What is a beam?}
+  \begin{itemize}
+    \item Considered to be a uniaxial (slender) element: the longitudinal direction is sufficiently larger than the other two.
+    \item Cross-section does not change along the element's length.
+    \item Subjected to \textbf{transversal loading} that produced significant bending effects.
+    \item Very common type of structures used in steel buildings, bridges, towers, etc...
+  \end{itemize}
+  \begin{center}
+    \includegraphics[height=3cm]{../images/beam.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Euler-Bernoulli and Timoshenko beam assumptions}
+  \small
+  \begin{columns}[T,onlytextwidth]
+    \column{0.49\textwidth}
+    \centering
+    \textbf{Thin beam theory}
+
+    \includegraphics[height=2.5cm]{../images/beamBern.jpeg}
+
+    \begin{itemize}\small
+      \item Cross-sections remain \textbf{planar} and \textbf{perpendicular} to the longitudinal axis after bending.
+      \item Shear deformation $\varepsilon_{12}$ is neglected.
+      \item The cross-section is infinitely rigid in its own plane.
+      \item Suitable for thin beams made of isotropic materials.
+    \end{itemize}
+
+    \column{0.49\textwidth}
+    \centering
+    \textbf{Thick beam theory}
+
+    \includegraphics[height=3.5cm, width=3.5cm]{../images/beamTimoBern.jpeg}
+
+    \begin{itemize}\small
+      \item Cross-sections remain \textbf{planar} but \textbf{not perpendicular} to the longitudinal axis.
+      \item Shear deformation $\varepsilon_{12}$ is considered.
+      \item Suitable when shear effects matter, including in composite thick beams.
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}{Validity range of beam theories}
+  \small
+  \textbf{Euler--Bernoulli:} valid for slender beams: $h/\ell < 1/100$
+
+  \begin{center}
+    \includegraphics[height=2.5cm,width=9cm]{../images/eulerBeam.png}
+  \end{center}
+
+  \textbf{Timoshenko:} valid for slender beams ($h/\ell < 1/100$) and thick beams ($h/\ell > 1/10$)
+
+  \begin{center}
+    \includegraphics[height=2.5cm, width=9cm]{../images/timoBeam.png}
+  \end{center}
+
+  {\footnotesize (Credit:
+  \hyperlink{https://ethz.ch/content/dam/ethz/special-interest/baug/ibk/structural-mechanics-dam/education/femI/2024/Lecture_1_EC_2024.pdf}{Chatzi and Egger})}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kinematic assumptions for \emph{planar} Euler-Bernoulli beam}
+  \begin{enumerate}
+    \item The beam dynamics will be restricted to the $O(x,y)$ plane.
+    \item The beam cross-section remains planar after deformation.
+    \item Lines that are straight and perpendicular to the beam axis remain straight and perpendicular during deformation.
+  \end{enumerate}
+
+  \begin{columns}
+    \column{0.6\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.6]
+        \point{a}{0}{0.3};
+        \support {3}{a}[270];
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (10,1);
+        % Add the p vector
+        \foreach \i in {0,...,19}
+          {
+            \draw[-latex, thick]  (0.5*\i,1.5)--(0.5*\i,1);
+          }
+        \node at (5,1.8) {\(p\)};
+        %axis
+        \draw[-latex, ultra thin] (0,0.5) -- (11.5,0.5);
+        \draw[-latex, ultra thin] (0,-1) -- (0,2.5);
+        \node at (12,0.5) {\(x\)};
+        \node at (0,2.9) {\(y\)};
+        % length
+        \draw[ultra thin] (10,0) -- (10, 2.5) ;
+        \draw[latex-latex, ultra thin]  (0,2.2)  to node[sloped,midway,above] {$\ell$}(10,2.2) ;
+        % M and V 
+        \draw[-latex, thick] (10.3,0.8) arc (60:-60:0.5);
+        \node at (10.5,1.7) {\(\hat P\)};
+        \draw[-latex, thick] (10,2) -- (10,1);
+        \node at (10.9,1) {\(\hat M\)};
+        \draw[ultra thin]  (7,0.3) -- (8,-1) node[right]{$E,A,\rho,I$};
+      \end{tikzpicture}
+    \end{center}
+    \column{.25\textwidth}
+    {\tiny Model parameters:
+      \begin{itemize}\setlength\itemsep{0.05em}
+        \item $A$ cross-sectional area
+        \item $E$ Young's modulus
+        \item $\rho$ material density
+        \item $I$ moment of inertia
+        \item $\ell$ length
+      \end{itemize}}
+    \column{.25\textwidth}
+    {\tiny Loads:
+      \begin{itemize}\setlength\itemsep{0.05em}
+        \item  $\hat M$  bending moment \\ at free end
+        \item  $\hat P$ load at \\ free end
+        \item $p$ distributed transversal load
+      \end{itemize}
+    }
+  \end{columns}
+  \begin{block}{Variables:}
+    \begin{multicols}{2}
+      \begin{itemize}\setlength\itemsep{0.05em}
+        \item $u_{1}(x,t)$ axial displacement
+        \item $u_{2}(x,t)$ transversal displacement\vspace{.1cm}
+      \end{itemize}
+    \end{multicols}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Displacements field}
+  Introduce an auxiliary variable $\theta_{3}(x,t)$ representing the total rotation of the section around the $Oz$ axis. Rotations are positive in clockwise direction.
+  \begin{columns}
+    \column{0.35\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.6]
+        \point{a}{0}{0.3};
+        \support {3}{a}[270];
+        % Draw the rectangle
+        \filldraw[fill=gray!40, draw=gray!40,thick] (0,0) rectangle (6,1);
+        \draw[thick](6,1)-- (0,1) -- (0,0)--(6,0);
+        \draw[-latex,thick] (3.5,0.5) -- (4.4,.5) node[right]{$u_{1}$};
+        \draw[-latex,thick] (3.5,0.5) -- (3.5,1.4) node[right]{$u_{2}$};
+        \draw[darkred,thick] (3.5,0) -- (3.5,1);
+        %deformed 
+        \filldraw[fill=gray!60,draw=gray!60, rotate around={-30:(3.5,-3)}] (2.5,-2.5) rectangle (4.5,-3.5);
+        \draw[thick,rotate around={-30:(3.5,-3)},shift={(0,-0.5)}](2.5,-3)-- (4.5,-3);
+        \draw[thick,rotate around={-30:(3.5,-3)},shift={(0,0.5)}](2.5,-3)-- (4.5,-3);
+        \draw[ultra thin,rotate around={-30:(3.5,-3)}](3.5,-3)-- (3.5,-1);
+        \draw[darkred,thick,rotate around={-30:(3.5,-3)}](3.5,-2.5)-- (3.5,-3.5);
+        \draw[-latex] (3.5,-1) arc (90:60:2) node[midway,above] {$\theta_{3}$};
+        %x1 and x2
+        \draw[ultra thin] (3.5,-0.7) -- (3.5,0);
+        \draw[-latex,ultra thin] (0,-0.5) to node[midway,below] {$x$} (3.5,-.5);
+        \draw[ultra thin]  (-.7,-3)-- (3.5,-3);
+        \draw[ultra thin] (3.5,-4.5) -- (3.5,-0.5);
+        \draw[ultra thin] (-.7,0.5) -- (0,0.5);
+        \draw[-latex,ultra thin] (-.5,.5) to node[midway,left] {$y$} (-.5,-3);
+        %axis
+        \draw[ultra thin,-latex] (0,0.5) -- (6.5,0.5);
+        \draw[ultra thin,-latex] (0,-1) -- (0,2);
+      \end{tikzpicture}
+    \end{center}
+    \column{0.7\textwidth}
+
+    \begin{itemize}
+      \item The first Euler-Bernoulli assumption implies
+            $$u_3=0.$$
+      \item The second Euler-Bernoulli assumption implies
+            $$u_{1}=-y\theta_{3}\qquad\qquad\text{\emph{(rotation-axial displ.)}}$$
+            %Notice, that because the convention of positive rotations in the counterclockwise directions, the term has a negative sign. In this way, is assured that a positive value of rotation will create a negative axial displacement for a positive $y$.
+      \item The third Euler-Bernoulli assumption implies
+            $$\theta_{3}=\partial_{x}u_{2}\qquad\text{\emph{(rotation-transversal displ.)}}$$
+            %rotation of the cross- section beam must be equal to the slope of the beam axis,
+    \end{itemize}
+  \end{columns}
+  \begin{block}{}
+    \textbf{Only one unknown:} transversal displacement $u_{2}(x,t)$.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Stress, strain and displacement fields}
+  \begin{block}{Strain-displacement relationships}
+    Substituting the displacement field $\mathbf u$ into $\boldsymbol{\varepsilon}=\boldsymbol\nabla\mathbf u$ yield to :
+    \vspace{-0.6cm}
+
+    \begin{align*}
+      \varepsilon_{11} & =\partial_{x}u_{1}=-y\partial_{xx}^2u_{2}                           & \varepsilon_{22}       & =\partial_{y}u_{2}=0                      \\
+      \varepsilon_{12} & =\partial_{x}u_{2}+\partial_{y}u_{1}=\partial_{x}u_{2}-\theta_{3}=0 & \quad \varepsilon_{33} & = \varepsilon_{23} = \varepsilon_{13} = 0
+    \end{align*}
+  \end{block}
+  \begin{block}{Generalized Hooke's law}
+    Using the linear relationship for homogeneous and isotropic material,
+    $\boldsymbol\sigma=\mathbf C\boldsymbol\varepsilon$, is possible to write the stress field in term of the strain field as :
+    \vspace{-0.6cm}
+
+    \begin{align*}
+      \sigma_{11}       & =(\lambda + 2G)\varepsilon_{11} &
+      \sigma_{22}       & =\lambda \varepsilon_{11}         \\
+      \sigma_{33}       & =\lambda \varepsilon_{11}       &
+      \quad \sigma_{12} & = \sigma_{13} = \sigma_{23} = 0
+    \end{align*}
+
+    where $\lambda=\frac{E}{(1+\nu)(1-2\nu)}$ and the shear modulus $G=\frac{E}{2(1+\nu)}$ are Lamé constants.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Dynamic equilibrium equations}
+  The theoretical stresses do not agree well with the experimental measurements.
+
+  \begin{block}{Additional assumptions regarding the stress field}
+    $$\sigma_{11}  = E\varepsilon_{11}, \qquad\text{and}\qquad
+      \sigma_{22}  =  \sigma_{33} =  \sigma_{12} = \sigma_{13} = \sigma_{23} = 0.
+    $$
+    \small \emph{Justification} : the dimension of the cross-section is much smaller that the beam length.
+  \end{block}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.35]
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (3,2);
+        %axis
+        \draw[ultra thin] (0,0) -- (0,-3.3);
+        \draw[ultra thin] (3,0) -- (3,-3.3);
+        \draw[latex-latex,ultra thin] (0,-3) to node[midway,below] {$dx$} (3,-3);
+        \draw[-latex]  (1.5,1.3)  -- (1.5,3) node[above] {$\rho A\ddot u_{2}dx$};
+        \draw[-latex]  (1.5,.7)  -- (1.5,-1) node[below] {$pdx$};
+        \draw[gray,-latex] (-0.5,2.2) arc (120:240:1.5);
+        %M vactors 
+        \node[gray] at (-2,1) {\(M\)};
+        \draw[gray,-latex] (3.5,2.2) arc (60:-60:1.5);
+        \draw (4.3,1) node[gray,right] {$M+\partial_{x}Mdx$};
+        % Add the V vectors
+        \draw[darkred,-latex] (-0.3,0) -- (-0.3,2);
+        \node[darkred,above] at (-0.2,2) {\(V\)};
+        \draw[darkred,latex-] (3.3,0) -- (3.3,2);
+        \node[darkred,above] at (5.7,1.8) {\(V+\partial_{x}Vdx\)};
+      \end{tikzpicture}
+    \end{center}
+    \column{0.6\textwidth}
+    \small
+    \vspace{-0.5cm}
+    \begin{itemize}
+      \setlength\itemsep{-5pt}
+      \item Equilibrium of transverse forces:
+            $$ \partial_{x}{\color{darkred}V}+p =\rho A\ddot u_{2}$$
+      \item Equilibrium of moments:
+            $$ \partial_{x}{\color{gray}M}+{\color{darkred}V}=0$$
+    \end{itemize}
+  \end{columns}
+  \vspace{-0.3cm}
+  $${\color{gray}M} =-\int_{A} y\sigma_{11}\, dA=-\int_{A}yE\varepsilon_{11}\, dA={\color{gray}EI\partial_{xx}^2u_{2}}$$
+\end{frame}
+
+\begin{frame}
+  \frametitle{Strong form for transversal vibrations for Euler-Bernoulli beam}
+  The strong form consists of finding the transversal displacement $u_{2}\in C^4([0,\ell]\times[0,T])$ such that the following equilibrium equation is satisfied:
+  \begin{block}{}
+    $$\partial_{xx}^2\big(EI\partial_{xx}^2u_{2}\big)+\rho A\ddot u_{2}=p.$$
+  \end{block}
+  Coupled with four boundary conditions:
+  \begin{block}{}
+    \vspace{-0.5cm}
+    \begin{align*}
+      u_2(0,t)                                             & =0       &
+      \partial_x\left(-EI\partial_{xx}^2u_2\right)(\ell,t) & = \hat P   \\
+      \partial_{x}u_{2}(0,t)                               & =0       &
+      \quad EI\partial_{xx}^2u_{2}(\ell,t)                 & = \hat M
+    \end{align*}
+  \end{block}
+  and two initial conditions:
+  \begin{block}{}
+    $$u_2(x,0)=u_{0}(x)\qquad \dot u_2(x,0)=v_{0}(x)$$
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Weak form for transversal vibrations for Euler-Bernoulli beam}
+  Find the transversal displacement $u_{2}\in \mathcal U$ such that the following equation is satisfied for every virtual transversal displacement $\delta u_2\in \mathcal V$:
+  \begin{block}{}
+    \vspace{-0.5cm}\[
+      \int_0^\ell EI\, \partial_{xx}^2 u_2 \, \partial_{xx}^2 \delta u_2 \, dx + \int_0^\ell \rho A\, \ddot u_2 \, \delta u_2 \, dx = \int_0^\ell p\, \delta u_2 \, dx + \hat M\, \delta u_2'(\ell) + \hat P\, \delta u_2(\ell)
+    \]
+
+    \vspace{-0.5cm}
+    \begin{align*}
+      \mathcal U & =\big\{u_2(\cdot,t)\in H^2(]0,\ell[)\ |\ u_2(0,t)=\partial_{x}u_{2}(0,t)=0\ \forall t\in]0,T[\big\} \\
+      \mathcal V & =\big\{\delta u_2\in H^2(]0,\ell[)\ |\ \delta u_2(0)=\delta u_{2}^\prime(0)=0 \big\}
+    \end{align*}
+  \end{block}
+  \vspace{0.2cm}
+  The Sobolev space $H^2(]0,\ell[)$ is the defined as:
+    $$H^2(]0,\ell[)=\Big\{f\in L^2(]0,\ell[)\ |\ \int_0^l \big(\partial_{x}f(x)\big)^2 \ dx<\infty, \ \int_0^l \big(\partial_{xx}^2f(x)\big)^2 \ dx<\infty  \Big\}.$$
+\end{frame}
+
+\begin{frame}{Approximated transversal displacement}
+  \begin{itemize}
+    \item Euler-Bernoulli theory states that both transversal displacement $u_2$ and rotation $\theta_{3}=\partial_{x}u_{2}$ must be differentiable within finite elements and continuous between elements.
+    \item Shape functions that meet this requirement are said to have $\mathbf{C^1}$ \textbf{continuity}.
+  \end{itemize}
+  \begin{center}
+    \includegraphics[height=2cm]{../images/c1cont.png}
+    \\
+    Cubic vs. linear elements.   \noindent{\tiny\emph{Credit: [N]}}
+  \end{center}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    \textbf{Assume the approximated transversal displacement to be}
+    {\color{darkred}$$u_2^h(x,t)=a_3(t)x^3 +a_2(t)x^2 + a_1(t)x  + a_0(t)$$}
+    \vspace{-0.7cm}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Nodal degrees of freedom within a beam element}
+  \vspace{-0.5cm}
+  \begin{columns}
+    \column{0.35\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=1]
+        % Define points
+        \coordinate (A) at (0, 0);
+        \coordinate (B) at (3, 0);
+        % Mark points
+        \fill (A) circle (2.5pt);
+        \fill (B) circle (2.5pt);
+        % Label the element
+        \draw[ultra thick] (A) --(B);
+        \draw[thick] (A) ++ (0,-0.5) circle(0.25cm) node {1};
+        \draw[thick] (B) ++ (0,-0.5)  circle(0.25cm) node {2};
+        %Axis 
+        \draw[-latex,ultra thin] (-0.5,0) --(3.5,0) node[right]{$x$};
+        %Draw function
+        \draw[ultra thick,domain=0:3, smooth, variable=\x]
+        plot ({\x}, {(1+0.5*\x-2*\x*\x/3+1*\x*\x*\x/4)});
+        \draw[thick,darkred,domain=0:0.5, smooth, variable=\x]
+        plot ({\x}, {(1+0.5*\x)});
+        \draw[thick,darkred,domain=3:3.3, smooth, variable=\x]
+        plot ({\x}, {(3.25*\x-6.5)});
+        \node[above=1pt] at (1.7, 1.7) {$u_2^h(x,t)$};
+        \node[darkred, above=1.1pt] at (0.8, 1) {$\phi_{1z}$};
+        \draw[-latex] (0.5,1) arc (0:13:1) ;
+        \node[darkred, above=1.1pt] at (3.8, 3.3) {$\phi_{2z}$};
+        \draw[-latex] (3.5,3.25) arc (0:45:1) ;
+        \draw[ultra thin] (-0.5,1) -- (0.5,1);
+        \draw[ultra thin] (2.5,3.25) -- (3.5,3.25);
+        \draw[ultra thin, orange, latex-latex] (0,1) -- (0,0.1) node[midway, left] {$q_{1y}$};
+        \draw[ultra thin, orange, latex-latex] (3,3.2) -- (3,0.1) node[midway, right] {$q_{2y}$};
+        \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=0.5ex}]
+        (A) -- (B) node[midway,yshift=-1.5em]{$\ell$};
+      \end{tikzpicture}
+    \end{center}
+    \column{0.65\textwidth}
+    \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+      \textbf{Parameters shift:}
+      \vspace{0.1cm}
+      $$a_0,\ a_1,\ a_2,\ a_3 \quad\Rightarrow\quad q_{1y},\ q_{2y},\ \phi_{1z},\ \phi_{2z}$$
+      \vspace{0.4cm}
+      A planar beam element has two DOFs per node:
+      \vspace{-0.5cm}
+      \begin{itemize}
+        \item $q_{1y}$ et $q_{2y}$: \textbf{nodal displacements} in the transverse direction.
+        \item $\phi_{1z}$ et $\phi_{2z}$: \textbf{nodal rotations} around the axis normal to the beam plane.
+      \end{itemize}
+    \end{tcolorbox}
+  \end{columns}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Hermite $C^1$ shape functions}
+  \begin{itemize}
+    \item Expressing the approximated displacement $u^h$ as a function of the nodal four DOFs yield to:
+          $$u_2^h(x,t)=\mathbf H(x)\mathbf q(t)=[h_1(x),\ h_2(x),\ h_3(x),\ h_4(x)]\begin{bmatrix}
+              q_{1y}(t) \\ \phi_{1z}(t)\\ q_{2y}(t)\\ \phi_{2z}(t)
+            \end{bmatrix}$$
+    \item \textbf{Cubic local shape functions:}
+          \begin{align*}
+            h_1(x) & =2(x/\ell)^3-3(x/\ell)^2+1 & h_3(x) & =3(x/\ell)^2-2(x/\ell)^3 \\
+            h_2(x) & =x(1-x/\ell)^2             & h_4(x) & =x(x/\ell)(x/\ell-1)     \\
+          \end{align*}
+          \vspace{-1cm}
+    \item Virtual displacement approximation follows the same logic:
+          $$\delta u^h(x)=\mathbf H(x)\bolddelta\mathbf q\qquad\text{where}\qquad\bolddelta\mathbf q=[\delta u_1,\ \delta \phi_{1z},\ \delta q_{2y},\ \delta\phi_{2z}]^T$$
+  \end{itemize}
+\end{frame}
+}
+
+\begin{frame}{Hermite $C^1$ shape functions visualizations}
+  \noindent
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.65]
+        \begin{axis}[
+            axis lines=middle,
+            xlabel={$x$},
+            ylabel={$h_i(x)$},
+            xmin=0, xmax=1.05,
+            ymin=-0.2, ymax=1.2,
+            grid=both,
+            legend style={at={(0.5,1.05)}, anchor=south, legend columns=2},
+            samples=200,
+            domain=0:1
+          ]
+          % h1(x) = (2x^3 - 3x^2 + 1)
+          \addplot[blue, thick] {2*x^3 - 3*x^2 + 1};
+          \addlegendentry{$h_1(x)$}
+          % h3(x) = (-2x^3 + 3x^2)
+          \addplot[green!60!black, thick] {-2*x^3 + 3*x^2};
+          \addlegendentry{$h_3(x)$}
+        \end{axis}
+      \end{tikzpicture}
+      \textbf{Translational shape functions}
+
+    \end{column}
+
+    \begin{column}{0.45\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.65]
+        \begin{axis}[
+            axis lines=middle,
+            xlabel={$x$},
+            ylabel={$h_i(x)$},
+            xmin=0, xmax=1.05,
+            ymin=-0.7, ymax=0.7,
+            grid=both,
+            legend style={at={(0.5,1.05)}, anchor=south, legend columns=2},
+            samples=200,
+            domain=0:1
+          ]
+          % h2(x) = (x^3 - 2x^2 + x)
+          \addplot[red, thick] {x^3 - 2*x^2 + x};
+          \addlegendentry{$h_2(x)$}
+          % h4(x) = (x^3 - x^2)
+          \addplot[orange, thick] {x^3 - x^2};
+          \addlegendentry{$h_4(x)$}
+          % Tangent to h2 at x = 0: y = x, domain near 0
+          \addplot[black, domain=0:0.25] {x};
+          % Tangent to h4 at x = 1: y = x - 1, domain near 1
+          \addplot[black, domain=0.75:1] {x - 1};
+        \end{axis}
+      \end{tikzpicture}
+      \textbf{Rotational shape functions}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Element stiffness matrix}
+  \vspace{-0.5cm}
+
+  \begin{align*}
+    \mathbf{K} & =\int_0^{\ell}  EI\ \mathbf{B}^T\mathbf{B}\ dx                                                                                                                                                                                                                                                                \\
+               & =\int_0^{\ell} EI \begin{bmatrix} (h_1^{\prime\prime})^2 & h_1^{\prime\prime} h_2^{\prime\prime} & h_1^{\prime\prime} h_3^{\prime\prime} & h_1^{\prime\prime} h_4^{\prime\prime} \\
+                                       & (h_2^{\prime\prime})^2                & h_2^{\prime\prime} h_3^{\prime\prime} & h_2^{\prime\prime} h_4^{\prime\prime} \\ & & (h_3^{\prime\prime})^2                & h_3^{\prime\prime} h_4^{\prime\prime} \\ Symm. & & & (h_4^{\prime\prime})^2\end{bmatrix} \ dx \\[5pt]
+               & =\frac{EI}{\ell^3} \begin{bmatrix} 12 & 6\ell & -12 & 6\ell \\  & 4\ell^2 & -6\ell & 2\ell^2\\ & &12 & -6\ell \\Symm. & & & 4\ell^2 \end{bmatrix}
+  \end{align*}
+
+  The deformation matrix is
+  $$\mathbf B=\frac{d^2 \mathbf H}{dx^2}=\begin{bmatrix} h_1^{\prime\prime}(x) & h_2^{\prime\prime}(x) & h_3^{\prime\prime}(x) & h_4^{\prime\prime}(x) \end{bmatrix}$$
+\end{frame}
+
+\begin{frame}{Element consistent mass matrix}
+  \vspace{-0.5cm}
+
+  \begin{align*}
+    \mathbf{M} & =\int_0^{\ell}  \rho A\ \mathbf{H}^T\mathbf{H}\ dx                                                                                           \\
+               & =\int_0^{\ell} \rho A \begin{bmatrix} (h_1)^2 & h_1 h_2 & h_1 h_3 & h_1 h_4 \\
+                        & (h_2)^2 & h_2 h_3 & h_2 h_4 \\ & & (h_3)^2                & h_3 h_4 \\ Symm. & & & (h_4)^2\end{bmatrix} \ dx \\[5pt]
+               & =\frac{\rho A\ell }{420}\begin{bmatrix}
+                                           156   & 22\ell  & 54     & -13\ell  \\
+                                                 & 4\ell^2 & 13\ell & -3\ell^2 \\
+                                                 &         & 156    & -22\ell  \\
+                                           Symm. &         &        & 4\ell^2  \\
+                                         \end{bmatrix}
+  \end{align*}
+\end{frame}
+
+\begin{frame}{Element lumped mass matrix}
+  \begin{itemize}
+    \item Assumption that the mass of the structure is lumped at the nodal coordinates where translational displacements are defined.
+    \item Inertial effect associated with any rotational degree of freedom is usually assumed to be zero.
+    \item Recall that $\rho\, A$ is the mass per unit length along the beam, then the lumped mass matrix is defined as
+          \vspace{0.3cm}
+          $$\mathbf{M}=\frac{\rho A\ell}{2}\begin{bmatrix}
+              1 & 0 & 0 & 0 \\
+              0 & 0 & 0 & 0 \\
+              0 & 0 & 1 & 0 \\
+              0 & 0 & 0 & 0 \\
+            \end{bmatrix}$$
+  \end{itemize}
+\end{frame}
+}
+
+\begin{frame}{Applied loads}
+  \begin{itemize}
+    \item \textbf{Uniformly distributed load:}
+          \noindent
+          \begin{columns}
+            \begin{column}{0.55\textwidth}
+              \begin{tikzpicture}[scale=0.6]
+                \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (10,1);
+                % Draw the rectangle
+                \fill[gray!60] (0,0) rectangle (10,1);
+                % Add the p vector
+                \foreach \i in {0,...,20}
+                  {
+                    \draw[-latex, thick]  (0.5*\i,1.5)--(0.5*\i,1);
+                  }
+                \node at (5,1.9) {\(p(t)\)};
+                %axis
+                \draw[-latex, ultra thin] (-0.5,0.5) -- (10.5,0.5);
+                % length
+                \draw[ultra thin] (10,0) -- (10, 2.5) ;
+                \draw[ultra thin] (0,0) -- (0, 2.5) ;
+                \draw[latex-latex, ultra thin]  (0,2.4)  to node[sloped,midway,above] {$\ell$}(10,2.4) ;
+              \end{tikzpicture}
+            \end{column}
+            \begin{column}{0.45\textwidth}
+              $$\mathbf r=\int_0^\ell p(t)\, \mathbf H^T\ dx=\dfrac{p(t)\ell}{2}\begin{bmatrix}
+                  1      \\
+                  \ell/6 \\
+                  1      \\
+                  -\ell/6
+                \end{bmatrix}$$
+            \end{column}
+          \end{columns}
+          \vspace{0.2cm}
+          An uniform transverse load can be replaced by two equivalent transverse nodes loads of value $(p\ell)/2$ and by two equivalent nodal moments of values $\pm p\ell^2/12$.
+          \vspace{0.2cm}
+
+    \item \textbf{Concentrated loads:}
+          \noindent
+          \begin{columns}
+            \begin{column}{0.48\textwidth}
+              \centering\begin{tikzpicture}[scale=0.6]
+                \draw[fill=gray!60] (0,0) rectangle (5,1);
+                % Draw the rectangle
+                \draw[thick] (5,1) -- (0,1) -- (0,0) -- (5,0);
+                % Add the p vector
+                \draw[-latex, thick]  (3.5,2)--(3.5,1);
+                \node at (4.3,2) {\(\hat P(t)\)};
+                %axis
+                \draw[-latex, ultra thin] (-0.5,0.5) -- (5.5,0.5);
+                % x
+                \draw[, ultra thin] (0,0) -- (0,1.7);
+                \draw[-latex,ultra thin] (0,1.5) to node[midway,above] {$d$} (3.5,1.5);
+              \end{tikzpicture}
+              $$\mathbf r(t)=\hat P(t)\, \mathbf H^T(d)$$
+            \end{column}
+            \begin{column}{0.48\textwidth}
+              \centering\begin{tikzpicture}[scale=0.6]
+                \draw[fill=gray!60] (0,0) rectangle (5,1);
+                % Draw the rectangle
+                \draw[thick] (5,1) -- (0,1) -- (0,0) -- (5,0);
+                % Add the p vector
+                \draw[-latex, thick] (3.5,0.9) arc (60:-60:0.5);
+                \draw[ultra thin, dashed]  (3.5,2)--(3.5,-0);
+                \node at (4.3,1.5) {\(\hat M(t)\)};
+                %axis
+                \draw[-latex, ultra thin] (-0.5,0.5) -- (5.5,0.5);
+                % x
+                \draw[, ultra thin] (0,0) -- (0,1.7);
+                \draw[-latex,ultra thin] (0,1.5) to node[midway,above] {$d$} (3.5,1.5);
+              \end{tikzpicture}
+              $$\mathbf r(t)=\hat M(t)\, \frac{d\mathbf H}{dx}^T(d)$$
+            \end{column}
+          \end{columns}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Post-processing: approximation of bending moment and shear force}
+  \begin{itemize}
+    \item The approximated bending moment along the beam element is
+          \vspace{0.2cm}
+          $$M^h(x,t)=EI\partial_{xx}^2u_{2}^h(x,t)=EI\, \mathbf B(x)\mathbf q(t).$$
+          \vspace{-0.3cm}
+    \item The approximated shear force along the beam element is
+          \vspace{0.2cm}
+          $$V^h(x,t)=-\partial_xM^h(x,t)=-EI\, \frac{d\mathbf B}{dx}(x)\mathbf q(t).$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{MATLAB examples}
+  \begin{itemize}
+    \item A Cantilever beam subjected to a downward force
+    \item A clamped-clamped beam (micro transducer) in free vibration.
+  \end{itemize}
+
+  \begin{center}
+    \href{https://drive.mathworks.com/sharing/6a9792ef-d0a7-4aca-a1d0-8b1862b0ac3b}{\beamergotobutton{Go to Matlab Drive}}
+  \end{center}
+\end{frame}
+
+\section{Timoshenko planar beam}
+
+\begin{frame}{Higher-order deformation theories for beams}
+  \begin{columns}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[width=4.5cm]{../images/higherDefTheories.png}
+    \end{column}
+    \small
+    \begin{column}{0.7\textwidth}
+      \begin{itemize}
+        \item \textbf{Classical beam theory} (Euler-Bernoulli) is a zero-order shear deformation theory.
+        \item \textbf{Timoshenko theory} is a first-order shear deformation theory. Cross-sectional planes remain straight but not necessarily perpendicular to the mid-surface.
+              \begin{itemize}
+                \item Displacements are linear functions through thickness.
+                \item In-plane strains are linear in $z$.
+                \item Shear strains are constant in $z$.
+              \end{itemize}
+        \item  \textbf{Third-order shear deformation theory}: normal cross-sectional planes to the mid-surface can rotate and deform.
+              \begin{itemize}
+                \item Displacements are cubic functions through thickness.
+                \item In-plane strains are cubic in $z$.
+                \item Shear strains are quadratic in $z$.
+              \end{itemize}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kinematic assumptions for planar Timoshenko beam}
+  \begin{enumerate}
+    \item The beam dynamics will be restricted to the $O(x,y)$ plane.
+    \item The beam cross-section remains planar after deformation.
+    \item Lines that are straight and perpendicular to the geometrical beam axis remain straight but \textbf{not necessarily perpendicular} during deformation.
+  \end{enumerate}
+
+  \begin{columns}
+    \column{0.6\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.6]
+        \point{a}{0}{0.3};
+        \support {3}{a}[270];
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (10,1);
+        % Add the p vector
+        \foreach \i in {0,...,19}
+          {
+            \draw[-latex, thick]  (0.5*\i,1.5)--(0.5*\i,1);
+          }
+        \node at (5,1.8) {\(p\)};
+        %axis
+        \draw[-latex, ultra thin] (0,0.5) -- (11.5,0.5);
+        \draw[-latex, ultra thin] (0,-1) -- (0,2.5);
+        \node at (12,0.5) {\(x\)};
+        \node at (0,2.9) {\(y\)};
+        % length
+        \draw[ultra thin] (10,0) -- (10, 2.5) ;
+        \draw[latex-latex, ultra thin]  (0,2.2)  to node[sloped,midway,above] {$\ell$}(10,2.2) ;
+        % M and V 
+        \draw[-latex, thick] (10.3,0.8) arc (60:-60:0.5);
+        \node at (10.5,1.7) {\(\hat P\)};
+        \draw[-latex, thick] (10,2) -- (10,1);
+        \node at (10.9,1) {\(\hat M\)};
+        \draw[ultra thin]  (7,0.3) -- (8,-1) node[right]{$E,A,\rho,I$};
+      \end{tikzpicture}
+    \end{center}
+    \column{.25\textwidth}
+    {\tiny Model parameters:
+      \begin{itemize}\setlength\itemsep{0.05em}
+        \item $A$ cross-sectional area
+        \item $E$ Young's modulus
+        \item $\rho$ material density
+        \item $I$ moment of inertia
+        \item $\ell$ length
+      \end{itemize}}
+    \column{.25\textwidth}
+    {\tiny Loads:
+      \begin{itemize}\setlength\itemsep{0.05em}
+        \item  $\hat M$  bending moment \\ at free end
+        \item  $\hat P$ load at \\ free end
+        \item $p$ distributed transversal load
+      \end{itemize}
+    }
+  \end{columns}
+  \begin{block}{Variables:}
+    \begin{multicols}{2}
+      \begin{itemize}\setlength\itemsep{0.05em}
+        \item $u_{1}(x,t)$ axial displacement
+        \item $u_{2}(x,t)$ transversal displacement\vspace{.1cm}
+      \end{itemize}
+    \end{multicols}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Displacements field}
+  Introduce an auxiliary variable $\theta_{3}(x,t)$ representing the total rotation of the section around the $Oz$ axis. Rotations are positive in clockwise direction.
+  \begin{columns}
+    \column{0.35\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.6]
+        \point{a}{0}{0.3};
+        \support {3}{a}[270];
+        % Draw the rectangle
+        \filldraw[fill=gray!40, draw=gray!40,thick] (0,0) rectangle (6,1);
+        \draw[thick](6,1)-- (0,1) -- (0,0)--(6,0);
+        \draw[-latex,thick] (3.5,0.5) -- (4.4,.5) node[right]{$u_{1}$};
+        \draw[-latex,thick] (3.5,0.5) -- (3.5,1.4) node[right]{$u_{2}$};
+        \draw[darkred,thick] (3.5,0) -- (3.5,1);
+        %deformed 
+        \filldraw[fill=gray!60,draw=gray!60, rotate around={-30:(3.5,-3)}] (2.5,-2.5) rectangle (4.5,-3.5);
+        \draw[thick,rotate around={-30:(3.5,-3)},shift={(0,-0.5)}](2.5,-3)-- (4.5,-3);
+        \draw[thick,rotate around={-30:(3.5,-3)},shift={(0,0.5)}](2.5,-3)-- (4.5,-3);
+        \draw[ultra thin,rotate around={-30:(3.5,-3)}](3.5,-3)-- (3.5,-1);
+        \draw[darkred,thick,rotate around={-30:(3.5,-3)}](3.5,-2.5)-- (3.5,-3.5);
+        \draw[-latex] (3.5,-1) arc (90:60:2) node[midway,above] {$\theta_{3}$};
+        %x1 and x2
+        \draw[ultra thin] (3.5,-0.7) -- (3.5,0);
+        \draw[-latex,ultra thin] (0,-0.5) to node[midway,below] {$x$} (3.5,-.5);
+        \draw[ultra thin]  (-.7,-3)-- (3.5,-3);
+        \draw[ultra thin] (3.5,-4.5) -- (3.5,-0.5);
+        \draw[ultra thin] (-.7,0.5) -- (0,0.5);
+        \draw[-latex,ultra thin] (-.5,.5) to node[midway,left] {$y$} (-.5,-3);
+        %axis
+        \draw[ultra thin,-latex] (0,0.5) -- (6.5,0.5);
+        \draw[ultra thin,-latex] (0,-1) -- (0,2);
+      \end{tikzpicture}
+    \end{center}
+    \column{0.7\textwidth}
+
+    \begin{itemize}
+      \item The first Timoshenko assumption implies
+            $$u_3=0.$$
+      \item The second Timoshenko assumption implies
+            $$u_{1}=-y\theta_{3}\qquad\qquad\text{\emph{(rotation-axial displ.)}}$$
+            %Notice, that because the convention of positive rotations in the counterclockwise directions, the term has a negative sign. In this way, is assured that a positive value of rotation will create a negative axial displacement for a positive $y$.
+    \end{itemize}
+  \end{columns}
+  \begin{block}{}
+    \textbf{Two unknowns:} $u_{2}(x,t)$ transversal displacement and $\theta_{3}(x,t)$ rotation of the section around the $Oz$ axis.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Stress, strain and displacement fields}
+  \begin{block}{Strain-displacement relationships}
+    Substituting the displacement field $\mathbf u$ into $\boldsymbol{\varepsilon}=\boldsymbol\nabla\mathbf u$ yield to :
+    \vspace{-0.6cm}
+
+    \begin{align*}
+      \varepsilon_{11}                      & =\partial_{x}u_{1}=-y\partial_{xx}^2u_{2}                                                & \textcolor{darkred}{\varepsilon_{22}} & \textcolor{darkred}{\ =\partial_{y}u_{2}} \\
+      \textcolor{darkred}{\varepsilon_{12}} & \textcolor{darkred}{\ =\partial_{x}u_{2}+\partial_{y}u_{1}=\partial_{x}u_{2}-\theta_{3}} & \quad \varepsilon_{33}                & = \varepsilon_{23} = \varepsilon_{13} = 0
+    \end{align*}
+  \end{block}
+  \begin{block}{Generalized Hooke's law}
+    Using the linear relationship for homogeneous and isotropic material,
+    $\boldsymbol\sigma=\mathbf C\boldsymbol\varepsilon$, is possible to write the stress field in term of the strain field as :
+    \vspace{-0.6cm}
+
+    \begin{align*}
+      \sigma_{11}                      & =(\lambda + 2G)\varepsilon_{11}            &
+      \textcolor{darkred}{\sigma_{12}} & \textcolor{darkred}{\ =2G\varepsilon_{12}}   \\
+      \sigma_{22}                      & =\sigma_{33}=\lambda \varepsilon_{11}      &
+      \sigma_{13}                      & = \sigma_{23} = 0
+    \end{align*}
+
+    where $\lambda=\frac{E}{(1+\nu)(1-2\nu)}$ and the shear modulus $G=\frac{E}{2(1+\nu)}$ are Lamé constants.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Dynamic equilibrium equations}
+  \begin{block}{Additional assumptions regarding the stress field}
+    $$\sigma_{11}  = E\varepsilon_{11},\quad \sigma_{12} =2G\varepsilon_{12} \qquad\text{and}\qquad
+      \sigma_{22}  =  \sigma_{33}  = \sigma_{13} = \sigma_{23} = 0.
+    $$
+    % since the dimension of the cross-section of the beam is much smaller that the length of the beam
+  \end{block}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.4]
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (3,2);
+        %axis
+        \draw[ultra thin] (0,0) -- (0,-3.3);
+        \draw[ultra thin] (3,0) -- (3,-3.3);
+        \draw[latex-latex,ultra thin] (0,-3) to node[midway,below] {$dx$} (3,-3);
+        \draw[-latex]  (1.5,1.3)  -- (1.5,3) node[above] {$\rho A\ddot u_{2}dx$};
+        \draw[-latex]  (1.5,.7)  -- (1.5,-1) node[below] {$pdx$};
+        \draw[gray,-latex] (-0.5,2.2) arc (120:240:1.5);
+        %M vactors 
+        \node[gray] at (-2,1) {\(M\)};
+        \draw[gray,-latex] (3.5,2.2) arc (60:-60:1.5);
+        \draw (4.3,1) node[gray,right] {$M+\partial_{x}Mdx$};
+        % Add the V vectors
+        \draw[darkred,-latex] (-0.3,0) -- (-0.3,2);
+        \node[darkred,above] at (-0.2,2) {\(V\)};
+        \draw[darkred,latex-] (3.3,0) -- (3.3,2);
+        \node[darkred,above] at (5.7,1.8) {\(V+\partial_{x}Vdx\)};
+        % Rotatory inertia
+        \draw[ultra thin] (1,0.5) -- (-1.5,-2.5) node[left]{$\rho I\ddot \theta_{3}dx$};
+        \draw[latex-] (1.85,.4) arc (300:30:0.7);
+      \end{tikzpicture}
+    \end{center}
+    \column{0.6\textwidth}
+    \vspace{-0.2cm}
+    \begin{itemize}
+      \item Equilibrium of transverse forces:
+            $$ \partial_{x}{\color{darkred}V}+p =\rho A\ddot u_{2}  $$
+      \item Equilibrium of moments:
+            $$ \partial_{x}{\color{gray}M}+{\color{darkred}V}=\rho I\ddot \theta_{3}$$
+    \end{itemize}
+
+  \end{columns}\vspace{-0.3cm}
+  \begin{align*}
+    {\color{darkred}V} & =\int_{A}\sigma_{12}\, dA=kGA\varepsilon_{12}={\color{darkred} kGA(\partial_{x}u_{2}-\theta_{3})}    \\
+    {\color{gray}M}    & =-\int_{A} y\sigma_{11}\, dA=-\int_{A}yE\varepsilon_{11}\, dA={\color{gray}EI\partial_{x}\theta_{3}} \\
+  \end{align*}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Strong form for transversal vibrations for Timoshenko beam}
+  \vspace{-0.5cm}
+  The weak formulation of the problem consists of finding the transversal displacement $u_{2}\in C^2([0,\ell]\times[0,T])$ and the rotation $\theta_{3}\in C^2([0,\ell]\times[0,T])$ such that the following equilibrium equations, boundary and initial conditions are satisfied.
+  \begin{block}{}
+    \vspace{-.5cm}
+    \begin{align*}
+      \partial_{x}\big({\color{darkred}kGA(\partial_{x}u_{2}-\theta_{3})}\big)+p                                      & =\rho A\ddot u_{2}      \\
+      \partial_{x}\big({\color{gray}EI\partial_{x}\theta_{3}}\big)+{\color{darkred}kGA(\partial_{x}u_{2}-\theta_{3})} & =\rho I\ddot \theta_{3} \\
+    \end{align*}
+    \vspace{-1cm}\newline\small In matrix form: $\nabla_{\sigma}^{T}\mathbf C\nabla_{u}\mathbf u+\mathbf f=\mathbf {M \ddot u}$, where
+    $$\underbrace{\begin{bmatrix}
+          \partial_{x} & 0            \\
+          1            & \partial_{x}
+        \end{bmatrix}}_\text{$\nabla_{\sigma}^{T}$}
+      \underbrace{\begin{bmatrix}
+          kGA & 0  \\
+          0   & EI
+        \end{bmatrix}}_\text{$\mathbf C$}
+      \underbrace{\begin{bmatrix}
+          \partial_{x} & -1           \\
+          0            & \partial_{x}
+        \end{bmatrix}}_\text{$\nabla_{u}$}
+      \underbrace{\begin{bmatrix}
+          u_{2} \\
+          \theta_{3}
+        \end{bmatrix}}_\text{$\mathbf u$}
+      +
+      \underbrace{\begin{bmatrix}
+          p \\
+          0
+        \end{bmatrix}}_\text{$\mathbf f$}
+      =
+      \underbrace{\begin{bmatrix}
+          \rho A & 0      \\
+          0      & \rho I
+        \end{bmatrix}}_\text{$\mathbf M$}
+      \underbrace{\begin{bmatrix}
+          \ddot u_{2} \\
+          \ddot \theta_{3}
+        \end{bmatrix}}_\text{$\mathbf{\ddot u}$}
+    $$
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Boundary conditions}
+    \begin{columns}
+      \column{0.4\textwidth}
+      \[
+        \begin{aligned}
+           & u_2(0, t) = 0 \quad        &  & \\
+           & \theta_{3}(0, t) = 0 \quad &  & \\
+        \end{aligned}
+      \]
+      \column{0.6\textwidth}
+      \[
+        \begin{aligned}
+           & kGA \big(\partial_{x}u_{2}(\ell, t)-\theta_{3}(\ell, t) \big)= \hat P &  & \\
+           & EI \partial_{x}\theta_{3}(\ell, t)=\hat M                             &  & \\
+        \end{aligned}
+      \]
+    \end{columns}
+    \vspace{.2cm}\small In matrix form: let $\hat{\mathbf{f}}=[\hat P,\, \hat M]^T$ then
+    $$\begin{aligned}
+        \mathbf u(0,t)                        & =\mathbf 0       \\
+        \mathbf C\nabla_{u} \mathbf u(\ell,t) & =\mathbf{\hat f} \\
+      \end{aligned}$$
+  \end{block}
+
+  \begin{block}{Initial conditions}
+    \begin{columns}
+      \column{0.5\textwidth}
+      \[
+        \begin{aligned}
+           & u_2(x, 0) = u_{0}(x) \quad             &  & \\
+           & \theta_{3}(x, 0) = \theta_{0}(x) \quad &  & \\
+        \end{aligned}
+      \]
+      \column{0.5\textwidth}
+      \[
+        \begin{aligned}
+           & \dot u_2(x, 0) = v_{0}(x) \quad           &  & \\
+           & \dot \theta_{3}(x, 0) = \phi_{0}(x) \quad &  & \\
+        \end{aligned}
+      \]
+    \end{columns}
+    \vspace{.2cm}\small In matrix form:  $\mathbf{u_{0}}=[u_0,\, \theta_0]^T$ and $\mathbf{v_{0}}=[v_0,\, \phi_0]^T$ then
+    $$\begin{aligned}
+        \mathbf u(x,0)       & =\mathbf{u_{0}} \\
+        \mathbf{\dot u}(x,0) & =\mathbf{v_{0}}
+      \end{aligned}$$
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Weak form for transversal vibrations for Timoshenko beam}
+  The weak formulation of the problem consists in finding the unknown function $\mathbf{u} \in \mathcal U$ which satisfies the equation $\forall \boldsymbol\delta \mathbf{u} \in \mathcal{V}$:
+  $$
+    \begin{aligned}
+       & \int_0^{\ell}\left(\nabla_u \boldsymbol\delta \mathbf{u}\right)^{\mathrm{T}} \mathbf{C}\left(\nabla_u \mathbf{u}\right) \mathrm{d} x+\int_0^{\ell} \boldsymbol\delta \mathbf{u}^{\mathrm{T}} \mathbf{M} \ddot{\mathbf{u}}\, d x =\int_0^{\ell} \boldsymbol\delta \mathbf{u}^{\mathrm{T}} \mathbf{f} d x+\boldsymbol\delta \mathbf{u}^{\mathrm{T}}(\ell)\mathbf{\hat f}.
+    \end{aligned}
+  $$
+  The function spaces $\mathcal U$ and $\mathcal V$ are defined as follows
+  $$
+    \begin{aligned}
+       & \mathcal U=\left\{\mathbf{u}=\left\{u_2, \theta_3\right\}^{\mathrm{T}} \mid u_2(\cdot,t) \in H^1(] 0, \ell[) ; \theta_3(\cdot,t) \in H^1(] 0, \ell[) ; u_2(0, t)=\theta_3(0, t)=0\right\},                                     \\
+       & \mathcal V=\left\{\boldsymbol\delta \mathbf{u}=\left\{\delta u_2, \delta \theta_3\right\}^{\mathrm{T}} \mid \delta u_2 \in H^1(] 0, \ell[) ; \delta \theta_3 \in H^1(] 0, \ell[) ; \delta u_2(0)=\delta \theta_3(0)=0\right\}.
+    \end{aligned}
+  $$
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Displacement approximation}
+  \small
+  \begin{itemize}
+    \item We approximate the generalized displacement using the ansatz:
+          \[            \mathbf u^{h}(\mathbf x,t) = \mathbf H(\mathbf x)\mathbf q(t)    \qquad \text{and} \qquad
+            \delta\mathbf u^{h}(\mathbf x)  =\mathbf H(\mathbf x)\delta\mathbf q
+          \]
+    \item \textbf{Cubic shape functions} are used to approximate the transversal displacement and \textbf{linear shape functions} for the rotation field:
+          $$
+            \mathbf H=\left[
+              \begin{array}{cccc}
+                h^c_1 & h^c_2 & h^c_3 & h^c_4 \\[0.5em]
+                0     & h^l_1 & 0     & h^l_2 \\
+              \end{array} \right]
+          $$
+          \vspace{-0.1cm}
+          \begin{align*}
+            h^c_1(x) & =2(x/\ell)^3-3(x/\ell)^2+1 & h^c_3(x) & =3(x/\ell)^2-2(x/\ell)^3 \\
+            h^c_2(x) & =x(1-x/\ell)^2             & h^c_4(x) & =x(x/\ell)(x/\ell-1)     \\
+            h^l_1(x) & = 1-x/\ell                 & h^l_2(x) & = x/\ell
+          \end{align*}
+    \item $\mathbf q(t)$ is a vector of (\emph{unknown}) nodal displacements and  $\bolddelta \mathbf q$ is a vector of constants:
+          $$\mathbf q(t)=\left[
+              \begin{array}{cccc}
+                q_{1y}(t) & \phi_{1z}(t) & q_{2y}(t) & \phi_{2z}(t)
+              \end{array} \right]^T\qquad \text{and}\qquad\bolddelta\mathbf q=\left[\begin{array}{cccc}
+                \delta q_{1y} & \delta \phi_{1z} & \delta q_{2y} & \delta \phi_{2z}
+              \end{array}\right]^T$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Deformation, stiffness, mass matrices and loads vector}
+  \begin{itemize}
+    \item $\mathbf B=\nabla_u\mathbf H$ is the deformation matrix:
+          \begin{align*}
+            \mathbf B
+            =\left[
+              \begin{array}{cccc}
+                \partial_x{h_1^c} & \partial_x{h_2^c}-h_1^l & \partial_x{h_3^c} & \partial_x{h_4^c}-h_2^l \\
+                0                 & \partial_x{h_1^l}       & 0                 & \partial_x{h_2^l}
+              \end{array}\right]
+          \end{align*}
+    \item The stiffness $\mathbf K$ and mass $\mathbf{Ma}$ matrices and load vector $\mathbf r$ are defined as
+          \begin{align*}
+            \mathbf K    & =\int_0^\ell \mathbf B^T\mathbf C\mathbf B \, dx,                                   \\
+            \mathbf{Ma}  & =\int_0^\ell \mathbf H^T\mathbf M\mathbf H \, dx,                                   \\
+            \mathbf r(t) & = \int_{0}^{\ell} \mathbf H^{T}\mathbf f\, dx + \mathbf H^{T}(\ell)\mathbf{\hat f}.
+          \end{align*}
+    \item The semi-discrete equations of motion are given by
+          $$\mathbf{Ma}\,\ddot{\mathbf q}(t)+\mathbf K\mathbf q(t)=\mathbf r(t).$$
+  \end{itemize}
+\end{frame}
+}
+
+\begin{frame}{MATLAB example - modal analysis of a Timoshenko beam}
+  \begin{center}
+    \href{https://drive.mathworks.com/sharing/6a9792ef-d0a7-4aca-a1d0-8b1862b0ac3b}{\beamergotobutton{Go to Matlab Drive}}
+  \end{center}
+\end{frame}
+
+
+\section{Plane frames}
+
+\begin{frame}{What is a plane frame?}
+  \begin{itemize}
+    \item Structure composed of oriented thin beam elements, connected by welding, and carrying \textbf{transversal and axial forces} that all lies in a common plane.
+    \item Both forces and moments can be transmitted between members.
+    \item Loads are acting only in the common plane of the structure and they must be applied at the joints.
+  \end{itemize}\vspace{0.3cm}
+  \begin{center}
+    \begin{columns}
+      \begin{column}{0.48\textwidth}
+        \centering
+        \includegraphics[height=2.3cm]{../images/truss}
+        \newline
+        \textbf{Plane truss}
+      \end{column}
+
+      \begin{column}{0.48\textwidth}
+        \centering
+        \includegraphics[height=2.3cm]{../images/truss1}
+        \newline
+        \textbf{Plane frame}
+      \end{column}
+    \end{columns}
+  \end{center}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    \centering  \textbf{Truss + Thin beams = Frame}
+  \end{tcolorbox}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Axial loads in thin beam element}
+  The inclusion of axial forces in a flexural beam element requires a \emph{superposition} of bar and beam elements:
+  \begin{center}
+    \begin{tikzpicture}[scale=0.5]
+      % Draw the rectangle
+      \filldraw[fill=gray!60, draw=black,thick] (0,-0.5) rectangle (10,0.5);
+      %axis
+      \draw[ultra thin] (-0.5,0) -- (10,0);
+      % displacement
+      \draw[thick,-latex] (3.5,0) -- (3.5,1.5) node[right] {$u_2$};
+      \draw[thick,-latex] (3.5,0) -- (4.5,0);
+      \node[right] at (4.5,0) {$u_1$};
+      % length
+      \draw[ultra thin] (3.5,0) -- (3.5, 1.3) ;
+      \draw[ultra thin] (0,0) -- (0, 1.3) ;
+      \draw[-latex, ultra thin]  (0,1)  to node[sloped,midway,above] {$x^\prime$}(3.5,1) ;
+      \draw[ultra thin]  (3,-0.3) -- (4,-1.5) node[right]{$\ell,E,A,I,\rho$}; %forces
+      \draw[thick,-latex,orange] (0,0) -- (0,1) node[left]{$f_{1y}^\prime$};
+      \draw[thick,-latex,orange] (10,0) -- (10,1) node[right]{$f_{2y}^\prime$};
+      \draw[thick,-latex,orange] (0,0) -- (1,0) node[right]{$f_{1x}^\prime$};
+      \draw[thick,-latex,orange] (10,0) -- (11,0) node[right]{$f_{2x}^\prime$};
+      % moments  
+      \draw[thick,->>,orange] (0,0) -- (0,0,2) node[below]{$m_{1z}^\prime$};
+      \draw[thick,->>,orange] (10,0) -- (10,0,2) node[below]{$m_{2z}^\prime$};
+      % Mark points
+      \fill (0,0) circle (4pt);
+      \fill (10,0) circle (4pt);
+      \draw[thick] (0,0) ++ (0,-1) circle(0.35cm) node {1};
+      \draw[thick] (10,0) ++ (0,-1)  circle(0.35cm) node {2};
+    \end{tikzpicture}
+  \end{center}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    Differential equations governing the dynamics:
+    \vspace{-0.2cm}
+    \begin{align*}
+       & \partial_{x^\prime x^\prime}^2\big(EI\partial_{x^\prime x^\prime}^2u_{2}(x^\prime,t)\big)+\rho A\ddot u_{2}(x^\prime,t)=0 \\
+       & EA \partial^{2}_{x^\prime x^\prime}u_1(x^\prime, t) = \rho A \ddot{u}_1(x^\prime, t)
+    \end{align*}
+  \end{tcolorbox}
+  \emph{Axial effects are subsequently incorporated into the beam element formulation, unless specified otherwise.
+  }
+\end{frame}
+}
+
+\begin{frame}{Axial displacement in thin beam element}
+  A beam element now has three degrees of freedom per node: $q_{ix}^\prime,\  q_{iy}^\prime,$ and $\phi_{iz}^\prime$.
+
+  \begin{itemize}
+    \item Displacements approximation:
+          $$u^h(x^\prime,t)=  \mathbf H(x^\prime)\mathbf q_{loc} (t)=[{\color{brown}h_1(x^\prime)}\ h_2(x^\prime)\  h_3(x^\prime)\ {\color{brown}h_4(x^\prime)}\  h_5(x^\prime)\ h_6(x^\prime)]\begin{bmatrix}
+              {\color{brown} q_{1x}^\prime(t)} \\[2pt] q_{1y}^\prime(t) \\[2pt] \phi_{1z}^\prime(t)\\[2pt]  {\color{brown} q_{2x}^\prime(t)}\\[2pt]  q_{2y}^\prime(t)\\[2pt] \phi_{2z}^\prime(t)
+            \end{bmatrix}$$
+    \item Local shape functions:
+          \begin{align*}
+            {\color{brown}h_1(x^\prime)} & = {\color{brown}1-x^\prime/\ell}         & {\color{brown}h_4(x^\prime)} & {\color{brown}=x^\prime/\ell}             \\
+            h_2(x^\prime)                & =2(x^\prime/\ell)^3-3(x^\prime/\ell)^2+1 & h_5(x^\prime)                & =3(x^\prime/\ell)^2-2(x^\prime/\ell)^3    \\
+            h_3(x^\prime)                & =x^\prime(1-x^\prime/\ell)^2             & h_6(x^\prime)                & =x^\prime(x^\prime/\ell)(x^\prime/\ell-1) \\
+          \end{align*}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Discretization of thin beam including axial effects}
+  \begin{itemize}
+    \item Element stiffness matrix in local coordinates:
+          $$\small \mathbf{K}_{loc}=\frac{EI}{\ell^3} \begin{bmatrix}
+              {\color{brown}A\ell^2/I} & 0  & 0       & {\color{brown}-A\ell^2/I} & 0      & 0       \\
+                                       & 12 & 6\ell   & 0                         & -12    & 6\ell   \\
+                                       &    & 4\ell^2 & 0                         & -6\ell & 2\ell^2 \\
+                                       &    &         & {\color{brown}A\ell^2/I}  & 0      & 0       \\
+                                       &    &         &                           & 12     & -6\ell  \\ sym. & & & & & 4\ell^2\end{bmatrix}
+          $$
+    \item Element consistent mass matrix in local coordinates:
+          \[\small  \mathbf{M}_{loc} =\frac{\rho A\ell }{420}\begin{bmatrix}
+              {\color{brown}140} & 0   & 0       & {\color{brown}70} & 0      & 0        \\
+              0                  & 156 & 22\ell  & 0                 & 54     & -13\ell  \\
+                                 &     & 4\ell^2 & 0                 & 13\ell & -3\ell^2 \\
+                                 &     &         & {\color{brown}70} & 0      & 0        \\
+                                 &     &         &                   & 156    & -22\ell  \\
+              sym.               &     &         &                   &        & 4\ell^2  \\
+            \end{bmatrix} \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Arbitrarly oriented thin beam element including axial effects}
+  \vspace{-0.4cm}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item Displacements in local coordinates:\vspace{-0.3cm}  $${\color{orange}\mathbf{q}_{loc}} = \begin{bmatrix}
+                q_{1x}^\prime & q_{1y}^\prime & \phi_{1z}^\prime & q_{2x}^\prime & q_{2y}^\prime & \phi_{2z}^\prime
+              \end{bmatrix}^T.$$
+      \item Displacements in global coordinates:\vspace{-0.3cm} $${\color{darkred}\mathbf q} =  \begin{bmatrix}
+                q_{1x} & q_{1y} & \phi_{1z} & q_{2x} & q_{2y} & \phi_{2z}
+              \end{bmatrix}^T.$$
+      \item       \textbf{Relation between local and global displacements:}
+    \end{itemize}
+    \column{0.5\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=1]
+        % Draw background grid
+        %\draw[step=1cm,gray,very thin] (0,0) grid (12,6);
+        % Define coordinates
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (2.5,1);
+        \coordinate (C) at (5,2);
+        % Draw the truss members
+        \draw[ultra thin] (A) -- (B);
+        \draw[ultra thick] (B) -- (C);
+        % Global coordinate system
+        \draw[-latex, ultra thin] (0,0) -- (0,3) node[left] {$y$};
+        \draw[-latex, ultra thin] (0,0) -- (6,0) node[below] {$x$};
+        % Local coordinate systems
+        \draw[-latex, darkred,thick] (B) -- ++(1.07,0) node[right] {$q_{1x}$};
+        \draw[-latex, darkred,thick] (C) -- ++(1.07,0) node[right] {$q_{2x}$};
+        \draw[-latex, darkred,thick] (B) -- ++(0,0.89) node[right] {$q_{1y}$};
+        \draw[-latex, darkred,thick] (C) -- ++(0,0.89) node[right] {$q_{2y}$};
+        % Local primed coordinate system
+        \draw[-latex, orange, thick] (B) -- ++(1,0.4) node[above] {$q_{1x}^\prime$};
+        \draw[-latex, orange, thick] (C) -- ++(1,0.4) node[above] {$q_{2x}^\prime$};
+        \draw[-latex, orange, thick] (B) -- ++(-0.4,0.8) node[left] {$q_{1y}^\prime$};
+        \draw[-latex, orange, thick] (C) -- ++(-0.4,0.8) node[left] {$q_{2y}^\prime$};
+        % Angles and labels
+        \draw[-latex] (1,0) arc (0:21.8:1);
+        \node at (1.3,0.25) {$\theta$};
+        % Draw supports (circles at joints)
+        \filldraw (B) circle (2pt);
+        \filldraw (C) circle (2pt);
+        % Nodes coord
+        \draw[dashed,ultra thin] (B) -- (2.5,0) node[below] {$x_1$};
+        \draw[dashed,ultra thin] (B) -- (0,1) node[left] {$y_1$};
+        \draw[dashed,ultra thin] (C) -- (5,0) node[below] {$x_2$};
+        \draw[dashed,ultra thin] (C) -- (0,2) node[left] {$y_2$};
+      \end{tikzpicture}
+    \end{center}
+  \end{columns}
+  $$\small \underbrace{\begin{bmatrix}
+        q_{1x}^\prime \\ q_{1y}^\prime \\ \phi_{1z}^\prime \\  q_{2x}^\prime\\ q_{2y}^\prime \\ \phi_{2z}^\prime
+      \end{bmatrix}}_\text{$\mathbf q_{loc}$}=\underbrace{\begin{bmatrix}
+        \cos(\theta)  & \sin(\theta) & 0 & 0             & 0            & 0 \\
+        -\sin(\theta) & \cos(\theta) & 0 & 0             & 0            & 0 \\
+        0             & 0            & 1 & 0             & 0            & 0 \\
+        0             & 0            & 0 & \cos(\theta)  & \sin(\theta) & 0 \\
+        0             & 0            & 0 & -\sin(\theta) & \cos(\theta) & 0 \\
+        0             & 0            & 0 & 0             & 0            & 1 \\
+      \end{bmatrix}}_\text{$\mathbf T$}\underbrace{\begin{bmatrix}
+        q_{1x} \\ q_{1y} \\ \phi_{1z} \\ q_{2x} \\ q_{2y} \\ \phi_{2z}
+      \end{bmatrix}}_\text{$\mathbf q$}
+  $$
+\end{frame}
+
+\begin{frame}{Discretization of arbitrarly oriented beam including axial effects}
+  \begin{itemize}
+    \item Element stiffness matrix in global coordinates:
+          $$\tiny \mathbf{K} = \mathbf T^T \mathbf{K}_{loc} \mathbf T=\frac{E}{\ell}\begin{bmatrix}
+              \frac{A \ell^3 C^2 + 12 I S^2}{\ell^2} & \frac{(-12 I + A \ell^2) C S}{\ell^2}  & \frac{-6 I S}{\ell} & -\frac{A \ell^3 C^2 + 12 I S^2}{\ell^2} & \frac{(12 I - A \ell^2) C S}{\ell^2}    & \frac{-6 I S}{\ell} \\
+                                                     & \frac{12 I C^2 + A \ell^2 S^2}{\ell^2} & \frac{6 I C}{\ell}  & \frac{(12 I - A \ell^2) C S}{\ell^2}    & -\frac{12 I C^2 + A \ell^2 S^2}{\ell^2} & \frac{6 I C}{\ell}  \\
+                                                     &                                        & 4 I                 & \frac{6 I S}{\ell}                      & \frac{-6 I C}{\ell}                     & 2 I                 \\
+                                                     &                                        &                     & \frac{A \ell^3 C^2 + 12 I S^2}{\ell^2}  & \frac{(-12 I + A \ell^2) C S}{\ell^2}   & \frac{6 I S}{\ell}  \\
+                                                     &                                        &                     &                                         & \frac{12 I C^2 + A \ell^2 S^2}{\ell^2}  & \frac{-6 I C}{\ell} \\
+                                                     &                                        &                     &                                         &                                         & 4 I
+            \end{bmatrix}$$
+          where $C=\cos(\theta)$ and $S=\sin(\theta)$.
+          \vspace{0.3cm}
+    \item Element consistent mass matrix in global coordinates:
+          $$\mathbf{M} = \mathbf T^T \mathbf{M}_{loc} \mathbf T$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Applied loads}
+  \begin{itemize}
+    \item Element applied loads vector in local coordinates:
+          \[ \small \mathbf{f}_{loc}(t) = \begin{bmatrix} {\color{brown}f_{1x}^\prime(t)} \\ f_{1y}^\prime(t) \\ m_{1z}^\prime(t) \\{\color{brown}f_{2x}^\prime(t)} \\f_{2y}^\prime(t) \\ m_{2z}^\prime(t) \end{bmatrix} \]
+    \item Element applied loads vector in global coordinates:
+          \[
+            \mathbf{f} = \mathbf T^T \mathbf{f}_{loc} =\begin{bmatrix}
+              \cos(\theta)f_{1x}^\prime + \sin(\theta)f_{1y}^\prime \\
+              -\sin(\theta)f_{1x}^\prime +\cos(\theta)f_{1y}^\prime \\
+              m_{1z}^\prime                                         \\
+              \cos(\theta)f_{2x}^\prime + \sin(\theta)f_{2y}^\prime \\
+              -\sin(\theta)f_{2x}^\prime +\cos(\theta)f_{2y}^\prime \\
+              m_{2z}^\prime                                         \\
+            \end{bmatrix}
+          \]
+  \end{itemize}
+\end{frame}
+
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Assembly of stiffness and mass matrices and loads vector}
+  Given a 2d frame structure made of $m$ oriented beams, $n$ nodes, and $3$ DOFs per node:
+
+  \vspace{0.5em}
+  \textbf{1. Element quantities:}
+  \begin{itemize}
+    \item For each beam $e$, compute the element quantities global coordinates:
+          \begin{align*}
+            {}^e\mathbf{K} & ={}^e\mathbf{T}^{T} {}^e\mathbf{K}_{loc}{}^e\mathbf{T} \\
+            {}^e\mathbf{M} & ={}^e\mathbf{T}^{T} {}^e\mathbf{M}_{loc}{}^e\mathbf{T} \\
+            {}^e\mathbf{f} & ={}^e\mathbf{T}^{T} {}^e\mathbf{f}_{loc}
+          \end{align*}
+  \end{itemize}
+
+  \vspace{0.5em}
+  \textbf{2. Global assembly:}
+  \begin{itemize}
+    \item Initialize global stiffness matrix $\mathbf{K}$ and global mass matrix $\mathbf{M}$ of size $3n \times 3n$,
+    \item  Initialize global loads vector $\mathbf{f}$ of size $3n \times 1$,
+    \item Assemble each ${}^e\mathbf{K}$, ${}^e\mathbf{M}$ and ${}^e\mathbf{f}$ for $e=1,\dots,m$, into $\mathbf{K}$, $\mathbf{M}$ and $\mathbf{f}$ respectively using element connectivity.
+  \end{itemize}
+\end{frame}
+}
+
+\begin{frame}{MATLAB example - frame 2d in free vibration}
+  \begin{center}
+    \href{https://drive.mathworks.com/sharing/6a9792ef-d0a7-4aca-a1d0-8b1862b0ac3b}{\beamergotobutton{Go to Matlab Drive}}
+  \end{center}
+\end{frame}
+
+\section{Plane grids}
+
+\begin{frame}{What is a grid?}
+  \begin{itemize}
+    \item A grid is a structure composed of oriented planar beams subjected to
+          \textbf{perpendicular loading}, producing significant bending effects.
+    \item Beams are connected by welding, so forces and moments can be transmitted
+          between members.
+    \item The axial effect of displacement is ignored for now.
+    \item Grids commonly model floors, roofs, bridge decks, and similar structures.
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[height=3cm]{../images/grid.png}
+  \end{center}
+
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black,width=0.7\textwidth]
+    \centering \textbf{Shaft + thin beams = Grid}
+  \end{tcolorbox}
+
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south east,xshift=-4mm,yshift=3mm]
+    at (current page.south east)
+    {\includegraphics[width=3cm]{../images/fusion1.jpg}};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Degrees of freedom identification}
+  \vspace{-0.1cm}
+  \begin{itemize}
+    \item \textbf{Planar frame under action of loads in the plane of the structure:}
+          \vspace{-0.1cm}
+          \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+            \small Components required to describe the displacements of joint $i$ are:
+            \begin{itemize}
+              \item $q_{ix}$ translation in the $x$ direction,
+              \item $q_{iy}$ translation in the $y$ direction,
+              \item $\phi_{iz}$ bending, rotation about the $z$ axis.
+            \end{itemize}
+          \end{tcolorbox}
+    \item \textbf{Planar grids loaded perpendicularly to the plane of the structure:}
+          \vspace{-0.1cm}
+          \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+            \small Components required to describe the displacements of joint $i$ are:
+            \begin{itemize}
+              \item $q_{iz}$ translation in the $z$ direction,
+              \item $\phi_{ix}$  torsion, rotation about the $x$ axis .
+              \item $\phi_{iy}$ bending, rotation about the $z$ axis.
+            \end{itemize}
+          \end{tcolorbox}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Shaft element}
+  The development of a shaft finite element is very similar to the development of a bar finite element, where
+  \begin{itemize}
+    \item the axial displacement $u_1$ is replaced by the angular rotation $\phi_{1}$,
+    \item the axial nodal forces $f_{ix}^\prime$ are replaced by nodal torque $m_{ix}^\prime$,
+    \item the element tensile stiffness $AE/\ell$ is replaced by the torsional stiffness $GJ/\ell$.
+  \end{itemize}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.55]
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,-0.5) rectangle (10,0.5);
+        %axis
+        \draw[ultra thin] (-0.5,0) -- (10,0);
+        %forces
+        \draw[thick,->>,orange] (0,0) -- (1,0) node[right]{$m_{1x}^\prime$};
+        \draw[thick,->>,orange] (10,0) -- (11,0) node[right]{$m_{2x}^\prime$};
+        % Mark points
+        \fill (0,0) circle (4pt);
+        \fill (10,0) circle (4pt);
+        \draw[thick] (0,0) ++ (0,-1) circle(0.35cm) node {1};
+        \draw[thick] (10,0) ++ (0,-1)  circle(0.35cm) node {2};
+        % displacement
+        \draw[thick,->>,darkred] (3.5,0) -- (4.5,0);
+        \node[darkred,right] at (4.5,0) {$\phi_{1}$};
+        % length
+        \draw[ultra thin] (3.5,0) -- (3.5, 1.3) ;
+        \draw[ultra thin] (0,0) -- (0, 1.3) ;
+        \draw[-latex, ultra thin]  (0,1)  to node[sloped,midway,above] {$x^\prime$}(3.5,1) ;
+        \draw[ultra thin]  (4,-0.3) -- (5,-2) node[right]{$\ell,G,J,\rho$};
+      \end{tikzpicture}
+    \end{center}
+
+    \column{0.4\textwidth}
+    {\tiny \begin{itemize}
+        \item $G$ shear modulus of the material
+        \item $J$ polar moment of inertia of the cross-section.
+        \item $\rho$ material density
+        \item $\ell$ length
+        \item $\phi_{1}$ angular rotation
+        \item $x^\prime$ (local) axial coordinate
+      \end{itemize}}
+  \end{columns}
+  \vspace{0.4cm}
+\end{frame}
+
+
+\begin{frame}{Equation of motion for non-oriented shaft element}
+  \begin{block}{}
+    Differential equation governing the dynamics:
+    $$ GJ \partial^{2}_{x^\prime x^\prime}\phi_{1}(x^\prime, t) = \rho J \ddot{\phi}_1(x^\prime, t) $$
+  \end{block}
+
+  \begin{itemize}
+    \item  Angular rotation (twisting) approximation:
+          \[\phi^h_1(x^\prime,t)=  \mathbf H(x^\prime)\mathbf q_{loc} (t)=\begin{bmatrix}  h_1(x^\prime) & h_2(x^\prime)\end{bmatrix} \begin{bmatrix}  \phi_{1x}^\prime(t) \\ \phi_{2x}^\prime(t)\end{bmatrix}\]
+    \item Linear local shape functions:
+          $$h_1(x^\prime)  =1-\frac{x^\prime}{\ell} \qquad\text{and}\qquad h_2(x^\prime)  =\frac{x^\prime}{\ell}$$
+    \item Semi-discrete weak form:
+          \[\bolddelta\mathbf{q}_{loc}^T\big[\mathbf{M}_{loc} \ddot{\mathbf{q}}_{loc}(t) + \mathbf{K}_{loc} \mathbf{q}_{loc}(t) - \mathbf{f}_{loc}(t)\big]=0 \]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Discretization of shaft}
+  \begin{itemize}
+    \item Element stiffness matrix in local coordinates:
+          \[ \mathbf{K}_{loc} =\int_0^{\ell}  GJ\ \frac{d\mathbf{H}}{dx^\prime}^T\frac{d\mathbf{H}}{dx^\prime}\ dx^\prime =\int_0^{\ell}  GJ \begin{bmatrix} (h_1^\prime)^2 & h_1^\prime h_2^\prime \\  h_2^\prime h_1^\prime &  (h_2^\prime)^2 \end{bmatrix} dx^\prime =\frac{GJ}{\ell} \begin{bmatrix} 1 & -1 \\ -1 & 1 \end{bmatrix} \]
+    \item Element consistent mass matrix in local coordinates:
+          \[ \mathbf{M}_{loc} =\int_0^{\ell}  \rho J\ \mathbf{H}^T\mathbf{H}\ dx^\prime =\int_0^{\ell}\rho J \begin{bmatrix} (h_1)^2 &h_1 h_2 \\  h_2 h_1 &  (h_2)^2 \end{bmatrix} dx^\prime =\frac{\rho J\ell }{6} \begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix} \]
+    \item Element applied loads vector in local coordinates:
+          \[ \mathbf{f}_{loc}(t) =\begin{bmatrix} h_1(0) \\ h_2(0)\end{bmatrix}m_{1x}^\prime(t) + \begin{bmatrix} h_1(\ell) \\ h_2(\ell)\end{bmatrix}m_{2x}^\prime(t) = \begin{bmatrix} m_{1x}^\prime(t) \\ m_{2x}^\prime(t) \end{bmatrix} \]
+  \end{itemize}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Torsional effects in thin beam element}
+  The inclusion of torsional stiffness in a thin beam element, to model a typical element in a planar grid frame, requires a \emph{superposition} of shaft and beam elements:
+  \begin{center}
+    \begin{tikzpicture}[scale=0.5]
+      % Draw the rectangle
+      \filldraw[fill=gray!60, draw=black,thick] (0,-0.5) rectangle (10,0.5);
+      %axis
+      \draw[ultra thin] (-0.5,0) -- (10,0);
+      % displacement
+      \draw[thick,->>] (3.5,0) -- (3.5,1.5) node[right] {$\phi_2$};
+      \draw[thick,->>] (3.5,0) -- (4.5,0) node[right] {$\phi_1$};
+      \draw[thick,-latex] (3.5,0) -- (3.5,0,2) node[below] {$u_3$};
+      % length
+      \draw[ultra thin] (3.5,0) -- (3.5, 1.3) ;
+      \draw[ultra thin] (0,0) -- (0, 1.3) ;
+      \draw[-latex, ultra thin]  (0,1)  to node[sloped,midway,above] {$x^\prime$}(3.5,1) ;
+      \draw[ultra thin]  (3.7,-0.3) -- (4,-2) node[right]{$\ell,E,A,I,J,\rho$}; %forces
+      \draw[thick,->>,orange] (0,0) -- (0,1) node[left]{$m_{1y}^\prime$};
+      \draw[thick,->>,,orange] (10,0) -- (10,1) node[right]{$m_{2y}^\prime$};
+      \draw[thick,->>,orange] (0,0) -- (1,0) node[right]{$m_{1x}^\prime$};
+      \draw[thick,->>,orange] (10,0) -- (11,0) node[right]{$m_{2x}^\prime$};
+      % moments 
+      \draw[thick,-latex,orange] (0,0) -- (0,0,2) node[below]{$f_{1z}^\prime$};
+      \draw[thick,-latex,orange] (10,0) -- (10,0,2) node[below]{$f_{2z}^\prime$};
+      % Mark points
+      \fill (0,0) circle (4pt);
+      \fill (10,0) circle (4pt);
+      \draw[thick] (0,0) ++ (0,-1) circle(0.35cm) node {1};
+      \draw[thick] (10,0) ++ (0,-1)  circle(0.35cm) node {2};
+    \end{tikzpicture}
+  \end{center}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    Differential equations governing the dynamics:
+    \begin{align*}
+       & \partial_{x^\prime x^\prime}^2\big(EI\partial_{x^\prime x^\prime}^2u_{3}(x^\prime,t)\big)+\rho A\ddot u_{3}(x^\prime,t)=0 \\
+       & GJ \partial^{2}_{x^\prime x^\prime}\phi_{1}(x^\prime, t) = \rho J \ddot{\phi}_1(x^\prime, t)
+    \end{align*}
+  \end{tcolorbox}
+\end{frame}
+}
+
+\begin{frame}{Torsional effects in thin beam element}
+  Each grid element now has three degrees of freedom per node: $\phi_{ix}^\prime$, $\phi_{iy}^\prime$ and $q_{iz}^\prime$.
+
+  \begin{itemize}
+    \item Displacements approximation:
+          $$u^h(x^\prime,t)=  \mathbf H(x^\prime)\mathbf q_{loc} (t)=[{\color{BlueViolet}h_1(x^\prime)}\ h_2(x^\prime)\  h_3(x^\prime)\ {\color{BlueViolet}h_4(x^\prime)}\  h_5(x^\prime)\ h_6(x^\prime)]\begin{bmatrix}
+              {\color{BlueViolet} \phi_{1x}^\prime(t)} \\[2pt] \phi_{1y}^\prime(t) \\[2pt] q_{1z}^\prime(t)\\[2pt]  {\color{BlueViolet} \phi_{2x}^\prime(t)}\\[2pt] \phi_{2y}^\prime(t) \\[2pt]  q_{2z}^\prime(t)
+            \end{bmatrix}$$
+    \item Local shape functions:
+          \begin{align*}
+            {\color{BlueViolet}h_1(x^\prime)} & = {\color{BlueViolet}1-x^\prime/\ell}    & {\color{BlueViolet}h_4(x^\prime)} & {\color{BlueViolet}=x^\prime/\ell}        \\
+            h_2(x^\prime)                     & =x^\prime(1-x^\prime/\ell)^2             & h_5(x^\prime)                     & =x^\prime(x^\prime/\ell)(x^\prime/\ell-1) \\
+            h_3(x^\prime)                     & =2(x^\prime/\ell)^3-3(x^\prime/\ell)^2+1 & h_6(x^\prime)                     & =3(x^\prime/\ell)^2-2(x^\prime/\ell)^3    \\
+          \end{align*}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Discretization of thin beam with torsional effects}
+  \begin{itemize}
+    \item Element stiffness matrix in local coordinates:
+          $$\small \mathbf{K}_{loc}=\frac{EI}{\ell^3} \begin{bmatrix}
+              {\color{BlueViolet}GJ\ell^2/EI} & 0       & 0      & {\color{BlueViolet}-GJ\ell^2/EI} & 0       & 0     \\
+                                              & 4\ell^2 & -6\ell & 0                                & 2\ell^2 & 6\ell \\
+                                              &         & 12     & 0                                & -6\ell  & -12   \\
+                                              &         &        & {\color{BlueViolet}GJ\ell^2/EI}  & 0       & 0     \\
+                                              &         &        &                                  & 4\ell^2 & 6\ell \\ sym. & & & & & 12\end{bmatrix}
+          $$
+    \item Element consistent mass matrix in local coordinates:
+          \[\small  \mathbf{M}_{loc} =\frac{\rho A\ell }{420}\begin{bmatrix}
+              {\color{BlueViolet}140 J/A} & 0       & 0      & {\color{BlueViolet}70 J/A}  & 0        & 0       \\
+              0                           & 4\ell^2 & 22\ell & 0                           & -3\ell^2 & 13\ell  \\
+                                          &         & 156    & 0                           & -13\ell  & 54      \\
+                                          &         &        & {\color{BlueViolet}140 J/A} & 0        & 0       \\
+                                          &         &        &                             & 4\ell^2  & -22\ell \\
+              sym.                        &         &        &                             &          & 156     \\
+            \end{bmatrix} \]
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Arbitrarly oriented thin beam element with torsional effects}
+  \vspace{-0.4cm}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item Displacements in local coordinates:\vspace{-0.3cm}  $${\color{orange}\mathbf{q}_{loc}} = \begin{bmatrix}
+                \phi_{1x}^\prime & \phi_{1y}^\prime & q_{1z}^\prime & \phi_{2x}^\prime & \phi_{2y}^\prime & q_{2z}^\prime
+              \end{bmatrix}^T.$$
+      \item Displacements in global coordinates:\vspace{-0.3cm} $${\color{darkred}\mathbf q} =  \begin{bmatrix}
+                \phi_{1x} & \phi_{1y} & q_{1z} & \phi_{2x} & \phi_{2y} & q_{2z}
+              \end{bmatrix}^T.$$
+      \item       \textbf{Relation between local and global displacements:}
+    \end{itemize}
+    \column{0.5\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=1]
+        % Draw background grid
+        %\draw[step=1cm,gray,very thin] (0,0) grid (12,6);
+        % Define coordinates
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (2.5,1);
+        \coordinate (C) at (5,2);
+        % Draw the truss members
+        \draw[ultra thin] (A) -- (B);
+        \draw[ultra thick] (B) -- (C);
+        % Global coordinate system
+        \draw[-latex, ultra thin] (0,0) -- (0,3) node[left] {$y$};
+        \draw[-latex, ultra thin] (0,0) -- (6,0) node[below] {$x$};
+        % Local coordinate systems
+        \draw[->>, darkred,thick] (B) -- ++(1.07,0) node[right] {$\phi_{1x}$};
+        \draw[->>, darkred,thick] (C) -- ++(1.07,0) node[right] {$\phi_{2x}$};
+        \draw[->>, darkred,thick] (B) -- ++(0,0.89) node[right] {$\phi_{1y}$};
+        \draw[->>, darkred,thick] (C) -- ++(0,0.89) node[right] {$\phi_{2y}$};
+        % Local primed coordinate system
+        \draw[->>, orange, thick] (B) -- ++(1,0.4) node[above] {$\phi_{1x}^\prime$};
+        \draw[->>, orange, thick] (C) -- ++(1,0.4) node[above] {$\phi_{2x}^\prime$};
+        \draw[->>, orange, thick] (B) -- ++(-0.4,0.8) node[left] {$\phi_{1y}^\prime$};
+        \draw[->>, orange, thick] (C) -- ++(-0.4,0.8) node[left] {$\phi_{2y}^\prime$};
+        % Angles and labels
+        \draw[-latex] (1,0) arc (0:21.8:1);
+        \node at (1.3,0.25) {$\theta$};
+        % Draw supports (circles at joints)
+        \filldraw (B) circle (2pt);
+        \filldraw (C) circle (2pt);
+        % Nodes coord
+        \draw[dashed,ultra thin] (B) -- (2.5,0) node[below] {$x_1$};
+        \draw[dashed,ultra thin] (B) -- (0,1) node[left] {$y_1$};
+        \draw[dashed,ultra thin] (C) -- (5,0) node[below] {$x_2$};
+        \draw[dashed,ultra thin] (C) -- (0,2) node[left] {$y_2$};
+      \end{tikzpicture}
+    \end{center}
+  \end{columns}
+  $$\small \underbrace{\begin{bmatrix}
+        \phi_{1x}^\prime \\ \phi_{1y}^\prime \\ q_{1z}^\prime \\  \phi_{2x}^\prime\\ \phi_{2y}^\prime \\ q_{2z}^\prime
+      \end{bmatrix}}_\text{$\mathbf q_{loc}$}=\underbrace{\begin{bmatrix}
+        \cos(\theta)  & \sin(\theta) & 0 & 0             & 0            & 0 \\
+        -\sin(\theta) & \cos(\theta) & 0 & 0             & 0            & 0 \\
+        0             & 0            & 1 & 0             & 0            & 0 \\
+        0             & 0            & 0 & \cos(\theta)  & \sin(\theta) & 0 \\
+        0             & 0            & 0 & -\sin(\theta) & \cos(\theta) & 0 \\
+        0             & 0            & 0 & 0             & 0            & 1 \\
+      \end{bmatrix}}_\text{$\mathbf T$}\underbrace{\begin{bmatrix}
+        \phi_{1x} \\ \phi_{1y} \\ q_{1z} \\ \phi_{2x} \\ \phi_{2y} \\ q_{2z}
+      \end{bmatrix}}_\text{$\mathbf q$}
+  $$
+\end{frame}
+
+\begin{frame}{Discretization of arbitrarly oriented thin beam}
+  \begin{itemize}
+    \item Element stiffness matrix in global coordinates:
+          $$\mathbf{K} = \mathbf T^T \mathbf{K}_{loc} \mathbf T$$
+          where $C=\cos(\theta)$ and $S=\sin(\theta)$.
+    \item Element consistent mass matrix in global coordinates:
+          $$\mathbf{M} = \mathbf T^T \mathbf{M}_{loc} \mathbf T$$
+    \item Element applied loads vector in global coordinates:
+          \[
+            \mathbf{f} = \mathbf T^T \mathbf{f}_{loc}
+          \]
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{MATLAB example - dynamic response of a 2d grid}
+  \begin{center}
+    \href{https://drive.mathworks.com/sharing/6a9792ef-d0a7-4aca-a1d0-8b1862b0ac3b}{\beamergotobutton{Go to Matlab Drive}}
+  \end{center}
+\end{frame}
+
+\section{Three-dimensional frames}
+
+\begin{frame}{Example of a three-dimensional structure composed of thin beams}
+  \vspace{-0.5cm}
+  \begin{columns}
+    \begin{column}{0.35\textwidth}
+      \vspace{0.5cm}
+
+      \includegraphics[width=4cm]{../images/beam3d.png}
+      \newline\emph{Credit: [N]}
+    \end{column}
+
+    \begin{column}{0.65\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=0.5]
+          % Oxy plane
+          \fill[blue!10, opacity=0.5] (0,-3,0) -- (10,-3,0) -- (10,3,0) -- (0,3,0) -- cycle;
+
+          % Oxz plane
+          \fill[green!10, opacity=0.5] (0,0,-6) -- (10,0,-6) -- (10,0,6) -- (0,0,6) -- cycle;
+
+          % Draw the rectangle
+          \filldraw[fill=gray!60, draw=black,thick] (0,-0.5) rectangle (10,0.5);
+          %axis
+          \draw[ultra thin] (-0.5,0) -- (10,0);
+          %forces
+          \draw[thick,-latex,orange] (0,0) -- (0,1);
+          \draw[thick,->>,orange] (0,0) -- (0,1.5) node[left]{$f_{1y}^\prime, m_{1y}^\prime$};
+          \draw[thick,-latex,orange] (10,0) -- (10,1);
+          \draw[thick,->>,orange] (10,0) -- (10,1.5) node[right]{$f_{2y}^\prime, m_{2y}^\prime$};
+          \draw[thick,-latex,orange] (0,0) -- (1,0);
+          \draw[thick,->>,orange] (0,0) -- (1.5,0) node[right]{$f_{1x}^\prime, m_{1x}^\prime$};
+          \draw[thick,-latex,orange] (10,0) -- (11,0);
+          \draw[thick,->>,orange] (10,0) -- (11.5,0) node[right]{$f_{2x}^\prime, m_{2x}^\prime$};
+          % moments  
+          \draw[thick,-latex,orange] (0,0) -- (0,0,1.5);
+          \draw[thick,->>,orange] (0,0) -- (0,0,2.5) node[left]{$f_{1z}^\prime,m_{1z}^\prime$};
+          \draw[thick,-latex,orange] (10,0) -- (10,0,1.5);
+          \draw[thick,->>,orange] (10,0) -- (10,0,2.5) node[left]{$f_{2z}^\prime,m_{2z}^\prime$};
+          % Mark points
+          \fill (0,0) circle (4pt);
+          \fill (10,0) circle (4pt);
+          \draw[thick] (0,0) ++ (0,-1) circle(0.35cm) node {1};
+          \draw[thick] (10,0) ++ (0,-1)  circle(0.35cm) node {2};
+        \end{tikzpicture}
+      \end{center}
+      Three-dimensional thin beams are uniaxial (slender) element that can support:
+      \begin{itemize}
+        \item axial loads $f_{ix}^\prime$,
+        \item torsional loads $m_{ix}^\prime$,
+        \item bending in the $x^\prime-y^\prime$ plane: $f_{iy}^\prime$ and $m_{iz}^\prime$,
+        \item bending in the $x^\prime-z^\prime$ plane: $f_{iz}^\prime$ and $m_{iy}^\prime$.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\setbeamercolor{itemize/enumerate body}{fg=white}
+\color{white}
+\begin{frame}{Differential equations governing the dynamics of thin 3d beams}
+  \begin{center}
+    \begin{tikzpicture}[scale=0.5]
+      % Oxy plane
+      \fill[Purple!40, opacity=0.5] (0,-3,0) -- (10,-3,0) -- (10,3,0) -- (0,3,0) -- cycle;
+      % Oxz plane
+      \fill[green!40, opacity=0.5] (0,0,-6) -- (10,0,-6) -- (10,0,6) -- (0,0,6) -- cycle;
+      % Draw the rectangle
+      \filldraw[fill=gray!60, draw=black,thick] (0,-0.5) rectangle (10,0.5);
+      %axis
+      \draw[ultra thin] (-0.5,0) -- (10,0);
+      % displacement
+      \draw[thick,-latex,brown] (3.5,0) -- (5,0);
+      \draw[thick,-latex,Purple] (3.5,0) -- (3.5,1.5);
+      \draw[thick,-latex,ForestGreen] (3.5,0) -- (3.5,0,2);
+      \draw[thick,->>,BlueViolet] (5,0) -- (5.5,0) node[right] {{\color{brown}$u_1$},{\color{BlueViolet}$\phi_1$}};
+      \draw[thick,->>,ForestGreen] (3.5,1.5) -- (3.5,2) node[right] {{\color{Purple}$u_2$},{\color{ForestGreen}$\phi_2$}};
+      \draw[thick,->>,Purple] (3.5,0,2) -- (3.5,0,2.5) node[below] {{\color{ForestGreen}$u_3$},{\color{Purple}$\phi_3$}};
+      % length
+      \draw[ultra thin] (3.5,0) -- (3.5, 1.3) ;
+      \draw[ultra thin] (0,0) -- (0, 1.3) ;
+      \draw[-latex, ultra thin]  (0,1)  to node[sloped,midway,above] {$x^\prime$}(3.5,1);
+      % Mark points
+      \fill (0,0) circle (4pt);
+      \fill (10,0) circle (4pt);
+      \draw[thick] (0,0) ++ (0,-1) circle(0.35cm) node {1};
+      \draw[thick] (10,0) ++ (0,-1)  circle(0.35cm) node {2};
+    \end{tikzpicture}
+  \end{center}
+  \vspace{-0.5cm}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    \vspace{-0.5cm}
+    \begin{align*}
+            & {\color{brown} EA \partial^{2}_{x^\prime x^\prime}u_1(x^\prime, t) = \rho A \ddot{u}_1(x^\prime, t) }
+      \quad & {\color{Purple} \partial_{x^\prime x^\prime}^2\big(EI_z\partial_{x^\prime x^\prime}^2u_{2}(x^\prime,t)\big)+\rho A\ddot u_{2}(x^\prime,t)=0 }     \\
+            & {\color{BlueViolet} GJ \partial^{2}_{x^\prime x^\prime}\phi_{1}(x^\prime, t) = \rho J \ddot{\phi}_1(x^\prime, t) }
+            & {\color{ForestGreen} \partial_{x^\prime x^\prime}^2\big(EI_y\partial_{x^\prime x^\prime}^2u_{3}(x^\prime,t)\big)+\rho A\ddot u_{3}(x^\prime,t)=0}
+    \end{align*}
+  \end{tcolorbox}
+  {\small
+  \begin{multicols}{2}
+    \begin{itemize}
+      \item $E$ Young's modulus of the material.
+      \item $A$ cross-sectional area.
+      \item $\rho$ material density.
+      \item $I_y$ and $I_z$ are the second moments of inertia with respect to $Oy$ and $Oz$.
+      \item $J$ polar moment of inertia of the cross-section.
+    \end{itemize}
+  \end{multicols}
+  }
+\end{frame}
+}
+
+\begin{frame}{Displacements discretization}
+  Total of \textbf{six nodal generalized displacements at each unconstrained joint}:
+  \begin{itemize}
+    \item three translation components $q_{ix}^\prime$, $q_{iy}^\prime$ and $q_{iz}^\prime$ along the $x$, $y$ and $z$ axes,
+    \item three rotational components $\phi_{ix}^\prime$, $\phi_{iy}^\prime$ and $\phi_{iz}^\prime$ about the $x$, $y$ and $z$ axes.
+  \end{itemize}\vspace{0.2cm}
+  $$u^h(x^\prime,t)=  \mathbf H(x^\prime)\mathbf q_{loc} (t)$$
+
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      $$\tiny \mathbf q_{loc} (t)=\begin{bmatrix}
+          {\color{brown} q_{1x}^\prime(t)}             \\[2pt]
+          {\color{Purple} q_{1y}^\prime(t)}            \\[2pt]
+          {\color{ForestGreen} q_{1z}^\prime(t)}       \\[2pt]
+          {\color{BlueViolet} \phi_{1x}^\prime(t)}     \\[2pt]
+          {\color{ForestGreen} \phi_{1y}^\prime(t)   } \\[2pt]
+          {\color{Purple} \phi_{1z}^\prime(t)}         \\[2pt]
+          {\color{brown} q_{2x}^\prime(t)}             \\[2pt]
+          {\color{Purple} q_{2y}^\prime(t)}            \\[2pt]
+          {\color{ForestGreen} q_{2z}^\prime(t)}       \\[2pt]
+          {\color{BlueViolet} \phi_{2x}^\prime(t)}     \\[2pt]
+          {\color{ForestGreen} \phi_{2y}^\prime(t)   } \\[2pt]
+          {\color{Purple} \phi_{2z}^\prime(t)}         \\[2pt]
+        \end{bmatrix}$$
+    \end{column}
+
+    \begin{column}{0.3\textwidth}
+      \tiny  \begin{align*}
+        h_1(x^\prime) & = 1-x^\prime/\ell                        \\
+        h_2(x^\prime) & =2(x^\prime/\ell)^3-3(x^\prime/\ell)^2+1 \\
+        h_3(x^\prime) & =2(x^\prime/\ell)^3-3(x^\prime/\ell)^2+1 \\
+        h_4(x^\prime) & = 1-x^\prime/\ell                        \\
+        h_5(x^\prime) & =x^\prime(1-x^\prime/\ell)^2             \\
+        h_6(x^\prime) & =x^\prime(1-x^\prime/\ell)^2
+      \end{align*}
+    \end{column}
+
+    \begin{column}{0.3\textwidth}
+      \tiny  \begin{align*}
+        h_7(x^\prime)    & = x^\prime/\ell                           \\
+        h_8(x^\prime)    & =3(x^\prime/\ell)^2-2(x^\prime/\ell)^3    \\
+        h_9(x^\prime)    & =3(x^\prime/\ell)^2-2(x^\prime/\ell)^3    \\
+        h_{10}(x^\prime) & = x^\prime/\ell                           \\
+        h_{11}(x^\prime) & =x^\prime(x^\prime/\ell)(x^\prime/\ell-1) \\
+        h_{12}(x^\prime) & =x^\prime(x^\prime/\ell)(x^\prime/\ell-1)
+      \end{align*}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Element stiffness matrix in local coordinates}
+  The stiffness matrix for a three-dimensional uniform beam element is written as the superposition of the \textbf{axial stiffness} matrix, the \textbf{torsional stiffness} matrix and the \textbf{flexural stiffness} matrix:
+  \[\tiny \mathbf K_{loc}=\left[
+      \begin{array}{cccccccccccc}
+        \frac{EA}{\ell} & 0                     & 0                     & 0               & 0                     & 0                    & -\frac{EA}{\ell} & 0                      & 0                      & 0                & 0                     & 0                     \\[2pt]
+                        & \frac{12EI_z}{\ell^3} & 0                     & 0               & 0                     & \frac{6EI_z}{\ell^2} & 0                & -\frac{12EI_z}{\ell^3} & 0                      & 0                & 0                     & \frac{6EI_z}{\ell^2}  \\
+                        &                       & \frac{12EI_y}{\ell^3} & 0               & -\frac{6EI_y}{\ell^2} & 0                    & 0                & 0                      & -\frac{12EI_y}{\ell^3} & 0                & -\frac{6EI_y}{\ell^2} & 0                     \\
+                        &                       &                       & \frac{GJ}{\ell} & 0                     & 0                    & 0                & 0                      & 0                      & -\frac{GJ}{\ell} & 0                     & 0                     \\
+                        &                       &                       &                 & \frac{4EI_y}{\ell}    & 0                    & 0                & 0                      & \frac{6EI_y}{\ell^2}   & 0                & \frac{2EI_y}{\ell}    & 0                     \\
+                        &                       &                       &                 &                       & \frac{4EI_z}{\ell}   & 0                & -\frac{6EI_z}{\ell^2}  & 0                      & 0                & 0                     & \frac{2EI_z}{\ell}    \\
+                        &                       &                       &                 &                       &                      & \frac{EA}{\ell}  & 0                      & 0                      & 0                & 0                     & 0                     \\
+                        &                       &                       &                 &                       &                      &                  & -\frac{12EI_z}{\ell^3} & 0                      & 0                & 0                     & -\frac{6EI_z}{\ell^2} \\
+                        &                       &                       &                 &                       &                      &                  &                        & \frac{12EI_y}{\ell^3}  & 0                & \frac{6EI_y}{\ell^2}  & 0                     \\
+                        &                       &                       &                 &                       &                      &                  &                        &                        & \frac{GJ}{\ell}  & 0                     & 0                     \\
+                        &                       &                       &                 &                       &                      &                  &                        &                        &                  & \frac{4EI_y}{\ell}    & 0                     \\
+        sym.            &                       &                       &                 &                       &                      &                  &                        &                        &                  &                       & \frac{4EI_z}{\ell}
+      \end{array}
+      \right]
+  \]
+\end{frame}
+
+\begin{frame}{Element consistent mass matrix in local coordinates}
+  The consistent mass matrix for a three-dimensional uniform beam element is written as the superposition of the \textbf{axial mass} matrix, the \textbf{torsional mass} matrix and the \textbf{flexural mass} matrix:
+  $$\small \mathbf M_{loc}=\frac{\rho A \ell}{420}\left[
+      \begin{array}{cccccccccccc}
+        140  & 0   & 0   & 0              & 0       & 0       & 70  & 0      & 0       & 0              & 0        & 0        \\
+             & 156 & 0   & 0              & 0       & 22\ell  & 0   & 54     & 0       & 0              & 0        & -13\ell  \\
+             &     & 156 & 0              & -22\ell & 0       & 0   & 0      & 54      & 0              & 13\ell   & 0        \\
+             &     &     & \frac{140J}{A} & 0       & 0       & 0   & 0      & 0       & \frac{70J}{A}  & 0        & 0        \\
+             &     &     &                & 4\ell^2 & 0       & 0   & 0      & -13\ell & 0              & -3\ell^2 & 0        \\
+             &     &     &                &         & 4\ell^2 & 0   & 13\ell & 0       & 0              & 0        & -3\ell^2 \\
+             &     &     &                &         &         & 140 & 0      & 0       & 0              & 0        & 0        \\
+             &     &     &                &         &         &     & 156    & 0       & 0              & 0        & -22\ell  \\
+             &     &     &                &         &         &     &        & 156     & 0              & 22\ell   & 0        \\
+             &     &     &                &         &         &     &        &         & \frac{140J}{A} & 0        & 0        \\
+             &     &     &                &         &         &     &        &         &                & 4\ell^2  & 0        \\
+        sym. &     &     &                &         &         &     &        &         &                &          & 4\ell^2  \\
+      \end{array}
+      \right]$$
+\end{frame}
+
+\begin{frame}{Transformation of coordinates}
+  \begin{itemize}
+    \item The stiffness and mass matrices are defined in the local coordinate system $x^\prime$, $y^\prime$ and $z^\prime$ fixed to the beam segment.
+    \item To assemble the global stiffness and mass matrices, these local matrices must be transformed into the global coordinate system $x$, $y$, $z$.
+  \end{itemize}
+  \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+      % Draw background grid
+      %\draw[step=1cm,gray,very thin] (0,0) grid (12,6);
+      % Define coordinates
+      \coordinate (A) at (0,0);
+      \coordinate (B) at (3,1,1);
+      \coordinate (C) at (6,2,2);
+      \node[left] at (A) {$O$};
+      % Draw the truss members
+      \draw[ultra thin] (A) -- (B);
+      \draw[ultra thick] (B) -- (C);
+      % Global coordinate system
+      \draw[-latex, ultra thin] (0,0) -- (0,3) node[left] {$y$};
+      \draw[-latex, ultra thin] (0,0) -- (7,0) node[below] {$x$};
+      \draw[-latex, ultra thin] (0,0) -- (0,0,3) node[below] {$z$};
+      % Local primed coordinate system
+      \draw[-latex,thick, darkred] (B) -- ++(1,0.28,0.28) node[above] {$x^\prime$};
+      \draw[-latex,thick, darkred] (B) -- ++(-0.28,1,0) node[above] {$y^\prime$};
+      \draw[-latex,thick, darkred] (B) -- ++(0,0,1.5) node[above] {$z^\prime$};
+      % Draw supports (circles at joints)
+      \filldraw (B) circle (2pt);
+      \filldraw (C) circle (2pt);
+      % draw the projections and the angles
+      \draw[thin, dashed] (0,1,0) node[left]{$y_1$}-- (B) -- (3,0,1) -- (A);
+      \draw[thin, dashed] (3,0) node[above]{$x_1$} -- (3,0,1) -- (0,0,1) node[left]{$z_1$};
+      \draw[thin, dashed] (0,2,0) node[left]{$y_2$}-- (C) -- (6,0,2) -- (A);
+      \draw[thin, dashed] (6,0) node[above]{$x_2$} -- (6,0,2) -- (0,0,2) node[left]{$z_2$};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Direction cosines}
+  \begin{itemize}
+    \item The relationship between local and global coordinates is:
+          $$ \left[
+              \begin{array}{c}
+                x^\prime \\
+                y^\prime \\
+                z^\prime
+              \end{array}
+              \right]
+            =\underbrace{ \left[
+                \begin{array}{ccc}
+                  \cos(x^\prime x) & \cos (x^\prime y) & \cos (x^\prime z) \\
+                  \cos(y^\prime x) & \cos (y^\prime y) & \cos (y^\prime z) \\
+                  \cos(z^\prime x) & \cos (z^\prime y) & \cos (z^\prime z)
+                \end{array}
+                \right]}_\text{$\mathbf {T^\prime}$}
+            \left[
+              \begin{array}{c}
+                x \\
+                y \\
+                z
+              \end{array}
+              \right]$$
+    \item The local $x^\prime$ is given by:
+          $$Ox^\prime=\left[l_x,l_y,l_z \right]$$
+          where
+          $$l_x=\cos(x^\prime x)=\frac{x_2-x_1}{{}^e\ell},\quad l_y=\cos (x^\prime y)=\frac{y_2-y_1}{{}^e\ell},\quad l_z=\cos (x^\prime z)=\frac{z_2-z_1}{{}^e\ell},$$
+          $$^e\ell=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}.$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Direction cosines}
+  \begin{itemize}
+    \item The local $y^\prime$ axis is chosen so that it lies in the local $x^\prime-y^\prime$ plane and it is perpendicular to $x^\prime$:
+          $$Oy^\prime=\frac{1}{d}\left[l_y,l_x,0 \right]$$
+          thus
+          $$\cos(y^\prime x)=\frac{l_y}{d},\quad \cos (y^\prime y)=\frac{l_x}{d},\quad \cos (y^\prime z)=0,\quad d=\sqrt{l_x^2+l_y^2}.$$
+    \item The local $z^\prime$ axis is chosen so that $Oz^\prime= Ox^\prime\times Oy^\prime$:
+          $$Oz^\prime=\frac{1}{d}\left[-l_xl_z,-l_yl_z,0 \right]$$
+          thus
+          $$\cos(z^\prime x)=-\frac{l_xl_z}{d},\quad \cos (z^\prime y)=-\frac{l_yl_z}{d},\quad \cos (z^\prime z)=d.$$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Global displacements for oriented three-dimensional beam}
+  \vspace{-0.5cm}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+    \small $$\underbrace{ \begin{bmatrix}
+          {\color{black} q_{1x}^\prime(t)}       \\[2pt]
+          {\color{black} q_{1y}^\prime(t)}       \\[2pt]
+          {\color{black} q_{1z}^\prime(t)}       \\[2pt]
+          {\color{black} \phi_{1x}^\prime(t)}    \\[2pt]
+          {\color{black} \phi_{1y}^\prime(t)   } \\[2pt]
+          {\color{black} \phi_{1z}^\prime(t)}    \\[2pt]
+          {\color{black} q_{2x}^\prime(t)}       \\[2pt]
+          {\color{black} q_{2y}^\prime(t)}       \\[2pt]
+          {\color{black} q_{2z}^\prime(t)}       \\[2pt]
+          {\color{black} \phi_{2x}^\prime(t)}    \\[2pt]
+          {\color{black} \phi_{2y}^\prime(t)   } \\[2pt]
+          {\color{black} \phi_{2z}^\prime(t)}    \\[2pt]
+        \end{bmatrix}}_\text{$\mathbf q_{loc} (t)$} = \underbrace{ \begin{bmatrix}
+          \mathbf {T^\prime} &                    &                    &                    & \\
+                             & \mathbf {T^\prime} &                    &                      \\
+                             &                    & \mathbf {T^\prime} &                      \\
+                             &                    &                    & \mathbf {T^\prime}   \\
+        \end{bmatrix}}_\text{$\mathbf T$} \underbrace{ \begin{bmatrix}
+          {\color{black} q_{1x}(t)}       \\[2pt]
+          {\color{black} q_{1y}(t)}       \\[2pt]
+          {\color{black} q_{1z}(t)}       \\[2pt]
+          {\color{black} \phi_{1x}(t)}    \\[2pt]
+          {\color{black} \phi_{1y}(t)   } \\[2pt]
+          {\color{black} \phi_{1z}(t)}    \\[2pt]
+          {\color{black} q_{2x}(t)}       \\[2pt]
+          {\color{black} q_{2y}(t)}       \\[2pt]
+          {\color{black} q_{2z}(t)}       \\[2pt]
+          {\color{black} \phi_{2x}(t)}    \\[2pt]
+          {\color{black} \phi_{2y}(t)   } \\[2pt]
+          {\color{black} \phi_{2z}(t)}    \\[2pt]
+        \end{bmatrix}}_\text{$\mathbf q(t)$}$$
+
+    \column{0.55\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.9]
+        % Draw background grid
+        %\draw[step=1cm,gray,very thin] (0,0) grid (12,6);
+        % Define coordinates
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (3,1,1);
+        \coordinate (C) at (6,2,2);
+        % Draw the truss members
+        \draw[ultra thin] (A) -- (B);
+        \draw[ultra thick] (B) -- (C);
+        % Global coordinate system
+        \draw[-latex, ultra thin] (0,0) -- (0,3) node[left] {$y$};
+        \draw[-latex, ultra thin] (0,0) -- (6,0) node[below] {$x$};
+        \draw[-latex, ultra thin] (0,0) -- (0,0,3) node[below] {$z$};
+        % Local coordinate systems
+        \draw[-latex, darkred, thick] (B) -- ++(0,1) node[above] {$q_{1y}$};
+        \draw[-latex, darkred, thick] (B) -- ++(1,0) node[right] {$q_{1x}$};
+        \draw[-latex, darkred, thick] (B) -- ++(0,0,1.5) node[below] {$q_{1z}$};
+        \draw[-latex, darkred, thick] (C) -- ++(0,1) node[above] {$q_{2y}$};
+        \draw[-latex, darkred, thick] (C) -- ++(1,0) node[right] {$q_{2x}$};
+        \draw[-latex, darkred, thick] (C) -- ++(0,0,1.5) node[below] {$q_{2z}$};
+        % Local 
+        \draw[-latex,thick, orange] (B) -- ++(1,0.28,0.28) node[above] {$q_{1x}^\prime$};
+        \draw[-latex,thick, orange] (B) -- ++(-0.28,1,0) node[left] {$q_{1y}^\prime$};
+        \draw[-latex,thick, orange] (B) -- ++(0.2,0,1.5) node[right] {$q_{1z}^\prime$};
+        \draw[-latex,thick, orange] (C) -- ++(1,0.28,0.28) node[above] {$q_{2x}^\prime$};
+        \draw[-latex,thick, orange] (C) -- ++(-0.28,1,0) node[left] {$q_{2y}^\prime$};
+        \draw[-latex,thick, orange] (C) -- ++(0.2,0,1.5) node[right] {$q_{2z}^\prime$};
+        % Draw supports (circles at joints)
+        \filldraw (B) circle (2pt);
+        \filldraw (C) circle (2pt);
+      \end{tikzpicture}
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\end{document}

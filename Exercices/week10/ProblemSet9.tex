@@ -1,0 +1,102 @@
+\documentclass[12pt]{article}
+
+\input{../preambleProblemSets}
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Problem set 9}\hspace*{\fill}
+
+\hrulefill
+
+\subsection*{Problem 1}
+Use the Rayleigh minimization principle to determine the natural frequencies of a free-free shaft in torsion, assuming the structure is discretized using a single linear finite element. The strong form is given by
+$$ \frac{\partial}{\partial x}\left(GI_p \frac{\partial}{\partial x}\varphi(x, t)\right) = \rho I_p \ddot{\varphi}(x, t)$$
+where the shaft parameters are:
+\begin{multicols}{2}
+  \begin{itemize}
+    \item length $\ell$,
+    \item polar moment of inertia $I_p$,
+    \item shear modulus $G$,
+    \item mass density $\rho$.
+  \end{itemize}
+\end{multicols}
+The unknown $\varphi$ represent the torsional vibration: angular displacement (twist angle) at position $x \in [0, \ell]$ and time $t \in [0, T]$. At $x = 0$ and $x = \ell$ there are no external applied moments, this translates into natural boundary conditions:
+$$
+  \frac{\partial}{\partial x}\varphi(0,t) = \frac{\partial}{\partial x}\varphi(\ell,t) = 0 \qquad \forall t\in]0,T[.
+$$
+
+\subsection*{Problem 2}
+Develop a \texttt{MATLAB} script to compute the first two natural frequencies and the corresponding mode shapes associated with the longitudinal vibrations of a uniform free-free bar, using the subspace iteration method. The structure is characterized by the following physical parameters:
+\begin{multicols}{2}
+  \begin{itemize}
+    \item length: $\ell=0.5$ m,
+    \item cross-sectional area: $A=4\,10^{-4}$ m$^2$,
+    \item Young's modulus: $E=210$ GPa,
+    \item mass density: $\rho=7850$ kg/m$^3$.
+  \end{itemize}
+\end{multicols}
+The bar is modeled using a single quadratic finite element with three equally spaced nodes. The structure stiffness and lumped mass\footnote{The use of a lumped mass matrix is often justified by its ability to simplify computations, improve numerical stability in explicit time integration schemes, and avoid non-physical oscillations associated with consistent mass formulations in low-order elements.} matrices are given by:
+\[
+  \mathbf{K} = \frac{EA}{3\ell}
+  \begin{bmatrix}
+    7  & -8 & 1  \\
+    -8 & 16 & -8 \\
+    1  & -8 & 7
+  \end{bmatrix}\qquad\text{and}\qquad
+  \mathbf{M} = \frac{\rho A \ell}{6} \text{diag}(1, 4, 1).
+\]
+
+\begin{enumerate}
+  \item[1)] Formulate the generalized eigenvalue problem for the system, and define the stiffness and mass matrices explicitly.
+
+  \item[2)] Since the system exhibits a rigid-body mode with zero frequency, a spectral shift is applied to ensure convergence. The modified eigenvalue problem is:
+        \[
+          (\mathbf{K} + \sigma \mathbf{M}) \mathbf{p} = (\lambda + \sigma) \mathbf{M} \mathbf{p}
+        \]
+        where the shift parameter is chosen (to simplify the computation) as:
+        \[
+          \sigma = 2\frac{E}{\rho \ell^2}.
+        \]
+        Define the shifted stiffness matrix as $\mathbf{K}_\sigma = \mathbf{K} + \sigma \mathbf{M}$, yielding the equivalent eigenvalue problem:
+        \[
+          \mathbf{K}_\sigma \mathbf{p} = \lambda_\sigma \mathbf{M} \mathbf{p}, \quad \text{with} \quad \lambda_\sigma = \lambda + \sigma.
+        \]
+
+  \item[3)] Implement three iterations of the subspace iteration algorithm to approximate the two lowest eigenpairs $(\lambda_i, \mathbf{p}_i)$. For simplicity use the function \texttt{eig} to solve the reduced Rayleigh's minimization problem. Use the following initial guess:
+        \[
+          \mathbf{P}_{(0)} = \frac{1}{\sqrt{\rho A \ell}} \begin{bmatrix}
+            1 & 0 \\
+            0 & 1 \\
+            0 & 0
+          \end{bmatrix}.
+        \]
+
+  \item[4)] Compare the numerical approximation with the exact (shifted) eigenvalues and corresponding eigenvectors (defined up to a multiplicative constant):
+        \[
+          \lambda_{\sigma,1} = 2\frac{E}{\rho \ell^2}\qquad\text{and}\qquad \lambda_{\sigma,2} = 14\frac{E}{\rho \ell^2},
+        \]
+        \[
+          \mathbf{p}_1 = \begin{bmatrix} -1 \\ -1 \\ -1 \end{bmatrix}\qquad\text{and}\qquad
+          \mathbf{p}_2 = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix}
+        \]
+        and evaluate the accuracy by computing:
+        \begin{itemize}
+          \item The relative error between approximated and exact eigenvalues.
+          \item The error in the $\mathbf{M}$-norm between approximated and exact eigenvectors.
+        \end{itemize}
+
+        %\item Investigate the sensitivity of convergence to the choice of initial vectors. Repeat the computation using the alternative initial matrix:
+        %   \[
+        %    \mathbf{P}_{(0)} = \frac{1}{\sqrt{\rho A \ell}} \begin{bmatrix}
+        %      1 & 0 \\
+        %      4 & 1 \\
+        %      1 & 0
+        %    \end{bmatrix}
+        %  \]
+        %  and discuss the observed changes in convergence behavior.
+\end{enumerate}
+\end{document}
