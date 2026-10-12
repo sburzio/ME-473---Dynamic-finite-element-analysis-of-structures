@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  7 OCT 2026 00:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  12 OCT 2026 11:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1367,10 +1367,10 @@ Missing character: There is no ; in font nullfont!
 <../images/trussExample.png, id=390, 556.57938pt x 505.38812pt>
 File: ../images/trussExample.png Graphic file (type png)
 <use ../images/trussExample.png>
-Package pdftex.def Info: ../images/trussExample.png  used on input line 1187.
+Package pdftex.def Info: ../images/trussExample.png  used on input line 1189.
 (pdftex.def)             Requested size: 184.9429pt x 167.93532pt.
 
-Overfull \hbox (5.69176pt too wide) in paragraph at lines 1187--1187
+Overfull \hbox (5.69176pt too wide) in paragraph at lines 1189--1189
 [][]  
  []
 
@@ -1383,25 +1383,25 @@ Overfull \hbox (5.69176pt too wide) in paragraph at lines 1187--1187
 ]
 File: ../images/trussExample.png Graphic file (type png)
 <use ../images/trussExample.png>
-Package pdftex.def Info: ../images/trussExample.png  used on input line 1354.
+Package pdftex.def Info: ../images/trussExample.png  used on input line 1356.
 (pdftex.def)             Requested size: 128.0374pt x 116.25995pt.
 <../images/trussExample1.png, id=418, 999.735pt x 812.03375pt>
 File: ../images/trussExample1.png Graphic file (type png)
 <use ../images/trussExample1.png>
-Package pdftex.def Info: ../images/trussExample1.png  used on input line 1354.
+Package pdftex.def Info: ../images/trussExample1.png  used on input line 1356.
 (pdftex.def)             Requested size: 128.0374pt x 103.99448pt.
 
-Overfull \hbox (8.5346pt too wide) in paragraph at lines 1354--1354
+Overfull \hbox (8.5346pt too wide) in paragraph at lines 1356--1356
 [][]  
  []
 
 
-Overfull \hbox (14.7986pt too wide) detected at line 1354
+Overfull \hbox (14.7986pt too wide) detected at line 1356
 [][][] $[]$[][][][][][][][] $[]$[][][][][][][][] $[]$[][][][][][] 
  []
 
 
-Overfull \hbox (2.05766pt too wide) detected at line 1354
+Overfull \hbox (2.05766pt too wide) detected at line 1356
 [] [] [] \OT1/cmr/m/n/10.95 + [] [] [] = []
  []
 
@@ -1454,7 +1454,7 @@ pdfTeX warning (dest): name{https://ethz.ch/content/dam/ethz/special-interest/ba
 pdfTeX warning (dest): name{https://www.theforthbridges.org/about-the-forth-bridges/forth-bridge/} has been referenced but does not exist, replaced by a fixed one
 
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Slides-week5.pdf (47 pages, 5554178 bytes).
+Output written on Slides-week5.pdf (47 pages, 5553729 bytes).
 PDF statistics:
  625 PDF objects out of 1000 (max. 8388607)
  439 compressed objects within 5 object streams

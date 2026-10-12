@@ -1135,21 +1135,23 @@
 
 \begin{frame}{Post-processing: stress computation}
   \begin{itemize}
-    \item In the local coordinate system, the approximated axial stress in element $e$ is
-          $${}^e\sigma^h_{loc}=E{}^e\varepsilon_{loc}^h$$
-    \item Stain-displacement relationship:
-          $${}^e\varepsilon_{loc}^h=\frac{d}{dx^\prime}u^h= \begin{bmatrix}  \dfrac{d h_1}{dx^\prime}  & \dfrac{d h_2}{dx^\prime} \end{bmatrix} \begin{bmatrix}  q_1 \\ q_2\end{bmatrix}=\frac{1}{{}^e\ell}\begin{bmatrix} -1  & 1 \end{bmatrix} \begin{bmatrix}  q_1 \\ q_2\end{bmatrix}$$
-    \item Using the coordinate transformation ${}^e\mathbf q_{loc}={}^e\mathbf T\mathbf q$ it leads to the approximated stress computed in global coordinates:\vspace{-0.3cm}
+
+    \item Strain-displacement relationship in local coordinates:
+          $${}^e\varepsilon^h=\frac{d}{dx^\prime}u^h= \begin{bmatrix}  \dfrac{d h_1}{dx^\prime}  & \dfrac{d h_2}{dx^\prime} \end{bmatrix} \begin{bmatrix}  q_1 \\ q_2\end{bmatrix}=\frac{1}{{}^e\ell}\begin{bmatrix} -1  & 1 \end{bmatrix} \begin{bmatrix}  q_1 \\ q_2\end{bmatrix}$$
+    \item Using the coordinate transformation ${}^e\mathbf q_{loc}={}^e\mathbf T\mathbf q$ it leads to the approximated strain computed in global coordinates:\vspace{-0.3cm}
           \begin{align*}
-            {}^e\sigma^h & =\frac{{}^eE}{{}^e\ell}\begin{bmatrix} -\cos({}^e\theta)  & -\sin({}^e\theta) & \cos({}^e\theta) & \sin({}^e\theta) \end{bmatrix} \begin{bmatrix}
-                                                                                                                                                               q_{ix} \\ q_{iy} \\ q_{jx} \\ q_{jy}
-                                                                                                                                                             \end{bmatrix} \\
-                         & =
-            \frac{{}^eE}{{}^e\ell} \left[
+            {}^e\varepsilon^h & =\frac{1}{{}^e\ell}\begin{bmatrix} -\cos({}^e\theta)  & -\sin({}^e\theta) & \cos({}^e\theta) & \sin({}^e\theta) \end{bmatrix} \begin{bmatrix}
+                                                                                                                                                                q_{ix} \\ q_{iy} \\ q_{jx} \\ q_{jy}
+                                                                                                                                                              \end{bmatrix} \\
+                              & =
+            \frac{1}{{}^e\ell} \left[
               \cos({}^e\theta)(q_{jx} - q_{ix}) + \sin({}^e\theta)(q_{jy} - q_{iy})
               \right]
           \end{align*}
-          Note that element $e$ is connected to nodes numbered as $i$ and $j$.
+    \item The approximated axial stress in element $e$, constant along the element, is
+          $${}^e\sigma^h={}^eE{}^e\varepsilon^h=\frac{{}^eE}{{}^e\ell} \left[
+              \cos({}^e\theta)(q_{jx} - q_{ix}) + \sin({}^e\theta)(q_{jy} - q_{iy})
+              \right].$$
   \end{itemize}
 \end{frame}
 
@@ -1396,7 +1398,8 @@
         \filldraw (B) circle (2pt);
         \filldraw (C) circle (2pt);
         % draw the projections and the angles
-        \draw[thin, dashed] (B) -- (2.5,0,1) -- (A);
+        \draw[thin, dashed, gray] (B) -- (2.5,0,1) -- (A);
+        \draw[thin, dashed, gray] (2.5,0,1) -- (5,0,2) -- (C);
       \end{tikzpicture}
     \end{center}
   \end{columns}
