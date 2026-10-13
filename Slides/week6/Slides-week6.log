@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  7 OCT 2026 11:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  13 OCT 2026 13:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1182,15 +1182,15 @@ Overfull \vbox (18.6pt too high) detected at line 20
 [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../images/epfl_logo.png> <../images/frame.png>]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 43.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 41.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 43.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 41.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (18.89723pt too wide) in paragraph at lines 43--43
+Overfull \hbox (18.89723pt too wide) in paragraph at lines 41--41
  [] 
  []
 
@@ -1205,81 +1205,80 @@ Overfull \hbox (18.89723pt too wide) in paragraph at lines 43--43
 ] [6
 
 ]
-Overfull \hbox (11.1373pt too wide) in paragraph at lines 188--188
+Overfull \hbox (11.1373pt too wide) in paragraph at lines 186--186
  [] 
  []
 
 
-Overfull \vbox (2.2224pt too high) detected at line 188
+Overfull \vbox (2.2224pt too high) detected at line 186
  []
 
 [7
 
 ]
-Overfull \hbox (0.93759pt too wide) detected at line 208
+Overfull \hbox (0.93759pt too wide) detected at line 215
 \OT1/cmr/bx/n/10.95 K \OT1/cmr/m/n/10.95 = \OT1/cmr/bx/n/10.95 T[]K[]T \OT1/cmr/m/n/10.95 = [] []
  []
 
 
-Overfull \hbox (7.83075pt too wide) detected at line 208
+Overfull \hbox (7.83075pt too wide) detected at line 215
 \OT1/cmr/bx/n/10.95 M \OT1/cmr/m/n/10.95 = \OT1/cmr/bx/n/10.95 T[]M[]T \OT1/cmr/m/n/10.95 = [] []
  []
 
 [8
 
-]
-<../images/trussExample.png, id=118, 556.57938pt x 505.38812pt>
-File: ../images/trussExample.png Graphic file (type png)
-<use ../images/trussExample.png>
-Package pdftex.def Info: ../images/trussExample.png  used on input line 240.
-(pdftex.def)             Requested size: 128.0374pt x 116.25995pt.
- [9
-
- <../images/trussExample.png>] [10
+] [9
 
 ]
-<../images/beam.png, id=139, 642.4pt x 381.425pt>
+<../images/beam.png, id=126, 642.4pt x 381.425pt>
 File: ../images/beam.png Graphic file (type png)
 <use ../images/beam.png>
-Package pdftex.def Info: ../images/beam.png  used on input line 255.
+Package pdftex.def Info: ../images/beam.png  used on input line 230.
 (pdftex.def)             Requested size: 143.75938pt x 85.35826pt.
- [11
+ [10
 
  <../images/beam.png>]
-<../images/beamBern.jpeg, id=149, 485.31313pt x 273.02pt>
+<../images/beamBern.jpeg, id=137, 485.31313pt x 273.02pt>
 File: ../images/beamBern.jpeg Graphic file (type jpg)
 <use ../images/beamBern.jpeg>
-Package pdftex.def Info: ../images/beamBern.jpeg  used on input line 285.
+Package pdftex.def Info: ../images/beamBern.jpeg  used on input line 261.
 (pdftex.def)             Requested size: 126.4376pt x 71.13188pt.
-<../images/beamTimoBern.jpeg, id=150, 493.845pt x 807.015pt>
+<../images/beamTimoBern.jpeg, id=138, 493.845pt x 807.015pt>
 File: ../images/beamTimoBern.jpeg Graphic file (type jpg)
 <use ../images/beamTimoBern.jpeg>
-Package pdftex.def Info: ../images/beamTimoBern.jpeg  used on input line 285.
-(pdftex.def)             Requested size: 99.58107pt x 99.58365pt.
- [12
+Package pdftex.def Info: ../images/beamTimoBern.jpeg  used on input line 261.
+(pdftex.def)             Requested size: 99.58107pt x 105.27274pt.
+ [11
 
  <../images/beamBern.jpeg> <../images/beamTimoBern.jpeg>]
-<../images/eulerBeam.png, id=160, 1226.5825pt x 514.92375pt>
+<../images/eulerBeam.png, id=148, 1226.5825pt x 514.92375pt>
 File: ../images/eulerBeam.png Graphic file (type png)
 <use ../images/eulerBeam.png>
-Package pdftex.def Info: ../images/eulerBeam.png  used on input line 304.
+Package pdftex.def Info: ../images/eulerBeam.png  used on input line 280.
 (pdftex.def)             Requested size: 256.07391pt x 71.13026pt.
-<../images/timoBeam.png, id=161, 1226.5825pt x 514.92375pt>
+<../images/timoBeam.png, id=149, 1226.5825pt x 514.92375pt>
 File: ../images/timoBeam.png Graphic file (type png)
 <use ../images/timoBeam.png>
-Package pdftex.def Info: ../images/timoBeam.png  used on input line 304.
+Package pdftex.def Info: ../images/timoBeam.png  used on input line 280.
 (pdftex.def)             Requested size: 256.07391pt x 71.13026pt.
- [13
+ [12
 
  <../images/eulerBeam.png> <../images/timoBeam.png>]
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
-[14
+
+Overfull \hbox (1.9289pt too wide) in paragraph at lines 348--348
+ [] 
+ []
+
+[13
 
 ]
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
-[15
+[14
+
+] [15
 
 ] [16
 
@@ -1287,22 +1286,22 @@ Missing character: There is no ; in font nullfont!
 
 ] [18
 
-] [19
-
 ]
-<../images/c1cont.png, id=231, 1174.3875pt x 273.02pt>
+<../images/c1cont.png, id=219, 1174.3875pt x 273.02pt>
 File: ../images/c1cont.png Graphic file (type png)
 <use ../images/c1cont.png>
-Package pdftex.def Info: ../images/c1cont.png  used on input line 557.
+Package pdftex.def Info: ../images/c1cont.png  used on input line 535.
 (pdftex.def)             Requested size: 244.765pt x 56.9055pt.
- [20
+ [19
 
  <../images/c1cont.png>]
-Overfull \hbox (1.60826pt too wide) in paragraph at lines 611--611
+Overfull \hbox (1.60826pt too wide) in paragraph at lines 589--589
  [] 
  []
 
-[21
+[20
+
+] [21
 
 ] [22
 
@@ -1320,263 +1319,261 @@ Overfull \hbox (1.60826pt too wide) in paragraph at lines 611--611
 
 ] [29
 
-] [30
-
 ]
-<../images/higherDefTheories.png, id=325, 204.765pt x 206.2104pt>
+<../images/higherDefTheories.png, id=314, 204.765pt x 206.2104pt>
 File: ../images/higherDefTheories.png Graphic file (type png)
 <use ../images/higherDefTheories.png>
-Package pdftex.def Info: ../images/higherDefTheories.png  used on input line 874.
+Package pdftex.def Info: ../images/higherDefTheories.png  used on input line 852.
 (pdftex.def)             Requested size: 128.0374pt x 128.94725pt.
 
-Overfull \hbox (8.5346pt too wide) in paragraph at lines 874--874
+Overfull \hbox (8.5346pt too wide) in paragraph at lines 852--852
 [][]  
  []
 
-[31
+[30
 
  <../images/higherDefTheories.png>]
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
+[31
+
+]
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
 [32
 
-]
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-[33
-
-] [34
+] [33
 
 ]
-Overfull \vbox (18.54625pt too high) detected at line 1068
+Overfull \vbox (18.54625pt too high) detected at line 1046
  []
 
-[35
+[34
+
+] [35
 
 ] [36
 
-] [37
+]
+Overfull \hbox (5.62149pt too wide) detected at line 1159
+[][]
+ []
+
+[37
 
 ]
-Overfull \hbox (5.62149pt too wide) detected at line 1181
-[][]
+Overfull \hbox (22.4876pt too wide) detected at line 1195
+\OT1/cmr/bx/n/10 q\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ) = [][]  [] \OML/cmm/b/it/10 ^^N\OT1/cmr/bx/n/10 q \OT1/cmr/m/n/10 = [][]
  []
 
 [38
 
-]
-Overfull \hbox (22.4876pt too wide) detected at line 1217
-\OT1/cmr/bx/n/10 q\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ) = [][]  [] \OML/cmm/b/it/10 ^^N\OT1/cmr/bx/n/10 q \OT1/cmr/m/n/10 = [][]
- []
-
-[39
+] [39
 
 ] [40
 
 ] [41
 
-] [42
-
 ]
-<../images/truss.png, id=429, 235.88126pt x 137.51375pt>
+<../images/truss.png, id=418, 235.88126pt x 137.51375pt>
 File: ../images/truss.png Graphic file (type png)
 <use ../images/truss.png>
-Package pdftex.def Info: ../images/truss.png  used on input line 1277.
+Package pdftex.def Info: ../images/truss.png  used on input line 1255.
 (pdftex.def)             Requested size: 112.25711pt x 65.44142pt.
-<../images/truss1.png, id=430, 235.88126pt x 137.51375pt>
+<../images/truss1.png, id=419, 235.88126pt x 137.51375pt>
 File: ../images/truss1.png Graphic file (type png)
 <use ../images/truss1.png>
-Package pdftex.def Info: ../images/truss1.png  used on input line 1277.
+Package pdftex.def Info: ../images/truss1.png  used on input line 1255.
 (pdftex.def)             Requested size: 112.25711pt x 65.44142pt.
- [43
+ [42
 
- <../images/truss.png> <../images/truss1.png>] [44
+ <../images/truss.png> <../images/truss1.png>] [43
 
 ]
-Overfull \vbox (8.06627pt too high) detected at line 1343
+Overfull \vbox (8.06627pt too high) detected at line 1321
  []
+
+[44
+
+]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1344.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1344.
 
 [45
 
 ]
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1366.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1366.
-
-[46
-
-]
-Overfull \hbox (13.75148pt too wide) detected at line 1433
+Overfull \hbox (13.75148pt too wide) detected at line 1411
 [][] \OT1/cmr/m/n/10.95 = [][] \OML/cmm/m/it/10.95 :
  []
 
 
-Overfull \hbox (2.82959pt too wide) detected at line 1433
+Overfull \hbox (2.82959pt too wide) detected at line 1411
 [][] \OT1/cmr/m/n/10.95 = [][] \OML/cmm/m/it/10.95 :
  []
 
 
-Overfull \hbox (13.1292pt too wide) in paragraph at lines 1433--1433
+Overfull \hbox (13.1292pt too wide) in paragraph at lines 1411--1411
  [] 
  []
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1433.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1411.
+
+[46
+
+]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1429.
+
+
+Overfull \hbox (29.393pt too wide) detected at line 1429
+\OT1/cmr/bx/n/10.95 K \OT1/cmr/m/n/10.95 = \OT1/cmr/bx/n/10.95 T[]K[]T \OT1/cmr/m/n/10.95 = [] []
+ []
 
 [47
 
 ]
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1451.
-
-
-Overfull \hbox (29.393pt too wide) detected at line 1451
-\OT1/cmr/bx/n/10.95 K \OT1/cmr/m/n/10.95 = \OT1/cmr/bx/n/10.95 T[]K[]T \OT1/cmr/m/n/10.95 = [] []
- []
+LaTeX Font Warning: Command \small invalid in math mode on input line 1447.
 
 [48
 
-]
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1469.
-
-[49
+] [49
 
 ] [50
 
 ] [51
 
-] [52
-
 ]
-<../images/grid.png, id=519, 1024.82875pt x 631.35875pt>
+<../images/grid.png, id=508, 1024.82875pt x 631.35875pt>
 File: ../images/grid.png Graphic file (type png)
 <use ../images/grid.png>
-Package pdftex.def Info: ../images/grid.png  used on input line 1532.
+Package pdftex.def Info: ../images/grid.png  used on input line 1510.
 (pdftex.def)             Requested size: 138.5492pt x 85.35826pt.
-<../images/fusion1.jpg, id=520, 1284.8pt x 722.7pt>
+<../images/fusion1.jpg, id=509, 1284.8pt x 722.7pt>
 File: ../images/fusion1.jpg Graphic file (type jpg)
 <use ../images/fusion1.jpg>
-Package pdftex.def Info: ../images/fusion1.jpg  used on input line 1532.
+Package pdftex.def Info: ../images/fusion1.jpg  used on input line 1510.
 (pdftex.def)             Requested size: 85.35826pt x 48.01373pt.
 
-Overfull \vbox (17.62701pt too high) detected at line 1532
+Overfull \vbox (17.62701pt too high) detected at line 1510
+ []
+
+[52
+
+ <../images/grid.png> <../images/fusion1.jpg>]
+Overfull \vbox (3.83038pt too high) detected at line 1536
  []
 
 [53
 
- <../images/grid.png> <../images/fusion1.jpg>]
-Overfull \vbox (3.83038pt too high) detected at line 1558
+]
+Overfull \hbox (7.69359pt too wide) in paragraph at lines 1583--1583
+ [] 
  []
 
 [54
 
-]
-Overfull \hbox (7.69359pt too wide) in paragraph at lines 1605--1605
- [] 
- []
-
-[55
+] [55
 
 ] [56
 
 ] [57
 
-] [58
+]
+Overfull \vbox (8.06627pt too high) detected at line 1674
+ []
+
+[58
 
 ]
-Overfull \vbox (8.06627pt too high) detected at line 1696
- []
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1697.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 1697.
 
 [59
 
 ]
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1719.
-
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 1719.
-
-[60
-
-]
-Overfull \hbox (17.02379pt too wide) detected at line 1787
+Overfull \hbox (17.02379pt too wide) detected at line 1765
 [][] \OT1/cmr/m/n/10.95 = [][] \OML/cmm/m/it/10.95 :
  []
 
 
-Overfull \hbox (6.1019pt too wide) detected at line 1787
+Overfull \hbox (6.1019pt too wide) detected at line 1765
 [][] \OT1/cmr/m/n/10.95 = [][] \OML/cmm/m/it/10.95 :
  []
 
 
-Overfull \hbox (14.76534pt too wide) in paragraph at lines 1787--1787
+Overfull \hbox (14.76534pt too wide) in paragraph at lines 1765--1765
  [] 
  []
 
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 1787.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1765.
 
-[61
+[60
+
+] [61
 
 ] [62
 
 ] [63
 
-] [64
-
 ]
-<../images/beam3d.png, id=622, 522.95375pt x 683.55376pt>
+<../images/beam3d.png, id=611, 522.95375pt x 683.55376pt>
 File: ../images/beam3d.png Graphic file (type png)
 <use ../images/beam3d.png>
-Package pdftex.def Info: ../images/beam3d.png  used on input line 1865.
+Package pdftex.def Info: ../images/beam3d.png  used on input line 1843.
 (pdftex.def)             Requested size: 113.81102pt x 148.75517pt.
 
-Overfull \hbox (10.61362pt too wide) in paragraph at lines 1865--1865
+Overfull \hbox (10.61362pt too wide) in paragraph at lines 1843--1843
  [] 
  []
 
-[65
+[64
 
- <../images/beam3d.png>] [66
+ <../images/beam3d.png>] [65
 
 ]
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1973.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1951.
+
+[66
+
+]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1972.
+
+
+Overfull \hbox (26.73196pt too wide) detected at line 1972
+\OT1/cmr/bx/n/10.95 K[] \OT1/cmr/m/n/10.95 = []
+ []
 
 [67
 
 ]
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1994.
+LaTeX Font Warning: Command \small invalid in math mode on input line 1992.
 
 
-Overfull \hbox (26.73196pt too wide) detected at line 1994
-\OT1/cmr/bx/n/10.95 K[] \OT1/cmr/m/n/10.95 = []
+Overfull \hbox (18.22256pt too wide) detected at line 1992
+\OT1/cmr/bx/n/10.95 M[] \OT1/cmr/m/n/10.95 = [] []
  []
 
 [68
 
-]
-
-LaTeX Font Warning: Command \small invalid in math mode on input line 2014.
-
-
-Overfull \hbox (18.22256pt too wide) detected at line 2014
-\OT1/cmr/bx/n/10.95 M[] \OT1/cmr/m/n/10.95 = [] []
- []
-
-[69
+] [69
 
 ] [70
 
 ] [71
 
 ] [72
-
-] [73
 
 ]
 \tf@nav=\write6
@@ -1597,21 +1594,21 @@ Package rerunfilecheck Info: File `Slides-week6.out' has not changed.
 (rerunfilecheck)             Checksum: 1219BE2869DAC51BBB16817B15A120FE;1016.
  ) 
 Here is how much of TeX's memory you used:
- 51103 strings out of 474116
- 1240128 string characters out of 5743682
+ 51090 strings out of 474116
+ 1239839 string characters out of 5743682
  1969187 words of memory out of 5000000
- 72432 multiletter control sequences out of 15000+600000
- 575949 words of font info for 100 fonts, out of 8000000 for 9000
+ 72422 multiletter control sequences out of 15000+600000
+ 575650 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,22n,134p,894b,2616s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{https://ethz.ch/content/dam/ethz/special-interest/baug/ibk/structural-mechanics-dam/education/femI/2024/Lecture_1_EC_2024.pdf} has been referenced but does not exist, replaced by a fixed one
 
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
-Output written on Slides-week6.pdf (73 pages, 5457550 bytes).
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb>
+Output written on Slides-week6.pdf (72 pages, 5417680 bytes).
 PDF statistics:
- 855 PDF objects out of 1000 (max. 8388607)
- 612 compressed objects within 7 object streams
- 154 named destinations out of 1000 (max. 500000)
- 172 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 838 PDF objects out of 1000 (max. 8388607)
+ 601 compressed objects within 7 object streams
+ 152 named destinations out of 1000 (max. 500000)
+ 167 words of extra memory for PDF output out of 10000 (max. 10000000)
 
