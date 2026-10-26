@@ -514,7 +514,7 @@
   \end{block}
   \vspace{0.2cm}
   The Sobolev space $H^2(]0,\ell[)$ is the defined as:
-    $$H^2(]0,\ell[)=\Big\{f\in L^2(]0,\ell[)\ |\ \int_0^l \big(\partial_{x}f(x)\big)^2 \ dx<\infty, \ \int_0^l \big(\partial_{xx}^2f(x)\big)^2 \ dx<\infty  \Big\}.$$
+    $$H^2(]0,\ell[)=\Big\{f\in L^2(]0,\ell[)\ |\ \int_0^\ell \big(\partial_{x}f(x)\big)^2 \ dx<\infty, \ \int_0^\ell \big(\partial_{xx}^2f(x)\big)^2 \ dx<\infty  \Big\}.$$
 \end{frame}
 
 \begin{frame}{Approximated transversal displacement}
@@ -893,10 +893,10 @@
     {\tiny Model parameters:
       \begin{itemize}\setlength\itemsep{0.05em}
         \item $A$ cross-sectional area
+        \item $\ell$ length
         \item $E$ Young's modulus
         \item $\rho$ material density
         \item $I$ moment of inertia
-        \item $\ell$ length
       \end{itemize}}
     \column{.25\textwidth}
     {\tiny Loads:
@@ -1528,7 +1528,7 @@
             \small Components required to describe the displacements of joint $i$ are:
             \begin{itemize}
               \item $q_{iz}$ translation in the $z$ direction,
-              \item $\phi_{ix}$  torsion, rotation about the $x$ axis .
+              \item $\phi_{ix}$  torsion, rotation about the $x$ axis,
               \item $\phi_{iy}$ bending, rotation about the $z$ axis.
             \end{itemize}
           \end{tcolorbox}

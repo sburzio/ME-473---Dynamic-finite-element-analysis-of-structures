@@ -128,9 +128,10 @@ The bridge connects the following four supports on a horizontal plane:
 \subsubsection*{Truss design requirements}
 The bridge must be modeled as both a planar truss and a planar frame. A vertical point load of 50 kN is applied at node 5, located at a defined height a, that can be chosen freely, and should represent a lower chord joints.
 
+The four anchor points are fixed supports. In the planar truss model, translations are constrained at each anchor points. In the planar frame model, both translations and rotation are constrained at each anchor points.
+
 You are required both to perform both a static and a dynamic analysis for each of the three materials listed below, treating each case as a distinct full-bridge design. Compare the results obtains for each material and discuss the differences in terms of the modeling assumptions, planar truss vs planar frame.
 
-\newpage
 \begin{center}
   \begin{tabular}{l|c|c|c|c}
     {Material}          & {E (GPa)} & {Density (kg/m$^3$)} & {Cross-sectional area} & {Volume cap} \\

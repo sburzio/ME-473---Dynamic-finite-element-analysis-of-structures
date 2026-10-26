@@ -20,7 +20,7 @@ Stefano Burzio \hfill 2025\\
 \begin{center}
     \begin{tikzpicture}
         % Nodes
-        \def\c{0.7071}
+        \def\c{0.7071}x
         \def\s{0.7071}
         \coordinate (1) at (0,0);
         \coordinate (2) at (2.5*\s,2.5*\c);
@@ -240,7 +240,7 @@ transpose(modal_matrix) * mass_freeDofs * modal_matrix
 \subsubsection*{Transient analysis}
 The transient response of the structure is evaluated in modal coordinates using the modal superposition method. The transformation $\mathbf{q}(t) = \boldsymbol{\Phi} \, \mathbf{z}(t)$ yields the modal force vector, which drives each of the uncoupled second-order ordinary differential equations (ODEs) of the form:
 $$\mathbf I\ddot{\mathbf z}(t)+\mathbf \Lambda\mathbf z(t)=\mathbf p$$
-where $\mathbf \Lambda=\text{diag}(\lambda_1^2,\lambda_2^2,\lambda_3^2)$ and the modal force is
+where $\mathbf \Lambda=\text{diag}(\lambda_1,\lambda_2,\lambda_3)$ and the modal force is
 $$\mathbf p=\boldsymbol{\Phi}^T \mathbf{f}.$$
 The modal equations are given in components by
 $$\ddot z_i(t)+\omega_i^2 z_i(t)=p_i.$$
@@ -252,14 +252,14 @@ p = transpose(modal_matrix) * [f; 0; 0];
 \end{verbatim}
 The solution of the above equations for zero initial conditions $\mathbf z(0)=\dot{\mathbf z}(0)=0$ is given by
 $$\begin{cases}
-        z_1(t) = \frac{p_1}{\omega_1^2}(1 - \cos\big(\omega_1^2 t)\big) \\
-        z_2(t) = \frac{p_2}{\omega_3^2}(1 - \cos\big(\omega_2^2 t)\big) \\
-        z_3(t) = \frac{p_3}{\omega_2^2}(1 - \cos\big(\omega_3^2 t)\big)
+        z_1(t) = \frac{p_1}{\omega_1^2}(1 - \cos\big(\omega_1 t)\big) \\
+        z_2(t) = \frac{p_2}{\omega_2^2}(1 - \cos\big(\omega_2 t)\big) \\
+        z_3(t) = \frac{p_3}{\omega_3^2}(1 - \cos\big(\omega_3 t)\big)
     \end{cases}$$
 
 \begin{verbatim}
 syms t
-z = vpa(p ./ frequencies.^2 .* (1 - cos(frequencies.^2 * t)),3);
+z = vpa(p ./ frequencies.^2 .* (1 - cos(frequencies * t)),3);
 q = vpa(modal_matrix * z, 3)
 \end{verbatim}
 
