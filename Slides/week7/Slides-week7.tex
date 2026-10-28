@@ -1,6 +1,10 @@
 \documentclass[aspectratio=169]{beamer}
 
 \input{../preambleSlides}
+\usepackage{colortbl}
+\definecolor{Purple}{rgb}{0.75,0,0.25}
+\definecolor{ForestGreen}{rgb}{0.13,0.55,0.13}
+\definecolor{BlueViolet}{rgb}{0.54,0.17,0.89}
 
 \title{Dynamic analysis of Kirchhoff plates}
 \subtitle{Special structural elements}
@@ -62,6 +66,8 @@
   \end{frame}
 }
 
+\begin{comment}
+
 \section{Recap week 6 \\ Vibrations of unidimensional structures}
  {\setbeamercolor{background canvas}{bg=darkred!5}
   \setbeamercolor{block body}{bg=darkred!5,fg=black}
@@ -84,6 +90,37 @@
     \end{center}
   \end{frame}
 
+  \begin{frame}{Summary of one-dimensional structures}
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|p{2.85cm}|p{2.85cm}|p{7cm}|}
+      \hline
+      \rowcolor{darkred!20}\textbf{Single member} & \textbf{Main load} & \textbf{Deformations}                      \\
+      \hline
+      Bar                                         & Axial              & Axial extension or compression             \\
+      \hline
+      Beam                                        & Transverse         & Axial extension or compression and bending \\
+      \hline
+      Shaft                                       & Torsional          & Twisting                                   \\
+      \hline
+    \end{tabular}
+
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{1.7cm}|p{6cm}|p{5cm}|}
+      \hline
+      \rowcolor{darkred!20}\textbf{Structure} & \textbf{Idealization}                                       & \textbf{Main load}               \\
+      Truss                                   & Bars joined by frictionless pins                            & Axial forces in members only     \\
+      \hline
+      Plane frame                             & Planar beam network with loads acting parallel to the plane & Axial force and bending          \\
+      \hline
+      Grid                                    & Planar beam network, loads normal to the plane              & Bending and torsion              \\
+      \hline
+      3d frame                                & 3D beam network; bending in the $xy$ and $xz$ planes        & Axial force, torsion and bending \\
+      \hline
+    \end{tabular}
+  \end{frame}
 
   \begin{frame}{Three-dimensional thin beam structure}
     \begin{center}
@@ -172,32 +209,104 @@
     {\small $I_{y^\prime}$ and $I_{z^\prime}$ are the cross-sectional moments of inertia with respect to the axes $y$ and $z$.}
   \end{frame}
 
+  \begin{frame}{Modal analysis workflow}
+    \centering
+    \vspace{0.25cm}
+    \begin{tikzpicture}[
+        bubble/.style={
+            draw,
+            circle,
+            thick,
+            minimum width=2cm,
+            text width=2cm,
+            text centered,
+            font=\tiny,
+            fill=darkred!10
+          },
+        arrow/.style={
+            -latex,
+            thick
+          }
+      ]
+      % Steps 1--3, then continue from right to left on the second row.
+      \node[bubble, fill=darkred!20] (equil) {Equilibrium equation for a \textbf{single non-oriented} member\\ (Strong form)};
+      \node[bubble, fill=darkred!20, right=0.35cm of equil] (shape) {Introduce the local shape functions $h_i$};
+      \node[bubble, fill=darkred!20, right=0.35cm of shape] (local) {Use the weak form to obtain the element matrices in local coordinates\\$\mathbf K_{loc},\;\mathbf M_{loc}$};
+      \node[bubble, fill=darkred!20, right=0.35cm of local] (orient) {\textbf{Orient} the member and define the coordinate transformation\\$\mathbf q_{loc}=\mathbf T\mathbf q_e$};
+      \node[bubble, fill=darkred!20, below=0.65cm of orient] (globalel) {Transform the element matrices to \textbf{global coordinates}};
+      \node[bubble, fill=orange!20, left=0.8cm of globalel] (assembly) {\textbf{Assemble} the contributions of all oriented members\\to form the global $\mathbf K$ and $\mathbf M$};
+      \node[bubble, fill=orange!20, left=0.8cm of assembly] (frequencies) {Compute the fundamental frequencies by solving the generalized eigenvalue problem $\mathbf K\boldsymbol\phi-\omega^2\mathbf M\boldsymbol\phi=0$};
+      \draw[arrow] (equil) -- (shape);
+      \draw[arrow] (shape) -- (local);
+      \draw[arrow] (local) -- (orient);
+      \draw[arrow] (orient) -- (globalel);
+      \draw[arrow] (globalel) -- (assembly);
+      \draw[arrow] (assembly) -- (frequencies);
+    \end{tikzpicture}
+  \end{frame}
 
-  \begin{frame}{Displacements discretization}
+  \begin{frame}{Displacements discretization in local coordinates}
+    \vspace{-0.3cm}
+    \begin{columns}
+      \begin{column}{0.6\textwidth}
+        \begin{itemize}
+          \item three translation components $q_{ix}^\prime$, $q_{iy}^\prime$ and $q_{iz}^\prime$ along the $x$, $y$, $z$ axes, and
+          \item three rotational components about these axes $\phi_{ix}^\prime$, $\phi_{iy}^\prime$ and $\phi_{iz}^\prime$.
+        \end{itemize}
+      \end{column}
+      \begin{column}{0.45\textwidth}
+        \begin{center}
+          \begin{tikzpicture}[scale=0.5]
+            % Draw background grid
+            %\draw[step=1cm,gray,very thin] (0,0) grid (12,6);
+            % Define coordinates
+            \coordinate (A) at (0,0);
+            \coordinate (B) at (3,1,1);
+            \coordinate (C) at (6,2,2);
+            % Draw the truss members
+            \draw[ultra thin] (A) -- (B);
+            \draw[ultra thick] (B) -- (C);
+            % Global coordinate system
+            \draw[-latex, ultra thin] (0,0) -- (0,3) node[left] {\tiny$y$};
+            \draw[-latex, ultra thin] (0,0) -- (6,0) node[below] {\tiny$x$};
+            \draw[-latex, ultra thin] (0,0) -- (0,0,3) node[below] {\tiny$z$};
+            % Local 
+            \draw[-latex,thick, orange] (B) -- ++(1,0.28,0.28) node[above] {\tiny$q_{1x}^\prime$};
+            \draw[-latex,thick, orange] (B) -- ++(-0.28,1,0) node[left] {\tiny$q_{1y}^\prime$};
+            \draw[-latex,thick, orange] (B) -- ++(0.2,0,1.5) node[right] {\tiny$q_{1z}^\prime$};
+            \draw[-latex,thick, orange] (C) -- ++(1,0.28,0.28) node[above] {\tiny$q_{2x}^\prime$};
+            \draw[-latex,thick, orange] (C) -- ++(-0.28,1,0) node[left] {\tiny$q_{2y}^\prime$};
+            \draw[-latex,thick, orange] (C) -- ++(0.2,0,1.5) node[right] {\tiny$q_{2z}^\prime$};
+            % Draw supports (circles at joints)
+            \filldraw (B) circle (2pt);
+            \filldraw (C) circle (2pt);
+          \end{tikzpicture}
+        \end{center}
+      \end{column}
+    \end{columns}
     \small
     Total of \textbf{six nodal displacements at each unconstrained node}:
-    \begin{itemize}
-      \item three translation components $q_{ix}^\prime$, $q_{iy}^\prime$ and $q_{iz}^\prime$ along the $x$, $y$, $z$ axes, and
-      \item three rotational components about these axes $\phi_{ix}^\prime$, $\phi_{iy}^\prime$ and $\phi_{iz}^\prime$.
-    \end{itemize}\vspace{0.2cm}
+    \vspace{0.2cm}
     $$u^h(x^\prime,t)=  \mathbf H(x^\prime)\mathbf q_{loc} (t)$$
     \vspace{-1cm}
     \begin{columns}
       \begin{column}{0.4\textwidth}
-        $$\tiny \mathbf q_{loc} (t)=\begin{bmatrix}
-            {\color{brown} q_{1x}^\prime(t)}             \\[2pt]
-            {\color{Purple} q_{1y}^\prime(t)}            \\[2pt]
-            {\color{ForestGreen} q_{1z}^\prime(t)}       \\[2pt]
-            {\color{BlueViolet} \phi_{1x}^\prime(t)}     \\[2pt]
-            {\color{ForestGreen} \phi_{1y}^\prime(t)   } \\[2pt]
-            {\color{Purple} \phi_{1z}^\prime(t)}         \\[2pt]
-            {\color{brown} q_{2x}^\prime(t)}             \\[2pt]
-            {\color{Purple} q_{2y}^\prime(t)}            \\[2pt]
-            {\color{ForestGreen} q_{2z}^\prime(t)}       \\[2pt]
-            {\color{BlueViolet} \phi_{2x}^\prime(t)}     \\[2pt]
-            {\color{ForestGreen} \phi_{2y}^\prime(t)   } \\[2pt]
-            {\color{Purple} \phi_{2z}^\prime(t)}         \\[2pt]
-          \end{bmatrix}$$
+        {\tiny \[
+            \mathbf q_{loc} (t)=\begin{bmatrix}
+              {\color{brown} q_{1x}^\prime(t)}             \\[2pt]
+              {\color{Purple} q_{1y}^\prime(t)}            \\[2pt]
+              {\color{ForestGreen} q_{1z}^\prime(t)}       \\[2pt]
+              {\color{BlueViolet} \phi_{1x}^\prime(t)}     \\[2pt]
+              {\color{ForestGreen} \phi_{1y}^\prime(t)   } \\[2pt]
+              {\color{Purple} \phi_{1z}^\prime(t)}         \\[2pt]
+              {\color{brown} q_{2x}^\prime(t)}             \\[2pt]
+              {\color{Purple} q_{2y}^\prime(t)}            \\[2pt]
+              {\color{ForestGreen} q_{2z}^\prime(t)}       \\[2pt]
+              {\color{BlueViolet} \phi_{2x}^\prime(t)}     \\[2pt]
+              {\color{ForestGreen} \phi_{2y}^\prime(t)   } \\[2pt]
+              {\color{Purple} \phi_{2z}^\prime(t)}         \\[2pt]
+            \end{bmatrix}
+          \]}
       \end{column}
 
       \begin{column}{0.3\textwidth}
@@ -222,11 +331,92 @@
         \end{align*}
       \end{column}
     \end{columns}
+  \end{frame}
+
+
+  \begin{frame}{Global displacements for oriented three-dimensional beam}
+    \vspace{-0.5cm}
+
+    \begin{columns}
+      \column{0.5\textwidth}
+      \tiny $$\underbrace{ \begin{bmatrix}
+            {\color{black} q_{1x}^\prime(t)}       \\[2pt]
+            {\color{black} q_{1y}^\prime(t)}       \\[2pt]
+            {\color{black} q_{1z}^\prime(t)}       \\[2pt]
+            {\color{black} \phi_{1x}^\prime(t)}    \\[2pt]
+            {\color{black} \phi_{1y}^\prime(t)   } \\[2pt]
+            {\color{black} \phi_{1z}^\prime(t)}    \\[2pt]
+            {\color{black} q_{2x}^\prime(t)}       \\[2pt]
+            {\color{black} q_{2y}^\prime(t)}       \\[2pt]
+            {\color{black} q_{2z}^\prime(t)}       \\[2pt]
+            {\color{black} \phi_{2x}^\prime(t)}    \\[2pt]
+            {\color{black} \phi_{2y}^\prime(t)   } \\[2pt]
+            {\color{black} \phi_{2z}^\prime(t)}    \\[2pt]
+          \end{bmatrix}}_\text{$\mathbf q_{loc} (t)$} = \underbrace{ \begin{bmatrix}
+            \mathbf {T^\prime} &                    &                    &                    & \\
+                               & \mathbf {T^\prime} &                    &                      \\
+                               &                    & \mathbf {T^\prime} &                      \\
+                               &                    &                    & \mathbf {T^\prime}   \\
+          \end{bmatrix}}_\text{$\mathbf T$} \underbrace{ \begin{bmatrix}
+            {\color{black} q_{1x}(t)}       \\[2pt]
+            {\color{black} q_{1y}(t)}       \\[2pt]
+            {\color{black} q_{1z}(t)}       \\[2pt]
+            {\color{black} \phi_{1x}(t)}    \\[2pt]
+            {\color{black} \phi_{1y}(t)   } \\[2pt]
+            {\color{black} \phi_{1z}(t)}    \\[2pt]
+            {\color{black} q_{2x}(t)}       \\[2pt]
+            {\color{black} q_{2y}(t)}       \\[2pt]
+            {\color{black} q_{2z}(t)}       \\[2pt]
+            {\color{black} \phi_{2x}(t)}    \\[2pt]
+            {\color{black} \phi_{2y}(t)   } \\[2pt]
+            {\color{black} \phi_{2z}(t)}    \\[2pt]
+          \end{bmatrix}}_\text{$\mathbf q(t)$}$$
+
+      \column{0.55\textwidth}
+      \begin{center}
+        \begin{tikzpicture}[scale=0.9]
+          % Draw background grid
+          %\draw[step=1cm,gray,very thin] (0,0) grid (12,6);
+          % Define coordinates
+          \coordinate (A) at (0,0);
+          \coordinate (B) at (3,1,1);
+          \coordinate (C) at (6,2,2);
+          % Draw the truss members
+          \draw[ultra thin] (A) -- (B);
+          \draw[ultra thick] (B) -- (C);
+          % Global coordinate system
+          \draw[-latex, ultra thin] (0,0) -- (0,3) node[left] {$y$};
+          \draw[-latex, ultra thin] (0,0) -- (6,0) node[below] {$x$};
+          \draw[-latex, ultra thin] (0,0) -- (0,0,3) node[below] {$z$};
+          % Local coordinate systems
+          \draw[-latex, darkred, thick] (B) -- ++(0,1) node[above] {$q_{1y}$};
+          \draw[-latex, darkred, thick] (B) -- ++(1,0) node[right] {$q_{1x}$};
+          \draw[-latex, darkred, thick] (B) -- ++(0,0,1.5) node[below] {$q_{1z}$};
+          \draw[-latex, darkred, thick] (C) -- ++(0,1) node[above] {$q_{2y}$};
+          \draw[-latex, darkred, thick] (C) -- ++(1,0) node[right] {$q_{2x}$};
+          \draw[-latex, darkred, thick] (C) -- ++(0,0,1.5) node[below] {$q_{2z}$};
+          % Local 
+          \draw[-latex,thick, orange] (B) -- ++(1,0.28,0.28) node[above] {$q_{1x}^\prime$};
+          \draw[-latex,thick, orange] (B) -- ++(-0.28,1,0) node[left] {$q_{1y}^\prime$};
+          \draw[-latex,thick, orange] (B) -- ++(0.2,0,1.5) node[right] {$q_{1z}^\prime$};
+          \draw[-latex,thick, orange] (C) -- ++(1,0.28,0.28) node[above] {$q_{2x}^\prime$};
+          \draw[-latex,thick, orange] (C) -- ++(-0.28,1,0) node[left] {$q_{2y}^\prime$};
+          \draw[-latex,thick, orange] (C) -- ++(0.2,0,1.5) node[right] {$q_{2z}^\prime$};
+          % Draw supports (circles at joints)
+          \filldraw (B) circle (2pt);
+          \filldraw (C) circle (2pt);
+        \end{tikzpicture}
+      \end{center}
+    \end{columns}
+    \vspace{0.3cm}
     \begin{itemize}
+      \small
       \item The stiffness matrix $\mathbf K_{loc}$ and mass matrices $\mathbf M_{loc}$ for a three-dimensional beam element are written as the superposition of the \textbf{axial} matrix, the \textbf{torsional} matrix and the \textbf{flexural} matrices in the two bending planes.
     \end{itemize}
   \end{frame}
  }
+
+\end{comment}
 
 \section{Classic plate theory}
 
@@ -319,7 +509,7 @@
     \end{center}
   \end{center}
   \begin{block}{}
-    A straight fiber that is perpendicular to the middle plane of the plate before deformation remain straight and normal to it after deformation.\
+    A straight fiber that is perpendicular to the middle plane of the plate before deformation remain \textbf{straight and normal} to it after deformation.\
   \end{block}
   \emph{\footnotesize (Credit: (N))}
 \end{frame}
@@ -512,7 +702,7 @@
       \vspace{0.3cm}
       \begin{itemize}
         \item bending moments $M_{11}$ and $M_{22}$,
-        \item twisting moment $M_{12}$,
+        \item twisting moments $M_{12}$ and $M_{21}$,
         \item shear forces $N_{13}$ and $N_{23}$.
       \end{itemize}
     \end{column}
@@ -625,7 +815,7 @@
     \begin{itemize}
       \item  No vertical displacement:
             $$ u_3 = 0\qquad \text{in }\partial\Omega\times]0,T[   $$
-      \item No moment resistance (free to rotate):
+      \item No moment resistance (\emph{free to rotate}):
             \[
               \begin{aligned}
                  & M_{11}=-D(\partial_x\varphi_2+\nu\partial_y\varphi_1)=0 \qquad \text{in }\partial\Omega_1\times]0,T[ \\
@@ -719,7 +909,7 @@
     };
     \node (continuity) at (-2,2) {
       \begin{tcolorbox}[colframe=red!50!black, colback=red!10, coltitle=black, rounded corners,width=6cm]
-        \textbf{Continuity criterion:} \\ ${}^eu^h_3$, $\partial_{x_1} {}^eu^h_3$, $\partial_{x_2} {}^eu^h_3$ are continuous between elements.
+        \textbf{Continuity criterion:} \\ ${}^eu^h_3$, $\partial_{x_1} {}^eu^h_3$, $\partial_{x_2}{}^eu^h_3$ are continuous between elements.
       \end{tcolorbox}
     };
     \node (completeness1) at (13,8) {
