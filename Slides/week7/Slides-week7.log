@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  28 OCT 2026 11:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  3 NOV 2026 09:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1301,30 +1301,30 @@ Package pdftex.def Info: ../images/KirchhoffPlateHp.png  used on input line 511.
  [17
 
  <../images/KirchhoffPlateHp.png>]
-<../images/plateKinematicsXZ.png, id=219, 905.3825pt x 529.98pt>
+<../images/plateKinematicsXZ.png, id=219, 1646.15pt x 962.59625pt>
 File: ../images/plateKinematicsXZ.png Graphic file (type png)
 <use ../images/plateKinematicsXZ.png>
 Package pdftex.def Info: ../images/plateKinematicsXZ.png  used on input line 558.
-(pdftex.def)             Requested size: 156.49014pt x 91.59955pt.
-<../images/plateKinematicsYZ.png, id=220, 905.3825pt x 529.98pt>
+(pdftex.def)             Requested size: 156.49014pt x 91.50635pt.
+<../images/plateKinematicsYZ.png, id=220, 1646.15pt x 962.59625pt>
 File: ../images/plateKinematicsYZ.png Graphic file (type png)
 <use ../images/plateKinematicsYZ.png>
 Package pdftex.def Info: ../images/plateKinematicsYZ.png  used on input line 558.
-(pdftex.def)             Requested size: 156.49014pt x 91.59955pt.
+(pdftex.def)             Requested size: 156.49014pt x 91.50635pt.
 
 Overfull \vbox (5.6568pt too high) detected at line 558
  []
 
 [18
 
- <../images/plateKinematicsXZ.png> <../images/plateKinematicsYZ.png>] [19
+ <../images/plateKinematicsXZ.png (PNG copy)> <../images/plateKinematicsYZ.png (PNG copy)>] [19
 
 ] [20
 
 ] [21
 
 ]
-<../images/plateDynamicEq.png, id=261, 1052.93375pt x 285.065pt>
+<../images/plateDynamicEq.png, id=259, 1052.93375pt x 285.065pt>
 File: ../images/plateDynamicEq.png Graphic file (type png)
 <use ../images/plateDynamicEq.png>
 Package pdftex.def Info: ../images/plateDynamicEq.png  used on input line 663.
@@ -1332,7 +1332,7 @@ Package pdftex.def Info: ../images/plateDynamicEq.png  used on input line 663.
  [22
 
  <../images/plateDynamicEq.png>]
-<../images/plateStesses.png, id=271, 778.91pt x 542.025pt>
+<../images/plateStesses.png, id=269, 778.91pt x 542.025pt>
 File: ../images/plateStesses.png Graphic file (type png)
 <use ../images/plateStesses.png>
 Package pdftex.def Info: ../images/plateStesses.png  used on input line 684.
@@ -1345,7 +1345,7 @@ Overfull \hbox (5.69176pt too wide) in paragraph at lines 684--684
 [23
 
  <../images/plateStesses.png>]
-<../images/plateMoments.png, id=281, 893.3375pt x 608.2725pt>
+<../images/plateMoments.png, id=279, 893.3375pt x 608.2725pt>
 File: ../images/plateMoments.png Graphic file (type png)
 <use ../images/plateMoments.png>
 Package pdftex.def Info: ../images/plateMoments.png  used on input line 727.
@@ -1407,24 +1407,32 @@ Overfull \vbox (6.48433pt too high) detected at line 1005
 [35
 
 ]
-<../images/plateLocal.png, id=383, 661.47125pt x 401.5pt>
+<../images/plateLocal.png, id=381, 1615.03375pt x 980.66376pt>
 File: ../images/plateLocal.png Graphic file (type png)
 <use ../images/plateLocal.png>
 Package pdftex.def Info: ../images/plateLocal.png  used on input line 1036.
-(pdftex.def)             Requested size: 140.6289pt x 85.35826pt.
+(pdftex.def)             Requested size: 140.56595pt x 85.35826pt.
  [36
 
- <../images/plateLocal.png>]
-Overfull \hbox (11.5536pt too wide) detected at line 1066
+ <../images/plateLocal.png (PNG copy)>]
+Overfull \hbox (19.22728pt too wide) detected at line 1071
  [] \OT1/cmr/m/n/10 = [] []
+ []
+
+
+Overfull \vbox (4.67532pt too high) detected at line 1071
  []
 
 [37
 
-] [38
+]
+Overfull \vbox (2.07022pt too high) detected at line 1100
+ []
+
+[38
 
 ]
-Overfull \hbox (11.0832pt too wide) detected at line 1125
+Overfull \hbox (11.0832pt too wide) detected at line 1134
 []
  []
 
@@ -1435,93 +1443,93 @@ Overfull \hbox (11.0832pt too wide) detected at line 1125
 ] [41
 
 ]
-<../images/plateModThick.png, id=439, 3413.75375pt x 1333.98375pt>
+<../images/plateModThick.png, id=435, 3413.75375pt x 1333.98375pt>
 File: ../images/plateModThick.png Graphic file (type png)
 <use ../images/plateModThick.png>
-Package pdftex.def Info: ../images/plateModThick.png  used on input line 1171.
+Package pdftex.def Info: ../images/plateModThick.png  used on input line 1180.
 (pdftex.def)             Requested size: 113.81102pt x 44.45515pt.
  [42
 
  <../images/plateModThick.png>] [43
 
 ]
-<../images/AMCsimmetry.png, id=458, 537.00626pt x 523.9575pt>
+<../images/AMCsimmetry.png, id=454, 722.7pt x 674.52pt>
 File: ../images/AMCsimmetry.png Graphic file (type png)
 <use ../images/AMCsimmetry.png>
-Package pdftex.def Info: ../images/AMCsimmetry.png  used on input line 1265.
-(pdftex.def)             Requested size: 131.21944pt x 128.0374pt.
+Package pdftex.def Info: ../images/AMCsimmetry.png  used on input line 1274.
+(pdftex.def)             Requested size: 137.18208pt x 128.0374pt.
 
-Overfull \hbox (11.71664pt too wide) in paragraph at lines 1265--1265
+Overfull \hbox (17.67929pt too wide) in paragraph at lines 1274--1274
  [] 
  []
 
 
-Overfull \vbox (9.47815pt too high) detected at line 1265
+Overfull \vbox (9.47815pt too high) detected at line 1274
  []
 
 [44
 
- <../images/AMCsimmetry.png>] [45
+ <../images/AMCsimmetry.png (PNG copy)>] [45
 
 ]
-<../images/AMCConv.jpg, id=476, 1124.2pt x 843.15pt>
+<../images/AMCConv.jpg, id=471, 1124.2pt x 843.15pt>
 File: ../images/AMCConv.jpg Graphic file (type jpg)
 <use ../images/AMCConv.jpg>
-Package pdftex.def Info: ../images/AMCConv.jpg  used on input line 1308.
+Package pdftex.def Info: ../images/AMCConv.jpg  used on input line 1317.
 (pdftex.def)             Requested size: 208.64275pt x 156.49014pt.
 
-Overfull \hbox (17.44193pt too wide) in paragraph at lines 1308--1308
+Overfull \hbox (17.44193pt too wide) in paragraph at lines 1317--1317
  [] 
  []
 
-<../images/AMCrelerr.jpg, id=477, 1124.2pt x 843.15pt>
+<../images/AMCrelerr.jpg, id=472, 1124.2pt x 843.15pt>
 File: ../images/AMCrelerr.jpg Graphic file (type jpg)
 <use ../images/AMCrelerr.jpg>
-Package pdftex.def Info: ../images/AMCrelerr.jpg  used on input line 1308.
+Package pdftex.def Info: ../images/AMCrelerr.jpg  used on input line 1317.
 (pdftex.def)             Requested size: 208.64275pt x 156.49014pt.
 
-Overfull \hbox (17.44193pt too wide) in paragraph at lines 1308--1308
+Overfull \hbox (17.44193pt too wide) in paragraph at lines 1317--1317
  [] 
  []
 
 [46
 
  <../images/AMCConv.jpg> <../images/AMCrelerr.jpg>]
-<../images/AMCModPatt.png, id=486, 687.56876pt x 263.98625pt>
+<../images/AMCModPatt.png, id=481, 687.56876pt x 263.98625pt>
 File: ../images/AMCModPatt.png Graphic file (type png)
 <use ../images/AMCModPatt.png>
-Package pdftex.def Info: ../images/AMCModPatt.png  used on input line 1319.
+Package pdftex.def Info: ../images/AMCModPatt.png  used on input line 1328.
 (pdftex.def)             Requested size: 259.3694pt x 99.58464pt.
  [47
 
  <../images/AMCModPatt.png (PNG copy)>]
-<../images/AMCmode1.jpg, id=496, 1124.2pt x 843.15pt>
+<../images/AMCmode1.jpg, id=491, 1124.2pt x 843.15pt>
 File: ../images/AMCmode1.jpg Graphic file (type jpg)
 <use ../images/AMCmode1.jpg>
-Package pdftex.def Info: ../images/AMCmode1.jpg  used on input line 1338.
+Package pdftex.def Info: ../images/AMCmode1.jpg  used on input line 1347.
 (pdftex.def)             Requested size: 128.0374pt x 96.02747pt.
-<../images/AMCmode2.jpg, id=497, 1124.2pt x 843.15pt>
+<../images/AMCmode2.jpg, id=492, 1124.2pt x 843.15pt>
 File: ../images/AMCmode2.jpg Graphic file (type jpg)
 <use ../images/AMCmode2.jpg>
-Package pdftex.def Info: ../images/AMCmode2.jpg  used on input line 1338.
+Package pdftex.def Info: ../images/AMCmode2.jpg  used on input line 1347.
 (pdftex.def)             Requested size: 128.0374pt x 96.02747pt.
-<../images/AMCmode3.jpg, id=498, 1124.2pt x 843.15pt>
+<../images/AMCmode3.jpg, id=493, 1124.2pt x 843.15pt>
 File: ../images/AMCmode3.jpg Graphic file (type jpg)
 <use ../images/AMCmode3.jpg>
-Package pdftex.def Info: ../images/AMCmode3.jpg  used on input line 1338.
+Package pdftex.def Info: ../images/AMCmode3.jpg  used on input line 1347.
 (pdftex.def)             Requested size: 128.0374pt x 96.02747pt.
-<../images/AMCmode4.jpg, id=499, 1124.2pt x 843.15pt>
+<../images/AMCmode4.jpg, id=494, 1124.2pt x 843.15pt>
 File: ../images/AMCmode4.jpg Graphic file (type jpg)
 <use ../images/AMCmode4.jpg>
-Package pdftex.def Info: ../images/AMCmode4.jpg  used on input line 1338.
+Package pdftex.def Info: ../images/AMCmode4.jpg  used on input line 1347.
 (pdftex.def)             Requested size: 128.0374pt x 96.02747pt.
-<../images/AMCmode5.jpg, id=500, 1124.2pt x 843.15pt>
+<../images/AMCmode5.jpg, id=495, 1124.2pt x 843.15pt>
 File: ../images/AMCmode5.jpg Graphic file (type jpg)
 <use ../images/AMCmode5.jpg>
-Package pdftex.def Info: ../images/AMCmode5.jpg  used on input line 1338.
+Package pdftex.def Info: ../images/AMCmode5.jpg  used on input line 1347.
 (pdftex.def)             Requested size: 128.0374pt x 96.02747pt.
 
-Overfull \vbox (4.46037pt too high) detected at line 1338
+Overfull \vbox (4.46037pt too high) detected at line 1347
  []
 
 [48
@@ -1529,7 +1537,7 @@ Overfull \vbox (4.46037pt too high) detected at line 1338
  <../images/AMCmode1.jpg> <../images/AMCmode2.jpg> <../images/AMCmode3.jpg> <../images/AMCmode4.jpg> <../images/AMCmode5.jpg>] [49
 
 ]
-Overfull \vbox (0.38826pt too high) detected at line 1365
+Overfull \vbox (0.38826pt too high) detected at line 1374
  []
 
 [50
@@ -1541,7 +1549,7 @@ Overfull \vbox (0.38826pt too high) detected at line 1365
 ] [53
 
 ]
-Overfull \vbox (2.33934pt too high) detected at line 1472
+Overfull \vbox (2.33934pt too high) detected at line 1481
  []
 
 [54
@@ -1553,36 +1561,36 @@ Overfull \vbox (2.33934pt too high) detected at line 1472
 ] [57
 
 ]
-<../images/CRConv.jpg, id=585, 1124.2pt x 843.15pt>
+<../images/CRConv.jpg, id=580, 1124.2pt x 843.15pt>
 File: ../images/CRConv.jpg Graphic file (type jpg)
 <use ../images/CRConv.jpg>
-Package pdftex.def Info: ../images/CRConv.jpg  used on input line 1579.
+Package pdftex.def Info: ../images/CRConv.jpg  used on input line 1588.
 (pdftex.def)             Requested size: 208.64275pt x 156.49014pt.
 
-Overfull \hbox (17.44193pt too wide) in paragraph at lines 1579--1579
+Overfull \hbox (17.44193pt too wide) in paragraph at lines 1588--1588
  [] 
  []
 
-<../images/CRrelerr.jpg, id=586, 1124.2pt x 843.15pt>
+<../images/CRrelerr.jpg, id=581, 1124.2pt x 843.15pt>
 File: ../images/CRrelerr.jpg Graphic file (type jpg)
 <use ../images/CRrelerr.jpg>
-Package pdftex.def Info: ../images/CRrelerr.jpg  used on input line 1579.
+Package pdftex.def Info: ../images/CRrelerr.jpg  used on input line 1588.
 (pdftex.def)             Requested size: 208.64275pt x 156.49014pt.
 
-Overfull \hbox (17.44193pt too wide) in paragraph at lines 1579--1579
+Overfull \hbox (17.44193pt too wide) in paragraph at lines 1588--1588
  [] 
  []
 
 [58
 
  <../images/CRConv.jpg> <../images/CRrelerr.jpg>]
-<../images/CRandAMCThickness.jpg, id=595, 2617.78pt x 1401.235pt>
+<../images/CRandAMCThickness.jpg, id=590, 2617.78pt x 1401.235pt>
 File: ../images/CRandAMCThickness.jpg Graphic file (type jpg)
 <use ../images/CRandAMCThickness.jpg>
-Package pdftex.def Info: ../images/CRandAMCThickness.jpg  used on input line 1588.
+Package pdftex.def Info: ../images/CRandAMCThickness.jpg  used on input line 1597.
 (pdftex.def)             Requested size: 318.91333pt x 170.71652pt.
 
-Overfull \vbox (4.57509pt too high) detected at line 1588
+Overfull \vbox (4.57509pt too high) detected at line 1597
  []
 
 [59
@@ -1607,21 +1615,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `Slides-week7.out' has not changed.
-(rerunfilecheck)             Checksum: ECC1D400879DE11EFE3C12AA2DDD3399;1682.
+(rerunfilecheck)             Checksum: 2F399C687A8FDB35ECE4F4CAA52A0060;1723.
  ) 
 Here is how much of TeX's memory you used:
- 50927 strings out of 474116
- 1233975 string characters out of 5743682
+ 50935 strings out of 474116
+ 1234110 string characters out of 5743682
  1966187 words of memory out of 5000000
- 72277 multiletter control sequences out of 15000+600000
+ 72285 multiletter control sequences out of 15000+600000
  573994 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,23n,134p,894b,1245s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on Slides-week7.pdf (61 pages, 3993005 bytes).
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on Slides-week7.pdf (61 pages, 6940694 bytes).
 PDF statistics:
- 796 PDF objects out of 1000 (max. 8388607)
- 550 compressed objects within 6 object streams
+ 787 PDF objects out of 1000 (max. 8388607)
+ 547 compressed objects within 6 object streams
  131 named destinations out of 1000 (max. 500000)
  249 words of extra memory for PDF output out of 10000 (max. 10000000)
 

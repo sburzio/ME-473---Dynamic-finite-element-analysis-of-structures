@@ -200,7 +200,7 @@ which gives the square of the first and second natural angular frequencies. Thus
 \]
 The relative error against the exact value is:
 $$\left| \frac{f_1^h - f_1^\text{exact}}{f_1^\text{exact}} \right|
-    = \left| \frac{\sqrt{120} - \pi^2}{\pi^2} \right|=0.1099\%.$$
+    = \left| \frac{\sqrt{120} - \pi^2}{\pi^2} \right|=0.1099.$$
 This result reveals that the approximate frequency obtained using a single Hermite beam element significantly overestimates (around $10\%$) the exact fundamental frequency. This large discrepancy stems from the overly stiff behavior of the reduced-order model when only rotational degrees of freedom are retained. The use of a single finite element fails to capture the distributed inertia and deformation characteristics of the continuous beam, particularly for dynamic problems. To achieve a more accurate estimation of the natural frequencies, a finer spatial discretization—i.e., using multiple beam elements—is essential, as it better approximates the curvature of the mode shapes and the correct mass distribution.
 
 \paragraph{Bonus task:} implement a \texttt{MATLAB} script to model the simply supported beam using two Euler-Bernoulli beam elements with Hermite shape functions. Assemble the global stiffness and mass matrices, apply boundary conditions, and reduce the system to the free DOFs. Compute the first approximated natural frequency and compare it with the exact one. Briefly comment on the improvement compared to the single-element approximation.

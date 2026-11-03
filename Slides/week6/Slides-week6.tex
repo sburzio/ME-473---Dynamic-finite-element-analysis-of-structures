@@ -277,6 +277,7 @@
 
   {\footnotesize (Credit:
   \hyperlink{https://ethz.ch/content/dam/ethz/special-interest/baug/ibk/structural-mechanics-dam/education/femI/2024/Lecture_1_EC_2024.pdf}{Chatzi and Egger})}
+
 \end{frame}
 
 \begin{frame}
@@ -1166,11 +1167,12 @@
 \begin{frame}{Displacement approximation}
   \small
   \begin{itemize}
+    \small
     \item We approximate the generalized displacement using the ansatz:
           \[            \mathbf u^{h}(\mathbf x,t) = \mathbf H(\mathbf x)\mathbf q(t)    \qquad \text{and} \qquad
             \delta\mathbf u^{h}(\mathbf x)  =\mathbf H(\mathbf x)\delta\mathbf q
           \]
-    \item \textbf{Cubic shape functions} are used to approximate the transversal displacement and \textbf{linear shape functions} for the rotation field:
+    \item   \small\textbf{Cubic shape functions} are used to approximate the transversal displacement and \textbf{linear shape functions} for the rotation field:
           $$
             \mathbf H=\left[
               \begin{array}{cccc}
@@ -1184,7 +1186,8 @@
             h^c_2(x) & =x(1-x/\ell)^2             & h^c_4(x) & =x(x/\ell)(x/\ell-1)     \\
             h^l_1(x) & = 1-x/\ell                 & h^l_2(x) & = x/\ell
           \end{align*}
-    \item $\mathbf q(t)$ is a vector of (\emph{unknown}) nodal displacements and  $\bolddelta \mathbf q$ is a vector of constants:
+          {\footnotesize\color{orange} Discretizations using linear shape functions can suffer from shear locking for thin beams !}
+    \item   \small$\mathbf q(t)$ is a vector of (\emph{unknown}) nodal displacements and  $\bolddelta \mathbf q$ is a vector of constants:
           $$\mathbf q(t)=\left[
               \begin{array}{cccc}
                 q_{1y}(t) & \phi_{1z}(t) & q_{2y}(t) & \phi_{2z}(t)

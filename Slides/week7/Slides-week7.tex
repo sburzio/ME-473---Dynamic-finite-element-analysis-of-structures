@@ -6,7 +6,7 @@
 \definecolor{ForestGreen}{rgb}{0.13,0.55,0.13}
 \definecolor{BlueViolet}{rgb}{0.54,0.17,0.89}
 
-\title{Dynamic analysis of Kirchhoff plates}
+\title{Dynamic analysis of Kirchhoff-Love plates}
 \subtitle{Special structural elements}
 \author{ME473 Dynamic finite element analysis of structures}
 \institute{Stefano Burzio}
@@ -49,7 +49,7 @@
   \begin{frame}
     \textbf{\large Summary}
     \begin{itemize}
-      \item Recap week 6
+      \item Recap weeks 5 and 6
       \item Kirchhoff-Love plate theory
       \item AMC thin plate bending elements
       \item CR thin plate bending elements
@@ -66,7 +66,7 @@
   \end{frame}
 }
 
-\section{Recap week 6 \\ Vibrations of unidimensional structures}
+\section{Recap weeks 5 and 6 \\ Vibrations of unidimensional structures}
  {\setbeamercolor{background canvas}{bg=darkred!5}
   \setbeamercolor{block body}{bg=darkred!5,fg=black}
 
@@ -163,7 +163,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Differential equations governing the dynamics of thin beams}
+  \begin{frame}{Differential equations governing the dynamics of non oriented thin beams}
     \begin{center}
       \begin{tikzpicture}[scale=0.5]
         % Oxy plane
@@ -228,12 +228,12 @@
       ]
       % Steps 1--3, then continue from right to left on the second row.
       \node[bubble, fill=darkred!20] (equil) {Equilibrium equation for a \textbf{single non-oriented} member\\ (Strong form)};
-      \node[bubble, fill=darkred!20, right=0.35cm of equil] (shape) {Introduce the local shape functions $h_i$};
-      \node[bubble, fill=darkred!20, right=0.35cm of shape] (local) {Use the weak form to obtain the element matrices in local coordinates\\$\mathbf K_{loc},\;\mathbf M_{loc}$};
-      \node[bubble, fill=darkred!20, right=0.35cm of local] (orient) {\textbf{Orient} the member and define the coordinate transformation\\$\mathbf q_{loc}=\mathbf T\mathbf q_e$};
-      \node[bubble, fill=darkred!20, below=0.65cm of orient] (globalel) {Transform the element matrices to \textbf{global coordinates}};
+      \node[bubble, fill=brown!20, right=0.35cm of equil] (shape) {Introduce the local shape functions $h_i$};
+      \node[bubble, fill=darkred!20, right=0.35cm of shape] (local) {Use the \textbf{weak form} to obtain the element matrices in local coordinates :\\${}^e\mathbf K_{loc},\;{}^e\mathbf M_{loc}$};
+      \node[bubble, fill=Purple!20, right=0.35cm of local] (orient) {\textbf{Orient} the member and define the coordinate transformation\\$\mathbf q_{loc}=\mathbf T\mathbf q_e$};
+      \node[bubble, fill=ForestGreen!20, below=0.65cm of orient] (globalel) {Transform the element matrices to \textbf{global coordinates} :\\${}^e\mathbf K,\;{}^e\mathbf M$};
       \node[bubble, fill=orange!20, left=0.8cm of globalel] (assembly) {\textbf{Assemble} the contributions of all oriented members\\to form the global $\mathbf K$ and $\mathbf M$};
-      \node[bubble, fill=orange!20, left=0.8cm of assembly] (frequencies) {Compute the fundamental frequencies by solving the generalized eigenvalue problem $\mathbf K\boldsymbol\phi-\omega^2\mathbf M\boldsymbol\phi=0$};
+      \node[bubble, fill=orange!40, left=0.8cm of assembly] (frequencies) {Compute the \textbf{fundamental frequencies} by solving the generalized eigenvalue problem\\ $\mathbf K\boldsymbol\phi-\omega^2\mathbf M\boldsymbol\phi=0$};
       \draw[arrow] (equil) -- (shape);
       \draw[arrow] (shape) -- (local);
       \draw[arrow] (local) -- (orient);
@@ -418,7 +418,7 @@
 
 \begin{frame}{Plate structure}
   \begin{itemize}
-    \item Plate structures are geometrically similar to structures of the 2D plane stress problem, but it usually carries only transversal loads that lead to \textbf{bending} deformation of the plate.
+    \item Plate structures are geometrically similar to structures of the 2D plane stress problem, but it usually carries only transversal loads that lead to \textbf{bending deformation} of the plate.
     \item For example: floors of a building, aerospace and ships structures, etc...
   \end{itemize}
   \begin{center}
@@ -469,7 +469,7 @@
 
 \begin{frame}{Geometry assumptions}
   \begin{itemize}
-    \item The thickness of the plate $h$ is constant and much smaller than the planar dimensions $a$ and $b$:
+    \item A plate is considered as thin if the thickness $h$ is constant and much smaller than the planar dimensions $a$ and $b$:
           $$h/a<0.1 \quad \text{and} \quad h/b<0.1.$$
     \item \textbf{Inextensibility of transverse fibers}: transverse normal strain is negligible.
           $$\varepsilon_{33} = 0.$$
@@ -818,7 +818,7 @@
                  & M_{22}=-D(\nu\partial_x\varphi_2+\partial_y\varphi_1)=0 \qquad \text{in }\partial\Omega_2\times]0,T[ \\
               \end{aligned}
             \]
-            These conditions are replaced by the approximated conditions:
+            These conditions are replaced by the \emph{approximated boundary conditions}:
             \[
               \begin{aligned}
                  & \varphi_2 =  -\partial_{x}u_3=0\qquad & \text{in }\partial\Omega_1\times]0,T[ \\
@@ -1036,27 +1036,32 @@
 \end{frame}
 
 \begin{frame}{DOFs in local coordinates}
+  \vspace{-0.1cm}
   \begin{itemize}
-    \item Assumed form of the displacement function:
-  \end{itemize}
-  \vspace{0.6cm}
-  {\small
-    $$\hspace{-0.3cm}
-      \begin{bmatrix}
-        {}^eu_3^h \\[2pt] \partial_{\xi_2}{}^eu_3^h\\[2pt] \partial_{\xi_1}{}^eu_3^h
-      \end{bmatrix}  =\underbrace{\left[\begin{array}{cccccccccccc}
-            1 & \xi_1 & \xi_2 & \xi_1^2 & \xi_1\xi_2 & \xi_2^2 & \xi_1^3  & \xi_1^2\xi_2 & \xi_1\xi_2^2 & \xi_2^3  & \xi_1^3\xi_2  & \xi_1\xi_2^3  \\
-            0 & 0     & 1     & 0       & \xi_1      & 2\xi_2  & 0        & \xi_1^2      & 2\xi_1\xi_2  & 3\xi_2^2 & \xi_1^3       & 3\xi_1\xi_2^2 \\
-            0 & 1     & 0     & 2\xi_1  & \xi_2      & 0       & 3\xi_1^2 & 2\xi_1\xi_2  & \xi_2^2      & 0        & 3\xi_1^2\xi_2 & \xi_2^3
-          \end{array}\right]}_\text{$\mathbf{P}(\boldxi)$}\underbrace{\begin{bmatrix}
-          \alpha_1(t) \\
-          \vdots      \\
-          \alpha_{12}(t)
-        \end{bmatrix}}_\text{$\boldsymbol{\alpha}(t)$}
-    $$
-  }
-  \begin{itemize}
-    \item Then the DOFs in local coordinates are:
+    \small
+    \item The displacement function can be represented by a polynomial having twelve terms :
+          $${}^eu_3^h(\boldxi,t) =\underbrace{\left[\begin{array}{cccccccccccc}
+                  1 & \xi_1 & \xi_2 & \xi_1^2 & \xi_1\xi_2 & \xi_2^2 & \xi_1^3 & \xi_1^2\xi_2 & \xi_1\xi_2^2 & \xi_2^3 & \xi_1^3\xi_2 & \xi_1\xi_2^3
+                \end{array}\right]}_\text{$\mathbf{P}_1(\boldxi)$}\underbrace{\begin{bmatrix}
+                \alpha_1(t) \\
+                \vdots      \\
+                \alpha_{12}(t)
+              \end{bmatrix}}_\text{$\boldsymbol{\alpha}(t)$}   \vspace{-0.4cm}$$
+    \item Differentiating gives
+          $$\hspace{-0.8cm}
+            \begin{bmatrix}
+              {}^eu_3^h \\[2pt] \partial_{\xi_2}{}^eu_3^h\\[2pt] \partial_{\xi_1}{}^eu_3^h
+            \end{bmatrix}  =\underbrace{\left[\begin{array}{cccccccccccc}
+                  1 & \xi_1 & \xi_2 & \xi_1^2 & \xi_1\xi_2 & \xi_2^2 & \xi_1^3  & \xi_1^2\xi_2 & \xi_1\xi_2^2 & \xi_2^3  & \xi_1^3\xi_2  & \xi_1\xi_2^3  \\
+                  0 & 0     & 1     & 0       & \xi_1      & 2\xi_2  & 0        & \xi_1^2      & 2\xi_1\xi_2  & 3\xi_2^2 & \xi_1^3       & 3\xi_1\xi_2^2 \\
+                  0 & 1     & 0     & 2\xi_1  & \xi_2      & 0       & 3\xi_1^2 & 2\xi_1\xi_2  & \xi_2^2      & 0        & 3\xi_1^2\xi_2 & \xi_2^3
+                \end{array}\right]}_\text{$\mathbf{P}(\boldxi)$}\underbrace{\begin{bmatrix}
+                \alpha_1(t) \\
+                \vdots      \\
+                \alpha_{12}(t)
+              \end{bmatrix}}_\text{$\boldsymbol{\alpha}(t)$}
+            \vspace{-0.2cm}$$
+    \item Evaluating at $\xi_1 = \pm 1$, $\xi_2 = \pm 1$ gives
           $$\ {}^e\mathbf  q^i(t)=\underbrace{\begin{bmatrix}
                 1 & 0   & 0    \\
                 0 & 1/b & 0    \\
@@ -1072,22 +1077,26 @@
 \color{white}
 \begin{frame}{Shape functions matrix for the AMC element}
   \begin{itemize}
-    \item   Since
+    \small
+    \item Stacking the four nodes gives
           $${}^e\mathbf  q(t)=\begin{bmatrix}
               {}^e\mathbf  q^1(t) \\[2pt] {}^e\mathbf  q^2(t) \\[2pt] {}^e\mathbf  q^3(t) \\[2pt] {}^e\mathbf  q^4(t)
             \end{bmatrix}=\underbrace{\begin{bmatrix}
                 \bar{\mathbf P}(\boldxi^1) \\[2pt] \bar{\mathbf P}(\boldxi^2) \\[2pt] \bar{\mathbf P}(\boldxi^3) \\[2pt]\bar{\mathbf P}(\boldxi^4)
               \end{bmatrix}}_\text{$\mathbf A$}\boldsymbol{\alpha}(t)\hspace{1cm}\Rightarrow\hspace{1cm} \boldsymbol{\alpha}(t)=\mathbf A^{-1}\,{}^e\mathbf  q(t)$$
-    \item   Then the shape functions matrix is ${}^a\mathbf H=\begin{bmatrix}
-              {}^a \mathbf h_1 & {}^a\mathbf  h_2 & {}^a \mathbf h_3 & {}^a\mathbf  h_4
-            \end{bmatrix}=\mathbf P_1\mathbf A^{-1}$ where
-          $$ {}^a\mathbf  h_i(\boldxi) =\begin{bmatrix}
-              (1 + \xi_1^i \xi_1)(1 + \xi_2^i \xi_2)(2 + \xi_1^i \xi_1 + \xi_2^i \xi_2 - \xi_1^2 - \xi_2^2)/8 \\
-              b(1 + \xi_1^i \xi_1)(\xi_2^i + \xi_2)(\xi_2^2 - 1)/8                                            \\
-              -a(\xi_1^i + \xi_1)(\xi_1^2 - 1)(1 + \xi_2^i \xi_2)/8
-            \end{bmatrix}^T$$
-          and $\boldxi^i=\{\xi_1^i,\xi_2^i\}^T$ are the local coordinates of node $i$.
   \end{itemize}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    \small
+    Since ${}^e u_3^h(\boldxi,t)=\mathbf P_1(\boldxi)\boldsymbol{\alpha}(t)$, then the shape functions matrix is ${}^a\mathbf H=\mathbf P_1\mathbf A^{-1}=\begin{bmatrix}
+        {}^a \mathbf h_1 & {}^a\mathbf  h_2 & {}^a \mathbf h_3 & {}^a\mathbf  h_4
+      \end{bmatrix}$
+    $$ {}^a\mathbf  h_i(\boldxi) =\begin{bmatrix}
+        (1 + \xi_1^i \xi_1)(1 + \xi_2^i \xi_2)(2 + \xi_1^i \xi_1 + \xi_2^i \xi_2 - \xi_1^2 - \xi_2^2)/8 \\
+        b(1 + \xi_1^i \xi_1)(\xi_2^i + \xi_2)(\xi_2^2 - 1)/8                                            \\
+        -a(\xi_1^i + \xi_1)(\xi_1^2 - 1)(1 + \xi_2^i \xi_2)/8
+      \end{bmatrix}^T$$
+    and $\boldxi^i=\{\xi_1^i,\xi_2^i\}^T$ are the local coordinates of node $i$.
+  \end{tcolorbox}
 \end{frame}
 
 \begin{frame}{Deformation, stiffness, mass matrices and loads vector}
@@ -1190,8 +1199,8 @@
         \node at (3*\a/4,\b/4) {${}^3\Omega$};
         \node at (3*\a/4,3*\b/4) {${}^4\Omega$};
         %axis
-        \draw[-latex,ultra thin] (-0.5,\b/2) -- (\a+1,\b/2) node[right]{$x$};
-        \draw[-latex, ultra thin] (\a/2,-0.5) -- (\a/2,\b+1)node[above]{$y$};
+        \draw[-latex,ultra thin] (-0.5,0) -- (\a+1,0) node[right]{$x$};
+        \draw[-latex, ultra thin] (0,-0.5) -- (0,\b+1)node[above]{$y$};
         % length
         \draw[latex-latex, ultra thin]  (0,\b+0.5)  to node[midway,above] {$a$}(\a/2,\b+0.5) ;
         \draw[latex-latex, ultra thin]  (\a/2,\b+0.5)  to node[midway,above] {$a$}(\a,\b+0.5) ;
@@ -1230,7 +1239,7 @@
 
 \begin{frame}{Symmetry and boundary conditions}
 
-  {\small We exploit the symmetry of the problem by modeling only one-quarter of the plate with 4 AMC elements, applying appropriate boundary conditions to account for the symmetric and antisymmetric modes along the edges.}
+  {\small We could exploit the symmetry of the problem by modeling only one-quarter of the plate with 4 AMC elements, applying appropriate boundary conditions to account for the symmetric and antisymmetric modes along the edges.}
   \vspace{-0.8cm}
   \begin{columns}
     \begin{column}{.30\textwidth}
@@ -1246,18 +1255,18 @@
       \begin{itemize}
         \item \textbf{Simple support}:
               \begin{itemize}
-                \item sides 1-3: \( u_3 = \theta_2 =0\) at nodes 1, 2, and 3,
-                \item sides 1-7: \( u_3=\theta_1=0\) at nodes 1, 4, and 7.
+                \item sides 1-3: \( u_3 = \theta_1 =0\) at nodes 1, 2, and 3,
+                \item sides 1-7: \( u_3=\theta_2=0\) at nodes 1, 4, and 7.
               \end{itemize}
         \item \textbf{Symmetric modes}:
               \begin{itemize}
-                \item with respect to side 3-9: \( \theta_2=0\) at nodes 3, 6, and 9,
-                \item with respect to side 7-9: \( \theta_1=0 \) at nodes 7, 8, and 9.
+                \item with respect to side 3-9: \( \theta_1=0\) at nodes 3, 6, and 9,
+                \item with respect to side 7-9: \( \theta_2=0 \) at nodes 7, 8, and 9.
               \end{itemize}
         \item \textbf{Antisymmetric modes}:
               \begin{itemize}
-                \item  with respect to side 3-9: \( u_3 = \theta_1=0 \) at nodes 3, 6, and 9.
-                \item with respect to side 7-9:  \( u_3= \theta_2 =0\) at nodes 7, 8, and 9.
+                \item  with respect to side 3-9: \( u_3 = \theta_2=0 \) at nodes 3, 6, and 9.
+                \item with respect to side 7-9:  \( u_3= \theta_1=0\) at nodes 7, 8, and 9.
               \end{itemize}
       \end{itemize}
     \end{column}
@@ -1495,8 +1504,8 @@
         \node at (3*\a/4,\b/4) {${}^3\Omega$};
         \node at (3*\a/4,3*\b/4) {${}^4\Omega$};
         %axis
-        \draw[-latex,ultra thin] (-0.5,\b/2) -- (\a+1,\b/2) node[right]{$x$};
-        \draw[-latex, ultra thin] (\a/2,-0.5) -- (\a/2,\b+1)node[above]{$y$};
+        \draw[-latex,ultra thin] (-0.5,0) -- (\a+1,0) node[right]{$x$};
+        \draw[-latex, ultra thin] (0,-0.5) -- (0,\b+1)node[above]{$y$};
         % length
         \draw[latex-latex, ultra thin]  (0,\b+0.5)  to node[midway,above] {$a$}(\a/2,\b+0.5) ;
         \draw[latex-latex, ultra thin]  (\a/2,\b+0.5)  to node[midway,above] {$a$}(\a,\b+0.5) ;
