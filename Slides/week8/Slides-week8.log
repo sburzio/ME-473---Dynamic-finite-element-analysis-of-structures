@@ -1171,4 +1171,120 @@ File: ../images/epfl_logo.png Graphic file (type png)
 Package pdftex.def Info: ../images/epfl_logo.png  used on input line 20.
 (pdftex.def)             Requested size: 56.9055pt x 32.00621pt.
 <../images/ReissnerMindlin.png, id=30, 204.765pt x 165.2574pt>
-File: ../images/ReissnerMindlin.png Graphic file (t
+File: ../images/ReissnerMindlin.png Graphic file (type png)
+<use ../images/ReissnerMindlin.png>
+Package pdftex.def Info: ../images/ReissnerMindlin.png  used on input line 20.
+(pdftex.def)             Requested size: 141.0224pt x 113.81102pt.
+
+Overfull \vbox (18.6pt too high) detected at line 20
+ []
+
+[1
+
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../images/epfl_logo.png> <../images/ReissnerMindlin.png>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (23.5814pt too wide) in paragraph at lines 44--44
+ [] 
+ []
+
+[2
+
+] [3
+
+] [4
+
+]
+<../images/Plate.png, id=68, 1568.86125pt x 833.1125pt>
+File: ../images/Plate.png Graphic file (type png)
+<use ../images/Plate.png>
+Package pdftex.def Info: ../images/Plate.png  used on input line 78.
+(pdftex.def)             Requested size: 241.84842pt x 128.41922pt.
+ [5
+
+ <../images/Plate.png>]
+<../images/KirchhoffPlateHp.png, id=80, 1822.81pt x 650.43pt>
+File: ../images/KirchhoffPlateHp.png Graphic file (type png)
+<use ../images/KirchhoffPlateHp.png>
+Package pdftex.def Info: ../images/KirchhoffPlateHp.png  used on input line 96.
+(pdftex.def)             Requested size: 170.71652pt x 60.90819pt.
+ [6
+
+ <../images/KirchhoffPlateHp.png>] [7
+
+]
+<../images/CRandAMCThickness.jpg, id=106, 2617.78pt x 1401.235pt>
+File: ../images/CRandAMCThickness.jpg Graphic file (type jpg)
+<use ../images/CRandAMCThickness.jpg>
+Package pdftex.def Info: ../images/CRandAMCThickness.jpg  used on input line 148.
+(pdftex.def)             Requested size: 213.38113pt x 136.56107pt.
+
+Overfull \hbox (14.21184pt too wide) in paragraph at lines 148--148
+ [] 
+ []
+
+[8
+
+ <../images/CRandAMCThickness.jpg>] [9
+
+] [10
+
+] [11
+
+] [12
+
+]
+<../images/plateThin.png, id=150, 3413.75375pt x 1215.54124pt>
+File: ../images/plateThin.png Graphic file (type png)
+<use ../images/plateThin.png>
+Package pdftex.def Info: ../images/plateThin.png  used on input line 240.
+(pdftex.def)             Requested size: 113.81102pt x 40.50804pt.
+<../images/plateModThick.png, id=151, 3413.75375pt x 1333.98375pt>
+File: ../images/plateModThick.png Graphic file (type png)
+<use ../images/plateModThick.png>
+Package pdftex.def Info: ../images/plateModThick.png  used on input line 240.
+(pdftex.def)             Requested size: 113.81102pt x 44.45515pt.
+<../images/plateThick.png, id=152, 3413.75375pt x 2321.67375pt>
+File: ../images/plateThick.png Graphic file (type png)
+<use ../images/plateThick.png>
+Package pdftex.def Info: ../images/plateThick.png  used on input line 240.
+(pdftex.def)             Requested size: 113.81102pt x 77.37004pt.
+
+Overfull \hbox (7.29907pt too wide) in paragraph at lines 240--240
+[]  
+ []
+
+[13
+
+ <../images/plateThin.png> <../images/plateModThick.png> <../images/plateThick.png>]
+<../images/PlateThickGenConf.png, id=166, 1334.9875pt x 784.9325pt>
+File: ../images/PlateThickGenConf.png Graphic file (type png)
+<use ../images/PlateThickGenConf.png>
+Package pdftex.def Info: ../images/PlateThickGenConf.png  used on input line 252.
+(pdftex.def)             Requested size: 199.16928pt x 117.1pt.
+
+Overfull \vbox (13.03778pt too high) detected at line 252
+ []
+
+[14
+
+ <../images/PlateThickGenConf.png>]
+<../images/ReissnerPlateHp.png, id=177, 1792.6975pt x 605.26125pt>
+File: ../images/ReissnerPlateHp.png Graphic file (type png)
+<use ../images/ReissnerPlateHp.png>
+Package pdftex.def Info: ../images/ReissnerPlateHp.png  used on input line 266.
+(pdftex.def)             Requested size: 170.71652pt x 57.6297pt.
+ [15
+
+ <../images/ReissnerPlateHp.png>]
+<../images/higherDefTheories.png, id=188, 204.765pt x 206.2104pt>
+File: ../images/higherDefTheories.png Graphic file (type png)
+<use ../images/higherDefTheories.png>
+Package pdftex.def Info: ../images/higherDefTheories.png  used on input line 293.
+(pdftex.def)             Requested size: 128.0374pt x 12
