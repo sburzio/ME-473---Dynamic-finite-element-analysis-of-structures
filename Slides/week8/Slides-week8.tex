@@ -36,7 +36,7 @@
         \cline{1-1} \cline{3-4} 6          &                                                & Beams, frames and grids            &                        \\
         \cline{1-1} \cline{3-4} 7          &                                                & Kirchhoff-Love plates              &                        \\
         \cline{1-1} \cline{3-4}
-        8                                  &                                                & Reissner-Mindlin plates            &                        \\
+        8                                  &                                                & Reissner-Mindlin plates            & Project 1 submission   \\
         \hline
       \end{tabular}
     \end{center}
@@ -96,10 +96,16 @@
 
   \begin{frame}{Finite element approximation of Kirchhoff-Love plate}
     \begin{itemize}
+      \small
       \item Strong form
             $$
               \frac{h^3}{12}\boldsymbol{\nabla}_k^T \boldsymbol{C}\boldsymbol{\nabla}_ku_3+\rho h \ddot{u}_3=f_3 \qquad \text{  on  }\Omega\times]0,T[
             $$
+            where $\boldsymbol{\nabla}_k=\begin{bmatrix}
+                \partial^2_{xx} &
+                \partial^2_{yy} &
+                2\partial^2_{xy}
+              \end{bmatrix}^T$.
       \item Weak form equation
             \[
               \frac{h^3}{12}\int_\Omega \, (\boldsymbol{\nabla}_k \delta u_3)^T\mathbf C \, \boldsymbol{\nabla}_k u_3  \, d\Omega + \int_\Omega \rho h\, \ddot u_3 \, \delta u_3 \, d\Omega = \int_\Omega f_3\, \delta u_3 \, d\Omega
@@ -123,7 +129,7 @@
         \begin{figure}[H]
           \begin{center}
             \includegraphics[height=4.8cm, width=7.5cm]{../images/CRandAMCThickness.jpg}
-            \caption{Evolution of the approximated and exact fundamental frequencies with thickness for a SSSS square plate.}
+            \caption{\centering\small Evolution of the approximated and exact fundamental frequencies with thickness for a SSSS square plate.}
           \end{center}
         \end{figure}      \end{column}
       \begin{column}{0.5\textwidth}
@@ -886,7 +892,7 @@
 \end{frame}
 
 \begin{frame}{Post processing: stress recovery}
-  Once the nodal generalized displacements ${}^e\mathbf{q}^i$ is computed out  stresses can be recovered from constitutive equations as:
+  Once the nodal generalized displacements ${}^e\mathbf{q}$ are computed,   stresses can be recovered from constitutive equations as:
   \begin{align*}
     \boldsymbol{\sigma}_b^h & = \mathbf C_b \boldsymbol{\varepsilon}_b^h = z \mathbf C_b\nabla_b {}^e\mathbf H {}^e\mathbf q = z \mathbf C_b{}^e \mathbf B_b{}^e\mathbf q, \\[5pt]
     \boldsymbol{\sigma}_s^h & =\mathbf C_s \boldsymbol{\varepsilon}_s^h = z \mathbf C_s\nabla_s {}^e\mathbf H {}^e\mathbf q = z \mathbf C_s{}^e \mathbf B_s{}^e\mathbf q.

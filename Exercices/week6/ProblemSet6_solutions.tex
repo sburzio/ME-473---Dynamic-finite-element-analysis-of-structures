@@ -27,7 +27,7 @@ Split the integral in the first term in two and integrate by parts on each inter
      & = - \int_0^\ell EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2^\prime  \, dx + \left[ EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2 \right]_0^{\ell/2}+\left[ EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2 \right]_{\ell/2}^\ell.
 \end{align*}
 Due to zero virtual displacement boundary conditions $ \delta u_2(0) = \delta u_2(\ell) = 0$, and the continuity condition, along with the assumption that the virtual displacement $\delta u_2$ is continuous at $x=\ell/2$, all boundary terms vanish except for the contribution at $x=\ell/2$:
-$$\int_0^\ell EI \frac{\partial^4 u_2}{\partial x^4} \delta u_2 \, dx=- \int_0^\ell EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2^\prime \, dx-P\delta u_2\left( \frac{\ell}{2} \right)$$
+$$\int_0^\ell EI \frac{\partial^4 u_2}{\partial x^4} \delta u_2 \, dx=- \int_0^\ell EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2^\prime \, dx+P\delta u_2\left( \frac{\ell}{2} \right)$$
 To further reduce the order of derivatives on $u_2$, we apply integration by parts a second time to the first term in the above expression:
 $$- \int_0^\ell EI \frac{\partial^3 u_2}{\partial x^3} \delta u_2^\prime  \, dx   =\int_0^\ell EI \frac{\partial^2 u_2}{\partial x^2} \delta u_2^{\prime\prime}  \, dx - \left[ EI \frac{\partial^2 u_2}{\partial x^2} \delta u_2^\prime \right]_0^\ell.
 $$
@@ -37,7 +37,7 @@ Due to zero bending moment boundary conditions
 \]
 both boundary terms vanish. Hence, the weak form is:
 \[
-    \int_0^\ell EI \frac{\partial^2 u_2}{\partial x^2} \delta u_2^{\prime\prime}  \, dx + \int_0^\ell \rho A \ddot{u}_2 \, \delta u_2 \, dx = P \, \delta u_2\left( \frac{\ell}{2} \right).
+    \int_0^\ell EI \frac{\partial^2 u_2}{\partial x^2} \delta u_2^{\prime\prime}  \, dx + \int_0^\ell \rho A \ddot{u}_2 \, \delta u_2 \, dx = -P \, \delta u_2\left( \frac{\ell}{2} \right).
 \]
 Function spaces:
 \begin{align*}
@@ -50,14 +50,14 @@ Function spaces:
 \[
     \sum_{i=1}^4\sum_{j=1}^4\delta q_j \Big( \int_0^\ell EI \frac{d^2 h_i}{\partial x^2} \frac{d^2 h_j}{\partial x^2} \, dx\ q_i(t)
     + \int_0^\ell \rho A h_i h_j \, dx\ \ddot{q}_i(t)
-    \Big)= \sum_{j=1}^4 P h_j\left( \frac{\ell}{2} \right)\delta q_j
+    \Big)= - \sum_{j=1}^4 P h_j\left( \frac{\ell}{2} \right)\delta q_j
 \]
 
 \paragraph{3. Matrix form:} we define
 \[
     k_{ij} = \int_0^\ell EI \frac{d^2 h_i}{\partial x^2} \frac{d^2 h_j}{\partial x^2} \, dx, \quad
     m_{ij} = \int_0^\ell \rho A h_i h_j \, dx, \quad
-    r_j = P \, h_j\left( \frac{\ell}{2} \right).
+    r_j = -P \, h_j\left( \frac{\ell}{2} \right).
 \]
 Then the semi-discrete system is:
 \[
@@ -97,11 +97,11 @@ By eliminating rows and columns associated with the constrained DOFs (1 and 3), 
 \]
 The external load vector is constructed by evaluating the Hermite shape functions at the midpoint \( x = \ell/2 \), where the point load \( P \) is applied. This gives:
 \[
-    \mathbf{r} = P \mathbf H^T(\ell/2) = P \begin{bmatrix} \tfrac{1}{2} & \tfrac{\ell}{8} & \tfrac{1}{2} & -\tfrac{\ell}{8} \end{bmatrix}^T
+    \mathbf{r} = -P \mathbf H^T(\ell/2) = -P \begin{bmatrix} \tfrac{1}{2} & \tfrac{\ell}{8} & \tfrac{1}{2} & -\tfrac{\ell}{8} \end{bmatrix}^T
 \]
 Restricting this to the free DOFs yields:
 \[
-    \mathbf{r}_\text{red} = \frac{P\ell}{8} \begin{bmatrix} +1 \\ -1 \end{bmatrix}
+    \mathbf{r}_\text{red} = -\frac{P\ell}{8} \begin{bmatrix} +1 \\ -1 \end{bmatrix}
 \]
 We solve the reduced system \( \mathbf{K}_\text{red} \mathbf{q}_f = \mathbf{r}_\text{red} \), stemming from the static discrete equation, for the free DOFs \( \mathbf{q}_f \):
 \begin{align*}
@@ -113,7 +113,7 @@ We solve the reduced system \( \mathbf{K}_\text{red} \mathbf{q}_f = \mathbf{r}_\
         \theta_1 \\ \theta_2
     \end{bmatrix}
      & =
-    \frac{P\ell}{8} \begin{bmatrix} +1 \\ -1 \end{bmatrix} \\
+    \frac{P\ell}{8} \begin{bmatrix} -1 \\ +1 \end{bmatrix} \\
     \begin{bmatrix}
         2 & 1 \\
         1 & 2
@@ -124,7 +124,7 @@ We solve the reduced system \( \mathbf{K}_\text{red} \mathbf{q}_f = \mathbf{r}_\
      & =
     \frac{P\ell^2}{16EI}
     \begin{bmatrix}
-        +1 \\ -1
+        -1 \\ +1
     \end{bmatrix}                                         \\
     \begin{bmatrix}
         \theta_1 \\ \theta_2
@@ -136,16 +136,16 @@ We solve the reduced system \( \mathbf{K}_\text{red} \mathbf{q}_f = \mathbf{r}_\
         -1 & 2
     \end{bmatrix}
     \begin{bmatrix}
-        +1 \\ -1
+          -1 \\ +1
     \end{bmatrix}
     =
     \frac{P\ell^2}{16EI}
     \begin{bmatrix}
-        +1 \\ -1
+       -1 \\ +1
     \end{bmatrix}
 \end{align*}
 To compute the approximate transverse displacement at the midpoint, we evaluate the interpolated solution at \( x = \ell/2 \):
-$$\delta^h=u_2^h(\ell/2)=\mathbf H(\ell/2)\mathbf q= \begin{bmatrix} \tfrac{1}{2} & \tfrac{\ell}{8} & \tfrac{1}{2} & -\tfrac{\ell}{8} \end{bmatrix} \begin{bmatrix} 0 \\  P\ell^2/16EI \\  -P\ell^2/16EI\\ 0 \end{bmatrix}=\frac{P \ell^3}{64 EI}.$$
+$$\delta^h=u_2^h(\ell/2)=\mathbf H(\ell/2)\mathbf q= \begin{bmatrix} \tfrac{1}{2} & \tfrac{\ell}{8} & \tfrac{1}{2} & -\tfrac{\ell}{8} \end{bmatrix} \begin{bmatrix} 0 \\  -P\ell^2/16EI \\  0\\ P\ell^2/16EI \end{bmatrix}=-\frac{P \ell^3}{64 EI}.$$
 Thus, the approximated model underestimates the deflection magnitude, with a relative error of:
 \[
     \left| \frac{\delta^h - \delta^\text{exact}}{\delta^\text{exact}} \right|
