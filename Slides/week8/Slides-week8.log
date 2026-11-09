@@ -1287,4 +1287,188 @@ Package pdftex.def Info: ../images/ReissnerPlateHp.png  used on input line 266.
 File: ../images/higherDefTheories.png Graphic file (type png)
 <use ../images/higherDefTheories.png>
 Package pdftex.def Info: ../images/higherDefTheories.png  used on input line 293.
-(pdftex.def)             Requested size: 128.0374pt x 12
+(pdftex.def)             Requested size: 128.0374pt x 128.94725pt.
+
+Overfull \hbox (8.5346pt too wide) in paragraph at lines 293--293
+[][]  
+ []
+
+[16
+
+ <../images/higherDefTheories.png>]
+<../images/plateThickKinematicsXZ.png, id=198, 1538.74875pt x 1029.8475pt>
+File: ../images/plateThickKinematicsXZ.png Graphic file (type png)
+<use ../images/plateThickKinematicsXZ.png>
+Package pdftex.def Info: ../images/plateThickKinematicsXZ.png  used on input line 336.
+(pdftex.def)             Requested size: 142.26378pt x 95.21225pt.
+<../images/plateThickKinematicsXY.png, id=199, 1538.74875pt x 1029.8475pt>
+File: ../images/plateThickKinematicsXY.png Graphic file (type png)
+<use ../images/plateThickKinematicsXY.png>
+Package pdftex.def Info: ../images/plateThickKinematicsXY.png  used on input line 336.
+(pdftex.def)             Requested size: 142.26378pt x 95.21225pt.
+
+Overfull \hbox (4.02858pt too wide) detected at line 336
+[]
+ []
+
+[17
+
+ <../images/plateThickKinematicsXZ.png (PNG copy)> <../images/plateThickKinematicsXY.png (PNG copy)>] [18
+
+]
+<../images/transverseShear.png, id=222, 1808.7575pt x 876.27374pt>
+File: ../images/transverseShear.png Graphic file (type png)
+<use ../images/transverseShear.png>
+Package pdftex.def Info: ../images/transverseShear.png  used on input line 382.
+(pdftex.def)             Requested size: 199.16928pt x 96.484pt.
+ [19
+
+ <../images/transverseShear.png (PNG copy)>] [20
+
+]
+<../images/plateDynamicEq.png, id=240, 1052.93375pt x 285.065pt>
+File: ../images/plateDynamicEq.png Graphic file (type png)
+<use ../images/plateDynamicEq.png>
+Package pdftex.def Info: ../images/plateDynamicEq.png  used on input line 450.
+(pdftex.def)             Requested size: 256.0748pt x 69.32608pt.
+<../images/plateStesses.png, id=241, 778.91pt x 542.025pt>
+File: ../images/plateStesses.png Graphic file (type png)
+<use ../images/plateStesses.png>
+Package pdftex.def Info: ../images/plateStesses.png  used on input line 450.
+(pdftex.def)             Requested size: 128.0374pt x 89.09116pt.
+ [21
+
+ <../images/plateDynamicEq.png> <../images/plateStesses.png>] [22
+
+]
+<../images/plateMoments.png, id=260, 893.3375pt x 608.2725pt>
+File: ../images/plateMoments.png Graphic file (type png)
+<use ../images/plateMoments.png>
+Package pdftex.def Info: ../images/plateMoments.png  used on input line 518.
+(pdftex.def)             Requested size: 128.0374pt x 87.18092pt.
+ [23
+
+ <../images/plateMoments.png>] [24
+
+] [25
+
+] [26
+
+] [27
+
+] [28
+
+] [29
+
+] [30
+
+] [31
+
+] [32
+
+] [33
+
+] [34
+
+] [35
+
+]
+Overfull \vbox (2.92276pt too high) detected at line 868
+ []
+
+[36
+
+]
+<../images/shearLocking.png, id=377, 615.29875pt x 512.91624pt>
+File: ../images/shearLocking.png Graphic file (type png)
+<use ../images/shearLocking.png>
+Package pdftex.def Info: ../images/shearLocking.png  used on input line 881.
+(pdftex.def)             Requested size: 99.58464pt x 83.00745pt.
+ [37
+
+ <../images/shearLocking.png>] [38
+
+] [39
+
+] [40
+
+]
+File: ../images/plateModThick.png Graphic file (type png)
+<use ../images/plateModThick.png>
+Package pdftex.def Info: ../images/plateModThick.png  used on input line 918.
+(pdftex.def)             Requested size: 156.49014pt x 61.1462pt.
+ [41
+
+] [42
+
+] [43
+
+]
+<../images/HTKConv.jpg, id=438, 1124.2pt x 843.15pt>
+File: ../images/HTKConv.jpg Graphic file (type jpg)
+<use ../images/HTKConv.jpg>
+Package pdftex.def Info: ../images/HTKConv.jpg  used on input line 1022.
+(pdftex.def)             Requested size: 208.64275pt x 156.49014pt.
+
+Overfull \hbox (17.44193pt too wide) in paragraph at lines 1022--1022
+ [] 
+ []
+
+<../images/HTKrelerr.jpg, id=439, 1124.2pt x 843.15pt>
+File: ../images/HTKrelerr.jpg Graphic file (type jpg)
+<use ../images/HTKrelerr.jpg>
+Package pdftex.def Info: ../images/HTKrelerr.jpg  used on input line 1022.
+(pdftex.def)             Requested size: 208.64275pt x 156.49014pt.
+
+Overfull \hbox (17.44193pt too wide) in paragraph at lines 1022--1022
+ [] 
+ []
+
+[44
+
+ <../images/HTKConv.jpg> <../images/HTKrelerr.jpg>]
+<../images/modeShapeThickPlate.png, id=448, 1157.32375pt x 1122.1925pt>
+File: ../images/modeShapeThickPlate.png Graphic file (type png)
+<use ../images/modeShapeThickPlate.png>
+Package pdftex.def Info: ../images/modeShapeThickPlate.png  used on input line 1032.
+(pdftex.def)             Requested size: 161.38847pt x 156.49014pt.
+
+Overfull \vbox (2.59868pt too high) detected at line 1032
+ []
+
+[45
+
+ <../images/modeShapeThickPlate.png>]
+\tf@nav=\write6
+\openout6 = `Slides-week8.nav'.
+
+\tf@toc=\write7
+\openout7 = `Slides-week8.toc'.
+
+\tf@snm=\write8
+\openout8 = `Slides-week8.snm'.
+
+ (./Slides-week8.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-02-20>
+ ***********
+Package rerunfilecheck Info: File `Slides-week8.out' has not changed.
+(rerunfilecheck)             Checksum: DCDE66EBFCCC9CD9F9A2296DF36673A4;1055.
+ ) 
+Here is how much of TeX's memory you used:
+ 50316 strings out of 474116
+ 1222906 string characters out of 5743682
+ 1954187 words of memory out of 5000000
+ 71706 multiletter control sequences out of 15000+600000
+ 574948 words of font info for 97 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 128i,19n,134p,894b,1456s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on Slides-week8.pdf (45 pages, 10731846 bytes).
+PDF statistics:
+ 585 PDF objects out of 1000 (max. 8388607)
+ 400 compressed objects within 4 object streams
+ 95 named destinations out of 1000 (max. 500000)
+ 180 words of extra memory for PDF output out of 10000 (max. 10000000)
+
