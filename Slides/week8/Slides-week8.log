@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  9 NOV 2026 17:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  16 NOV 2026 10:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1326,12 +1326,12 @@ Package pdftex.def Info: ../images/transverseShear.png  used on input line 382.
  <../images/transverseShear.png (PNG copy)>] [20
 
 ]
-<../images/plateDynamicEq.png, id=240, 1052.93375pt x 285.065pt>
+<../images/plateDynamicEq.png, id=241, 1052.93375pt x 285.065pt>
 File: ../images/plateDynamicEq.png Graphic file (type png)
 <use ../images/plateDynamicEq.png>
 Package pdftex.def Info: ../images/plateDynamicEq.png  used on input line 450.
 (pdftex.def)             Requested size: 256.0748pt x 69.32608pt.
-<../images/plateStesses.png, id=241, 778.91pt x 542.025pt>
+<../images/plateStesses.png, id=242, 778.91pt x 542.025pt>
 File: ../images/plateStesses.png Graphic file (type png)
 <use ../images/plateStesses.png>
 Package pdftex.def Info: ../images/plateStesses.png  used on input line 450.
@@ -1341,7 +1341,7 @@ Package pdftex.def Info: ../images/plateStesses.png  used on input line 450.
  <../images/plateDynamicEq.png> <../images/plateStesses.png>] [22
 
 ]
-<../images/plateMoments.png, id=260, 893.3375pt x 608.2725pt>
+<../images/plateMoments.png, id=261, 893.3375pt x 608.2725pt>
 File: ../images/plateMoments.png Graphic file (type png)
 <use ../images/plateMoments.png>
 Package pdftex.def Info: ../images/plateMoments.png  used on input line 518.
@@ -1368,7 +1368,12 @@ Package pdftex.def Info: ../images/plateMoments.png  used on input line 518.
 
 ] [33
 
-] [34
+]
+Overfull \hbox (5.32744pt too wide) detected at line 821
+[][]\OT1/cmr/bx/n/10.95 B \OT1/cmr/m/n/10.95 = \OMS/cmsy/b/n/10.95 r[][][]\OT1/cmr/bx/n/10.95 H \OT1/cmr/m/n/10.95 = [] = [] = []
+ []
+
+[34
 
 ] [35
 
@@ -1379,7 +1384,7 @@ Overfull \vbox (2.92276pt too high) detected at line 868
 [36
 
 ]
-<../images/shearLocking.png, id=377, 615.29875pt x 512.91624pt>
+<../images/shearLocking.png, id=378, 615.29875pt x 512.91624pt>
 File: ../images/shearLocking.png Graphic file (type png)
 <use ../images/shearLocking.png>
 Package pdftex.def Info: ../images/shearLocking.png  used on input line 881.
@@ -1404,7 +1409,7 @@ Package pdftex.def Info: ../images/plateModThick.png  used on input line 918.
 ] [43
 
 ]
-<../images/HTKConv.jpg, id=438, 1124.2pt x 843.15pt>
+<../images/HTKConv.jpg, id=439, 1124.2pt x 843.15pt>
 File: ../images/HTKConv.jpg Graphic file (type jpg)
 <use ../images/HTKConv.jpg>
 Package pdftex.def Info: ../images/HTKConv.jpg  used on input line 1022.
@@ -1414,7 +1419,7 @@ Overfull \hbox (17.44193pt too wide) in paragraph at lines 1022--1022
  [] 
  []
 
-<../images/HTKrelerr.jpg, id=439, 1124.2pt x 843.15pt>
+<../images/HTKrelerr.jpg, id=440, 1124.2pt x 843.15pt>
 File: ../images/HTKrelerr.jpg Graphic file (type jpg)
 <use ../images/HTKrelerr.jpg>
 Package pdftex.def Info: ../images/HTKrelerr.jpg  used on input line 1022.
@@ -1427,7 +1432,7 @@ Overfull \hbox (17.44193pt too wide) in paragraph at lines 1022--1022
 [44
 
  <../images/HTKConv.jpg> <../images/HTKrelerr.jpg>]
-<../images/modeShapeThickPlate.png, id=448, 1157.32375pt x 1122.1925pt>
+<../images/modeShapeThickPlate.png, id=449, 1157.32375pt x 1122.1925pt>
 File: ../images/modeShapeThickPlate.png Graphic file (type png)
 <use ../images/modeShapeThickPlate.png>
 Package pdftex.def Info: ../images/modeShapeThickPlate.png  used on input line 1032.
@@ -1464,11 +1469,11 @@ Here is how much of TeX's memory you used:
  574948 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,19n,134p,894b,1456s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on Slides-week8.pdf (45 pages, 10731846 bytes).
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on Slides-week8.pdf (45 pages, 10735009 bytes).
 PDF statistics:
- 585 PDF objects out of 1000 (max. 8388607)
- 400 compressed objects within 4 object streams
+ 591 PDF objects out of 1000 (max. 8388607)
+ 403 compressed objects within 5 object streams
  95 named destinations out of 1000 (max. 500000)
  180 words of extra memory for PDF output out of 10000 (max. 10000000)
 

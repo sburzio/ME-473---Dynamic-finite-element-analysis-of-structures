@@ -345,7 +345,7 @@
                 0 & 0           & \partial_x \\
                 0 & -\partial_y & 0          \\
                 0 & -\partial_x & \partial_y \\
-              \end{bmatrix}}_\text{$\nabla_{b}$} \underbrace{\begin{bmatrix}
+              \end{bmatrix}}_\text{$\boldsymbol\nabla_{b}$} \underbrace{\begin{bmatrix}
                 u_3 \\ \phi_1 \\ \phi_2
               \end{bmatrix}}_\text{$\mathbf{u}$},$$
     \item \textbf{transverse shear strains}:
@@ -354,7 +354,7 @@
               \end{bmatrix}}_\text{$\boldsymbol{\varepsilon_s}$} = \underbrace{\begin{bmatrix}
                 \partial_x & 0  & 1 \\
                 \partial_y & -1 & 0 \\
-              \end{bmatrix}}_\text{$\nabla_{s}$} \underbrace{\begin{bmatrix}
+              \end{bmatrix}}_\text{$\boldsymbol\nabla_{s}$} \underbrace{\begin{bmatrix}
                 u_3 \\ \phi_1 \\ \phi_2
               \end{bmatrix}}_\text{$\mathbf{u}$}.$$
   \end{itemize}
@@ -504,7 +504,7 @@
     =
     \int_{-\frac{h}{2}}^{\frac{h}{2}} x_3 \, \boldsymbol{\sigma}_b \, dx_3
     =
-    \boldsymbol{C}_b\nabla_b\mathbf u\int_{-\frac{h}{2}}^{\frac{h}{2}} x_3^2  \, dx_3 =\underbrace{\frac{h^3}{12}\boldsymbol{C}_b}_\text{$\overline{\boldsymbol{C}_b}$}\nabla_b\mathbf u \\
+    \boldsymbol{C}_b\boldsymbol\nabla_b\mathbf u\int_{-\frac{h}{2}}^{\frac{h}{2}} x_3^2  \, dx_3 =\underbrace{\frac{h^3}{12}\boldsymbol{C}_b}_\text{$\overline{\boldsymbol{C}_b}$}\boldsymbol\nabla_b\mathbf u \\
     \mathbf{N} & =
     \begin{bmatrix}
       N_{13} \\
@@ -513,7 +513,7 @@
     =
     \int_{-\frac{h}{2}}^{\frac{h}{2}} \boldsymbol{\sigma}_s
     \, dx_3
-    =\underbrace{h\boldsymbol{C}_s}_\text{$\overline{\boldsymbol{C}_s}$}\nabla_s\mathbf u
+    =\underbrace{h\boldsymbol{C}_s}_\text{$\overline{\boldsymbol{C}_s}$}\boldsymbol\nabla_s\mathbf u
   \end{align*}
 \end{frame}
 
@@ -531,11 +531,11 @@
           \overline{\boldsymbol{C}_b} & \mathbf 0                   \\
           \mathbf 0                   & \overline{\boldsymbol{C}_s}
         \end{bmatrix}}_\text{$\overline{\boldsymbol{C}}$}\underbrace{\begin{bmatrix}
-          \nabla_b \\ \nabla_s
-        \end{bmatrix}}_\text{$\nabla_r$}\mathbf u,$$
+          \boldsymbol\nabla_b \\ \boldsymbol\nabla_s
+        \end{bmatrix}}_\text{$\boldsymbol\nabla_r$}\mathbf u,$$
     Here
-    $$\nabla_r=\begin{bmatrix}
-        \nabla_b \\ \nabla_s
+    $$\boldsymbol\nabla_r=\begin{bmatrix}
+        \boldsymbol\nabla_b \\ \boldsymbol\nabla_s
       \end{bmatrix}=\begin{bmatrix}
         0          & 0           & \partial_x \\
         0          & -\partial_y & 0          \\
@@ -572,7 +572,7 @@
           0          & 0           & 0           & \partial_x & \partial_y \\
           0          & -\partial_y & -\partial_x & 0          & 1          \\
           \partial_x & 0           & \partial_y  & -1         & 0          \\
-        \end{bmatrix}}_\text{$\nabla_m^T$} \begin{bmatrix}
+        \end{bmatrix}}_\text{$\boldsymbol\nabla_m^T$} \begin{bmatrix}
         \mathbf{M} \\ \mathbf{N}
       \end{bmatrix}+\underbrace{\begin{bmatrix}
           f_3 \\ m_1 \\ m_2
@@ -592,7 +592,7 @@
       \item  Linear elastic stress-strain relation and the constitutive relation:
             $$\begin{bmatrix}
                 \mathbf{M} \\ \mathbf{N}
-              \end{bmatrix}=\overline{\boldsymbol{C}}\nabla_r\mathbf u$$
+              \end{bmatrix}=\overline{\boldsymbol{C}}\boldsymbol\nabla_r\mathbf u$$
     \end{itemize}
 
   \end{block}
@@ -607,7 +607,7 @@
   \begin{block}{}
     Let $\Omega=[-a,a]\times[-b,b]$ be a rectangular plate. Find the transverse displacement $u_{3}\in C^2(\Omega\times[0,T])$ and the rotations $\phi_1,\ \phi_2\in C^2(\Omega\times[0,T])$ such that
     $$
-      \nabla_m^T \overline{\boldsymbol{C}}\nabla_r\mathbf{u}+\mathbf f=\mathbf{I} \ddot{\mathbf u} \qquad \text{  on  }\Omega\times]0,T[
+      \boldsymbol\nabla_m^T \overline{\boldsymbol{C}}\boldsymbol\nabla_r\mathbf{u}+\mathbf f=\mathbf{I} \ddot{\mathbf u} \qquad \text{  on  }\Omega\times]0,T[
     $$
     \vspace{-0.5cm}
     \begin{columns}
@@ -705,7 +705,7 @@
   The weak form consists of finding the transverse displacement $u_{3}\in \mathcal U$ and the rotations $\phi_1,\ \phi_2\in \mathcal U$ such that the following equation is satisfied for every $\bolddelta\mathbf u\in \mathcal V$:
   \begin{block}{}
     \[
-      \int_\Omega \, (\nabla_r \bolddelta\mathbf{u})^T\, \overline{\mathbf C} \, \nabla_r \mathbf u \, d\Omega + \int_\Omega \bolddelta\mathbf u^T\, \mathbf I\, \ddot{\mathbf u} \, d\Omega = \int_\Omega \bolddelta\mathbf u^T\mathbf f \, d\Omega
+      \int_\Omega \, (\boldsymbol\nabla_r \bolddelta\mathbf{u})^T\, \overline{\mathbf C} \, \boldsymbol\nabla_r \mathbf u \, d\Omega + \int_\Omega \bolddelta\mathbf u^T\, \mathbf I\, \ddot{\mathbf u} \, d\Omega = \int_\Omega \bolddelta\mathbf u^T\mathbf f \, d\Omega
     \]
   \end{block}
 
@@ -788,26 +788,26 @@
   \end{block}
   \begin{itemize}
     \item Elementary deformation matrix ($5\times 12$):
-          $${}^e\mathbf B=\nabla_r {}^e\mathbf H=\left[
+          $${}^e\mathbf B=\boldsymbol\nabla_r {}^e\mathbf H=\left[
               \begin{array}{c;{2pt/2pt}c;{2pt/2pt}c}
-                \nabla_r {}^eh_1 & \dots & \nabla_r {}^eh_{4}
+                \boldsymbol\nabla_r {}^eh_1 & \dots & \boldsymbol\nabla_r {}^eh_{4}
               \end{array} \right]=\left[
               \begin{array}{c;{2pt/2pt}c;{2pt/2pt}c}
-                \nabla_b {}^eh_1 & \dots & \nabla_b {}^eh_{4} \\
-                \nabla_s {}^eh_1 & \dots & \nabla_s {}^eh_{4} \\
+                \boldsymbol\nabla_b {}^eh_1 & \dots & \boldsymbol\nabla_b {}^eh_{4} \\
+                \boldsymbol\nabla_s {}^eh_1 & \dots & \boldsymbol\nabla_s {}^eh_{4} \\
               \end{array} \right]=\left[
               \begin{array}{c}
-                \nabla_b {}^e\mathbf H \\
-                \nabla_s {}^e\mathbf H \\
+                \boldsymbol\nabla_b {}^e\mathbf H \\
+                \boldsymbol\nabla_s {}^e\mathbf H \\
               \end{array} \right]$$
   \end{itemize}
   \begin{block}{}
     \vspace{0.2cm}
     \begin{itemize}
       \item Bending strain-displacement matrix:
-            ${}^e\mathbf B_b=\nabla_b {}^e\mathbf H$.
+            ${}^e\mathbf B_b=\boldsymbol\nabla_b {}^e\mathbf H$.
       \item Shear strain-displacement matrix:
-            ${}^e\mathbf B_s=\nabla_s {}^e\mathbf H$.
+            ${}^e\mathbf B_s=\boldsymbol\nabla_s {}^e\mathbf H$.
             \vspace{0.2cm}
     \end{itemize}
   \end{block}
@@ -823,7 +823,7 @@
 \begin{frame}{Elementary deformation matrix}
   \begin{itemize}
     \item Bending strain-displacement matrix:
-          $${}^e\mathbf B_b=\nabla_b {}^e\mathbf H=\left[
+          $${}^e\mathbf B_b=\boldsymbol\nabla_b {}^e\mathbf H=\left[
               \begin{array}{ccc;{2pt/2pt}c;{2pt/2pt}ccc}
                 0 & 0                   & \partial_x{}^e h_1 & \dots & 0 & 0                   & \partial_x{}^e h_4 \\
                 0 & -\partial_y{}^e h_1 & 0                  & \dots & 0 & -\partial_y{}^e h_4 & 0                  \\
@@ -831,7 +831,7 @@
               \end{array} \right].$$
 
     \item Shear strain-displacement matrix:
-          $${}^e\mathbf B_s=\nabla_s {}^e\mathbf H=\left[
+          $${}^e\mathbf B_s=\boldsymbol\nabla_s {}^e\mathbf H=\left[
               \begin{array}{ccc;{2pt/2pt}c;{2pt/2pt}ccc}
                 \partial_x{}^e h_1 & 0         & {}^e h_1 & \dots & \partial_x{}^e h_4 & 0         & {}^a h_4 \\
                 \partial_y{}^e h_1 & -{}^e h_1 & 0        & \dots & \partial_y{}^e h_4 & -{}^e h_4 & 0        \\

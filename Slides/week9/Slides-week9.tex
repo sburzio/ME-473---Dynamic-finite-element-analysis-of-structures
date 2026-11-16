@@ -106,17 +106,86 @@
     \end{columns}
   \end{frame}
 
+  \begin{frame}{Strong form for Kirchhoff-Love plate bending}
+    Let $\Omega=[-a,a]\times[-b,b]$ be a rectangular plate. Find the transverse displacement $u_{3}\in C^4(\Omega\times[0,T])$ such that
+    \begin{equation*}
+      \frac{h^3}{12}\boldsymbol{\nabla}_k^T \boldsymbol{C}\boldsymbol{\nabla}_ku_3+\rho h \ddot{u}_3=f_3 \qquad \text{  on  }\Omega\times]0,T[
+    \end{equation*}
+    \vspace{-0.5cm}
+    \begin{columns}
+      \begin{column}{0.55\textwidth}
+        \begin{itemize}
+          \item Boundary conditions (\emph{simply supported}):
+                \vspace{-0.2cm}
+                \[
+                  \begin{aligned}
+                     & u_3 = 0\qquad      & \text{in }\partial\Omega\times]0,T[   \\
+                     & \varphi_2 =0\qquad & \text{in }\partial\Omega_1\times]0,T[ \\
+                     & \varphi_1 =0\qquad & \text{in }\partial\Omega_2\times]0,T[
+                  \end{aligned}
+                \]
+          \item Initial conditions:
+                \[
+                  \begin{aligned}
+                     & \color{orange}{u_3(\cdot, 0) =  u_0 \quad \text{in }\Omega}      \\
+                     & \color{orange}{\dot{u}_3(\cdot, 0) = v_0 \quad \text{in }\Omega} \\
+                  \end{aligned}
+                \]
+        \end{itemize}
+      \end{column}
+
+      \begin{column}{0.38\textwidth}
+        \begin{center}
+          \begin{tikzpicture}[scale=0.5]
+            \def\a{3}
+            \def\b{4}
+            % Draw the rectangle
+            \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (\a,\b);
+            %axis
+            \draw[-latex,ultra thin] (-0.5,\b/2) -- (\a+1,\b/2) node[right]{$x$};
+            \draw[-latex, ultra thin] (\a/2,-0.5) -- (\a/2,\b+1)node[above]{$y$};
+            % Omega
+            \node at (\a/2+0.4,\b/2+0.4) {$\Omega$};
+            \draw[ultra thin] (3*\a/4,\b) -- (3*\a/4+1,\b+1) node[right]{$\partial\Omega_1$};
+            \draw[ultra thin] (\a,3*\b/4) -- (\a+1,3*\b/4+1) node[right]{$\partial\Omega_2$};
+            \draw[ultra thin] (3*\a/4,0) -- (3*\a/4+1,-1) node[right]{$\partial\Omega_1$};
+            \draw[ultra thin] (0,3*\b/4) -- (-1,3*\b/4+1) node[left]{$\partial\Omega_2$};
+          \end{tikzpicture}
+        \end{center}
+      \end{column}
+    \end{columns}
+  \end{frame}
+
+  \begin{frame}{Definitions for Kirchhoff-Love theory}
+    \begin{itemize}
+      \item Geometrical parameters of the plate : width $2a$, length $2b$,  height $h$.
+      \item Constants required to define the linear-elastic and dynamic behavior of an isotropic solid : $E$ Young's modulus, $\nu$ Poisson's ratio and $\rho$ density.
+      \item Kirchhoff-Love differential operator :
+            {\small$$\boldsymbol{\nabla}_{k}=\begin{bmatrix}
+                \partial^2_{xx} \\[7pt]
+                \partial^2_{yy} \\[7pt]
+                2\partial^2_{xy}
+              \end{bmatrix}.$$}
+      \item Constitutive matrix for isotropic materials: {\small$$\boldsymbol{C}=\frac{E}{1 - \nu^2}
+              \begin{bmatrix}
+                1   & \nu & 0                 \\
+                \nu & 1   & 0                 \\
+                0   & 0   & \frac{1 - \nu}{2}
+              \end{bmatrix}.$$}
+    \end{itemize}
+  \end{frame}
+
   \begin{frame}{Strong form for Reissner-Mindlin plate bending}
     \begin{block}{}
       Let $\Omega=[-a,a]\times[-b,b]$ be a rectangular plate. Find the transverse displacement $u_{3}\in C^2(\Omega\times[0,T])$ and the rotations $\phi_1,\ \phi_2\in C^2(\Omega\times[0,T])$ such that
       $$
-        \nabla_m^T \overline{\boldsymbol{C}}\nabla_r\mathbf{u}+\mathbf f=\mathbf{I} \ddot{\mathbf u} \qquad \text{  on  }\Omega\times]0,T[
+        \boldsymbol\nabla_m^T \overline{\boldsymbol{C}}\boldsymbol\nabla_r\mathbf{u}+\mathbf f=\mathbf{I} \ddot{\mathbf u} \qquad \text{  on  }\Omega\times]0,T[
       $$
       \vspace{-0.5cm}
       \begin{columns}
         \begin{column}{0.55\textwidth}
           \begin{itemize}
-            \item boundary conditions (\emph{simply supported}):
+            \item Boundary conditions (\emph{simply supported}):
                   \vspace{-0.2cm}
                   \[
                     \begin{aligned}
@@ -125,8 +194,7 @@
                        & \phi_1 =0\qquad & \text{in }\partial\Omega_2\times]0,T[
                     \end{aligned}
                   \]
-            \item
-                  initial conditions:
+            \item Initial conditions:
                   \vspace{-0.2cm}
                   \[
                     \begin{aligned}
@@ -160,19 +228,19 @@
     \end{block}
   \end{frame}
 
-  \begin{frame}{Definitions}
+  \begin{frame}{Definitions for Reissner-Mindlin theory}
     \begin{itemize}
       \item Reissner-Mindlin differential operators:
-            {\small$$\nabla_r=\begin{bmatrix}
-                \nabla_b \\ \nabla_s
+            {\small$$\boldsymbol\nabla_r=\begin{bmatrix}
+                \boldsymbol\nabla_b \\ \boldsymbol\nabla_s
               \end{bmatrix}=\begin{bmatrix}
                 0          & 0           & \partial_x \\
                 0          & -\partial_y & 0          \\
                 0          & -\partial_x & \partial_y \\
                 \partial_x & 0           & 1          \\
                 \partial_y & -1          & 0          \\
-              \end{bmatrix},\qquad\text{and}\qquad \nabla_m=\begin{bmatrix}
-                \nabla_b \\ \nabla_s
+              \end{bmatrix},\qquad\text{and}\qquad \boldsymbol\nabla_m=\begin{bmatrix}
+                \boldsymbol\nabla_b \\ \boldsymbol\nabla_s
               \end{bmatrix}=\begin{bmatrix}
                 0          & 0           & \partial_x \\
                 0          & -\partial_y & 0          \\
@@ -199,14 +267,58 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Generalized displacements approximation}
+  \begin{frame}{Displacements approximation for Kirchhoff-Love theory}
+    The rotations $\varphi_1$ and $\varphi_2$ depend on the transversal displacement $u_3$, the discretization uses \textbf{$C^1$ finite elements}:
+    $${}^eu_3^h(x_1, x_2, t) = \sum_{i=1}^{n} {}^e\mathbf h_i(x_1, x_2) {}^e\mathbf  q^i(t) = {}^e\mathbf{H}(\mathbf x){}^e\mathbf{q}(t)$$
+    where ${}^e\mathbf q^i(t)$ and ${}^e u^h_3$ are the generalized displacements of node $i$ and inside the element $e$ respectively.
+    \begin{columns}[T,onlytextwidth]
+      \begin{column}{0.48\textwidth}
+        \textbf{AMC elements}
+        $${}^e\mathbf q^i(t)=\begin{bmatrix}
+            {}^e d^{i}(t) \\ {}^e \theta^{i}_1(t) \\ {}^e \theta^{i}_2(t)
+          \end{bmatrix}$$
+        \vspace{0.3cm}
+
+        ${}^e\mathbf H(\mathbf x)$ is a $1\times 12$ matrix of \textbf{shape functions}
+      \end{column}
+      \begin{column}{0.48\textwidth}
+        \textbf{CR elements}
+        $${}^e\mathbf q^i(t)=\begin{bmatrix}
+            {}^e d^{i}(t) \\ {}^e \theta^{i}_1(t) \\ {}^e \theta^{i}_2(t) \\ {}^e \theta^{i}_{12}(t)
+          \end{bmatrix}$$
+        ${}^e\mathbf H(\mathbf x)$ is a $1\times 16$ matrix of \textbf{shape functions}
+      \end{column}
+    \end{columns}
+  \end{frame}
+
+  \begin{frame}{Elementary matrices and loads vector for Kirchhoff-Love theory}
+    \begin{itemize}
+      \item \textbf{Elementary stiffness matrix} ($12\times 12$) or ($16\times 16$):
+            $$
+              {}^e\mathbf K =\frac{h^3}{12}\int_\Omega {}^a\mathbf B^T\mathbf C{}^a\mathbf B \, d\Omega.
+            $$
+            ${}^a\mathbf B=\boldsymbol\nabla_k{}^a\mathbf H$ is a  or ($3\times 16$) matrix.
+      \item \textbf{Elementary mass matrix} ($12\times 12$) or ($16\times 16$):
+            $${}^e\mathbf M  =\int_\Omega \rho h\, {}^a\mathbf H^T{}^a\mathbf H \, d\Omega.$$
+      \item \textbf{Elementary applied forces vector} ($12\times 1$)  or ($16\times 1$):
+            $$\mathbf r(t)  =\int_{\Omega} {}^a\mathbf H^{T}f_3\, d\Omega.$$
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Generalized displacements approximation for Reissner-Mindlin theory}
     \begin{block}{}
       Since the rotations $\phi_1$ and $\phi_2$ are defined independently of the transversal displacement $u_3$, the discretization uses \textbf{bilinear Lagrangian finite elements}:
       \vspace{-0.3cm}
       \begin{align*}
         {}^e \mathbf u^{h}(\mathbf x,t) & ={}^e \mathbf H(\mathbf x){}^e\mathbf q(t) = \sum_{i=1}^{4}{}^eh_{i}(\mathbf x){}^e\mathbf q^{i}(t)
       \end{align*}
-      \vspace{-0.5cm}
+      \vspace{-0.4cm}
+
+      ${}^e\mathbf q^i(t)=\begin{bmatrix}
+          {}^e d^{i}(t) \\ {}^e \theta^{i}_1(t) \\ {}^e \theta^{i}_2(t)
+        \end{bmatrix}$ and ${}^e\mathbf u^h=\begin{bmatrix}
+          {}^e u_3^h \\ {}^e \phi_1^h \\ {}^e \phi_2^h
+        \end{bmatrix}$ are the generalized displacements of node $i$ and inside the element $e$ respectively.
     \end{block}
     \begin{itemize}
       \item ${}^e\mathbf H(\mathbf x)$ is a $3\times 12$ matrix of \textbf{shape functions} ($\mathbf I$ is the $3\times 3$ identity matrix.):
@@ -221,16 +333,10 @@
                 0       & 0       & {}^eh_1 &       & 0         & 0         & {}^eh_{4} \\
               \end{bmatrix}
             $$
-
-      \item ${}^e\mathbf q^i(t)=\begin{bmatrix}
-                {}^e d^{i}(t) \\ {}^e \theta^{i}_1(t) \\ {}^e \theta^{i}_2(t)
-              \end{bmatrix}$ and ${}^e\mathbf u^h=\begin{bmatrix}
-                {}^e u_3^h \\ {}^e \phi_1^h \\ {}^e \phi_2^h
-              \end{bmatrix}$ are the generalized displacements of node $i$ and inside the element $e$ respectively.
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Elementary matrices and loads vector}
+  \begin{frame}{Elementary matrices and loads vector for Reissner-Mindlin theory}
     \begin{itemize}
       \item \textbf{Elementary stiffness matrix} ($12\times 12$):
             $$
@@ -239,9 +345,9 @@
             \vspace{-0.3cm}
             \begin{itemize}
               \item Bending strain-displacement matrix:
-                    ${}^e\mathbf B_b=\nabla_b {}^e\mathbf H$.
+                    ${}^e\mathbf B_b=\boldsymbol\nabla_b {}^e\mathbf H$.
               \item Shear strain-displacement matrix:
-                    ${}^e\mathbf B_s=\nabla_s {}^e\mathbf H$.
+                    ${}^e\mathbf B_s=\boldsymbol\nabla_s {}^e\mathbf H$.
                     \vspace{0.2cm}
             \end{itemize}
       \item \textbf{Elementary mass matrix} ($12\times 12$):
@@ -320,7 +426,7 @@
 
 \begin{frame}{Geometry assumptions}
   \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
-    A shell is a three-dimensional curved structural element whose thickness is very small compared to its other two dimensions.
+    A shell is a three-dimensional \emph{curved} structural element whose thickness is very small compared to its other two dimensions.
   \end{tcolorbox}
   \begin{itemize}
     \item \textbf{Rectilinearity of transverse fibers} : normals to the middle surface before deformation remain straight during deformation.
@@ -334,7 +440,7 @@
   \emph{\footnotesize (Credit:(G))}
 \end{frame}
 
-\begin{frame}{Others $C^0$ shell theories}
+\begin{frame}{Others shell theories}
   \small
   \begin{itemize}
     \item \textbf{First-Order Shear Deformation Theory (FSDT)}: Accounts for transverse shear deformation by introducing independent rotations, requiring a shear correction factor.
@@ -348,9 +454,12 @@
 
 \begin{frame}{Shell element formulations}
   There are at least three methods of formulating $C^0$ shell elements:
+  \vspace{0.2cm}
   \begin{enumerate}
     \item Combining a membrane element with a plate bending element to form a \textbf{flat shell element}.
+          \vspace{0.1cm}
     \item Deriving a curved element using classical \textbf{thin shell theory}.
+          \vspace{0.1cm}
     \item Deriving a curved element which is a degenerate solid element to form a \textbf{thick shell element}.
   \end{enumerate}
 \end{frame}
@@ -388,7 +497,7 @@
   \begin{itemize}
     \item   \textbf{Middle surface shell elements} have nodes only in the
           middle surface.
-    \item The nodal degrees of freedom consist of three components of displacement and two components of rotation.
+    \item The nodal degrees of freedom consist of \textbf{three components of displacement and two components of rotation}.
     \item These elements are similar to the ones used for thick plate elements.
     \item Superparametric elements : more nodes are required to define the geometry than the deformation.
     \item They can be used to model thin shells provided selective integration is used.
@@ -396,33 +505,62 @@
 \end{frame}
 
 
-
-
-
 \begin{frame}{Dyanmic equilibrium equation for thin shells}
   \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
-    The governing equation for thin shell theory is a \emph{reduced} elastodynamic equilibrium equation: $$\nabla^T \overline{\mathbf C}\nabla \mathbf u+\mathbf f=\rho\mathbf{\ddot{u}}\qquad \text{on }\Omega\times]0,T[$$
+    \textbf{Strong form}\vspace{0.2cm}
+
+    The governing equation for thin shell theory is a \emph{reduced} elastodynamic equilibrium equation: $$\boldsymbol\nabla^T \overline{\mathbf C}\boldsymbol\nabla \mathbf u+\mathbf f=\rho\mathbf{\ddot{u}}\qquad \text{on }\Omega\times]0,T[$$
     where $\Omega$ is characterized by the degenerate hypothesis that one dimension is significantly smaller than the other two.
   \end{tcolorbox}
 \end{frame}
 
-\begin{frame}{Elasticity, linearity and isotropic hypothesis}
+\begin{frame}{Strong form of 3D linear elasticity}
   \small
-  \begin{itemize}
-    \item Linear strain-displacement relationship: $\boldsymbol\varepsilon=\nabla\mathbf u$ with
-          $$\nabla=\begin{bmatrix} \partial_{x_1} & 0 & 0 \\ 0 & \partial_{x_2} & 0 \\ 0 & 0 & \partial_{x_3} \\ 0 & \partial_{x_3} & \partial_{x_2} \\ \partial_{x_3} & 0 & \partial_{x_1}  \\ \partial_{x_2} & \partial_{x_1} & 0 \end{bmatrix}\qquad\text{and}\qquad \mathbf u=\begin{bmatrix} u_1 \\ u_2 \\ u_3\end{bmatrix}$$
-    \item \textbf{Reduced constitutive equation} for isotropic materials: $\boldsymbol\sigma=\overline{\mathbf C}\boldsymbol\varepsilon$:
-          $$\overline{\mathbf C}=\frac{E}{1-\nu^2}
-            \begin{bmatrix}
-              1   & \nu & 0 & 0         & 0          & 0          \\
-              \nu & 1   & 0 & 0         & 0          & 0          \\
-              0   & 0   & 0 & 0         & 0          & 0          \\
-              0   & 0   & 0 & (1-\nu)/2 & 0          & 0          \\
-              0   & 0   & 0 & 0         & k(1-\nu)/2 & 0          \\
-              0   & 0   & 0 & 0         & 0          & k(1-\nu)/2 \\
-            \end{bmatrix}$$
-          $E$ is the Young's modulus, $\nu$ is the Poisson's ratio, and $k$ is the shear correction factor.
-  \end{itemize}
+  Recall that the dynamic equilibrium equation for 3D linear elasticity is
+  $$\boldsymbol\nabla^T\mathbf C\boldsymbol\nabla\mathbf u+\mathbf f=\rho\ddot{\mathbf u}$$
+  \vspace{-0.5cm}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.38\textwidth}
+      \begin{itemize}
+        \item Linear strain-displacement relationship: $\boldsymbol\varepsilon=\boldsymbol\nabla\mathbf u$ with
+              $$\boldsymbol\nabla=\begin{bmatrix} \partial_{x_1} & 0 & 0 \\ 0 & \partial_{x_2} & 0 \\ 0 & 0 & \partial_{x_3} \\ 0 & \partial_{x_3} & \partial_{x_2} \\ \partial_{x_3} & 0 & \partial_{x_1}  \\ \partial_{x_2} & \partial_{x_1} & 0 \end{bmatrix}$$
+      \end{itemize}
+      $\mathbf u=\begin{bmatrix} u_1 & u_2 & u_3\end{bmatrix}^T$ is the unknown displacement.
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \item \textbf{Constitutive equation} for isotropic materials: $\boldsymbol\sigma=\overline{\mathbf C}\boldsymbol\varepsilon$:
+              \[
+                \mathbf C=\begin{bmatrix}
+                  \lambda+2\mu & \lambda      & \lambda      & 0   & 0   & 0   \\
+                  \lambda      & \lambda+2\mu & \lambda      & 0   & 0   & 0   \\
+                  \lambda      & \lambda      & \lambda+2\mu & 0   & 0   & 0   \\
+                  0            & 0            & 0            & \mu & 0   & 0   \\
+                  0            & 0            & 0            & 0   & \mu & 0   \\
+                  0            & 0            & 0            & 0   & 0   & \mu
+                \end{bmatrix}
+              \]
+              $\lambda=\frac{E\nu}{(1+\nu)(1-2\nu)}$ and $\mu=\frac{E}{2(1+\nu)}$ are Lamé constants.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Reduced constitutive equation for isotropic materials}
+  \small
+  Starting from the 3D law, impose plane stress, $\sigma_{33}=0$. The third normal-stress equation gives
+  $$\varepsilon_{33}=-\frac{\nu}{1-\nu}(\varepsilon_{11}+\varepsilon_{22})$$
+  substituting this into the equations for $\sigma_{11}$ and $\sigma_{22}$ gives the reduced in-plane terms below. The shear terms retain their 3D form, with the correction factor $k$ applied to transverse shear:
+  $$\overline{\mathbf C}=\frac{E}{1-\nu^2}
+    \begin{bmatrix}
+      1                  & \nu                & 0                  & 0                  & 0                  & 0                   \\
+      \nu                & 1                  & 0                  & 0                  & 0                  & 0                   \\
+      {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0}x \\
+      0                  & 0                  & 0                  & (1-\nu)/2          & 0                  & 0                   \\
+      0                  & 0                  & 0                  & 0                  & k(1-\nu)/2         & 0                   \\
+      0                  & 0                  & 0                  & 0                  & 0                  & k(1-\nu)/2          \\
+    \end{bmatrix}$$
+  $E$ is the Young's modulus, $\nu$ is the Poisson's ratio, and $k$ is the shear correction factor.
 \end{frame}
 
 
@@ -560,7 +698,7 @@
 \begin{frame}{Deformation matrix}
   \begin{block}{}\vspace{-0.5cm}
     \begin{align*}
-      {}^a\mathbf B_i = & \nabla {}^a\mathbf H_i \\
+      {}^a\mathbf B_i = & \boldsymbol\nabla {}^a\mathbf H_i \\
       =                 & \left[
         \begin{array}{ccccc}
           \frac{\partial {}^eh_i}{\partial x_1} & 0                                     & 0                                     & {}^eg_{11}^i                & {}^ef_{11}^i                \\[10pt]
@@ -599,7 +737,7 @@
 \end{frame}
 
 \begin{frame}{Examples of thin shell elements}
-  Along the midsurface of the shell we can use Lagrangian 2D finite elements such as, for example, bicubic quadrilateral or bicubic triangular elements.
+  Along the midsurface of the shell we can use \textbf{Lagrangian 2D finite element}such as, for example, bicubic quadrilateral or bicubic triangular elements.
   \begin{columns}
     \begin{column}{.48\textwidth}
       \begin{center}
@@ -656,7 +794,7 @@
   \vspace{0.3cm}
   \begin{itemize}
     \item To overcome this limitation, we need shell elements with 6 DOFs per node: 3 displacements and 3 rotations, all defined with respect to the global axis.
-    \item This eliminates the need to define a local normal vector allowing for more complex geometries.
+    \item This eliminate the need to describe the shared nodal rotations using a single local normal and only two rotational components.
   \end{itemize}
 \end{frame}
 
@@ -778,17 +916,17 @@
 \begin{frame}{Local deformation matrices}
   \small\vspace{-0.3cm}
   \begin{align*}
-    {}^1\mathbf B_i & =\nabla {}^a\mathbf H_i = \begin{bmatrix}
-                                                  \partial_{x_1} & 0              & 0              \\
-                                                  0              & \partial_{x_2} & 0              \\
-                                                  0              & 0              & \partial_{x_3} \\
-                                                  0              & \partial_{x_3} & \partial_{x_2} \\
-                                                  \partial_{x_3} & 0              & \partial_{x_1} \\
-                                                  \partial_{x_2} & \partial_{x_1} & 0
-                                                \end{bmatrix}\begin{bmatrix}
-                                                               {}^a h_i & 0        & 0        & 0                                & \dfrac{1}{2}\xi_3 t \, {}^a h_i \\
-                                                               0        & {}^a h_i & 0        & -\dfrac{1}{2}\xi_3 t \, {}^a h_i & 0                               \\
-                                                               0        & 0        & {}^a h_i & 0                                & 0                               \\\end{bmatrix}                                                                           \\[1em]
+    {}^1\mathbf B_i & =\boldsymbol\nabla {}^a\mathbf H_i = \begin{bmatrix}
+                                                             \partial_{x_1} & 0              & 0              \\
+                                                             0              & \partial_{x_2} & 0              \\
+                                                             0              & 0              & \partial_{x_3} \\
+                                                             0              & \partial_{x_3} & \partial_{x_2} \\
+                                                             \partial_{x_3} & 0              & \partial_{x_1} \\
+                                                             \partial_{x_2} & \partial_{x_1} & 0
+                                                           \end{bmatrix}\begin{bmatrix}
+                                                                          {}^a h_i & 0        & 0        & 0                                & \dfrac{1}{2}\xi_3 t \, {}^a h_i \\
+                                                                          0        & {}^a h_i & 0        & -\dfrac{1}{2}\xi_3 t \, {}^a h_i & 0                               \\
+                                                                          0        & 0        & {}^a h_i & 0                                & 0                               \\\end{bmatrix}                                                                \\[1em]
                     & =\begin{bmatrix}
                          \frac{2}{a} \, \partial_{\xi_1}{}^a h_i & 0                                       & 0                                       & 0                                             & \frac{t}{a}\xi_3 \, \partial_{\xi_1}{}^a h_i \\[0.4em]
                          0                                       & \frac{2}{a} \, \partial_{\xi_2}{}^a h_i & 0                                       & -\frac{t}{a}\xi_3 \, \partial_{\xi_2}{}^a h_i & 0                                            \\[0.4em]
