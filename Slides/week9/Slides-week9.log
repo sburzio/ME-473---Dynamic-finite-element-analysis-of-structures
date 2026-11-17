@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  16 NOV 2026 13:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  17 NOV 2026 11:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1165,12 +1165,12 @@ Package translations Info: loading dictionary `translations-basic-dictionary' fo
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  (./Slides-week9.nav)
-<../images/epfl_logo.png, id=25, 1027.84pt x 578.16pt>
+<../images/epfl_logo.png, id=29, 1027.84pt x 578.16pt>
 File: ../images/epfl_logo.png Graphic file (type png)
 <use ../images/epfl_logo.png>
 Package pdftex.def Info: ../images/epfl_logo.png  used on input line 20.
 (pdftex.def)             Requested size: 56.9055pt x 32.00621pt.
-<../images/shellElem.png, id=26, 470.75874pt x 338.26375pt>
+<../images/shellElem.png, id=30, 470.75874pt x 338.26375pt>
 File: ../images/shellElem.png Graphic file (type png)
 <use ../images/shellElem.png>
 Package pdftex.def Info: ../images/shellElem.png  used on input line 20.
@@ -1201,15 +1201,15 @@ Overfull \hbox (23.5814pt too wide) in paragraph at lines 45--45
 ] [4
 
 ]
-<../images/KirchhoffPlateHp.png, id=64, 1822.81pt x 650.43pt>
+<../images/KirchhoffPlateHp.png, id=68, 1822.81pt x 650.43pt>
 File: ../images/KirchhoffPlateHp.png Graphic file (type png)
 <use ../images/KirchhoffPlateHp.png>
-Package pdftex.def Info: ../images/KirchhoffPlateHp.png  used on input line 107.
+Package pdftex.def Info: ../images/KirchhoffPlateHp.png  used on input line 108.
 (pdftex.def)             Requested size: 170.71652pt x 60.90819pt.
-<../images/ReissnerPlateHp.png, id=65, 1792.6975pt x 605.26125pt>
+<../images/ReissnerPlateHp.png, id=69, 1792.6975pt x 605.26125pt>
 File: ../images/ReissnerPlateHp.png Graphic file (type png)
 <use ../images/ReissnerPlateHp.png>
-Package pdftex.def Info: ../images/ReissnerPlateHp.png  used on input line 107.
+Package pdftex.def Info: ../images/ReissnerPlateHp.png  used on input line 108.
 (pdftex.def)             Requested size: 170.71652pt x 57.6297pt.
  [5
 
@@ -1230,55 +1230,55 @@ Package pdftex.def Info: ../images/ReissnerPlateHp.png  used on input line 107.
 ] [13
 
 ]
-<../images/thick1.png, id=155, 615.29875pt x 615.29875pt>
+<../images/thick1.png, id=159, 615.29875pt x 615.29875pt>
 File: ../images/thick1.png Graphic file (type png)
 <use ../images/thick1.png>
-Package pdftex.def Info: ../images/thick1.png  used on input line 381.
+Package pdftex.def Info: ../images/thick1.png  used on input line 382.
 (pdftex.def)             Requested size: 85.35258pt x 85.35258pt.
-<../images/thick2.png, id=156, 615.29875pt x 615.29875pt>
+<../images/thick2.png, id=160, 615.29875pt x 615.29875pt>
 File: ../images/thick2.png Graphic file (type png)
 <use ../images/thick2.png>
-Package pdftex.def Info: ../images/thick2.png  used on input line 381.
+Package pdftex.def Info: ../images/thick2.png  used on input line 382.
 (pdftex.def)             Requested size: 85.35258pt x 85.35258pt.
-<../images/thick3.png, id=157, 615.29875pt x 615.29875pt>
+<../images/thick3.png, id=161, 615.29875pt x 615.29875pt>
 File: ../images/thick3.png Graphic file (type png)
 <use ../images/thick3.png>
-Package pdftex.def Info: ../images/thick3.png  used on input line 381.
+Package pdftex.def Info: ../images/thick3.png  used on input line 382.
 (pdftex.def)             Requested size: 85.35258pt x 85.35258pt.
-<../images/thick4.png, id=158, 615.29875pt x 615.29875pt>
+<../images/thick4.png, id=162, 615.29875pt x 615.29875pt>
 File: ../images/thick4.png Graphic file (type png)
 <use ../images/thick4.png>
-Package pdftex.def Info: ../images/thick4.png  used on input line 381.
+Package pdftex.def Info: ../images/thick4.png  used on input line 382.
 (pdftex.def)             Requested size: 85.35258pt x 85.35258pt.
 
-Overfull \vbox (13.29828pt too high) detected at line 381
+Overfull \vbox (13.29828pt too high) detected at line 382
  []
 
 [14
 
  <../images/thick1.png> <../images/thick2.png> <../images/thick3.png> <../images/thick4.png>]
-<../images/thin1.png, id=174, 615.29875pt x 615.29875pt>
+<../images/thin1.png, id=178, 615.29875pt x 615.29875pt>
 File: ../images/thin1.png Graphic file (type png)
 <use ../images/thin1.png>
-Package pdftex.def Info: ../images/thin1.png  used on input line 404.
+Package pdftex.def Info: ../images/thin1.png  used on input line 405.
 (pdftex.def)             Requested size: 85.35258pt x 85.35258pt.
-<../images/thin2.png, id=175, 615.29875pt x 615.29875pt>
+<../images/thin2.png, id=179, 615.29875pt x 615.29875pt>
 File: ../images/thin2.png Graphic file (type png)
 <use ../images/thin2.png>
-Package pdftex.def Info: ../images/thin2.png  used on input line 404.
+Package pdftex.def Info: ../images/thin2.png  used on input line 405.
 (pdftex.def)             Requested size: 85.35258pt x 85.35258pt.
-<../images/thin3.png, id=176, 615.29875pt x 615.29875pt>
+<../images/thin3.png, id=180, 615.29875pt x 615.29875pt>
 File: ../images/thin3.png Graphic file (type png)
 <use ../images/thin3.png>
-Package pdftex.def Info: ../images/thin3.png  used on input line 404.
+Package pdftex.def Info: ../images/thin3.png  used on input line 405.
 (pdftex.def)             Requested size: 85.35258pt x 85.35258pt.
-<../images/thin4.png, id=177, 615.29875pt x 615.29875pt>
+<../images/thin4.png, id=181, 615.29875pt x 615.29875pt>
 File: ../images/thin4.png Graphic file (type png)
 <use ../images/thin4.png>
-Package pdftex.def Info: ../images/thin4.png  used on input line 404.
+Package pdftex.def Info: ../images/thin4.png  used on input line 405.
 (pdftex.def)             Requested size: 85.35258pt x 85.35258pt.
 
-Overfull \vbox (13.29828pt too high) detected at line 404
+Overfull \vbox (13.29828pt too high) detected at line 405
  []
 
 [15
@@ -1286,69 +1286,69 @@ Overfull \vbox (13.29828pt too high) detected at line 404
  <../images/thin1.png> <../images/thin2.png> <../images/thin3.png> <../images/thin4.png>] [16
 
 ]
-<../images/shellExample2.jpg, id=199, 702.625pt x 401.5pt>
+<../images/shellExample2.jpg, id=203, 702.625pt x 401.5pt>
 File: ../images/shellExample2.jpg Graphic file (type jpg)
 <use ../images/shellExample2.jpg>
-Package pdftex.def Info: ../images/shellExample2.jpg  used on input line 425.
+Package pdftex.def Info: ../images/shellExample2.jpg  used on input line 426.
 (pdftex.def)             Requested size: 142.26378pt x 81.29105pt.
-<../images/shellExample1.jpg, id=200, 602.25pt x 361.35pt>
+<../images/shellExample1.jpg, id=204, 602.25pt x 361.35pt>
 File: ../images/shellExample1.jpg Graphic file (type jpg)
 <use ../images/shellExample1.jpg>
-Package pdftex.def Info: ../images/shellExample1.jpg  used on input line 425.
+Package pdftex.def Info: ../images/shellExample1.jpg  used on input line 426.
 (pdftex.def)             Requested size: 142.26378pt x 85.35835pt.
-<../images/shellExample3.png, id=201, 794.97pt x 1162.3425pt>
+<../images/shellExample3.png, id=205, 794.97pt x 1162.3425pt>
 File: ../images/shellExample3.png Graphic file (type png)
 <use ../images/shellExample3.png>
-Package pdftex.def Info: ../images/shellExample3.png  used on input line 425.
+Package pdftex.def Info: ../images/shellExample3.png  used on input line 426.
 (pdftex.def)             Requested size: 128.0374pt x 187.20238pt.
  [17
 
  <../images/shellExample2.jpg> <../images/shellExample1.jpg> <../images/shellExample3.png>]
-<../images/shellGeomAssumptions.png, id=210, 1539.7525pt x 915.42pt>
+<../images/shellGeomAssumptions.png, id=214, 1539.7525pt x 915.42pt>
 File: ../images/shellGeomAssumptions.png Graphic file (type png)
 <use ../images/shellGeomAssumptions.png>
-Package pdftex.def Info: ../images/shellGeomAssumptions.png  used on input line 441.
+Package pdftex.def Info: ../images/shellGeomAssumptions.png  used on input line 442.
 (pdftex.def)             Requested size: 142.26378pt x 84.57724pt.
 
-Overfull \vbox (14.7426pt too high) detected at line 441
+Overfull \vbox (14.7426pt too high) detected at line 442
  []
 
 [18
 
  <../images/shellGeomAssumptions.png>]
-<../images/shellOtherTheories.png, id=221, 922.44624pt x 369.38pt>
+<../images/shellOtherTheories.png, id=225, 922.44624pt x 369.38pt>
 File: ../images/shellOtherTheories.png Graphic file (type png)
 <use ../images/shellOtherTheories.png>
-Package pdftex.def Info: ../images/shellOtherTheories.png  used on input line 453.
+Package pdftex.def Info: ../images/shellOtherTheories.png  used on input line 454.
 (pdftex.def)             Requested size: 227.62204pt x 91.14424pt.
  [19
 
  <../images/shellOtherTheories.png>] [20
 
 ]
-<../images/shell.jpeg, id=240, 1257.69875pt x 631.35875pt>
+<../images/shell.jpeg, id=244, 1257.69875pt x 631.35875pt>
 File: ../images/shell.jpeg Graphic file (type jpg)
 <use ../images/shell.jpeg>
-Package pdftex.def Info: ../images/shell.jpeg  used on input line 476.
+Package pdftex.def Info: ../images/shell.jpeg  used on input line 477.
 (pdftex.def)             Requested size: 284.52756pt x 142.82991pt.
-LaTeX Font Info:    Trying to load font information for U+ding on input line 476.
+LaTeX Font Info:    Trying to load font information for U+ding on input line 477.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/bbding/Uding.fd
 File: Uding.fd 1996/02/01 v1.0 BBding font definitions
 ) [21
 
  <../images/shell.jpeg>]
-<../images/shell1.jpeg, id=250, 1256.19313pt x 624.83438pt>
+<../images/shell1.jpeg, id=254, 1256.19313pt x 624.83438pt>
 File: ../images/shell1.jpeg Graphic file (type jpg)
 <use ../images/shell1.jpeg>
-Package pdftex.def Info: ../images/shell1.jpeg  used on input line 489.
+Package pdftex.def Info: ../images/shell1.jpeg  used on input line 490.
 (pdftex.def)             Requested size: 227.62204pt x 113.21854pt.
  [22
 
  <../images/shell1.jpeg>]
-<../images/shellLocalVect.jpeg, id=259, 1020.81375pt x 774.895pt>
+<../images/shellLocalVect.jpeg, id=263, 1020.81375pt x 774.895pt>
 File: ../images/shellLocalVect.jpeg Graphic file (type jpg)
 <use ../images/shellLocalVect.jpeg>
-Package pdftex.def Info: ../images/shellLocalVect.jpeg  used on input line 505.
+Package pdftex.def Info: ../images/shellLocalVect.jpeg  used on input line 506.
 (pdftex.def)             Requested size: 131.18396pt x 99.58464pt.
  [23
 
@@ -1359,126 +1359,136 @@ Package pdftex.def Info: ../images/shellLocalVect.jpeg  used on input line 505.
 ] [26
 
 ]
-<../images/shell2.png, id=294, 1186.4325pt x 504.88625pt>
+Missing character: There is no ; in font nullfont!
+
+Overfull \vbox (2.17427pt too high) detected at line 619
+ []
+
+[27
+
+] [28
+
+]
+<../images/shell2.png, id=315, 1186.4325pt x 504.88625pt>
 File: ../images/shell2.png Graphic file (type png)
 <use ../images/shell2.png>
-Package pdftex.def Info: ../images/shell2.png  used on input line 578.
+Package pdftex.def Info: ../images/shell2.png  used on input line 635.
 (pdftex.def)             Requested size: 200.56844pt x 85.35826pt.
-<../images/shell3.jpeg, id=295, 789.95125pt x 389.455pt>
+<../images/shell3.jpeg, id=316, 789.95125pt x 389.455pt>
 File: ../images/shell3.jpeg Graphic file (type jpg)
 <use ../images/shell3.jpeg>
-Package pdftex.def Info: ../images/shell3.jpeg  used on input line 578.
+Package pdftex.def Info: ../images/shell3.jpeg  used on input line 635.
 (pdftex.def)             Requested size: 173.12685pt x 85.35826pt.
- [27
+ [29
 
  <../images/shell2.png> <../images/shell3.jpeg>]
-<../images/shell4.jpeg, id=306, 1029.8475pt x 619.31375pt>
+<../images/shell4.jpeg, id=327, 1029.8475pt x 619.31375pt>
 File: ../images/shell4.jpeg Graphic file (type jpg)
 <use ../images/shell4.jpeg>
-Package pdftex.def Info: ../images/shell4.jpeg  used on input line 605.
+Package pdftex.def Info: ../images/shell4.jpeg  used on input line 662.
 (pdftex.def)             Requested size: 208.18155pt x 125.19194pt.
 
-Overfull \vbox (2.3161pt too high) detected at line 605
- []
-
-[28
-
- <../images/shell4.jpeg>]
-<../images/shell5.jpeg, id=315, 979.66pt x 662.475pt>
-File: ../images/shell5.jpeg Graphic file (type jpg)
-<use ../images/shell5.jpeg>
-Package pdftex.def Info: ../images/shell5.jpeg  used on input line 633.
-(pdftex.def)             Requested size: 210.36867pt x 142.26378pt.
-
-Overfull \vbox (2.18623pt too high) detected at line 633
- []
-
-[29
-
- <../images/shell5.jpeg>]
-File: ../images/shellLocalVect.jpeg Graphic file (type jpg)
-<use ../images/shellLocalVect.jpeg>
-Package pdftex.def Info: ../images/shellLocalVect.jpeg  used on input line 658.
-(pdftex.def)             Requested size: 187.39899pt x 142.26378pt.
-
-Overfull \hbox (8.14784pt too wide) in paragraph at lines 658--658
- [] 
+Overfull \vbox (2.3161pt too high) detected at line 662
  []
 
 [30
 
+ <../images/shell4.jpeg>]
+<../images/shell5.jpeg, id=336, 979.66pt x 662.475pt>
+File: ../images/shell5.jpeg Graphic file (type jpg)
+<use ../images/shell5.jpeg>
+Package pdftex.def Info: ../images/shell5.jpeg  used on input line 690.
+(pdftex.def)             Requested size: 210.36867pt x 142.26378pt.
+
+Overfull \vbox (2.18623pt too high) detected at line 690
+ []
+
+[31
+
+ <../images/shell5.jpeg>]
+File: ../images/shellLocalVect.jpeg Graphic file (type jpg)
+<use ../images/shellLocalVect.jpeg>
+Package pdftex.def Info: ../images/shellLocalVect.jpeg  used on input line 715.
+(pdftex.def)             Requested size: 187.39899pt x 142.26378pt.
+
+Overfull \hbox (8.14784pt too wide) in paragraph at lines 715--715
+ [] 
+ []
+
+[32
+
 ]
-<../images/shell6.jpeg, id=332, 1936.23375pt x 774.895pt>
+<../images/shell6.jpeg, id=355, 1936.23375pt x 774.895pt>
 File: ../images/shell6.jpeg Graphic file (type jpg)
 <use ../images/shell6.jpeg>
-Package pdftex.def Info: ../images/shell6.jpeg  used on input line 669.
+Package pdftex.def Info: ../images/shell6.jpeg  used on input line 726.
 (pdftex.def)             Requested size: 284.3659pt x 113.81102pt.
- [31
+ [33
 
- <../images/shell6.jpeg>] [32
+ <../images/shell6.jpeg>] [34
 
-] [33
+] [35
 
-] [34
+] [36
 
 ]
-<../images/shellQuad.png, id=367, 820.06375pt x 753.81625pt>
-File: ../images/shellQuad.png Graphic file (type png)
-<use ../images/shellQuad.png>
-Package pdftex.def Info: ../images/shellQuad.png  used on input line 753.
-(pdftex.def)             Requested size: 154.76262pt x 142.26378pt.
-<../images/ShellTrg.png, id=368, 805.0075pt x 768.8725pt>
-File: ../images/ShellTrg.png Graphic file (type png)
-<use ../images/ShellTrg.png>
-Package pdftex.def Info: ../images/ShellTrg.png  used on input line 753.
-(pdftex.def)             Requested size: 148.94862pt x 142.26378pt.
- [35
-
- <../images/shellQuad.png> <../images/ShellTrg.png>]
-<../images/shellQuad8.jpeg, id=379, 1646.15pt x 726.715pt>
-File: ../images/shellQuad8.jpeg Graphic file (type jpg)
-<use ../images/shellQuad8.jpeg>
-Package pdftex.def Info: ../images/shellQuad8.jpeg  used on input line 760.
-(pdftex.def)             Requested size: 354.46796pt x 156.49014pt.
- [36
-
- <../images/shellQuad8.jpeg>]
-<../images/plateBendingElem.jpeg, id=388, 1725.44624pt x 665.48625pt>
-File: ../images/plateBendingElem.jpeg Graphic file (type jpg)
-<use ../images/plateBendingElem.jpeg>
-Package pdftex.def Info: ../images/plateBendingElem.jpeg  used on input line 773.
-(pdftex.def)             Requested size: 295.05965pt x 113.81102pt.
-
-Overfull \vbox (0.57907pt too high) detected at line 773
+Overfull \vbox (2.75677pt too high) detected at line 818
  []
 
 [37
 
- <../images/plateBendingElem.jpeg>]
-<../images/Shell5dofs1.png, id=398, 616.3025pt x 412.54124pt>
-File: ../images/Shell5dofs1.png Graphic file (type png)
-<use ../images/Shell5dofs1.png>
-Package pdftex.def Info: ../images/Shell5dofs1.png  used on input line 799.
-(pdftex.def)             Requested size: 127.51833pt x 85.35826pt.
-<../images/Shell5dofs2.png, id=399, 616.3025pt x 412.54124pt>
-File: ../images/Shell5dofs2.png Graphic file (type png)
-<use ../images/Shell5dofs2.png>
-Package pdftex.def Info: ../images/Shell5dofs2.png  used on input line 799.
-(pdftex.def)             Requested size: 127.51833pt x 85.35826pt.
-<../images/Shell5dofs3.png, id=400, 616.3025pt x 412.54124pt>
-File: ../images/Shell5dofs3.png Graphic file (type png)
-<use ../images/Shell5dofs3.png>
-Package pdftex.def Info: ../images/Shell5dofs3.png  used on input line 799.
-(pdftex.def)             Requested size: 127.51833pt x 85.35826pt.
+]
+<../images/shellQuad.png, id=397, 820.06375pt x 753.81625pt>
+File: ../images/shellQuad.png Graphic file (type png)
+<use ../images/shellQuad.png>
+Package pdftex.def Info: ../images/shellQuad.png  used on input line 835.
+(pdftex.def)             Requested size: 154.76262pt x 142.26378pt.
+<../images/ShellTrg.png, id=398, 805.0075pt x 768.8725pt>
+File: ../images/ShellTrg.png Graphic file (type png)
+<use ../images/ShellTrg.png>
+Package pdftex.def Info: ../images/ShellTrg.png  used on input line 835.
+(pdftex.def)             Requested size: 148.94862pt x 142.26378pt.
  [38
 
- <../images/Shell5dofs1.png> <../images/Shell5dofs2.png> <../images/Shell5dofs3.png>] [39
+ <../images/shellQuad.png> <../images/ShellTrg.png>]
+<../images/shellQuad8.jpeg, id=409, 1646.15pt x 726.715pt>
+File: ../images/shellQuad8.jpeg Graphic file (type jpg)
+<use ../images/shellQuad8.jpeg>
+Package pdftex.def Info: ../images/shellQuad8.jpeg  used on input line 842.
+(pdftex.def)             Requested size: 354.46796pt x 156.49014pt.
+ [39
 
-] [40
+ <../images/shellQuad8.jpeg>]
+<../images/plateBendingElem.jpeg, id=418, 1725.44624pt x 665.48625pt>
+File: ../images/plateBendingElem.jpeg Graphic file (type jpg)
+<use ../images/plateBendingElem.jpeg>
+Package pdftex.def Info: ../images/plateBendingElem.jpeg  used on input line 855.
+(pdftex.def)             Requested size: 295.05965pt x 113.81102pt.
 
-] [41
+Overfull \vbox (0.57907pt too high) detected at line 855
+ []
 
-] [42
+[40
+
+ <../images/plateBendingElem.jpeg>]
+<../images/Shell5dofs1.png, id=427, 616.3025pt x 412.54124pt>
+File: ../images/Shell5dofs1.png Graphic file (type png)
+<use ../images/Shell5dofs1.png>
+Package pdftex.def Info: ../images/Shell5dofs1.png  used on input line 881.
+(pdftex.def)             Requested size: 127.51833pt x 85.35826pt.
+<../images/Shell5dofs2.png, id=428, 616.3025pt x 412.54124pt>
+File: ../images/Shell5dofs2.png Graphic file (type png)
+<use ../images/Shell5dofs2.png>
+Package pdftex.def Info: ../images/Shell5dofs2.png  used on input line 881.
+(pdftex.def)             Requested size: 127.51833pt x 85.35826pt.
+<../images/Shell5dofs3.png, id=429, 616.3025pt x 412.54124pt>
+File: ../images/Shell5dofs3.png Graphic file (type png)
+<use ../images/Shell5dofs3.png>
+Package pdftex.def Info: ../images/Shell5dofs3.png  used on input line 881.
+(pdftex.def)             Requested size: 127.51833pt x 85.35826pt.
+ [41
+
+ <../images/Shell5dofs1.png> <../images/Shell5dofs2.png> <../images/Shell5dofs3.png>] [42
 
 ] [43
 
@@ -1486,17 +1496,21 @@ Package pdftex.def Info: ../images/Shell5dofs3.png  used on input line 799.
 
 ] [45
 
-]
-Overfull \vbox (4.60974pt too high) detected at line 985
- []
-
-[46
+] [46
 
 ] [47
 
 ] [48
 
 ] [49
+
+] [50
+
+] [51
+
+] [52
+
+] [53
 
 ]
 \tf@nav=\write6
@@ -1514,21 +1528,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `Slides-week9.out' has not changed.
-(rerunfilecheck)             Checksum: 1DF239E97ACBF8B73B346F922FDDABE4;758.
+(rerunfilecheck)             Checksum: F7E540AF966D784978FF50017B15AEA0;1013.
  ) 
 Here is how much of TeX's memory you used:
- 50374 strings out of 474116
- 1224211 string characters out of 5743682
+ 50538 strings out of 474116
+ 1227106 string characters out of 5743682
  1960187 words of memory out of 5000000
- 71748 multiletter control sequences out of 15000+600000
+ 71903 multiletter control sequences out of 15000+600000
  576901 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,27n,134p,894b,1466s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on Slides-week9.pdf (49 pages, 5975060 bytes).
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Slides-week9.pdf (53 pages, 5994596 bytes).
 PDF statistics:
- 632 PDF objects out of 1000 (max. 8388607)
- 422 compressed objects within 5 object streams
- 102 named destinations out of 1000 (max. 500000)
- 227 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 676 PDF objects out of 1000 (max. 8388607)
+ 456 compressed objects within 5 object streams
+ 111 named destinations out of 1000 (max. 500000)
+ 235 words of extra memory for PDF output out of 10000 (max. 10000000)
 

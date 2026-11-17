@@ -48,6 +48,7 @@
     \textbf{\large Summary}
     \begin{itemize}
       \item Recap weeks 7 and 8
+      \item Dynamic equilibrium equations for shells
       \item Thin shell elements
       \item Example: modal analysis of simply supported thin shell
     \end{itemize}
@@ -404,7 +405,7 @@
   \end{frame}
  }
 
-\section{Thin shell elements}
+\section{Dynamic equilibrium equations for shells}
 
 \begin{frame}{Examples of shell structures}
   \begin{columns}
@@ -512,6 +513,9 @@
     The governing equation for thin shell theory is a \emph{reduced} elastodynamic equilibrium equation: $$\boldsymbol\nabla^T \overline{\mathbf C}\boldsymbol\nabla \mathbf u+\mathbf f=\rho\mathbf{\ddot{u}}\qquad \text{on }\Omega\times]0,T[$$
     where $\Omega$ is characterized by the degenerate hypothesis that one dimension is significantly smaller than the other two.
   \end{tcolorbox}
+  \vspace{0.3cm}
+  \footnotesize
+  The shell kinematic assumptions constrain the through-thickness variation of $\mathbf u$; the constitutive reduction enforces negligible normal stress in the local thickness direction.
 \end{frame}
 
 \begin{frame}{Strong form of 3D linear elasticity}
@@ -529,7 +533,7 @@
     \end{column}
     \begin{column}{0.55\textwidth}
       \begin{itemize}
-        \item \textbf{Constitutive equation} for isotropic materials: $\boldsymbol\sigma=\overline{\mathbf C}\boldsymbol\varepsilon$:
+        \item \textbf{Constitutive equation} for isotropic materials: $\boldsymbol\sigma=\mathbf C\boldsymbol\varepsilon$:
               \[
                 \mathbf C=\begin{bmatrix}
                   \lambda+2\mu & \lambda      & \lambda      & 0   & 0   & 0   \\
@@ -553,16 +557,69 @@
   substituting this into the equations for $\sigma_{11}$ and $\sigma_{22}$ gives the reduced in-plane terms below. The shear terms retain their 3D form, with the correction factor $k$ applied to transverse shear:
   $$\overline{\mathbf C}=\frac{E}{1-\nu^2}
     \begin{bmatrix}
-      1                  & \nu                & 0                  & 0                  & 0                  & 0                   \\
-      \nu                & 1                  & 0                  & 0                  & 0                  & 0                   \\
-      {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0}x \\
-      0                  & 0                  & 0                  & (1-\nu)/2          & 0                  & 0                   \\
-      0                  & 0                  & 0                  & 0                  & k(1-\nu)/2         & 0                   \\
-      0                  & 0                  & 0                  & 0                  & 0                  & k(1-\nu)/2          \\
+      1                  & \nu                & 0                  & 0                  & 0                  & 0                  \\
+      \nu                & 1                  & 0                  & 0                  & 0                  & 0                  \\
+      {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} & {\color{darkred}0} \\
+      0                  & 0                  & 0                  & (1-\nu)/2          & 0                  & 0                  \\
+      0                  & 0                  & 0                  & 0                  & k(1-\nu)/2         & 0                  \\
+      0                  & 0                  & 0                  & 0                  & 0                  & k(1-\nu)/2         \\
     \end{bmatrix}$$
   $E$ is the Young's modulus, $\nu$ is the Poisson's ratio, and $k$ is the shear correction factor.
 \end{frame}
 
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\begin{frame}{Strong form of the dynamic shell equations}
+  \color{white}
+  Given a deformable shell occupying the three-dimensional domain $\Omega$ with boundary $\Gamma$, and
+  \begin{itemize}
+    \color{white}
+    \item reduced stiffness material matrix $\overline{\mathbf C}$ and material density $\rho$,
+    \item vector of body load $\mathbf f$ applied on $\Omega$,
+    \item prescribed boundary displacement $\mathbf{\hat u}$ on $\Gamma_{u}$ and surface load $\mathbf{\hat f}$ on $\Gamma_{\sigma}$,
+    \item prescribed initial (at $t=0$) displacement $\mathbf u_{0}$ and initial velocity $\mathbf v_{0}$.
+  \end{itemize}
+  find the displacement $\mathbf u\in C^{2}(\bar\Omega\times[0,T],\mathbb R^{3})$ such that
+  \begin{columns}[T]
+    \begin{column}{.55\textwidth}
+      \color{white}
+      \vspace{0.2cm}
+      $$\begin{cases}
+          \boldsymbol\nabla^T \overline{\mathbf C}\boldsymbol\nabla \mathbf u+\mathbf f=\rho\, \mathbf{\ddot{u}} & \text{on }\Omega\times]0,T[         \\
+          \mathbf u=\mathbf{\hat u}                                                                              & \text{on } \Gamma_u\times]0,T[      \\
+          \mathbf N^T\overline{\mathbf C}\boldsymbol\nabla\mathbf  u=\mathbf{\hat f}                             & \text{on } \Gamma_\sigma\times]0,T[ \\
+          \mathbf u=\mathbf u_0                                                                                  & \text{for } t=0                     \\
+          \mathbf{\dot u} =\mathbf v_0                                                                           & \text{for } t=0                     \\
+        \end{cases}$$
+    \end{column}
+    \hfill
+    \begin{column}{.4\textwidth}
+      \vspace{-0.6cm}
+      \begin{center}
+        \begin{tikzpicture}
+          % Label the region Omega	
+          \node at (2.2,2.1) {$\Omega$};
+          % Label the boundary Gamma
+          \draw[ultra thick, orange] plot [smooth, tension=1] coordinates {(1,2) (2,3.2) (3,3)};
+          \node[orange, above] at (2.5,3.3) {\color{orange}$\Gamma_u$};
+          \draw[thin] (3+0.1,3+0.1) --(3-0.1,3-0.1);
+          \draw[thin] (1+0.1,2-0.1) --(1-0.1,2+0.1);
+          \draw[latex-]  (2,3.2) --  (2-0.2,3.2+0.4) node[above] {$\mathbf{\hat u}$};
+          % Draw part of the boundary Gamma_sigma
+          \draw[ultra thick, white] plot [smooth, tension=1] coordinates {(3,3) (3.3,2) (3.2,1) (2,1.3) (1,1) (1,2)};
+          \node[white, right] at (3.3,2.3) {$\Gamma_\sigma$};
+          \draw[latex-]  (1,1) --  (1-0.2,1-0.4) node[below] {$\mathbf{\hat f}$};;
+          \draw[latex-]  (3.2,1) --  (3.2+0.2,1-0.4) node[below] {$\mathbf{\hat f}$};
+          \draw[latex-]  (3.3,2) --  (3.3+0.5,2-0.4) node[right] {$\mathbf{\hat f}$};
+        \end{tikzpicture}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+}
+
+\section{Thin shell elements}
 
 \begin{frame}{Coordinate transformation}
   Finite solid element with linear edges along the $\xi_3$ direction.
@@ -577,7 +634,7 @@
   ${}^e\mathbf x_-^i$ and ${}^e\mathbf x_+^i$ are the coordinates of node $i$ on the bottom and top faces respectively.
 \end{frame}
 
-\begin{frame}{Coordinate transformation}
+\begin{frame}{Coordinate transformation - midsurface formualtion}
   \vspace{-0.3cm}
   \begin{columns}
     \begin{column}{.6\textwidth}
@@ -678,7 +735,7 @@
   \begin{block}{}\vspace{-0.5cm}
     \begin{align*}
       \mathbf u^h(\boldxi) & =\sum_{i=1}^{{}^ep}{}^ah_i(\xi_1,\xi_2)\left[{}^e{\mathbf d}^i+\frac{1}{2}\xi_3{}^e t_3^i\left(-{}^e\theta_1^i{}^e\mathbf v_2^i+{}^e\theta_2^i{}^e\mathbf v_1^i\right)\right] \\[10pt]
-                           & =\sum_{i=1}^{{}^ep}{}^a\mathbf H_i(\boldxi){}^e\mathbf q^i(t)                                                                                                                 \\[10pt]
+                           & =\sum_{i=1}^{{}^ep}{}^e\mathbf H_i(\boldxi){}^e\mathbf q^i(t)                                                                                                                 \\[10pt]
                            & =\sum_{i=1}^{{}^ep}\underbrace{\left[
           \begin{array}{ccc|cc}
             {}^a h_i                                                 & 0                                                       & 0        &
@@ -687,7 +744,7 @@
             0                                                        & 0                                                       & {}^a h_i &
             -\dfrac{1}{2}\xi_3{}^e t_3^i \, {}^a h_i \, {}^ev_{23}^i & \dfrac{1}{2}\xi_3{}^e t_3^i \, {}^a h_i  \,{}^ev_{13}^i
           \end{array}
-          \right]}_\text{${}^a\mathbf H_i$}
+          \right]}_\text{${}^e\mathbf H_i$}
       \underbrace{\begin{bmatrix}
                       {}^e{d}^i_1 \\[2pt] {}^e{d}^i_2 \\[2pt] {}^e{d}^i_3 \\[2pt] {}^e{\theta}^i_1 \\[2pt] {}^e{\theta}^i_2
                     \end{bmatrix}}_\text{${}^e\mathbf q^i$}
@@ -698,7 +755,7 @@
 \begin{frame}{Deformation matrix}
   \begin{block}{}\vspace{-0.5cm}
     \begin{align*}
-      {}^a\mathbf B_i = & \boldsymbol\nabla {}^a\mathbf H_i \\
+      {}^e\mathbf B_i = & \boldsymbol\nabla {}^e\mathbf H_i \\
       =                 & \left[
         \begin{array}{ccccc}
           \frac{\partial {}^eh_i}{\partial x_1} & 0                                     & 0                                     & {}^eg_{11}^i                & {}^ef_{11}^i                \\[10pt]
@@ -736,8 +793,33 @@
   \end{align*}
 \end{frame}
 
+{\setbeamercolor{background canvas}{bg=darkred}
+\setbeamercolor{block body}{bg=darkred,fg=white}
+\setbeamercolor{itemize item}{fg=white}
+\begin{frame}{Elementary matrices and vectors}
+  \begin{block}{}
+    \begin{itemize}
+      \item \textbf{Elementary stiffness matrix} ($5{}^e p\times 5{}^e p$):
+            $${}^e\mathbf K=\int_{{}^e\Omega} {}^e\mathbf B^T\overline{\mathbf C}{}^e\mathbf B \, d\Omega$$
+            ${}^e\mathbf B=\boldsymbol{\nabla} {}^e\mathbf H=\left[
+                \begin{array}{c;{2pt/2pt}c;{2pt/2pt}c}
+                  \boldsymbol\nabla {}^e\mathbf H_1 & \dots & \boldsymbol\nabla {}^e\mathbf H_{{}^ep}
+                \end{array} \right]=\left[
+                \begin{array}{c;{2pt/2pt}c;{2pt/2pt}c}
+                  {}^e\mathbf B_1 & \dots & {}^e\mathbf B_{{}^ep}
+                \end{array} \right]$
+            elementary deformation matrix ($6\times 5{}^e p$) .
+      \item \textbf{Elementary mass matrix} ($5{}^e p\times 5{}^e p$):
+            $${}^e\mathbf M=\int_{{}^e\Omega} \rho\, {}^e\mathbf H^T{}^e\mathbf H \, d\Omega.$$
+      \item \textbf{Elementary applied forces vector} ($5{}^e p\times 1$):
+            $${}^e\mathbf r(t)=\int_{{}^e\Gamma_\sigma} {}^e\mathbf H^{T}\mathbf{\hat f} \, d\Gamma+\int_{{}^e\Omega} {}^e\mathbf H^{T}\mathbf f\, d\Omega.$$
+    \end{itemize}
+  \end{block}
+\end{frame}
+}
+
 \begin{frame}{Examples of thin shell elements}
-  Along the midsurface of the shell we can use \textbf{Lagrangian 2D finite element}such as, for example, bicubic quadrilateral or bicubic triangular elements.
+  Along the midsurface of the shell we can use \textbf{Lagrangian 2D finite elements} such as, for example, bicubic quadrilateral or bicubic triangular elements.
   \begin{columns}
     \begin{column}{.48\textwidth}
       \begin{center}
@@ -904,7 +986,7 @@
                                                                      0              & 0              & 0 & 0                    & t^2{}^ah_i{}^ah_j/12 \\
                                                                    \end{bmatrix}d\xi_1d\xi_2
   \end{align*}
-  Local mass matrix for ${}^1\Omega$ via exact integration:
+  Local mass matrix $(20\times 20)$ for ${}^1\Omega$ via exact integration:
   $${}^1\mathbf M= \begin{bmatrix}
       {}^1\mathbf M_{11} & {}^1\mathbf M_{12} & {}^1\mathbf M_{13} & {}^1\mathbf M_{14} \\
                          & {}^1\mathbf M_{22} & {}^1\mathbf M_{23} & {}^1\mathbf M_{24} \\
@@ -941,7 +1023,7 @@
 
 \begin{frame}{Local stiffness matrices}
   $${}^1\mathbf K_{ij}=\frac{a^2t}{8}\int_{-1}^1\int_{-1}^1\int_{-1}^1{}^1\mathbf B_i^T\overline{\mathbf C} {}^1\mathbf B_j d\xi_1d\xi_2d\xi_3 $$
-  Local stiffness matrix for ${}^1\Omega$ via exact integration
+  Local stiffness matrix  $(20\times 20)$ for ${}^1\Omega$ via exact integration
   $${}^1\mathbf K= \begin{bmatrix}
       {}^1\mathbf K_{11} & {}^1\mathbf K_{12} & {}^1\mathbf K_{13} & {}^1\mathbf K_{14} \\
                          & {}^1\mathbf K_{22} & {}^1\mathbf K_{23} & {}^1\mathbf M_{24} \\
@@ -950,38 +1032,131 @@
     \end{bmatrix}$$
 \end{frame}
 
-\begin{frame}{Assembly and boundary conditions}
-  \vspace{-0.2cm}\begin{itemize}
+\begin{frame}{Assembly}
+  \vspace{-0.2cm}
+  \begin{itemize}
     \item Since ${}^e J={}^1 J$ and thus ${}^e j={}^1 j$ for every $e=2,3,4$, we have
           $${}^e\mathbf K={}^1\mathbf K\qquad\text{and}\qquad {}^e\mathbf M={}^1\mathbf M$$
     \item The assembly of the global stiffness $\mathbf K$ ($45\times 45$) and mass matrices $\mathbf M$ ($45\times 45$) can be performed using the connectivity table:
-          \[
-            \begin{array}{c|cccc}
-              ^e\Omega & ^1\Omega & ^2\Omega & ^3\Omega & ^4\Omega \\
-              \hline
-              1        & 1        & 2        & 4        & 5        \\
-              2        & 4        & 5        & 7        & 8        \\
-              3        & 5        & 6        & 8        & 9        \\
-              4        & 2        & 3        & 5        & 6        \\
-            \end{array}
-          \]
-    \item The following 36 DOFs are constrained due the the fact that the shell is simply supported along its perimeter:
-          \begin{multicols}{4}
-            $d_1^1,\ d_2^1,\ d_3^1,\ \theta_1^1,\ \theta_2^1$
-            $d_1^3,\ d_2^3,\ d_3^3,\ \theta_1^3,\ \theta_2^3$
-            $d_1^7,\ d_2^7,\ d_3^7,\ \theta_1^7,\ \theta_2^7$
-            $d_1^9,\ d_2^9,\ d_3^9,\ \theta_1^9,\ \theta_2^9$
-          \end{multicols}
-          \begin{multicols}{4}
-            $d_1^2,\ d_2^2,\ d_3^2,\ \theta_1^2$
-
-            $d_1^4,\ d_2^4,\ d_3^4,\ \theta_2^4$
-
-            $d_1^6,\ d_2^6,\ d_3^6,\ \theta_2^6$
-
-            $d_1^8,\ d_2^8,\ d_3^8,\ \theta_1^8,$
-          \end{multicols}
   \end{itemize}
+  \vspace{-0.3cm}
+  \begin{columns}
+    \column{0.45\textwidth}
+    \vspace{-0.7cm}
+    \begin{center}
+      \[
+        \begin{array}{c|cccc}
+          ^e\Omega & ^1\Omega & ^2\Omega & ^3\Omega & ^4\Omega \\
+          \hline
+          1        & 1        & 2        & 4        & 5        \\
+          2        & 4        & 5        & 7        & 8        \\
+          3        & 5        & 6        & 8        & 9        \\
+          4        & 2        & 3        & 5        & 6        \\
+        \end{array}
+      \]
+    \end{center}
+
+    \column{0.5\textwidth}
+    \begin{center}
+      \begin{tikzpicture}[scale=0.7]
+        \def\a{4}
+        \def\b{4}
+        % Draw the rectangle
+        \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (\a,\b);
+        % Draw the elements  
+        \draw[thick] (\a/2,0) -- (\a/2,\b);
+        \draw[thick] (0,\b/2) -- (\a,\b/2);
+        \node at (\a/4,\b/4) {${}^1\Omega$};
+        \node at (\a/4,3*\b/4) {${}^2\Omega$};
+        \node at (3*\a/4,\b/4) {${}^3\Omega$};
+        \node at (3*\a/4,3*\b/4) {${}^4\Omega$};
+        %axis
+        \draw[-latex,ultra thin] (-0.5,\b/2) -- (\a+1,\b/2) node[right]{$x$};
+        \draw[-latex, ultra thin] (\a/2,-0.5) -- (\a/2,\b+1)node[above]{$y$};
+        % Nodes 
+        \draw[fill=white, draw=black]  (0,0) node[below right]{$\mathbf x_1$} circle (3pt);
+        \draw[fill=white, draw=black]  (0,\b/2) node[below right]{$\mathbf x_2$} circle (3pt);
+        \draw[fill=white, draw=black]  (0,\b) node[below right]{$\mathbf x_3$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,0) node[below right]{$\mathbf x_4$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,\b/2) node[below right]{$\mathbf x_5$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a/2,\b) node[below right]{$\mathbf x_6$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,0) node[below right]{$\mathbf x_7$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,\b/2) node[below right]{$\mathbf x_8$} circle (3pt);
+        \draw[fill=white, draw=black]  (\a,\b) node[below right]{$\mathbf x_9$} circle (3pt);
+      \end{tikzpicture}
+    \end{center}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Boundary conditions}
+  The following 36 DOFs are constrained due the the fact that the shell is simply supported along its perimeter:
+  \begin{columns}
+    \column{0.65\textwidth}
+    \begin{multicols}{2}
+      $d_1^1,\ d_2^1,\ d_3^1,\ \theta_1^1,\ \theta_2^1$
+
+      $d_1^3,\ d_2^3,\ d_3^3,\ \theta_1^3,\ \theta_2^3$
+
+      $d_1^7,\ d_2^7,\ d_3^7,\ \theta_1^7,\ \theta_2^7$
+
+      $d_1^9,\ d_2^9,\ d_3^9,\ \theta_1^9,\ \theta_2^9$
+    \end{multicols}
+    \begin{multicols}{2}
+      $d_1^2,\ d_2^2,\ d_3^2,\ \theta_1^2$
+
+      $d_1^4,\ d_2^4,\ d_3^4,\ \theta_2^4$
+
+      $d_1^6,\ d_2^6,\ d_3^6,\ \theta_2^6$
+
+      $d_1^8,\ d_2^8,\ d_3^8,\ \theta_1^8,$
+    \end{multicols}
+    \vspace{0.2cm}
+    \begin{center}
+      \begin{tabular}{ll}
+        \hline
+        \small \textbf{Boundary nodes} & \small\textbf{Constrained DOFs}       \\
+        \hline
+        \small Corners $(1,3,7,9)$
+                                       & \small$d_1,d_2,d_3,\theta_1,\theta_2$ \\
+        \small Vertical-edge midpoints $(2,8)$
+                                       & \small$d_1,d_2,d_3,\theta_1$          \\
+        \small Horizontal-edge midpoints $(4,6)$
+                                       & \small$d_1,d_2,d_3,\theta_2$          \\
+        \hline
+      \end{tabular}
+    \end{center}
+    \column{0.35\textwidth}
+    \vspace{-2cm}
+
+    \hspace{1cm}
+    \begin{tikzpicture}[scale=0.7]
+      \def\a{4}
+      \def\b{4}
+      % Draw the rectangle
+      \filldraw[fill=gray!60, draw=black,thick] (0,0) rectangle (\a,\b);
+      \draw[ultra thick,darkred] (0,0) -- (\a,0) -- (\a,\b) -- (0,\b) -- (0,0);
+      % Draw the elements  
+      \draw[thick] (\a/2,0) -- (\a/2,\b);
+      \draw[thick] (0,\b/2) -- (\a,\b/2);
+      \node at (\a/4,\b/4) {${}^1\Omega$};
+      \node at (\a/4,3*\b/4) {${}^2\Omega$};
+      \node at (3*\a/4,\b/4) {${}^3\Omega$};
+      \node at (3*\a/4,3*\b/4) {${}^4\Omega$};
+      %axis
+      \draw[-latex,ultra thin] (-0.5,\b/2) -- (\a+1,\b/2) node[right]{$x$};
+      \draw[-latex, ultra thin] (\a/2,-0.5) -- (\a/2,\b+1)node[above]{$y$};
+      % Nodes 
+      \draw[fill=white, draw=black]  (0,0) node[below right]{$\mathbf x_1$} circle (3pt);
+      \draw[fill=white, draw=black]  (0,\b/2) node[below right]{$\mathbf x_2$} circle (3pt);
+      \draw[fill=white, draw=black]  (0,\b) node[below right]{$\mathbf x_3$} circle (3pt);
+      \draw[fill=white, draw=black]  (\a/2,0) node[below right]{$\mathbf x_4$} circle (3pt);
+      \draw[fill=white, draw=black]  (\a/2,\b/2) node[below right]{$\mathbf x_5$} circle (3pt);
+      \draw[fill=white, draw=black]  (\a/2,\b) node[below right]{$\mathbf x_6$} circle (3pt);
+      \draw[fill=white, draw=black]  (\a,0) node[below right]{$\mathbf x_7$} circle (3pt);
+      \draw[fill=white, draw=black]  (\a,\b/2) node[below right]{$\mathbf x_8$} circle (3pt);
+      \draw[fill=white, draw=black]  (\a,\b) node[below right]{$\mathbf x_9$} circle (3pt);
+    \end{tikzpicture}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Modal analysis}
@@ -993,18 +1168,33 @@
           $$\omega_1^{approx}=0.6620\sqrt{E/(1-\nu^2)\rho a}$$
     \item From the analytical solution we obtain
           $$\omega_1^{exact}=0.0285\sqrt{E/(1-\nu^2)\rho a}$$
-    \item Exact integration of transverse shear terms in the stiffness matrix $\mathbf K$ leads to \emph{element locking}.
   \end{itemize}
+  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+    Exact integration of transverse shear terms in the stiffness matrix $\mathbf K$ leads to \emph{element locking}.
+  \end{tcolorbox}
 \end{frame}
 
 \begin{frame}{Selective integration}
-  \begin{itemize}
-    \item Separate the transverse shear contributions terms ${}^e\mathbf B_i^\tau$ in the deformation matrix:
+  \begin{enumerate}
+    \item Separate the bending terms ${}^e\mathbf B_i^\sigma$ and the transverse shear terms ${}^e\mathbf B_i^\tau$ in the deformation matrix:
           $${}^e\mathbf B_i={}^e\mathbf B_i^\sigma+{}^e\mathbf B_i^\tau$$
-    \item Split the stiffness matrix into flexural stiffness ${}^e\mathbf K^\sigma_{ij}$ and transverse shear stiffness ${}^e\mathbf K^\tau_{ij}$:
-          $${}^e\mathbf K_{ij}={}^e\mathbf K^\sigma_{ij}+{}^e\mathbf K^\tau_{ij}=\int_\Omega{}^e\mathbf B_i^\sigma\overline{\mathbf C}{}^e\mathbf B_j^\sigma\, d\Omega +\int_\Omega{}^e\mathbf B_i^\tau\overline{\mathbf C}{}^e\mathbf B_j^\tau\, d\Omega$$
-    \item Perform a \textbf{selective integration}: exact integration of bending contributions ${}^e\mathbf K^\sigma_{ij}$ and reduced integration (a single Gauss point located at the center of the element) for shear contributions ${}^e\mathbf K^\tau_{ij}$.
-  \end{itemize}
+    \item Split the stiffness matrix into \textbf{flexural stiffness} ${}^e\mathbf K^\sigma_{ij}$ and \textbf{transverse shear stiffness} ${}^e\mathbf K^\tau_{ij}$:
+          \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+            $${}^e\mathbf K_{ij}={}^e\mathbf K^\sigma_{ij}+{}^e\mathbf K^\tau_{ij}=\int_\Omega{}^e\mathbf B_i^\sigma\overline{\mathbf C}{}^e\mathbf B_j^\sigma\, d\Omega +\int_\Omega{}^e\mathbf B_i^\tau\overline{\mathbf C}{}^e\mathbf B_j^\tau\, d\Omega$$
+          \end{tcolorbox}
+    \item Perform a \textbf{selective integration}:
+  \end{enumerate}
+  \begin{center}
+    \begin{tabular}{lll}
+      \hline
+      {Contribution}   & {Stiffness matrix}          & {Integration}          \\
+      \hline
+      Bending          & ${}^e\mathbf K^\sigma_{ij}$ & Exact : 4 Gauss points \\
+      Transverse shear & ${}^e\mathbf K^\tau_{ij}$
+                       & Reduced: 1 Gauss point                               \\
+      \hline
+    \end{tabular}
+  \end{center}
 \end{frame}
 
 \begin{frame}{Error estimates}
@@ -1013,13 +1203,13 @@
   \begin{center}
     \begin{tabular}{ccc|c}
       \hline
-      Meshing     & Integration & Elements    & Rel. error  \\
+      Meshing     & Integration & Elements    & Rel. error                 \\
       \hline
-      $2\times 2$ & Exact       & bilinear    & $>20'000\%$ \\
-      $2\times 2$ & Selective   & bilinear    & $34\%$      \\
-      $4\times 4$ & Selective   & bilinear    & $7.2\%$     \\
-      $1\times 1$ & Selective   & biquadratic & $6.2\%$     \\
-      $2\times 2$ & Selective   & biquadratic & $1.0\%$     \\
+      $2\times 2$ & Exact       & bilinear    & \color{darkred}$>20'000\%$ \\
+      $2\times 2$ & Selective   & bilinear    & \color{darkred}$34\%$      \\
+      $4\times 4$ & Selective   & bilinear    & $7.2\%$                    \\
+      $1\times 1$ & Selective   & biquadratic & $6.2\%$                    \\
+      $2\times 2$ & Selective   & biquadratic & $1.0\%$                    \\
       \hline
     \end{tabular}
   \end{center}
