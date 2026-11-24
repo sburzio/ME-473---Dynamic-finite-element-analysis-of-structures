@@ -40,7 +40,7 @@
         \cline{1-1} \cline{3-4}
         9                                  &                                                & Shells                             & Project 2 statement    \\
         \hline
-        10                                 & \multirow{2}{7em}{Free and forced vibrations}  & Analysis of free vibrations        &                        \\
+        10                                 & \multirow{2}{7em}{Free and forced vibrations}  & Eigenvalue problems                &                        \\
         \cline{1-1} \cline{3-4} 11         &                                                & Analysis of free vibrations        &                        \\
         \hline
       \end{tabular}
@@ -52,24 +52,30 @@
     \textbf{\large Summary}
     \begin{itemize}
       \item Recap week 10
-      \item Numerical modal extraction algorithms for conservative systems
-      \item Rayleigh's quotient
-      \item Inverse iteration algorithm
-      \item Subspace algorithm
+      \item Numerical modal extraction algorithms for small-scale problems
+            \begin{itemize}
+              \item Jacobi and generalized Jacobi methods
+            \end{itemize}
+      \item Numerical modal extraction algorithms for large-scale problems
+            \begin{itemize}
+              \item Inverse iteration algorithm
+              \item Subspace algorithm
+              \item Lancoz's algorithm
+            \end{itemize}
     \end{itemize}
     \vspace{.5cm}
 
     \textbf{\large Recommended readings}
     \begin{itemize}
-      \item[(B)] Bathe, Finite Element Procedures in Engineering Analysis (chap. 10 and 11)
-      \item[(P)] Petyt, Introduction to finite element vibration analysis (chap. 11)
-      \item[(G)] Gmür, Dynamique des structures (§4.1 and §4.2)
       \item[(H)] Hughes, The finite element method (chap. 10)
+      \item[(G)] Gmür, Dynamique des structures (§4.1 and §4.2)
+      \item[(P)] Petyt, Introduction to finite element vibration analysis (chap. 11)
+      \item[(B)] Bathe, Finite Element Procedures in Engineering Analysis (chap. 11)
     \end{itemize}
   \end{frame}
 }
 
-\section{Recap week 10 \\ Analysis of free vibrations}
+\section{Recap week 10 \\ Eigenvalue problems}
  {\setbeamercolor{background canvas}{bg=darkred!5}
   \setbeamercolor{block body}{bg=darkred!5,fg=black}
   \begin{frame}{Free vibrations of non-rotating conservative systems}
@@ -179,17 +185,17 @@
               \mathbf{K} \mathbf{p} = \mathbf{0} \quad \text{for certain nonzero vectors } \mathbf{p}.
             \]
     \end{itemize}
-    Consequently, the eigenvalues \( \lambda_j\) of the generalized eigenvalue problem are all real and non-negative:
+    Consequently, the eigenvalues \( \lambda_j\) of the generalized eigenvalue problem are \textbf{all real and non-negative}:
     \[
       0 \,\leq\, \omega_1 \leq \omega_2 \leq \dots \leq \omega_n.
     \]
-
-    \begin{block}{}
+    \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
       \textbf{Rigid body modes:} zero eigenvalues (i.e., \( \omega_j = 0 \)) correspond to \emph{rigid body motions}, where the system undergoes displacement without internal deformation.
-    \end{block}
+    \end{tcolorbox}
   \end{frame}
 
   \begin{frame}{Orthonormalization of mode shapes}
+    \small
     \begin{block}{}
       Let $\mathbf p_i$ and $\mathbf p_j$ two eigenvectors corresponding to the  eigenvalues $\lambda_i$ and $\lambda_j$, then
       $$
@@ -199,290 +205,309 @@
       $$
       where $\delta_{ij}$ represent Kronecker symbol.
     \end{block}
-    \textbf{Consequences:} if we organize the modal vectors $\mathbf p_i$ in a so-called modal matrix $\mathbf P$:
-    $$\mathbf P=\left[ \begin{array}{c;{2pt/2pt}c;{2pt/2pt}c;{2pt/2pt}c}
-          \mathbf p_{1} & \mathbf p_{2} & \dots & \mathbf p_{n} \\
-        \end{array}\right]$$
-    then
-    \begin{block}{}
+    \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+      We organize the modal vectors $\mathbf p_i$ in a so-called \textbf{modal matrix} $\mathbf P$:
+      $$\mathbf P=\left[ \begin{array}{c;{2pt/2pt}c;{2pt/2pt}c;{2pt/2pt}c}
+            \mathbf p_{1} & \mathbf p_{2} & \dots & \mathbf p_{n} \\
+          \end{array}\right]$$
+      then
       $$  \mathbf P^T\mathbf M\mathbf P  =\mathbf I       \qquad\text{and}\qquad
         \mathbf P^T\mathbf K\mathbf P  =\mathbf\Lambda$$
-      where $\mathbf I$ is the identity matrix of order $n$ and $\mathbf\Lambda$ the \emph{spectral matrix}:
+      where $\mathbf I$ is the identity matrix of order $n$ and $\mathbf\Lambda$ the \textbf{spectral matrix}:
       $$\mathbf\Lambda=\text{diag}(\lambda_1,\dots,\lambda_n)=\text{diag}(\omega_1^2,\dots,\omega_n^2).$$
+    \end{tcolorbox}
+  \end{frame}
+
+  \begin{frame}{Small-scale modal extraction via the Rayleigh quotient}
+    \small
+    For a trial shape $\mathbf w\ne\mathbf 0$, the Rayleigh quotient estimates the squared angular frequency:
+    \[
+      \mathcal R(\mathbf w)=
+      \frac{\mathbf w^T\mathbf K\mathbf w}{\mathbf w^T\mathbf M\mathbf w},
+      \qquad \lambda_1\leq\mathcal R(\mathbf w)\leq\lambda_n .
+    \]
+    At each mode shape $\mathbf p_j$, the quotient is stationary and
+    $\mathcal R(\mathbf p_j)=\lambda_j=\omega_j^2$.
+    \begin{block}{Extracting modes in ascending order}
+      \begin{enumerate}
+        \item Minimize $\mathcal R(\mathbf w)$ over all nonzero trial shapes to obtain $\lambda_1$.
+        \item For mode $j>1$, minimize over shapes mass-orthogonal to all earlier modes:
+              \[
+                \lambda_j=\min_{\substack{\mathbf w\ne\mathbf 0\\
+                    \mathbf w^T\mathbf M\mathbf p_i=0,\ i=1,\ldots,j-1}}\mathcal R(\mathbf w).
+              \]
+      \end{enumerate}
+      At each step, mass-normalize the minimizing shape to obtain $\mathbf p_j$.
+      It satisfies $\mathbf K\mathbf p_j=\lambda_j\mathbf M\mathbf p_j$.
     \end{block}
   \end{frame}
  }
 
-\section{Numerical modal extraction algorithms}
+\section[Numerical modal extraction algorithms for small-scale problems]{Numerical modal extraction algorithms}
 
-\begin{frame}{Transformation to standard form by inversion}
-  \vspace{-0.5cm}
-  \begin{center}
-    \begin{tikzpicture}
-      \node (gev) at (-4,0) {
-        \begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=4.5cm]
-          \centering \textbf{Generalized eigenvalue problem} \\[5pt] $(\mathbf{K} - \lambda \mathbf{M})\mathbf p=\mathbf 0$
-        \end{tcolorbox}
-      };
-
-      \node (sev1) at (4,1.5) {
-        \begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=7.7cm]
-          \centering \textbf{Standard eigenvalue problem} \\[5pt]  $(\mathbf A - \lambda \mathbf{I})\mathbf p=\mathbf 0$ \\[5pt]
-          $\mathbf{A}=\mathbf{M}^{-1}\mathbf{K}$ dynamic stiffness matrix
-        \end{tcolorbox}
-      };
-
-      \node (sev2) at (4,-1.5) {
-        \begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=7.7cm]
-          \centering \textbf{Standard eigenvalue problem} \\[5pt]  $(\mathbf A - \theta \mathbf{I})\mathbf p=\mathbf 0$ \\[5pt]
-          $\mathbf{A}=\mathbf{K}^{-1}\mathbf{M}$ dynamic flexibility matrix \\
-          $\theta=1/\lambda$
-        \end{tcolorbox}
-      };
-      \draw[-latex, thick] (gev.east) -- (sev1.west) node[midway,sloped, above] {$\text{det}\mathbf M\neq 0$};
-
-      \draw[-latex, thick] (gev.east) -- (sev2.west) node[midway,sloped, below] {$\text{det}\mathbf K\neq 0$};
-    \end{tikzpicture}
-  \end{center}
-  \begin{block}{}
-    \centering \textcolor{darkred}{\textbf{The matrices $\mathbf{M}^{-1}\mathbf{K}$ and  $\mathbf{K}^{-1}\mathbf{M}$ are not symmetric.}}
+\begin{frame}{Generalized Jacobi method}
+  \small
+  Consider a \emph{small}, dense pair of matrices $(\mathbf K,\mathbf M)$ of order $q$, with $\mathbf K$ and $\mathbf M$ both symmetric and positive definite matrices.
+  We seek all $q$ modal pairs $(\lambda_j,\mathbf p_j)$ for $j=1,\dots q$.
+  \begin{block}{\small Why use Jacobi instead of repeated Rayleigh minimization?}
+    \begin{itemize}
+      \item Rayleigh minimization first gives $\lambda_1$ and $\mathbf p_1$, then to obtain mode $j$ requires solving repeated constrained minimization problems
+            $$\min_{\mathbf w^T\mathbf M\mathbf p_i=0,\ i<j}\mathcal R(\mathbf w).$$
+            Each additional mode introduces another mass-orthogonality constraint.
+      \item Generalized Jacobi applies a two-coordinate change of basis to both matrices at each pivot. It zeros the chosen stiffness and mass couplings together. When convergence is reached, all modes are obtained together:
+            \[
+              \mathbf P^T\mathbf K\mathbf P=\mathbf\Lambda,
+              \qquad \mathbf P^T\mathbf M\mathbf P=\mathbf I,
+            \]
+    \end{itemize}
   \end{block}
 \end{frame}
 
-\begin{frame}{Transformation to standard form by decomposition}
-  To reduce to a standard eigenvalue problem:
-  \vspace{0.2cm}
-  \begin{itemize}
-    \item Let \( \mathbf{L} \) be the \emph{Cholesky factor} of \( \mathbf{M} \): \( \mathbf{M} = \mathbf{L} \mathbf{L}^T\).
-          \begin{block}{}
-            Since $\mathbf M$ is symmetric positive-definite, $\mathbf L$ is a real lower triangular matrix with positive diagonal entries.
-          \end{block}
-    \item Define the change of variables \( \mathbf{v} = \mathbf{L}^T \mathbf{p} \). Substituting into the original problem and multiplying by \( \mathbf{L}^{-1} \) yields:
+\begin{frame}{Transformation methods}
+  \small
+  Start with $\mathbf K_0=\mathbf K$, $\mathbf M_0=\mathbf M$ and
+  $\mathbf P_0=\mathbf I$. Produce a sequence of matrices $\mathbf K_k$, $\mathbf M_k$ such that
+  $$\mathbf K_k\to \mathbf \Lambda\quad\mbox{and}\quad \mathbf M_k\to \mathbf P \quad\mbox{as } k \to \infty$$
+  \vspace{-0.4cm}
+  \begin{enumerate}
+    \item Choose a change of basis $\mathbf J_k$ to eliminate a coupling.
+          Apply it to both matrices and update the basis:
           \[
-            (\mathbf{K} - \omega^2 \mathbf{L} \mathbf{L}^T) \mathbf{p} =0
-            \quad \Rightarrow \quad
-            (\mathbf L^{-1}\mathbf{K}\mathbf L^{-T} - \omega^2 \mathbf{I}) \mathbf{v}=0.
+            \mathbf K_k=\mathbf J_k^T\mathbf K_{k-1}\mathbf J_k,\quad
+            \mathbf M_k=\mathbf J_k^T\mathbf M_{k-1}\mathbf J_k,\quad
+            \mathbf P_k=\mathbf P_{k-1}\mathbf J_k .
           \]
-    \item  Standard eigenvalue problem for symmetric and positive definite matrix \( \mathbf A=\mathbf L^{-1}\mathbf{K}\mathbf L^{-T}\):
+          The transformations $\mathbf J_k$ are selected to bring $\mathbf K_k$ and $\mathbf M_k$ closer to diagonal form.
+    \item Stop when both matrices are diagonal up to a tolerance. With $\mathbf P_\ell=\mathbf J_1\cdots\mathbf J_\ell$,
           \[
-            (\mathbf A - \lambda \mathbf{I})\mathbf v=\mathbf 0.
+            \mathbf P_\ell^T\mathbf K\mathbf P_\ell\approx\mathbf D_K,\qquad
+            \mathbf P_\ell^T\mathbf M\mathbf P_\ell\approx\mathbf D_M ,
           \]
-
-  \end{itemize}
-  \begin{block}{}
-    The eigenvalues or the standard problem are the same as those of the generalized problem, and the eigenvectors are related by \( \mathbf{p} = \mathbf{L}^{-T} \mathbf{v} \).
+  \end{enumerate}
+  \vspace{-0.2cm}
+  \begin{block}{Recover the modal pairs}
+    For column $\mathbf p_j$ of $\mathbf P_\ell$, mass normalization gives approximated mode shapes and approximated eigenvalues:
+    \vspace{-0.2cm}
+    $$\mathbf p_j/\sqrt{(\mathbf D_M)_{jj}}\quad\mbox{and}\quad \lambda_j\approx(\mathbf D_K)_{jj}/(\mathbf D_M)_{jj}.$$
   \end{block}
 \end{frame}
 
-\begin{frame}{Transformation to standard form by decomposition}
 
-
-  \begin{itemize}
-    \item   Cholesky decomposition can be applied to $\mathbf K$ as well, since $\mathbf K$ is symmetric positive-definite:
-          \[
-            \mathbf{K} = \mathbf{L} \mathbf{L}^T.
-          \]
-    \item  Standard eigenvalue problem for symmetric and positive definite matrix \( \mathbf A=\mathbf L^{-1}\mathbf{M}\mathbf L^{-T}\):
-          \[
-            (\mathbf A - \theta \mathbf{I})\mathbf v=\mathbf 0.
-          \]
-  \end{itemize}
-  \begin{block}{}
-    The eigenvalues or the standard problem are related to those of the generalized problem by \( \theta = 1/\lambda \), and the eigenvectors are related by \( \mathbf{p} = \mathbf{L}^{-T} \mathbf{v} \).
-  \end{block}
-\end{frame}
-
-\begin{frame}{Small and large scale problems}
+\begin{frame}{Jacobi method for a symmetric eigenproblem}
+  \small
+  When $\mathbf M=\mathbf I$, the modal problem becomes
+  $\mathbf K\mathbf p_j=\lambda_j\mathbf p_j$. We seek an orthonormal modal basis for which
+  \[
+    \mathbf P^T\mathbf K\mathbf P=\mathbf\Lambda,
+    \qquad \mathbf P^T\mathbf P=\mathbf I .
+  \]
   \vspace{-0.3cm}
-  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
-    Economical computation algorithms for extracting $(\lambda_j,\mathbf p_j)$ for $1\leq j \leq n_{modes}$ are required in practical applications, where $n_{modes}\ll n$ is the number of desired eigenpairs.
-  \end{tcolorbox}
+  \begin{block}{\small Build the modal basis two entries at a time}
+    Start with $\mathbf K_0=\mathbf K$ and $\mathbf P_0=\mathbf I$.
+    For a pair $i<j$, choose an orthogonal rotation $\mathbf J_1$ so that for the updated matrix
+    $$\mathbf K_1=\mathbf J_1^T\mathbf K_0\mathbf J_1$$
+    we have zeros in the off diagonal elements ${k_1}_{ij}=0$. Update the change of basis:
+    \[
+      \mathbf K_1=\mathbf J_1^T\mathbf K_{0}\mathbf J_1,
+      \qquad \mathbf P_1=\mathbf P_{0}\mathbf J_1 .
+    \]
+  \end{block}
+  After $k$ iterations, $\mathbf K_k$ approaches a diagonal form, its diagonal gives the eigenvalues
+  $$\mathbf K_k=\mathbf J_k^T\dots \mathbf J_{1}^T \mathbf K\mathbf J_1\dots\mathbf J_k$$
+  and $\mathbf P_k=\mathbf J_1\dots\mathbf J_k$ approximate the modal matrix.
+\end{frame}
 
-  \begin{columns}[T]
-    \begin{column}{.48\textwidth}
-      \textbf{Small-scale problems}
-      \begin{itemize}
-        \item system matrices are of modest size $n\leq 250$ or $250\leq n \leq 2500$ and small bandwidth matrices.
-        \item An explicit reduction to standard eigenvalue form is typically employed:
-              \begin{itemize}
-                \item\emph{Generalized Jacobi method}
-                \item \emph{Householder QR-algorithm}
-              \end{itemize}
-      \end{itemize}
+\begin{frame}{Choosing the Jacobi rotation}
+  \small
+  The $q\times q$ rotation $\mathbf J_{k}(\theta)$ acts in the $(i,j)$ plane
+  and leaves every other coordinate unchanged.
+  \vspace{0.2cm}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.53\textwidth}
+      \centering
+      \begin{tikzpicture}[x=0.95cm,y=0.52cm]
+        \node[anchor=east] at (-0.02,2) {$\mathbf J_{k}=$};
+        \draw (0.25,4.55)--(0.10,4.55)--(0.10,-0.55)--(0.25,-0.55);
+        \draw (4.90,4.55)--(5.05,4.55)--(5.05,-0.55)--(4.90,-0.55);
+        \node at (0.60,4) {$\mathbf I_{i-1}$};
+        \node at (2.60,2) {$\mathbf I_{j-i-1}$};
+        \node at (4.55,0) {$\mathbf I_{q-j}$};
+        \node at (1.48,3) {$\cos\theta$};
+        \node at (3.65,3) {$-\sin\theta$};
+        \node at (1.48,1) {$\sin\theta$};
+        \node at (3.65,1) {$\cos\theta$};
+        \node[darkred] at (1.48,4.95) {$i$};
+        \node[darkred] at (3.65,4.95) {$j$};
+        \node[darkred] at (5.30,3) {$i$};
+        \node[darkred] at (5.30,1) {$j$};
+      \end{tikzpicture}
     \end{column}
-    \begin{column}{.48\textwidth}
-      \textbf{Large-scale problems}
-      \begin{itemize}
-        \item $n\geq 2500$.
-        \item The most effective algorithms are:
-              \begin{itemize}
-                \item \emph{Subspace iteration method},
-                \item \emph{Lanczos' method},
-                \item \emph{Irons-Guyan reduction method},
-                \item \emph{Arnoldi method}
-                \item \emph{Davidson method}.
-              \end{itemize}
-      \end{itemize}
+    \begin{column}{.44\textwidth}
+      \small For $k_{ij}\ne0$ and $k_{ii}\ne k_{jj}$,
+      \[
+        \tan(2\theta)=\frac{2k_{ij}}{k_{ii}-k_{jj}},
+        \qquad |\theta|\leq\pi/4 .
+      \]
+      If $k_{ii}=k_{jj}$, take $\theta=\pi/4$.
     \end{column}
   \end{columns}
-\end{frame}
-
-
-\section{Rayleigh's quotient}
-
-\begin{frame}{Definition and first properties}
-  \begin{block}{}
-    Let $\mathbf w$ be a vector in $\mathbb R^n$, the \textbf{Rayleigh's quotient} associated to the matrix pair $(\mathbf K,\mathbf M)$ is defined as the scalar function:
-    $$\mathcal R(\mathbf w)=\frac{\mathbf w^T\mathbf K\mathbf w}{\mathbf w^T\mathbf M\mathbf w}$$
-  \end{block}
-  \textbf{Properties}
-  \begin{enumerate}
-    \item Homogeneity. Let $\alpha$ a non-zero constant, then
-          $$\mathcal{R}(\alpha\mathbf w)=\frac{(\alpha\mathbf w)^T\mathbf K(\alpha\mathbf w)}{(\alpha\mathbf w)^T\mathbf M(\alpha\mathbf w)}=\frac{\alpha^2\, \mathbf w^T\mathbf K\mathbf w}{\alpha^2\, \mathbf w^T\mathbf M\mathbf w}=\mathcal{R}(\mathbf w)$$
-    \item Rayleigh quotient of an eigenvector:
-          $$\mathcal{R}(\mathbf w=\mathbf p_i)=\frac{\mathbf p_i^T\mathbf K\mathbf p_i}{\mathbf p_i^T\mathbf M\mathbf p_i}=\lambda_i=\omega_i^2$$
-  \end{enumerate}
-\end{frame}
-
-\begin{frame}{Stationarity of Rayleigh's quotient}
-  First variation of Rayleigh's quotient:
-  \begin{align*}
-    \delta \mathcal{R}(\mathbf{w})
-     & = \frac{2(\bolddelta \mathbf{w}^T\mathbf{K} \mathbf{w})(\mathbf{w}^T\mathbf{M} \mathbf{w})
-    - 2(\mathbf{w}^T\mathbf{K} \mathbf{w})(\bolddelta\mathbf{w}^T\mathbf{M} \mathbf{w})}{(\mathbf{w}^T\mathbf{M} \mathbf{w})^2}              \\[0.8em]
-     & = \frac{2 \, \bolddelta \mathbf{w}^T}{\mathbf{w}^T\mathbf{M} \mathbf{w}}
-    \left( \mathbf{K} \mathbf{w} - \frac{\mathbf{w}^T\mathbf{K} \mathbf{w}}{\mathbf{w}^T\mathbf{M} \mathbf{w}} \mathbf{M} \mathbf{w} \right) \\[0.8em]
-     & = \frac{2 \, \bolddelta \mathbf{w}^T}{\mathbf{w}^T\mathbf{M} \mathbf{w}}
-    {\color{darkred}(\mathbf{K} - \mathcal{R}(\mathbf{w}) \mathbf{M})\mathbf{w}}
-  \end{align*}
-  \vspace{-0.3cm}
-  \begin{block}{\color{darkred} \textbf{Stationary Rayleigh's quotient in the vicinity of an modal shape !}}
-    If $\mathbf{w} = \mathbf{p}_i$ then
+  \vspace{0.2cm}
+  \begin{block}{Transformed off-diagonal entry}
     \[
-      (\mathbf{K} - \mathcal{R}(\mathbf{w}) \mathbf{M})\mathbf{w} = (\mathbf{K} - \lambda_i \mathbf{M}) \mathbf{p}_i  = 0
+      k_{ij}\gets k_{ij}\cos(2\theta)
+      -\tfrac12(k_{ii}-k_{jj})\sin(2\theta).
     \]
   \end{block}
 \end{frame}
 
-\begin{frame}{Rayleigh principle}
-  Modal expansion:
-  \[
-    \mathbf{w} = z_1 \mathbf{p}_1 + z_2 \mathbf{p}_2 + \cdots + z_i \mathbf{p}_i + \cdots + z_n \mathbf{p}_n = \mathbf{Pz}
-  \]
-  where
-  \begin{align*}
-    \mathbf{P} & = [\mathbf{p}_1, \mathbf{p}_2, \dots, \mathbf{p}_i, \dots, \mathbf{p}_n] \quad \text{modal matrix} \\
-    \mathbf{z} & = [z_1, z_2, \dots, z_i, \dots, z_n]^T \quad \text{coefficient vector }
-  \end{align*}
-  Then
-  \[
-    \mathcal{R}(\mathbf{w} = \mathbf{Pz}) = \frac{\mathbf{z}^T \mathbf{P}^T \mathbf{K} \mathbf{Pz}}{\mathbf{z}^T \mathbf{P}^T \mathbf{M} \mathbf{Pz}} = \frac{\mathbf{z}^T \mathbf{\Lambda} \mathbf{z}}{\mathbf{z}^T \mathbf{z}} =
-    \frac{\sum_{i=1}^n \lambda_i z_i^2}{\sum_{i=1}^n z_i^2}
-  \]
-
-  \bigskip
-  If, without loss of generality, we impose \( \mathbf{w}^T \mathbf{M} \mathbf{w} = 1 \), then $ \mathbf{z}^T \mathbf{z} = \sum_{i=1}^n z_i^2 = 1$ and
-  $$ \mathcal{R}(\mathbf{w} = \mathbf{Pz}) = \sum_{i=1}^n \lambda_i z_i^2 $$
-
-\end{frame}
-
-\begin{frame}{Rayleigh principle (continued)}
-  Let us consider an eigenvalue \( \lambda_j \), then we can rewrite the Rayleigh's quotient as:
-  \[
-    \mathcal{R}(\mathbf{w}) = \sum_{i=1}^n \lambda_i z_i^2 = \lambda_j - \lambda_j + \sum_{i=1}^n \lambda_i z_i^2 = \lambda_j - \lambda_j \left( \sum_{i=1}^n z_i^2 \right) + \sum_{i=1}^n \lambda_i z_i^2
-  \]
-  \[
-    = \lambda_j + \sum_{i=1}^n (\lambda_i - \lambda_j) z_i^2
-  \]
-
-  \bigskip
-
-  With eigenvalues ordered as \( \lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_i \leq \cdots \leq \lambda_n \), we have:
-  \begin{itemize}
-    \item If \( j = 1 \), then \( \lambda_i - \lambda_1 \geq 0 \) for all \( i \), hence
-          \[
-            \mathcal{R}(\mathbf{w}) = \lambda_1 + \sum_{i=1}^n (\lambda_i - \lambda_1) z_i^2 \geq \lambda_1.
-          \]
-    \item If \( j = n \), then \( \lambda_i - \lambda_n \leq 0 \) for all \( i \), hence
-          \[
-            \mathcal{R}(\mathbf{w}) = \lambda_n + \sum_{i=1}^n (\lambda_i - \lambda_n) z_i^2 \leq \lambda_n.
-          \]
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Rayleigh quotient bounding theorem}
-  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
-    \begin{itemize}
-      \item \textbf{Courant-Fischer formulas:}
-            \[
-              \mathcal{R}(\mathbf{w}) \geq \lambda_1 = \min_{\mathbf{w}} \mathcal{R}(\mathbf{w}) \]
-            \[
-              \mathcal{R}(\mathbf{w}) \leq \lambda_n = \max_{\mathbf{w}} \mathcal{R}(\mathbf{w})
-            \]
-      \item \textbf{Bounding theorem:}
-            \vspace{0.2cm}
-            \[
-              \lambda_1 \leq \mathcal{R}(\mathbf{w}) \leq \lambda_n
-            \]
-    \end{itemize}
-  \end{tcolorbox}
-\end{frame}
-
-\begin{frame}{Modal frequencies and shapes search via Rayleigh quotient minimization}
+\begin{frame}{From a rotation to a threshold Jacobi sweep}
+  \small
+  One \textbf{sweep} visits all pairs $i<j$ in row order. Later rotations may
+  reintroduce a coupling eliminated earlier.
   \begin{enumerate}
-    \item[(1)] Find $\lambda_1$ by minimization: $$\lambda_1 = \min_{\mathbf{w}}
-            \mathcal{R}(\mathbf{w})$$
-    \item[(2)] Find $\mathbf p_1$ by solving $(\mathbf{K} - \lambda_1 \mathbf{M}) \mathbf{p}_1  = 0$.
-          \vspace{0.3cm}
-    \item[(3)] Find $\lambda_2$ by minimization: $$\lambda_2 = \min_{\mathbf{w}} [\mathcal{R}(\mathbf{w}); \, \mathbf{w}^T \mathbf{M} \mathbf{p}_1 = 0]$$
-    \item[(4)] Find $\mathbf p_2$ by solving $(\mathbf{K} - \lambda_2 \mathbf{M}) \mathbf{p}_2  = 0$.
+    \item For the positive-definite stiffness matrix, measure
+          the coupling relative to the two diagonal entries:
           \[
-            \vdots
+            c_{ij}=\frac{|k_{ij}|}{\sqrt{k_{ii}k_{jj}}}.
           \]
-    \item[(j)]  Find $\lambda_j$ by minimization: $$\lambda_j = \min_{\mathbf{w}} [\mathcal{R}(\mathbf{w}); \, \mathbf{w}^T \mathbf{M} \mathbf{p}_i = 0, \, i = 1, 2, \dots, j-1]$$
-    \item[(j+1)] Find $\mathbf p_j$ by solving $(\mathbf{K} - \lambda_j \mathbf{M}) \mathbf{p}_j  = 0$.
+    \item In sweep $m=1,2,\ldots$, rotate only if $c_{ij}>10^{-2m}$.
+          Sweep~1 removes the larger couplings first; subsequent sweeps use a lower threshold.
+    \item After a sweep, check that all couplings are small and that the
+          diagonal estimates have stabilized. Sort the final diagonal values
+          and apply the same permutation to the columns of $\mathbf P$.
   \end{enumerate}
 \end{frame}
 
-\section{Example: Longitudinal vibrations of a free-free bar}
+\begin{frame}{MATLAB example - the Jacobi method}
+  \begin{center}
+    \href{https://drive.mathworks.com/sharing/6a9792ef-d0a7-4aca-a1d0-8b1862b0ac3b}{\beamergotobutton{Go to Matlab Drive}}
+  \end{center}
+\end{frame}
 
-\begin{frame}{Rayleigh quotient for longitudinal vibrations of free-free bar}
-  Consider a free-free bar discretized by one bilinear element.
-  \begin{columns}
-    \column{0.65\textwidth}
-    \begin{center}
-      \begin{tikzpicture}[scale=0.6]
-        % Draw the rectangle
-        \filldraw[fill=gray!60, draw=black,thick] (0,-0.6) rectangle (10,0.6);
-        %axis
-        \draw[-latex, ultra thin] (-1,0) -- (11,0) node[right]{$x$};
-        % length
-        \draw[ultra thin] (10,0) -- (10, 1.3) ;
-        \draw[ultra thin] (0,0) -- (0,1.3);
-        \draw[latex-latex, ultra thin]  (0,1)  to node[sloped,midway,above] {$\ell$}(10,1) ;
-        \draw[ultra thin]  (7,-0.3) -- (8,-1.2) node[right]{$E,A,\rho$};
-
-        \fill (0,0) circle (3pt) node[below right] {$x_1$};
-        \fill (10,0) circle (3pt) node[below right] {$x_3$};
-        \draw[fill=white, draw=black] (5,0) circle (3pt) node[below right] {$x_2$};
-      \end{tikzpicture}
-    \end{center}
-    \column{0.5\textwidth}
-    {\small \begin{itemize}
-        \item $\ell$ length
-        \item $A$ cross-sectional area
-        \item $E$ Young's modulus
-        \item $\rho$ material density
-      \end{itemize}}
+\begin{frame}{From standard to generalized Jacobi}
+  \small
+  A pivot still acts on two coordinates $i,j$. What changes is the
+  condition that the new basis vectors must satisfy.
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.48\textwidth}
+      \begin{block}{\small Standard problem: $\mathbf M=\mathbf I$}
+        An orthogonal rotation preserves mass:
+        \[
+          \mathbf J_k^T\mathbf I\,\mathbf J_k=\mathbf I .
+        \]
+        Choose one angle $\theta$ to zero the stiffness entry
+        $(\mathbf K_k)_{ij}$.
+      \end{block}
+    \end{column}
+    \begin{column}{.48\textwidth}
+      \begin{block}{\small Generalized problem:  $\mathbf M \neq \mathbf I$}
+        The same change of basis acts on stiffness and mass. Choose
+        $\mathbf J_k$ to satisfy two conditions:
+        \[
+          (\mathbf K_k)_{ij}=(\mathbf M_k)_{ij}=0 .
+        \]
+        The new directions are mass-orthogonal.
+      \end{block}
+    \end{column}
   \end{columns}
-  \begin{block}{}
-    \textbf{Objective}:\newline\noindent
-    Compute the approximated natural frequencies and corresponding mode shapes via the minimization of Rayleigh's quotient
+  \medskip
+  \textbf{Why can one angle be insufficient?}
+  Even if the current mass block is diagonal, an ordinary rotation produces
+  $m'_{ij}=(m_{jj}-m_{ii})\sin\theta\cos\theta$.
+  Unequal diagonal masses can therefore acquire a coupling.
+\end{frame}
+
+\begin{frame}{Choosing the generalized Jacobi transformation}
+  \small
+  Start with $\mathbf K_0=\mathbf K$, $\mathbf M_0=\mathbf M$ and $\mathbf P_0=\mathbf I$. At step $k$, choose a pivot pair $i<j$.
+  \vspace{0.2cm}
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{.53\textwidth}
+      \centering
+      \begin{tikzpicture}[x=0.95cm,y=0.52cm]
+        \node[anchor=east] at (-0.02,2) {$\mathbf J_{k}=$};
+        \draw (0.25,4.55)--(0.10,4.55)--(0.10,-0.55)--(0.25,-0.55);
+        \draw (4.90,4.55)--(5.05,4.55)--(5.05,-0.55)--(4.90,-0.55);
+        \node at (0.60,4) {$\mathbf I_{i-1}$};
+        \node at (2.60,2) {$\mathbf I_{j-i-1}$};
+        \node at (4.55,0) {$\mathbf I_{q-j}$};
+        \node at (1.48,3) {$1$};
+        \node at (3.65,3) {$\alpha$};
+        \node at (1.48,1) {$\gamma$};
+        \node at (3.65,1) {$1$};
+        \node[darkred] at (1.48,4.95) {$i$};
+        \node[darkred] at (3.65,4.95) {$j$};
+        \node[darkred] at (5.30,3) {$i$};
+        \node[darkred] at (5.30,1) {$j$};
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{.46\textwidth}
+      Choose $\alpha$ and $\gamma$ to eliminate both pivot entries in $\mathbf K_k$ and $\mathbf M_k$:
+      \[
+        \begin{aligned}
+          k_{ii}\alpha+k_{jj}\gamma+k_{ij}(1+\alpha\gamma) & =0,  \\
+          m_{ii}\alpha+m_{jj}\gamma+m_{ij}(1+\alpha\gamma) & =0 .
+        \end{aligned}
+      \]
+      For $\mathbf M_{k-1}=\mathbf I$, $\alpha=-\gamma$.
+      Normalizing the pivot columns recovers the standard rotation
+      with $\gamma=\tan\theta$.
+    \end{column}
+  \end{columns}
+  \begin{block}{\small Update at step $k$}
+    As for the standard Jacobi method :
+    \[
+      \mathbf K_k=\mathbf J_k^T\mathbf K_{k-1}\mathbf J_k,\quad
+      \mathbf M_k=\mathbf J_k^T\mathbf M_{k-1}\mathbf J_k,\quad
+      \mathbf P_k=\mathbf P_{k-1}\mathbf J_k .
+    \]
   \end{block}
 \end{frame}
 
-\begin{frame}{MATLAB example - longitudinal vibrations of free-free bar}
+\begin{frame}{Generalized Jacobi sweeps and computational cost}
+  \small
+  A sweep visits $q(q-1)/2$ pairs. For a positive-definite pair, apply
+  the pivot if either scaled coupling exceeds the sweep threshold:
+  \[
+    c^K_{ij}=\frac{|k_{ij}|}{\sqrt{k_{ii}k_{jj}}},\qquad
+    c^M_{ij}=\frac{|m_{ij}|}{\sqrt{m_{ii}m_{jj}}}.
+  \]
+  Later pivots can reintroduce couplings. Stop when both sets are small
+  and the stiffness-to-mass ratios have stabilized.
+  \begin{block}{\small Recover the modal pairs after the last step $\ell$}
+    \[
+      \lambda_j\simeq\frac{(\mathbf K_\ell)_{jj}}{(\mathbf M_\ell)_{jj}},\qquad
+      \mathbf p_j=\frac{\mathbf P_\ell(:,j)}{\sqrt{(\mathbf M_\ell)_{jj}}}.
+    \]
+    Sort the eigenvalues in ascending order and reorder the mode shapes.
+  \end{block}
+  Each pivot updates two rows or columns at a cost of $O(q)$.
+  For a dense pair of order $q$, $s$ full sweeps cost $O(sq^3)$ work
+  and require $O(q^2)$ storage.
+\end{frame}
+
+\begin{frame}{Accuracy of the generalized Jacobi solution}
+  \small
+  \begin{itemize}
+    \item \textbf{Standard Jacobi.} For symmetric $\mathbf K$, cyclic row sweeps with
+          $|\theta|\leq\pi/4$ drive $S(\mathbf K)=\sum_{r\ne s}k_{rs}^2$ to zero.
+          Each rotation reduces $S$ by $2k_{ij}^2$, even if earlier couplings reappear.
+    \item \textbf{Generalized Jacobi.} For symmetric $\mathbf K$ and $\mathbf M$ symmetric and positive-definite, global convergence depends on the transformation and pivot order.
+          With simple eigenvalues, cyclic Falk--Langemeyer sweeps converge
+          quadratically near diagonal form.
+  \end{itemize}
+  \begin{block}{\small Check the computed modes against the original matrices}
+    \[
+      \mathbf r_j=\mathbf K\mathbf p_j-\lambda_j\mathbf M\mathbf p_j,\qquad
+      \eta_j=\frac{\|\mathbf r_j\|_2}
+      {(\|\mathbf K\|_2+|\lambda_j|\,\|\mathbf M\|_2)\,\|\mathbf p_j\|_2}.
+    \]
+    Check $\eta_j$ for every mode and $\|\mathbf P^T\mathbf M\mathbf P-\mathbf I\|_2$
+    against the chosen tolerances.
+  \end{block}
+\end{frame}
+
+\begin{frame}{MATLAB example - the generalized Jacobi method}
   \begin{center}
     \href{https://drive.mathworks.com/sharing/6a9792ef-d0a7-4aca-a1d0-8b1862b0ac3b}{\beamergotobutton{Go to Matlab Drive}}
   \end{center}
@@ -654,6 +679,13 @@
     \item If $\varepsilon=10^{-2s}$ , then approximately \( 2s \) correct digits of the eigenvector are obtained and \( s \) correct digits of the eigenvalue.
   \end{itemize}
 \end{frame}
+
+\begin{frame}{MATLAB example - inverse iteration method}
+  \begin{center}
+    \href{https://drive.mathworks.com/sharing/6a9792ef-d0a7-4aca-a1d0-8b1862b0ac3b}{\beamergotobutton{Go to Matlab Drive}}
+  \end{center}
+\end{frame}
+
 
 \section{Subspace iteration method}
 

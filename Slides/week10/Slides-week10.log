@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  9 NOV 2026 13:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  24 NOV 2026 16:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1165,12 +1165,12 @@ Package translations Info: loading dictionary `translations-basic-dictionary' fo
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  (./Slides-week10.nav)
-<../images/epfl_logo.png, id=45, 1027.84pt x 578.16pt>
+<../images/epfl_logo.png, id=37, 1027.84pt x 578.16pt>
 File: ../images/epfl_logo.png Graphic file (type png)
 <use ../images/epfl_logo.png>
 Package pdftex.def Info: ../images/epfl_logo.png  used on input line 20.
 (pdftex.def)             Requested size: 56.9055pt x 32.00621pt.
-<../images/ModalDecomposition.png, id=46, 551.81157pt x 217.5628pt>
+<../images/ModalDecomposition.png, id=38, 551.81157pt x 217.5628pt>
 File: ../images/ModalDecomposition.png Graphic file (type png)
 <use ../images/ModalDecomposition.png>
 Package pdftex.def Info: ../images/ModalDecomposition.png  used on input line 20.
@@ -1205,26 +1205,28 @@ Overfull \hbox (23.5814pt too wide) in paragraph at lines 49--49
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [4
 
 ]
-<../images/shell6.jpeg, id=83, 1936.23375pt x 774.895pt>
-File: ../images/shell6.jpeg Graphic file (type jpg)
-<use ../images/shell6.jpeg>
-Package pdftex.def Info: ../images/shell6.jpeg  used on input line 82.
-(pdftex.def)             Requested size: 284.3659pt x 113.81102pt.
- [5
-
- <../images/shell6.jpeg>] [6
+Missing character: There is no ; in font nullfont!
+[5
 
 ]
-<../images/shellQuad8.jpeg, id=108, 1646.15pt x 726.715pt>
+<../images/shell6.jpeg, id=91, 1936.23375pt x 774.895pt>
+File: ../images/shell6.jpeg Graphic file (type jpg)
+<use ../images/shell6.jpeg>
+Package pdftex.def Info: ../images/shell6.jpeg  used on input line 137.
+(pdftex.def)             Requested size: 284.3659pt x 113.81102pt.
+ [6
+
+ <../images/shell6.jpeg>] [7
+
+]
+<../images/shellQuad8.jpeg, id=113, 1646.15pt x 726.715pt>
 File: ../images/shellQuad8.jpeg Graphic file (type jpg)
 <use ../images/shellQuad8.jpeg>
-Package pdftex.def Info: ../images/shellQuad8.jpeg  used on input line 109.
+Package pdftex.def Info: ../images/shellQuad8.jpeg  used on input line 164.
 (pdftex.def)             Requested size: 354.46796pt x 156.49014pt.
- [7
+ [8
 
- <../images/shellQuad8.jpeg>] [8
-
-] [9
+ <../images/shellQuad8.jpeg>] [9
 
 ] [10
 
@@ -1238,61 +1240,53 @@ Package pdftex.def Info: ../images/shellQuad8.jpeg  used on input line 109.
 
 ] [15
 
-]
-Overfull \vbox (0.42682pt too high) detected at line 287
- []
-
-[16
+] [16
 
 ] [17
 
 ] [18
 
-]
-Overfull \vbox (4.09546pt too high) detected at line 357
- []
-
-[19
+] [19
 
 ] [20
 
-]
-Overfull \hbox (2.84286pt too wide) detected at line 399
-[][][] $[]$[][][][][][][][] $[]$[][][][][][] 
- []
-
-[21
+] [21
 
 ] [22
 
 ] [23
 
 ]
-Overfull \hbox (10.14433pt too wide) in paragraph at lines 441--441
- [] 
+Overfull \vbox (4.09546pt too high) detected at line 533
  []
 
 [24
 
 ] [25
 
-] [26
+]
+Overfull \hbox (2.84286pt too wide) detected at line 575
+[][][] $[]$[][][][][][][][] $[]$[][][][][][] 
+ []
+
+[26
 
 ] [27
 
 ] [28
 
-] [29
+]
+Overfull \hbox (10.14433pt too wide) in paragraph at lines 617--617
+ [] 
+ []
+
+[29
 
 ] [30
 
 ] [31
 
-]
-Overfull \vbox (5.7939pt too high) detected at line 583
- []
-
-[32
+] [32
 
 ] [33
 
@@ -1308,19 +1302,15 @@ Overfull \vbox (5.7939pt too high) detected at line 583
 
 ] [39
 
-] [40
-
 ]
-LaTeX Font Info:    Trying to load font information for U+ding on input line 733.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/bbding/Uding.fd
-File: Uding.fd 1996/02/01 v1.0 BBding font definitions
-) [41
+Overfull \vbox (5.7939pt too high) detected at line 852
+ []
+
+[40
+
+] [41
 
 ] [42
-
-] [43
-
-] [44
 
 ]
 \tf@nav=\write6
@@ -1338,21 +1328,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `Slides-week10.out' has not changed.
-(rerunfilecheck)             Checksum: C03517CD064E7B3D08A857262583A81F;2505.
+(rerunfilecheck)             Checksum: 2DDBB3D17BB7194AD704D833844950EA;1574.
  ) 
 Here is how much of TeX's memory you used:
- 50153 strings out of 474116
- 1217871 string characters out of 5743682
- 1950187 words of memory out of 5000000
- 71538 multiletter control sequences out of 15000+600000
- 573648 words of font info for 92 fonts, out of 8000000 for 9000
+ 50171 strings out of 474116
+ 1218531 string characters out of 5743682
+ 1951187 words of memory out of 5000000
+ 71566 multiletter control sequences out of 15000+600000
+ 573470 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,27n,134p,896b,1147s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Slides-week10.pdf (44 pages, 621976 bytes).
+ 128i,27n,134p,896b,1362s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
+Output written on Slides-week10.pdf (42 pages, 648255 bytes).
 PDF statistics:
- 558 PDF objects out of 1000 (max. 8388607)
- 410 compressed objects within 5 object streams
- 97 named destinations out of 1000 (max. 500000)
- 133 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 540 PDF objects out of 1000 (max. 8388607)
+ 392 compressed objects within 4 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 123 words of extra memory for PDF output out of 10000 (max. 10000000)
 
