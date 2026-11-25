@@ -93,10 +93,10 @@ which corresponds to approximately 10.2\%. This level of accuracy is typical for
 
 \subsection*{Problem 2}
 \begin{enumerate}
-    \item Element assembly. For the nodal twist on one element, the two linear shape functions have derivatives $-1/h$ and $1/h$. Integration of the stiffness and inertia terms gives
+    \item For the one element discretization of length $h$, as done in Problem 1, the two linear shape functions have derivatives $-1/h$ and $1/h$. Integration of the stiffness and inertia terms gives
           \[
               {}^e\vct K=\frac{GI_p}{h}\colv{1&-1\\-1&1},
-              \qquad \vct {}^eM=\frac{\rho I_ph}{6}\colv{2&1\\1&2}.
+              \qquad  {}^e\vct M=\frac{\rho I_ph}{6}\colv{2&1\\1&2}.
           \]
           Each interior node belongs to two elements. Each free end belongs to one. Assembling and scaling with $h=\ell/4$ gives
           \[
@@ -132,26 +132,25 @@ which corresponds to approximately 10.2\%. This level of accuracy is typical for
                   \bottomrule
               \end{tabular}\\[-1pt]
           \end{center}
-          The continuum problem $GI_p\varphi''+\rho I_p\omega^2\varphi=0$, $\varphi'(0)=\varphi'(\ell)=0$ gives $\Omega_k=k\pi$ and $\varphi_k=\cos(k\pi x/\ell)$. At the nodes $x_j=j\ell/4$ one has $\varphi_k(x_j)=\cos(jk\pi/4)=p_j^{(k)}$: \emph{the five-node FE eigenvectors coincide with the samples of the exact modes}, so $\mathrm{MAC}_{\bM}=1$ for all $k$. Between nodes the FE shape is piecewise linear. The frequencies, on the other hand, are all overestimated (a Ritz-type property of the consistent mass model), and the error grows with $k$ because the mode has fewer elements per half-wave: $2.6\%$ for $k=1$ (four elements per half-wave) against $19.5\%$ for $k=3$. Only the lowest elastic mode is reasonably resolved by this mesh.
-    \item For $\vct p=\vct R\vct p^*$ stationarity of the Rayleigh quotient gives $\vct R\T(\bK\vct R\vct p^*-\Lambda^*\bM\vct R\vct p^*)=\vct0$, i.e.\ the $2\times2$ problem $\vct K^*\vct p^*=\Lambda^*\vct M^*\vct p^*$. Write $\vct R=[\vct r_1\ \vct r_2]$ with $\vct r_1=\vct 1$ and $\vct r_2=(16,11,0,-11,-16)\T$. Then:
+          The continuum problem $GI_p\varphi''+\rho I_p\omega^2\varphi=0$, $\varphi'(0)=\varphi'(\ell)=0$ gives $\Omega_k=k\pi$ and $\varphi_k=\cos(k\pi x/\ell)$. At the nodes $x_j=j\ell/4$ one has $\varphi_k(x_j)=\cos(jk\pi/4)=p_j^{(k)}$: the five-node FE eigenvectors coincide with the samples of the exact modes, so $\mathrm{MAC}_{\bM}=1$ for all $k$. Between nodes the FE shape is piecewise linear. The frequencies, on the other hand, are all overestimated (a Ritz-type property of the consistent mass model), and the error grows with $k$ because the mode has fewer elements per half-wave: $2.6\%$ for $k=1$ (four elements per half-wave) against $19.5\%$ for $k=3$. Only the lowest elastic mode is reasonably resolved by this mesh.
+    \item For $\vct p=\vct R\vct p^*$ stationarity of the Rayleigh quotient gives $\vct R\T(\bK\vct R\vct p^*-\Lambda^*\bM\vct R\vct p^*)=\vct0$, i.e.\ the $2\times2$ problem $\vct K^*\vct p^*=\Lambda^*\vct M^*\vct p^*$. Write $\vct R=[\vct r_1\ \vct r_2]$ with $\vct r_1=(1,1,1,1,1)\T$ and $\vct r_2=(16,11,0,-11,-16)\T$. Then:
           \begin{itemize}
-              \item $K^*_{11}=K^*_{12}=0$ because $\bK\vct 1=\vct0$;
+              \item $K^*_{11}=K^*_{12}=0$ because $\bK\vct r_1=\vct0$;
               \item $K^*_{22}=4\left[(16-11)^2+(11-0)^2+(0+11)^2+(-11+16)^2\right]=4\cdot292=1168$;
-              \item $M^*_{11}=\vct1\T\bM\vct1=1$ (the total dimensionless mass), and $\vct1\T\bM=(1,2,2,2,1)/8$ gives $M^*_{12}=\tfrac18(16+22-22-16)=0$;
+              \item $M^*_{11}=\vct r_1\T\bM\vct r_1=1$ (the total dimensionless mass), and $\vct r_1\T\bM=(1,2,2,2,1)/8$ gives $M^*_{12}=\tfrac18(16+22-22-16)=0$;
               \item $M^*_{22}=\frac1{24}\sum_{\rm elements}2(a^2+ab+b^2)=\frac{2696}{24}=\frac{337}{3}$.
           \end{itemize}
           Hence
           \[
               \vct K^*=\colv{0&0\\0&1168},\qquad
-              \vct M^*=\colv{1&0\\0&337/3},\qquad
-              \Lambda^*_0=0,\quad \Lambda^*_1=\frac{3504}{337}\approx10.397626,
+              \vct M^*=\colv{1&0\\0&337/3}.
           \]
-          with reduced eigenvectors $\vct p_0^*=(1,0)\T$ and $\vct p_1^*=(0,1)\T$, so $\Omega_1^*=3.224535$. Recovering $\vct p=\vct R\vct p^*$ and scaling to unit left-end amplitude,
+          Thus $\Lambda^*_0=0$, and $\Lambda^*_1=\frac{3504}{337}\approx10.397626$ with reduced eigenvectors $\vct p_0^*=(1,0)\T$ and $\vct p_1^*=(0,1)\T$, so $\Omega_1^*=3.224535$. Recovering $\vct p=\vct R\vct p^*$ and scaling to unit left-end amplitude,
           \[
               \vct p_0=(1,1,1,1,1)\T,\qquad
               \vct p_1=(1,\tfrac{11}{16},0,-\tfrac{11}{16},-1)\T .
           \]
-          The second column is antisymmetric about the midpoint and has zero slope at both ends, so it is a good approximation of $\cos(\pi s)$; the constant column reproduces the rigid mode exactly.
+          The second column is antisymmetric about the midpoint and has zero slope at both ends, so it is a good approximation of $\cos(\pi x)$; the constant column reproduces the rigid mode exactly.
           resolved by this mesh.
     \item The one-element model of Problem~1 has $\Lambda_0=0$ with $\vct p=(1,1)\T$ and $\Lambda_1=12$ with $\vct p=(1,-1)\T$; its mode is a straight line, which sampled at the five nodes reads $(1,\tfrac12,0,-\tfrac12,-1)\T$.
           \begin{center}
@@ -163,7 +162,7 @@ which corresponds to approximately 10.2\%. This level of accuracy is typical for
                   Exact continuum   & $9.869604$  & $3.141593$ & --               & --                & $1$        \\
                   One element       & $12$        & $3.464102$ & $10.266\%$       & $21.585\%$        & $0.986136$ \\
                   Full five-node FE & $10.386642$ & $3.222831$ & $2.586\%$        & $5.239\%$         & $1$        \\
-                  Ritz, $\vct R$    & $10.397626$ & $3.224535$ & $2.640\%$        & $5.350\%$         & $0.999906$ \\
+                  Rayleigh-Ritz     & $10.397626$ & $3.224535$ & $2.640\%$        & $5.350\%$         & $0.999906$ \\
                   \bottomrule
               \end{tabular}
           \end{center}
@@ -178,7 +177,7 @@ which corresponds to approximately 10.2\%. This level of accuracy is typical for
           \end{itemize}
 
           \begin{center}
-              \begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+              \begin{tikzpicture}[x=1cm,y=1cm,font=\small,scale=2]
                   \node[anchor=south] at (2,0.84) {First elastic mode, left end $=1$};
                   \draw[gray!55] (0,0)--(4.03,0);
                   \draw[gray!55] (0,-0.78)--(0,0.78);
@@ -190,13 +189,23 @@ which corresponds to approximately 10.2\%. This level of accuracy is typical for
                   \node[anchor=north,align=center] at (2,-.78) {\scriptsize Continuum (line), FE (dashes), one element (dots), Ritz (circles)};
               \end{tikzpicture}
           \end{center}
-    \item Now $\vct R=[\vct r_1\ \vct r_2]$ with $\vct r_1=(2,-1,0,-1,2)\T$ and $\vct r_2=(0,1,-2,1,0)\T$. Direct evaluation gives $\vct r_1\T\bK\vct r_1=\vct r_2\T\bK\vct r_2=4\cdot20=80$, $\vct r_1\T\bK\vct r_2=4(-12)=-48$, $\vct r_1\T\bM\vct r_1=\vct r_2\T\bM\vct r_2=\tfrac23$ and $\vct r_1\T\bM\vct r_2=0$, so
+    \item Now $\vct R=[\vct r_1\ \vct r_2]$ with $\vct r_1=(2,-1,0,-1,2)\T$ and $\vct r_2=(0,1,-2,1,0)\T$. Direct evaluation gives
+          \[
+              \begin{aligned}
+                   & \vct r_1\T\bK\vct r_1=\vct r_2\T\bK\vct r_2=4\cdot20=80 \\
+                   & \vct r_1\T\bK\vct r_2=4(-12)=-48                        \\
+                   & \vct r_1\T\bM\vct r_1=\vct r_2\T\bM\vct r_2=\tfrac23    \\
+                   & \vct r_1\T\bM\vct r_2=0
+              \end{aligned}
+          \]
+          So
           \[
               \vct K^*=\colv{80&-48\\-48&80},\qquad
-              \vct M^*=\tfrac23\vct I,\qquad
-              (\Lambda^*,\vct p^*)=(48,(1,1)\T),\ (192,(1,-1)\T).
+              \vct M^*=\tfrac23\colv{1&0\\1&1}.
           \]
-          The recovered shapes $\vct r_1\pm\vct r_2$, scaled at the left end, are $(1,0,-1,0,1)\T$ and $(1,-1,1,-1,1)\T$.
+          Thus the Ritz pairs are
+          $$\Lambda^*_1=48,\ \vct p^*_1=(1,1)\T\qquad\mbox{and}\qquad \Lambda^*_2=192,\ \vct p^*_2=(1,-1)\T.$$
+          The recovered shapes, scaled at the left end, are $\mathbf p_0=(1,0,-1,0,1)\T$ and $\mathbf p_0=(1,-1,1,-1,1)\T$.
 
           Which modes are returned ? Computing $\mathrm{MAC}_{\bM}$ against all five FE modes gives $1$ for $k=2$ (first pair) and $k=4$ (second pair) and $0$ for the others. The reason is structural:
           \begin{itemize}
@@ -220,7 +229,7 @@ which corresponds to approximately 10.2\%. This level of accuracy is typical for
           Against the continuum value $\pi^2$ the second error would be $1845.4\%$. Both returned pairs have \emph{zero} residual $\bK\vct p-\Lambda\bM\vct p$ with respect to the full five-node model: a residual only certifies that a pair is an eigenpair of the full problem, not \emph{which} one. Eigenvalue ordering is not a reliable label either, as the first returned eigenvalue is the third of the full model. The mode identification is provided by $\mathrm{MAC}_{\bM}$, which is why it is part of the error check.
 
           \begin{center}
-              \begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+              \begin{tikzpicture}[x=1cm,y=1cm,font=\small,scale=2]
                   \node[anchor=south] at (2,0.84) {Modes returned by $\vct R=[\vct r_1\ \vct r_2]$ of item 4};
                   \draw[gray!55] (0,0)--(4.03,0);
                   \draw[gray!55] (0,-0.78)--(0,0.78);

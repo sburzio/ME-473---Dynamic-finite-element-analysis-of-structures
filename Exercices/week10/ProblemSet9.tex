@@ -53,9 +53,9 @@ $\omega_2^{approx}=\sqrt{12G/\rho}/\ell$ for the first elastic torsional mode. I
           \]
           Assemble $\bK$ and $\bM$ using the element stiffness and consistent mass
           matrices from Problem 1. Solve $\bK\vct p=\Lambda\bM\vct p$ with
-          \texttt{eig}, sort the five eigenpairs. Number the modes from $k=0$ (rigid rotation) and check $\bK\vct p_1=\vct 0$. Compare the frequencies and nodal shapes with the exact continuum modes
+          \texttt{eig}, sort the five eigenpairs. Number the modes from $k=0$ (rigid rotation). Compare the frequencies and nodal shapes with the exact continuum modes
           $\Omega_k=k\pi$, $\varphi_k(x)=\cos(k\pi x/\ell)$, for $k=0,\ldots,4$.
-    \item Reduce the generalized eigenvalue problem from five coordinates to two using the two trial vectors of $\vct R$ below.
+    \item Using the Rayleigh-Ritz procedure, reduce the generalized eigenvalue problem from order five to order two using the two trial vectors of $\vct R$ below.
           %The second column samples the smooth twist $16(1-6s^2+4s^3)$ at $s=x/\ell$.
           Form $\vct K^*=\vct R\T\bK\vct R $ and $\vct M^*=\vct R\T\bM\vct R$, solve the $2\times2$ generalized eigenvalue problem and recover both five-component modes as ${\vct p}=\vct R\vct p^*$.
           \[
