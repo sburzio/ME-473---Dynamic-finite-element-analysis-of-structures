@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  24 NOV 2026 22:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.12)  25 NOV 2026 16:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1238,13 +1238,13 @@ Overfull \hbox (23.5814pt too wide) in paragraph at lines 49--49
 
 ] [23
 
+] [24
+
 ]
-Overfull \vbox (1.33073pt too high) detected at line 564
+Overfull \vbox (1.33073pt too high) detected at line 603
  []
 
-[24
-
-] [25
+[25
 
 ] [26
 
@@ -1260,13 +1260,13 @@ Overfull \vbox (1.33073pt too high) detected at line 564
 
 ] [32
 
+] [33
+
 ]
 
-LaTeX Font Warning: Command \small invalid in math mode on input line 733.
+LaTeX Font Warning: Command \small invalid in math mode on input line 772.
 
-[33
-
-] [34
+[34
 
 ] [35
 
@@ -1274,13 +1274,13 @@ LaTeX Font Warning: Command \small invalid in math mode on input line 733.
 
 ] [37
 
+] [38
+
 ]
-LaTeX Font Info:    Trying to load font information for U+ding on input line 823.
+LaTeX Font Info:    Trying to load font information for U+ding on input line 862.
  (/usr/local/texlive/2024/texmf-dist/tex/latex/bbding/Uding.fd
 File: Uding.fd 1996/02/01 v1.0 BBding font definitions
-) [38
-
-] [39
+) [39
 
 ] [40
 
@@ -1288,13 +1288,13 @@ File: Uding.fd 1996/02/01 v1.0 BBding font definitions
 
 ] [42
 
+] [43
+
 ]
-Overfull \vbox (4.49716pt too high) detected at line 912
+Overfull \vbox (4.49716pt too high) detected at line 951
  []
 
-[43
-
-] [44
+[44
 
 ] [45
 
@@ -1331,15 +1331,15 @@ Package rerunfilecheck Info: File `Slides-week11.out' has not changed.
 (rerunfilecheck)             Checksum: 2C7A830791CDF763EB012BBC6178EB15;1141.
  ) 
 Here is how much of TeX's memory you used:
- 50169 strings out of 474116
- 1217821 string characters out of 5743682
+ 50175 strings out of 474116
+ 1218038 string characters out of 5743682
  1948187 words of memory out of 5000000
- 71540 multiletter control sequences out of 15000+600000
+ 71546 multiletter control sequences out of 15000+600000
  574777 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,14n,134p,896b,1542s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/niceframe-type1/bbding10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Slides-week11.pdf (52 pages, 721059 bytes).
+Output written on Slides-week11.pdf (52 pages, 720913 bytes).
 PDF statistics:
  619 PDF objects out of 1000 (max. 8388607)
  454 compressed objects within 5 object streams

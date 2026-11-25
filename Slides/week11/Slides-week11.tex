@@ -56,6 +56,7 @@
             \begin{itemize}
               \item Jacobi and generalized Jacobi methods
             \end{itemize}
+      \item  Rayleigh-Ritz analysis
       \item Numerical modal extraction algorithms for large-scale problems
             \begin{itemize}
               \item Inverse iteration algorithm
@@ -218,6 +219,45 @@
     \end{tcolorbox}
   \end{frame}
 
+
+  \begin{frame}{Small and large scale generalized eigenvalue problems}
+    \small We are interested in economical computational algorithms for extracting eigenpairs $(\lambda_j,\mathbf p_j)$ of the generalized eigenvalue problem :
+    $$(\mathbf K - \lambda \mathbf{M})\mathbf p=\mathbf 0$$
+    \vspace{-0.8cm}
+    \begin{columns}[T,onlytextwidth]
+      \begin{column}{.48\textwidth}
+        \begin{block}{}
+          \textbf{\centering Small-scale problems}
+          \begin{itemize}
+            \item Matrices are of modest size $n\leq 250$ or $250\leq n \leq 2500$ and small bandwidth matrices.
+            \item An explicit reduction to standard eigenvalue form is typically employed.
+            \item The most effective algorithms are:
+                  \begin{enumerate}
+                    \item Rayleigh quotient minimization,
+                    \item Generalized Jacobi method,
+                    \item Householder-QR method.
+                  \end{enumerate}
+          \end{itemize}
+        \end{block}
+      \end{column}
+      \begin{column}{.48\textwidth}
+        \begin{block}{}
+          \textbf{Large-scale problems}
+          \begin{itemize}
+            \item $n\geq 2500$.
+            \item The most effective algorithms are :
+                  \begin{enumerate}
+                    \item Subspace iteration,
+                    \item Lanczos' method,
+                    \item Guyan-Irons method,
+                    \item Arnoldi Davidson methods.
+                  \end{enumerate}
+          \end{itemize}
+        \end{block}
+      \end{column}
+    \end{columns}
+  \end{frame}
+
   \begin{frame}{Small-scale modal extraction via the Rayleigh quotient}
     \small
     For a trial shape $\mathbf w\ne\mathbf 0$, the Rayleigh quotient estimates the squared angular frequency:
@@ -267,7 +307,7 @@
   \small
   Start with $\mathbf K_0=\mathbf K$, $\mathbf M_0=\mathbf M$ and
   $\mathbf P_0=\mathbf I$. Produce a sequence of matrices $\mathbf K_k$, $\mathbf M_k$ such that
-  $$\mathbf K_k\to \mathbf \Lambda\quad\mbox{and}\quad \mathbf M_k\to \mathbf I \quad\mbox{as } k \to \infty$$
+  $$\mathbf K_k\to \mathbf \Lambda,\quad  \mathbf M_k\to \mathbf I  \quad\mbox{and}\quad \mathbf P_k\to \mathbf P\quad\mbox{as } k \to \infty$$
   \vspace{-0.4cm}
   \begin{enumerate}
     \item Choose a change of basis $\mathbf J_k$ to eliminate a coupling.
@@ -291,7 +331,6 @@
     $$\mathbf p_j/\sqrt{(\mathbf D_M)_{jj}}\quad\mbox{and}\quad \lambda_j\approx(\mathbf D_K)_{jj}/(\mathbf D_M)_{jj}.$$
   \end{block}
 \end{frame}
-
 
 \begin{frame}{Jacobi method for a symmetric eigenproblem}
   \small
@@ -517,7 +556,7 @@
 
 \begin{frame}{Rayleigh-Ritz analysis: fundamentals}
   \begin{block}{}
-    \textbf{Goal:} approximate the lowest $n_{modes}$ eigenvalues and corresponding eigenvectors of the generalized eigenproblem \( \mathbf K\mathbf p = \lambda\mathbf M \mathbf p \)
+    \textbf{Goal:} approximate the lowest $n_{modes}$ eigenvalues and corresponding eigenvectors of the generalized eigenproblem \( \mathbf K\mathbf p = \lambda\mathbf M \mathbf p \) of \emph{large} order $n$.
   \end{block}
 
   \textbf{Inputs:}
@@ -567,13 +606,13 @@
   \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
     \textbf{Upper-bound property}:
     \[
-      \lambda_i \le \phi_i , \qquad i=1,\dots,n_{modes} .
+      \lambda_i \le \lambda_i^* , \qquad i=1,\dots,n_{modes} .
     \]
   \end{tcolorbox}
   \begin{itemize}
     \item Ritz basis often obtained from static solutions:
           \[
-            \mathbf K \mathbf \mathbf \Psi = \mathbf L,
+            \mathbf K \mathbf \Psi = \mathbf L,
           \]
           where $\mathbf L$ contains chosen load patterns.
     \item Accuracy depends on how well $\mathcal S$ approximates the
@@ -802,7 +841,7 @@
 \end{frame}
 
 \begin{frame}{Step 1 - Inverse iteration on \( q \) vectors}
-  Suppose that the Step 1 is replace by a simultaneous inverse iteration on \( m \) eigenvectors:
+  Suppose that the Step 1 is replace by a simultaneous inverse iteration on \( q \) eigenvectors:
   \[
     \mathbf P^{(k)} = (\mathbf K^{-1}\mathbf M)\mathbf P^{(k-1)}=\dots = (\mathbf K^{-1}\mathbf M)^k\, \mathbf P^{(0)}
   \]
@@ -1034,35 +1073,10 @@
   $\mathbf T_m\mathbf s_i=\nu_i\mathbf s_i$ with $\|\mathbf s_i\|_2=1$.
   \begin{block}{Recover the lowest frequencies from the largest Ritz values $\nu_i$}
     \[
-      \widehat\lambda_i=\frac{1}{\nu_i},\qquad
-      \widehat{\mathbf p}_i=\mathbf V_m\mathbf s_i .
+      \lambda_i=\frac{1}{\nu_i},\qquad
+      {\mathbf p}_i=\mathbf V_m\mathbf s_i .
     \]
   \end{block}
-\end{frame}
-
-\begin{frame}{Two Lanczos steps on a five-coordinate model}
-  \small
-  In Bathe's Example 11.22 the starting shape has equal entries at all five
-  coordinates. After mass normalization, the first step gives
-  $\alpha_1=9.167$, so the first estimate is $\widehat\lambda_1=1/9.167\approx0.1091$.
-
-  \medskip
-  With two trial vectors, the reduced problem becomes
-  \[
-    \mathbf T_2 \approx
-    \begin{bmatrix}9.167&2.925\\2.925&2.048\end{bmatrix},
-    \qquad
-    \nu_1\approx10.215,\quad \nu_2\approx1.000 .
-  \]
-  \begin{block}{One new direction improves the first estimate and produces a second}
-    \[
-      \widehat\lambda_1\approx0.09790,\quad\widehat\omega_1\approx0.3129,
-      \qquad
-      \widehat\lambda_2\approx1.000,\quad\widehat\omega_2\approx1.000 .
-    \]
-  \end{block}
-  The starting shape favors the first mode. Bathe reports errors
-  $|1/\lambda_i-\nu_i|$ of $0.0016$ for mode~1 and $0.213$ for mode~2.
 \end{frame}
 
 \begin{frame}{When have the requested modes converged?}
@@ -1071,13 +1085,13 @@
   $(\mathbf s_i)_m$ gives a residual check from quantities already available.
   In exact arithmetic, with $\|\mathbf x\|_{\mathbf M}^2=\mathbf x^T\mathbf M\mathbf x$,
   \[
-    \|\mathbf A\widehat{\mathbf p}_i-\nu_i\widehat{\mathbf p}_i\|_{\mathbf M}
+    \|\mathbf A{\mathbf p}_i-\nu_i{\mathbf p}_i\|_{\mathbf M}
     =|\beta_m(\mathbf s_i)_m|.
   \]
   \begin{enumerate}
     \item \textbf{Check each mode.} Test this residual against the chosen
           tolerance and verify equilibrium in the original model using
-          $\mathbf K\widehat{\mathbf p}_i-\widehat\lambda_i\mathbf M\widehat{\mathbf p}_i$.
+          ${\mathbf r}_i=\mathbf K{\mathbf p}_i-\lambda_i\mathbf M{\mathbf p}_i$.
     \item \textbf{Continue or restart.} If more modes are needed when the
           stage ends, keep the converged modes. Restart with a new vector
           mass-orthogonal to them. Reorthogonalization helps prevent duplicate modes.
