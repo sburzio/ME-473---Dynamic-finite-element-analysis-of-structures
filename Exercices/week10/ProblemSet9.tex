@@ -17,86 +17,60 @@ Use the Rayleigh minimization principle to determine the natural frequencies of 
 $$ \frac{\partial}{\partial x}\left(GI_p \frac{\partial}{\partial x}\varphi(x, t)\right) = \rho I_p \ddot{\varphi}(x, t)$$
 where the shaft parameters are:
 \begin{multicols}{2}
-  \begin{itemize}
-    \item length $\ell$,
-    \item polar moment of inertia $I_p$,
-    \item shear modulus $G$,
-    \item mass density $\rho$.
-  \end{itemize}
+    \begin{itemize}
+        \item length $\ell$,
+        \item polar moment of inertia $I_p$,
+        \item shear modulus $G$,
+        \item mass density $\rho$.
+    \end{itemize}
 \end{multicols}
 The unknown $\varphi$ represent the torsional vibration: angular displacement (twist angle) at position $x \in [0, \ell]$ and time $t \in [0, T]$. At $x = 0$ and $x = \ell$ there are no external applied moments, this translates into natural boundary conditions:
 $$
-  \frac{\partial}{\partial x}\varphi(0,t) = \frac{\partial}{\partial x}\varphi(\ell,t) = 0 \qquad \forall t\in]0,T[.
+    \frac{\partial}{\partial x}\varphi(0,t) = \frac{\partial}{\partial x}\varphi(\ell,t) = 0 \qquad \forall t\in]0,T[.
 $$
 
+
 \subsection*{Problem 2}
-Develop a \texttt{MATLAB} script to compute the first two natural frequencies and the corresponding mode shapes associated with the longitudinal vibrations of a uniform free-free bar, using the subspace iteration method. The structure is characterized by the following physical parameters:
-\begin{multicols}{2}
-  \begin{itemize}
-    \item length: $\ell=0.5$ m,
-    \item cross-sectional area: $A=4\,10^{-4}$ m$^2$,
-    \item Young's modulus: $E=210$ GPa,
-    \item mass density: $\rho=7850$ kg/m$^3$.
-  \end{itemize}
-\end{multicols}
-The bar is modeled using a single quadratic finite element with three equally spaced nodes. The structure stiffness and lumped mass\footnote{The use of a lumped mass matrix is often justified by its ability to simplify computations, improve numerical stability in explicit time integration schemes, and avoid non-physical oscillations associated with consistent mass formulations in low-order elements.} matrices are given by:
-\[
-  \mathbf{K} = \frac{EA}{3\ell}
-  \begin{bmatrix}
-    7  & -8 & 1  \\
-    -8 & 16 & -8 \\
-    1  & -8 & 7
-  \end{bmatrix}\qquad\text{and}\qquad
-  \mathbf{M} = \frac{\rho A \ell}{6} \text{diag}(1, 4, 1).
-\]
+Consider, as in the previous problem, a uniform shaft of length $\ell$, shear modulus $G$, density $\rho$ and polar moment $I_p$. Both ends are torque-free. Using a single linear element, the Rayleigh minimization procedure gave
+$\omega_2^{approx}=\sqrt{12G/\rho}/\ell$ for the first elastic torsional mode. In this problem use a discretization made of four equal linear elements of length $h=\ell/4$ and retain all five nodal rotations.
+\begin{center}
+    \begin{tikzpicture}[x=1.48cm,y=1cm]
+        \draw[line width=1pt] (0,0)--(4,0);
+        \foreach \j/\lab in {0/0,1/{\ell/4},2/{\ell/2},3/{3\ell/4},4/{\ell}} {
+        \filldraw[fill=white,draw=black,thick] (\j,0) circle (2.5pt);
+        \node[below=4pt] at (\j,0) {$\lab$};
+        }
+    \end{tikzpicture}
+\end{center}
 
 \begin{enumerate}
-  \item[1)] Formulate the generalized eigenvalue problem for the system, and define the stiffness and mass matrices explicitly.
-
-  \item[2)] Since the system exhibits a rigid-body mode with zero frequency, a spectral shift is applied to ensure convergence. The modified eigenvalue problem is:
-        \[
-          (\mathbf{K} + \sigma \mathbf{M}) \mathbf{p} = (\lambda + \sigma) \mathbf{M} \mathbf{p}
-        \]
-        where the shift parameter is chosen (to simplify the computation) as:
-        \[
-          \sigma = 2\frac{E}{\rho \ell^2}.
-        \]
-        Define the shifted stiffness matrix as $\mathbf{K}_\sigma = \mathbf{K} + \sigma \mathbf{M}$, yielding the equivalent eigenvalue problem:
-        \[
-          \mathbf{K}_\sigma \mathbf{p} = \lambda_\sigma \mathbf{M} \mathbf{p}, \quad \text{with} \quad \lambda_\sigma = \lambda + \sigma.
-        \]
-
-  \item[3)] Implement three iterations of the subspace iteration algorithm to approximate the two lowest eigenpairs $(\lambda_i, \mathbf{p}_i)$. For simplicity use the function \texttt{eig} to solve the reduced Rayleigh's minimization problem. Use the following initial guess:
-        \[
-          \mathbf{P}_{(0)} = \frac{1}{\sqrt{\rho A \ell}} \begin{bmatrix}
-            1 & 0 \\
-            0 & 1 \\
-            0 & 0
-          \end{bmatrix}.
-        \]
-
-  \item[4)] Compare the numerical approximation with the exact (shifted) eigenvalues and corresponding eigenvectors (defined up to a multiplicative constant):
-        \[
-          \lambda_{\sigma,1} = 2\frac{E}{\rho \ell^2}\qquad\text{and}\qquad \lambda_{\sigma,2} = 14\frac{E}{\rho \ell^2},
-        \]
-        \[
-          \mathbf{p}_1 = \begin{bmatrix} -1 \\ -1 \\ -1 \end{bmatrix}\qquad\text{and}\qquad
-          \mathbf{p}_2 = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix}
-        \]
-        and evaluate the accuracy by computing:
-        \begin{itemize}
-          \item The relative error between approximated and exact eigenvalues.
-          \item The error in the $\mathbf{M}$-norm between approximated and exact eigenvectors.
-        \end{itemize}
-
-        %\item Investigate the sensitivity of convergence to the choice of initial vectors. Repeat the computation using the alternative initial matrix:
-        %   \[
-        %    \mathbf{P}_{(0)} = \frac{1}{\sqrt{\rho A \ell}} \begin{bmatrix}
-        %      1 & 0 \\
-        %      4 & 1 \\
-        %      1 & 0
-        %    \end{bmatrix}
-        %  \]
-        %  and discuss the observed changes in convergence behavior.
+    \item Develop a \texttt{MATLAB} script to compute the dimensionless quantities
+          \[
+              \bK=\frac{\ell}{GI_p}\vct K,\quad
+              \bM=\frac{\vct M}{\rho I_p\ell},\quad
+              \Lambda=\frac{\rho\ell^2}{G}\lambda,\qquad
+              \Omega=\sqrt{\Lambda}.
+          \]
+          Assemble $\bK$ and $\bM$ using the element stiffness and consistent mass
+          matrices from Problem 1. Solve $\bK\vct p=\Lambda\bM\vct p$ with
+          \texttt{eig}, sort the five eigenpairs. Number the modes from $k=0$ (rigid rotation) and check $\bK\vct p_1=\vct 0$. Compare the frequencies and nodal shapes with the exact continuum modes
+          $\Omega_k=k\pi$, $\varphi_k(x)=\cos(k\pi x/\ell)$, for $k=0,\ldots,4$.
+    \item Reduce the generalized eigenvalue problem from five coordinates to two using the two trial vectors of $\vct R$ below.
+          %The second column samples the smooth twist $16(1-6s^2+4s^3)$ at $s=x/\ell$.
+          Form $\vct K^*=\vct R\T\bK\vct R $ and $\vct M^*=\vct R\T\bM\vct R$, solve the $2\times2$ generalized eigenvalue problem and recover both five-component modes as ${\vct p}=\vct R\vct p^*$.
+          \[
+              \vct R=\colv{1&16\\1&11\\1&0\\1&-11\\1&-16}.
+          \]
+    \item Compare both Ritz pairs $(\lambda_0^*,\mathbf p_0^*)$ and $(\lambda_1^*,\mathbf p_1^*)$ with then one-element approximations of Problem 1 and with the exact ones. Use the following scale- and sign-independent shape measure:
+          \[
+              \operatorname{MAC}_{\bM}(\vct u,\vct v)=
+              \frac{|\vct u\T\bM\vct v|^2}{(\vct u\T\bM\vct u)(\vct v\T\bM\vct v)}.
+          \]
+    \item Repeat the Rayleigh-Ritz reduction and error checks with
+          \[
+              \vct R=\colv{2&0\\-1&1\\0&-2\\-1&1\\2&0}.
+          \]
+          Identify which modes are returned.
 \end{enumerate}
+
 \end{document}

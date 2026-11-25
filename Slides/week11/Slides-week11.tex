@@ -60,7 +60,7 @@
             \begin{itemize}
               \item Inverse iteration algorithm
               \item Subspace algorithm
-              \item Lancoz's algorithm
+              \item Lanczos algorithm
             \end{itemize}
     \end{itemize}
     \vspace{.5cm}
@@ -267,7 +267,7 @@
   \small
   Start with $\mathbf K_0=\mathbf K$, $\mathbf M_0=\mathbf M$ and
   $\mathbf P_0=\mathbf I$. Produce a sequence of matrices $\mathbf K_k$, $\mathbf M_k$ such that
-  $$\mathbf K_k\to \mathbf \Lambda\quad\mbox{and}\quad \mathbf M_k\to \mathbf P \quad\mbox{as } k \to \infty$$
+  $$\mathbf K_k\to \mathbf \Lambda\quad\mbox{and}\quad \mathbf M_k\to \mathbf I \quad\mbox{as } k \to \infty$$
   \vspace{-0.4cm}
   \begin{enumerate}
     \item Choose a change of basis $\mathbf J_k$ to eliminate a coupling.
@@ -494,7 +494,7 @@
           Each rotation reduces $S$ by $2k_{ij}^2$, even if earlier couplings reappear.
     \item \textbf{Generalized Jacobi.} For symmetric $\mathbf K$ and $\mathbf M$ symmetric and positive-definite, global convergence depends on the transformation and pivot order.
           With simple eigenvalues, cyclic Falk--Langemeyer sweeps converge
-          quadratically near diagonal form.
+          quadratically to a near diagonal form.
   \end{itemize}
   \begin{block}{\small Check the computed modes against the original matrices}
     \[
@@ -536,7 +536,7 @@
 
 
 \begin{frame}{Rayleigh-Ritz reduction algorithm}
-  \begin{enumerate}
+  \small \begin{enumerate}
     \item Any trial vector in $\mathcal S$ is written as
           \(
           \mathbf w = \sum_{i=1}^{n_{modes}} x_i \boldsymbol{\psi}_i ,
@@ -544,21 +544,21 @@
           with coordinates $x_i$.
     \item Insert $\mathbf w = \mathbf \Psi \mathbf x$ into $\mathcal R(\mathbf w)$ to obtain the projected stiffness and mass matrices into the Ritz basis:
           \[
-            \tilde{\mathbf K} = \mathbf \Psi^T \mathbf K \mathbf \Psi, \qquad \tilde{\mathbf M} = \mathbf \Psi^T \mathbf M \mathbf \Psi,
+            {\mathbf K}^* = \mathbf \Psi^T \mathbf K \mathbf \Psi, \qquad {\mathbf M}^* = \mathbf \Psi^T \mathbf M \mathbf \Psi,
           \]
           where $\mathbf \Psi = [\boldsymbol{\psi}_1, \boldsymbol{\psi}_2, \dots, \boldsymbol{\psi}_{n_{modes}}]$.
-    \item Solve the reduced $(n_{modes}\times n_{modes})$ generalized eigenvalue problem by minimization:
+    \item Solve the \emph{small} reduced $(n_{modes}\times n_{modes})$ generalized eigenvalue problem by minimization:
           \[
-            \tilde{\mathbf K} \mathbf x = \phi\, \tilde{\mathbf M} \mathbf x .
+            {\mathbf K}^* \mathbf p^* = \lambda^*\, {\mathbf M}^* \mathbf p^* .
           \]
-          to obtain approximate eigenpairs $(\phi_i, \mathbf x_i)$   for \( i = 1, 2, \dots, n_{modes} \).
+          to obtain approximate eigenpairs $(\lambda^*_i, \mathbf p_i^*)$   for \( i = 1, 2, \dots, n_{modes} \). $\lambda^*_i$ are \textbf{Ritz values} and  $\mathbf p^*_i$ are \textbf{Ritz vectors}.
     \item Compute the modal and the spectral matrices:
           \[
-            \tilde{\mathbf \Lambda} = \text{diag}(\phi_1, \phi_2, \dots, \phi_{n_{modes}}) ,
+            {\mathbf \Lambda} = \text{diag}(\lambda^*_1, \lambda^*_2, \dots, \lambda^*_{n_{modes}}) ,
           \]
           and the approximate mode shapes
           \[
-            \mathbf p_i = \mathbf \Psi \mathbf x_i .
+            \mathbf p_i = \mathbf \Psi \mathbf p_i^* .
           \]
   \end{enumerate}
 \end{frame}
@@ -573,16 +573,16 @@
   \begin{itemize}
     \item Ritz basis often obtained from static solutions:
           \[
-            \mathbf K \mathbf \mathbf \Psi = \mathbf R,
+            \mathbf K \mathbf \mathbf \Psi = \mathbf L,
           \]
-          where $\mathbf R$ contains chosen load patterns.
+          where $\mathbf L$ contains chosen load patterns.
     \item Accuracy depends on how well $\mathcal S$ approximates the
           subspace of the lowest eigenmodes.
-    \item Many well-known methods are special cases of Rayleigh--Ritz:
+    \item Many well-known methods are special cases of Rayleigh--Ritz procedure:
           \begin{itemize}
             \item \textbf{Static condensation} (Irons-Guyan reduction)
-            \item \textbf{Component mode synthesis}
             \item \textbf{Subspace iteration}
+            \item \textbf{Lanczos algorithm}
           \end{itemize}
   \end{itemize}
 \end{frame}
@@ -611,11 +611,11 @@
       \begin{itemize}
         \item Form a \emph{“force”} vector:
               \(
-              \mathbf R_1 = \mathbf M \mathbf p^{(0)}.
+              \boldsymbol \ell_1 = \mathbf M \mathbf p^{(0)}.
               \)
         \item Solve the static-like equilibrium problem:
               \[
-                \mathbf K \mathbf p^{(1)} = \mathbf R_1,
+                \mathbf K \mathbf p^{(1)} = \boldsymbol \ell_1,
               \]
         \item Repeat until convergence is met.
       \end{itemize}
@@ -623,10 +623,10 @@
     \begin{column}{0.5\textwidth}
       \textbf{Forward iteration:}
       \begin{itemize}
-        \item Compute $\mathbf R_1 = \mathbf K \mathbf p^{(0)}$.
+        \item Compute $\boldsymbol \ell_1 = \mathbf K \mathbf p^{(0)}$.
         \item Solve
               \[
-                \mathbf M \mathbf p^{(1)} = \mathbf R_1 ,
+                \mathbf M \mathbf p^{(1)} = \boldsymbol \ell_1 ,
               \]
         \item Repeat until convergence is met.
       \end{itemize}
@@ -664,7 +664,7 @@
 \end{frame}
 
 \begin{frame}{Convergence of inverse iteration}
-  \begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
+  \small\vspace{-0.3cm}\begin{tcolorbox}[colback=darkred!10,colframe=darkred!40!black]
     \begin{itemize}
       \item  The inverse iteration converges to $\mathbf p_j$, the eigenvector associated with the eigenvalue closest to \( \sigma \), if the initial guess $\mathbf p^{(0)}$ is not $\mathbf M$-orthogonal to $\mathbf p_j$.
       \item     If no shift is used, i.e. $\sigma=0$, the method converges to the eigenvector associated with the \emph{smallest eigenvalue} provided the orthogonality condition on the initial guess is met.
@@ -675,7 +675,7 @@
           \[
             \rho = \frac{|\lambda_j - \sigma|}{|\lambda_{j+1} - \sigma|},
           \]
-          where \( \lambda_j \) is the eigenvalue closest to \( \sigma \) and \( \lambda_{j+1} \) is the next closest eigenvalue.
+          \( \lambda_j \) is the eigenvalue closest to the shift \( \sigma \) and \( \lambda_{j+1} \) is the next closest eigenvalue.
     \item If $\varepsilon=10^{-2s}$ , then approximately \( 2s \) correct digits of the eigenvector are obtained and \( s \) correct digits of the eigenvalue.
   \end{itemize}
 \end{frame}
@@ -718,7 +718,7 @@
       };
       \node[align=center,below] at (0,-0.2) {$0$};
       \node[align=center] at (5,1.2) {\begin{tcolorbox}[colframe=orange!50!black, colback=orange!10, coltitle=black, rounded corners,width=2.5cm]
-          $\mathbf P^{(k)}$, $\mathcal S_{k}$ \\  $\mathbf \Lambda^{(k)}$
+          $\small \mathbf P^{(k)}$, $\mathcal S_{k}$ \\  $\mathbf \Lambda^{(k)}$
         \end{tcolorbox}
       };
       \node[align=center, below] at (5,-0.2) {$k$};
@@ -741,9 +741,10 @@
 \end{frame}
 
 \begin{frame}{Pseudo-code of the subspace iteration method}
+  \small
   \textbf{Inputs:}
   \begin{itemize}
-    \item \(\mathbf K \), \(\mathbf M \): stiffness and mass matrices of dimension \( n \times n \).
+    \item \(\mathbf K \), \(\mathbf M \): stiffness and mass matrices of large  dimension \( n \times n \).
     \item \( n_{modes} \): number of desired eigenmodes.
     \item \( q \): number of iteration vectors, with \( q > n_{modes} \).
     \item \(\mathbf P^{(0)} \in \mathbb{R}^{n \times q} \): initial guess matrix of linearly independent vectors
@@ -760,16 +761,16 @@
 \end{frame}
 
 \begin{frame}{Pseudo-code of the subspace iteration method}
-  \textbf{Algorithm:}
+  \small \textbf{Algorithm:}
   \begin{enumerate}
     \item If $\mathbf K$ is singular, use shift: set \( \mathbf K_\sigma =\mathbf K + \sigma\mathbf M \)
     \item For \( k = 1, 2, \dots \) until convergence:
           \begin{itemize}
             \item Do step 1: perform inverse iteration on \( q \) vectors to obtain
                   $$\overline{\mathbf P^{(k)}}.$$
-            \item Do step 2a: compute the projected stiffness and mass matrices:
+            \item Do step 2a: compute the projected stiffness and mass matrices using $\overline{\mathbf P^{(k)}}$:
                   $$\mathbf K^{(k)} \qquad\text{and}\qquad \mathbf M^{(k)}.$$
-            \item Do step 2b: solve the projected generalized eigenvalue problem to obtain the projected modal matrix and the spectral matrix:
+            \item Do step 2b: solve the projected \emph{small} generalized eigenvalue problem to obtain the projected modal matrix and the spectral matrix:
                   $$\mathbf Z^{(k)} \qquad\text{and}\qquad \mathbf \Lambda^{(k)}.$$
 
             \item Do step 2c: calculate the updated modal matrix \( \mathbf P^{(k)} \).
@@ -789,7 +790,7 @@
           \[
             \mathbf K^{(k)} = (\overline{\mathbf P^{(k)}})^T \mathbf K \overline{\mathbf P^{(k)}}, \quad \mathbf M^{(k)} = (\overline{\mathbf P^{(k)}})^T \mathbf M \overline{\mathbf P^{(k)}}
           \]
-    \item \textbf{Step 2b:} Solve $(q\times q)$ generalized eigenvalue problem: Find the projected modal matrix $\mathbf Z^{(k)}$ and the spectral matrix $\mathbf \Lambda^{(k)}$ such that
+    \item \textbf{Step 2b:} Solve the \emph{small} $(q\times q)$ generalized eigenvalue problem: find the projected modal matrix $\mathbf Z^{(k)}$ and the spectral matrix $\mathbf \Lambda^{(k)}$ such that
           \[
             \mathbf K^{(k)}\mathbf Z^{(k)} = \mathbf M^{(k)}\mathbf Z^{(k)} \mathbf \Lambda^{(k)}
           \]
@@ -932,6 +933,158 @@
     \item The Sturm sequence property states that the number of eigenvalues of the generalized eigenvalue problem \( \mathbf K\mathbf p = \lambda\mathbf M \mathbf p \) that are less than a given value \( \lambda^* \) is equal to the number of negative pivots obtained when performing an \( \mathbf L\mathbf  D\mathbf  L^T \) factorization of the matrix \( \mathbf K - \lambda^* \mathbf M \).
     \item This property can be used to verify that the number of computed eigenvalues below a certain threshold matches the expected count, providing an additional layer of validation for the results obtained from the subspace iteration method.
   \end{itemize}
+\end{frame}
+
+\section{The Lanczos algorithm}
+
+\begin{frame}{Lanczos and subspace iteration}
+  \small
+  Both methods reuse a stiffness factorization and use Rayleigh--Ritz
+  extraction to approximate the lowest modes of
+  $\mathbf K\mathbf p=\lambda\mathbf M\mathbf p$.
+
+  \medskip
+  \centering
+  \renewcommand{\arraystretch}{1.32}
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{.18\linewidth}
+    >{\raggedright\arraybackslash}p{.37\linewidth}
+    >{\raggedright\arraybackslash}p{.37\linewidth}@{}}
+    \rowcolor{darkred!15}
+                                                                       & \textbf{Subspace iteration} & \textbf{Scalar Lanczos} \\
+    \textbf{Trial space}                                               &
+    Update a block of $q$ vectors together. Its dimension stays fixed. &
+    Start with one vector. Append one new direction per step within a stage.                                                   \\[5pt]
+    \textbf{Stiffness solves}                                          &
+    $q$ right-hand sides per outer iteration.                          &
+    One right-hand side per new direction.                                                                                     \\[5pt]
+    \textbf{Reduced problem}                                           &
+    Project $\mathbf K$ and $\mathbf M$. Solve a generally dense
+    $q\times q$ generalized eigenproblem.                              &
+    Project the inverse operator. Solve a symmetric tridiagonal
+    standard eigenproblem.                                                                                                     \\
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{Why inverse Lanczos targets the lowest frequencies}
+  \small
+  Assume $\mathbf K$ and $\mathbf M$ are symmetric positive definite.
+  The inverse operator $\mathbf A=\mathbf K^{-1}\mathbf M$ preserves the
+  mode shapes and reverses the ordering of the eigenvalues.
+  \[
+    \mathbf K\mathbf p_i=\lambda_i\mathbf M\mathbf p_i
+    \quad\Longrightarrow\quad
+    \mathbf A\mathbf p_i=\frac{1}{\lambda_i}\,\mathbf p_i,
+    \qquad \lambda_i=\omega_i^2 .
+  \]
+  Thus each application of $\mathbf A$ amplifies the lowest modes most
+  strongly relative to the others.
+
+  \begin{block}{Building the trial space}
+    Choose a starting shape with components in the modes of interest.
+    Normalize it to $\mathbf v_1^T\mathbf M\mathbf v_1=1$. After $m$ steps,
+    the Lanczos basis spans the Krylov subspace
+    \[
+      \mathcal K_m(\mathbf A,\mathbf v_1)
+      =\operatorname{span}\{\mathbf v_1,\mathbf A\mathbf v_1,\ldots,
+      \mathbf A^{m-1}\mathbf v_1\}.
+    \]
+  \end{block}
+  Factor $\mathbf K$ once. Apply $\mathbf A$ by solving
+  $\mathbf K\mathbf z=\mathbf M\mathbf v_j$ with the stored factors.
+\end{frame}
+
+\begin{frame}{One Lanczos step}
+  \small
+  Set $\mathbf v_0=\mathbf 0$ and $\beta_0=0$. Given the mass-normalized
+  vector $\mathbf v_j$, compute the next direction as follows.
+  \begin{enumerate}
+    \item \textbf{Apply the inverse operator.}\quad
+          Solve $\mathbf K\mathbf z=\mathbf M\mathbf v_j$.
+    \item \textbf{Remove the components along the last two directions.}
+          \[
+            \alpha_j=\mathbf v_j^T\mathbf M\mathbf z,\qquad
+            \mathbf w=\mathbf z-\alpha_j\mathbf v_j-\beta_{j-1}\mathbf v_{j-1}.
+          \]
+          In exact arithmetic $\mathbf w$ is already mass-orthogonal to all
+          earlier vectors. In floating-point arithmetic, reorthogonalize as needed.
+    \item \textbf{Normalize the new direction.}
+          \[
+            \beta_j=\sqrt{\mathbf w^T\mathbf M\mathbf w},\qquad
+            \mathbf v_{j+1}=\mathbf w/\beta_j \quad(\beta_j>0).
+          \]
+          If $\beta_j=0$, the current space is invariant. End this stage.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{From the tridiagonal matrix to the physical modes}
+  \small
+  Collect the trial vectors in $\mathbf V_m=[\mathbf v_1,\ldots,\mathbf v_m]$.
+  Their mass orthogonality gives $\mathbf V_m^T\mathbf M\mathbf V_m=\mathbf I$.
+  Rayleigh--Ritz projection of the inverse operator gives
+  \[
+    \mathbf T_m=\mathbf V_m^T\mathbf M\mathbf A\mathbf V_m
+    =\begin{bmatrix}
+      \alpha_1 & \beta_1  &             & 0           \\
+      \beta_1  & \alpha_2 & \ddots      &             \\
+               & \ddots   & \ddots      & \beta_{m-1} \\
+      0        &          & \beta_{m-1} & \alpha_m
+    \end{bmatrix}.
+  \]
+  The recurrence supplies every entry. Solve
+  $\mathbf T_m\mathbf s_i=\nu_i\mathbf s_i$ with $\|\mathbf s_i\|_2=1$.
+  \begin{block}{Recover the lowest frequencies from the largest Ritz values $\nu_i$}
+    \[
+      \widehat\lambda_i=\frac{1}{\nu_i},\qquad
+      \widehat{\mathbf p}_i=\mathbf V_m\mathbf s_i .
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{Two Lanczos steps on a five-coordinate model}
+  \small
+  In Bathe's Example 11.22 the starting shape has equal entries at all five
+  coordinates. After mass normalization, the first step gives
+  $\alpha_1=9.167$, so the first estimate is $\widehat\lambda_1=1/9.167\approx0.1091$.
+
+  \medskip
+  With two trial vectors, the reduced problem becomes
+  \[
+    \mathbf T_2 \approx
+    \begin{bmatrix}9.167&2.925\\2.925&2.048\end{bmatrix},
+    \qquad
+    \nu_1\approx10.215,\quad \nu_2\approx1.000 .
+  \]
+  \begin{block}{One new direction improves the first estimate and produces a second}
+    \[
+      \widehat\lambda_1\approx0.09790,\quad\widehat\omega_1\approx0.3129,
+      \qquad
+      \widehat\lambda_2\approx1.000,\quad\widehat\omega_2\approx1.000 .
+    \]
+  \end{block}
+  The starting shape favors the first mode. Bathe reports errors
+  $|1/\lambda_i-\nu_i|$ of $0.0016$ for mode~1 and $0.213$ for mode~2.
+\end{frame}
+
+\begin{frame}{When have the requested modes converged?}
+  \small
+  For a unit eigenvector $\mathbf s_i$ of $\mathbf T_m$, the last component
+  $(\mathbf s_i)_m$ gives a residual check from quantities already available.
+  In exact arithmetic, with $\|\mathbf x\|_{\mathbf M}^2=\mathbf x^T\mathbf M\mathbf x$,
+  \[
+    \|\mathbf A\widehat{\mathbf p}_i-\nu_i\widehat{\mathbf p}_i\|_{\mathbf M}
+    =|\beta_m(\mathbf s_i)_m|.
+  \]
+  \begin{enumerate}
+    \item \textbf{Check each mode.} Test this residual against the chosen
+          tolerance and verify equilibrium in the original model using
+          $\mathbf K\widehat{\mathbf p}_i-\widehat\lambda_i\mathbf M\widehat{\mathbf p}_i$.
+    \item \textbf{Continue or restart.} If more modes are needed when the
+          stage ends, keep the converged modes. Restart with a new vector
+          mass-orthogonal to them. Reorthogonalization helps prevent duplicate modes.
+    \item \textbf{Check completeness.} A single starting vector can capture
+          only one direction per repeated eigenspace. At a cutoff $\omega^*$,
+          count the eigenvalues below $\lambda^*=(\omega^*)^2$ using the Sturm check.
+  \end{enumerate}
 \end{frame}
 
 \end{document}

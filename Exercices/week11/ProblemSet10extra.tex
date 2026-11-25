@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+
+\input{../preambleProblemSets}
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Problem set 10 - extra}\hspace*{\fill}
+
+\hrulefill
+
+\subsection*{Problem 1}
+
+Return to Problem 2 of Problem Set 9. A single quadratic element models the axial vibration of a uniform free-free bar, with its degrees of freedom ordered \emph{left end, midpoint, right end}. With $c=E/(\rho\ell^2)$, its stiffness and lumped mass matrices are
+\[
+  \vct K=\frac{EA}{3\ell}\vct C,\qquad
+  \vct M=\frac{\rho A\ell}{6}\vct D,\qquad
+  \vct C=\colv{7&-8&1\\-8&16&-8\\1&-8&7},\quad
+  \vct D=\operatorname{diag}(1,4,1).
+\]
+Retain the shift $\sigma=2c$. Write $\mu=\lambda/c$ and
+$\mu_\sigma=(\lambda+\sigma)/c=\mu+2$. To keep the hand calculation short,
+the scaled inverse operator is supplied:
+\[
+  \vct B=14c(\vct K+2c\vct M)^{-1}\vct M
+  =\frac1{13}\colv{24&56&11\\14&63&14\\11&56&24},
+  \qquad \langle\vct u,\vct v\rangle_D=\vct u\T\vct D\vct v .
+\]
+\begin{enumerate}
+  \item[a)] \textbf{Set up the recurrence.} Show that $\vct D\vct B$ is symmetric.
+        If $\vct B\vct p=\nu\vct p$, derive $\mu_\sigma$ and $\mu$ from $\nu$.
+        Normalize $\vct g=(2,1,0)\T$ in the $D$-norm to obtain $\vct q_1$.
+  \item[b)] \textbf{Take two Lanczos steps.} Start with $\vct q_0=\vct0$ and
+        $\beta_0=0$. For $j=1,2$, use
+        \[
+          \alpha_j=\langle\vct q_j,\vct B\vct q_j\rangle_D,\qquad
+          \vct w_j=\vct B\vct q_j-\alpha_j\vct q_j-\beta_{j-1}\vct q_{j-1},
+          \qquad \beta_j=\|\vct w_j\|_D .
+        \]
+        Set $\vct q_{j+1}=\vct w_j/\beta_j$ when $\beta_j>0$.
+        Compute $\alpha_1,\beta_1,\vct q_2,\alpha_2,\beta_2$ and assemble $\vct T_2$.
+        What estimate of the lowest $\mu$ was already available after step 1?
+  \item[c)] \textbf{Recover and identify the two modes.} Solve the $2\times2$
+        problem $\vct T_2\vct y=\nu\vct y$. For each root, recover $\mu$ and
+        $\widehat{\vct p}=[\vct q_1,\vct q_2]\vct y$. Scale each shape to have
+        left-end value $1$. Verify each pair directly in $2\vct C\vct p=\mu\vct D\vct p$.
+  \item[d)] \textbf{Compare with subspace iteration.} The table gives the results
+        of the three block inverse iterations specified in Problem Set 9, from
+        $\vct P_{(0)}\propto[\vct e_1,\vct e_2]$. Use it directly.
+        Compare shifted eigenvalues and mode shapes with your Lanczos results and
+        the exact pairs. For each method, give the relative error in $\mu_\sigma$
+        and identify the largest nodal discrepancy at the common left-end scaling.
+        Explain why Lanczos terminates after two steps for this start.
+\end{enumerate}
+\begin{center}
+  \begin{tabular}{@{}cll@{}}
+    \toprule
+    Mode          & $\mu_\sigma$ after three iterations & Mode shape, left end $=1$                           \\
+    \midrule
+    Rigid         & $2.000002317$                       & $(1,\ \phantom{-}1.000438,\ \phantom{-}0.999603)\T$ \\
+    First elastic & $14.423259$                         & $(1,\ -0.067550,\ -0.729971)\T$                     \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+
+\subsection*{Problem 1 - Solutions}
+\subsubsection*{a) Operator and inner product.}
+In units of $c=E/(\rho\ell^2)$ the unshifted problem is
+$2\vct C\vct p=\mu\vct D\vct p$. The product
+\[
+  \vct D\vct B=\frac1{13}\colv{24&56&11\\56&252&56\\11&56&24}
+\]
+is symmetric, so $\vct B$ is self-adjoint in the $D$-inner product.
+The inverse preserves the mode shape and changes its eigenvalue to
+$\nu=14/(\mu+2)$. Hence $\mu_\sigma=14/\nu$ and $\mu=14/\nu-2$.
+The largest $\nu$ gives the lowest physical frequency.
+
+\subsubsection*{b) The two steps.}
+The starting vector has squared $D$-norm $2^2+4(1)^2=8$. Direct products
+with the supplied matrix give
+\[
+  \vct q_1=\frac{(2,1,0)\T}{\sqrt8},\qquad
+  \vct B\vct q_1=\frac{(8,7,6)\T}{\sqrt8},\qquad
+  \alpha_1=\frac{2(8)+4(7)}8=\frac{11}{2}.
+\]
+After this single step the rigid-mode estimate is
+$\widehat\mu_0=14/(11/2)-2=6/11$, with trial shape $(1,1/2,0)\T$.
+Subtracting the projection gives
+\[
+  \vct w_1=\frac{3}{2\sqrt8}(-2,1,4)\T,\qquad
+  \beta_1=\frac{3\sqrt3}{2},\qquad
+  \vct q_2=\frac{(-2,1,4)\T}{\sqrt{24}}.
+\]
+The second product is $\vct B\vct q_2=(4,7,10)\T/\sqrt{24}$.
+Thus $\alpha_2=(-8+28+40)/24=5/2$. Substitution into
+$\vct w_2=\vct B\vct q_2-\alpha_2\vct q_2-\beta_1\vct q_1$ gives
+$\vct w_2=\vct0$ and $\beta_2=0$.
+
+\subsubsection*{c) Ritz pairs and nodal shapes.}
+The projected matrix and its characteristic polynomial are
+\[
+  \vct T_2=\frac12\colv{11&3\sqrt3\\3\sqrt3&5},\qquad
+  \det(\nu\vct I-\vct T_2)=\nu^2-8\nu+7=(\nu-7)(\nu-1).
+\]
+With $\vct Q_2=[\vct q_1,\vct q_2]$ the two reconstructions are
+\begin{center}
+  \begin{tabular}{@{}cccccl@{}}
+    \toprule
+    $\nu$ & $\vct y\T$      & $(\vct Q_2\vct y)\T$ & $\mu_\sigma$ & $\mu$ & Mode              \\
+    \midrule
+    $7$   & $(\sqrt3,1)/2$  & $(1,1,1)/\sqrt6$     & $2$          & $0$   & Rigid translation \\
+    $1$   & $(1,-\sqrt3)/2$ & $(1,0,-1)/\sqrt2$    & $14$         & $12$  & First elastic     \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+To verify these are exact pairs of the original pencil, observe that
+$\vct C(1,1,1)\T=\vct0$ and
+$2\vct C(1,0,-1)\T=(12,0,-12)\T=12\vct D(1,0,-1)\T$.
+The dimensional eigenvalues are $0$ and $12E/(\rho\ell^2)$, with angular
+frequencies $0$ and $\sqrt{12E/\rho}/\ell$.
+
+\subsubsection*{d) Eigenvalue and shape comparisons.}
+The shifted eigenvalue makes a relative error well-defined for the rigid
+mode. Use $100|\widehat\mu_\sigma-\mu_\sigma|/\mu_\sigma$. With each left
+end fixed at unit amplitude for comparison, the largest nodal discrepancy
+is $\max_j|\widehat p_j-p_j|$.
+\begin{center}
+  \begin{tabular}{@{}llrrr@{}}
+    \toprule
+    Method                 & Mode          & $\widehat\mu_\sigma$ & Shifted error & Largest nodal error \\
+    \midrule
+    Exact                  & Rigid         & $2$                  & --            & --                  \\
+    Lanczos, 2 steps       & Rigid         & $2$                  & $0$           & $0$                 \\
+    Subspace, 3 iterations & Rigid         & $2.000002317$        & $0.000116\%$  & $0.000438$          \\
+    \addlinespace
+    Exact                  & First elastic & $14$                 & --            & --                  \\
+    Lanczos, 2 steps       & First elastic & $14$                 & $0$           & $0$                 \\
+    Subspace, 3 iterations & First elastic & $14.423259$          & $3.0233\%$    & $0.270029$          \\
+    \bottomrule
+  \end{tabular}
+\end{center}
+For the rigid mode the largest difference is at the midpoint
+($1.000438$ versus $1$). For the first elastic mode it is at the right
+end ($-0.729971$ versus $-1$). Subtracting $2$ from the subspace values
+gives the unshifted estimates $0.000002317$ and $12.423259$.
+
+\subsubsection*{Why two steps suffice here.}
+Write the starting vector as
+\[
+  (2,1,0)\T=(1,1,1)\T+(1,0,-1)\T .
+\]
+Both components are exact modes, and their inverse eigenvalues are distinct.
+Consequently $\vct q_1$ and $\vct B\vct q_1$ span exactly those two modes.
+The vanishing $\beta_2$ records that applying $\vct B$ cannot produce a
+third independent direction. The third mode $(2,-1,2)\T$, with $\mu=24$,
+is $D$-orthogonal to the start.
+
+The initial block $[\vct e_1,\vct e_2]$ in Problem Set 9 has a component
+in this third mode. Each shifted inverse iteration multiplies the first
+elastic component relative to the third by $26/14$, and the rigid
+component relative to the third by $26/2$. This explains why the rigid
+mode is already much more accurate after three iterations. The exact
+two-step Lanczos result depends on the chosen starting shape.
+
+\subsubsection*{Reproducing the supplied subspace reference.}
+For instructors, the three-step result can also be constructed from a single
+two-column basis. Put $\vct H=2\vct C+2\vct D$ and set
+\[
+  \vct U=(\vct H^{-1}\vct D)^3[\vct e_1,\vct e_2].
+\]
+The intermediate Ritz extractions change the basis within each block.
+Thus the final trial space is $\operatorname{range}(\vct U)$. Solve
+$(\vct U\T\vct H\vct U)\vct y
+  =\widehat\mu_\sigma(\vct U\T\vct D\vct U)\vct y$ and rescale
+$\vct U\vct y$ by its first entry. The resulting nodal shapes are
+$(1,1.000438,0.999603)\T$ and $(1,-0.067550,-0.729971)\T$.
+\newpage
+
+\end{document}

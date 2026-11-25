@@ -1,0 +1,129 @@
+\documentclass[12pt]{article}
+
+\input{../preambleProblemSets}
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Problem set 10}\hspace*{\fill}
+
+\hrulefill
+
+\subsection*{Problem 1}
+
+Let $\vct K$ and $\vct M$ be a symmetric positive definite matrices of order $q$. Pick $i<j$ and use the $2\times 2$ blocks
+\[
+  \vct K_{(i,j)}=\colv{k_{ii}&k_{ij}\\k_{ij}&k_{jj}},\qquad
+  \vct M_{(i,j)}=\colv{m_{ii}&m_{ij}\\m_{ij}&m_{jj}} .
+\]
+as each Jacobi transformation acts only on coordinates $i$ and $j$.
+\begin{enumerate}
+  \item[a)] One pivot in the standard Jacobi problem. Take $\vct M_{(i,j)}=\vct I$ and the Jacobi transformation matrix to be the rotation
+        \[
+          \vct J(\theta)=
+          \colv{\cos\theta&-\sin\theta\\ \sin\theta&\cos\theta}.
+        \]
+        Compute the components of the rotated matrices
+        $$\vct K_{(i,j)}'=\vct J\T\vct K_{(i,j)}\vct J,\quad\mbox{and}\quad  \vct M_{(i,j)}'=\vct J\T\vct M_{(i,j)}\vct J$$
+        and verify that, if the angle is chosen as
+        \[
+          \tan(2\theta)=\frac{2k_{ij}}{k_{ii}-k_{jj}},\qquad |\theta|\leq\pi/4 .
+        \]
+        then the matrix $\vct K_p'$ is diagonal and $\vct M_p'$ is the identity matrix. Explain the choice of angle when $k_{ij}=0$ or $k_{ii}=k_{jj}$.
+  \item[b)] One pivot pair in the generalized problem. Remove the assumption that $\vct M_{(i,j)}=\vct I$, and modify the definition of Jacobi transformation matrix to
+        $$\vct J(\alpha,\gamma)=\colv{1&\alpha\\\gamma&1}.$$
+        Show that simultaneous elimination of the stiffness and mass off-diagonal entries in $\vct K_{(i,j)}'=\vct J\T\vct K_{(i,j)}\vct J$ and $\vct M_{(i,j)}'=\vct J\T\vct M_{(i,j)}\vct J$ requires
+        \begin{align*}
+          k_{ii}\alpha+k_{jj}\gamma+k_{ij}(1+\alpha\gamma) & =0, \\
+          m_{ii}\alpha+m_{jj}\gamma+m_{ij}(1+\alpha\gamma) & =0.
+        \end{align*}
+  \item[c)] Find $\alpha$ and $\gamma$ by introduce the quantities
+        \[
+          \bar k_{ii}=k_{ii}m_{ij}-m_{ii}k_{ij},\quad
+          \bar k_{jj}=k_{jj}m_{ij}-m_{jj}k_{ij},\quad
+          \bar k=\tfrac12(k_{ii}m_{jj}-k_{jj}m_{ii}).
+        \]
+        Eliminate $1+\alpha\gamma$ to find a relation between the two unknowns.
+        Write $\alpha=\bar k_{jj}/x$, $\gamma=-\bar k_{ii}/x$ and derive the
+        expression of $x$. Which root has the larger magnitude, and why
+        is it preferable when evaluating the formula?
+  \item[d)] For $\vct M_p=\vct I$, show that the argument developed in points b) and c) allows to recovers $\vct J(\theta)$ as in part a).
+\end{enumerate}
+
+
+\subsection*{Problem 2}
+Develop a \texttt{MATLAB} script to compute the first two natural frequencies and the corresponding mode shapes associated with the longitudinal vibrations of a uniform free-free bar, using the subspace iteration method. The structure is characterized by the following physical parameters:
+\begin{multicols}{2}
+  \begin{itemize}
+    \item length: $\ell=0.5$ m,
+    \item cross-sectional area: $A=4\,10^{-4}$ m$^2$,
+    \item Young's modulus: $E=210$ GPa,
+    \item mass density: $\rho=7850$ kg/m$^3$.
+  \end{itemize}
+\end{multicols}
+The bar is modeled using a single quadratic finite element with three equally spaced nodes. The structure stiffness and lumped mass\footnote{The use of a lumped mass matrix is often justified by its ability to simplify computations, improve numerical stability in explicit time integration schemes, and avoid non-physical oscillations associated with consistent mass formulations in low-order elements.} matrices are given by:
+\[
+  \mathbf{K} = \frac{EA}{3\ell}
+  \begin{bmatrix}
+    7  & -8 & 1  \\
+    -8 & 16 & -8 \\
+    1  & -8 & 7
+  \end{bmatrix}\qquad\text{and}\qquad
+  \mathbf{M} = \frac{\rho A \ell}{6} \text{diag}(1, 4, 1).
+\]
+
+\begin{enumerate}
+  \item[1)] Formulate the generalized eigenvalue problem for the system, and define the stiffness and mass matrices explicitly.
+
+  \item[2)] Since the system exhibits a rigid-body mode with zero frequency, a spectral shift is applied to ensure convergence. The modified eigenvalue problem is:
+        \[
+          (\mathbf{K} + \sigma \mathbf{M}) \mathbf{p} = (\lambda + \sigma) \mathbf{M} \mathbf{p}
+        \]
+        where the shift parameter is chosen (to simplify the computation) as:
+        \[
+          \sigma = 2\frac{E}{\rho \ell^2}.
+        \]
+        Define the shifted stiffness matrix as $\mathbf{K}_\sigma = \mathbf{K} + \sigma \mathbf{M}$, yielding the equivalent eigenvalue problem:
+        \[
+          \mathbf{K}_\sigma \mathbf{p} = \lambda_\sigma \mathbf{M} \mathbf{p}, \quad \text{with} \quad \lambda_\sigma = \lambda + \sigma.
+        \]
+
+  \item[3)] Implement three iterations of the subspace iteration algorithm to approximate the two lowest eigenpairs $(\lambda_i, \mathbf{p}_i)$. For simplicity use the function \texttt{eig} to solve the reduced Rayleigh's minimization problem. Use the following initial guess:
+        \[
+          \mathbf{P}_{(0)} = \frac{1}{\sqrt{\rho A \ell}} \begin{bmatrix}
+            1 & 0 \\
+            0 & 1 \\
+            0 & 0
+          \end{bmatrix}.
+        \]
+
+  \item[4)] Compare the numerical approximation with the exact (shifted) eigenvalues and corresponding eigenvectors (defined up to a multiplicative constant):
+        \[
+          \lambda_{\sigma,1} = 2\frac{E}{\rho \ell^2}\qquad\text{and}\qquad \lambda_{\sigma,2} = 14\frac{E}{\rho \ell^2},
+        \]
+        \[
+          \mathbf{p}_1 = \begin{bmatrix} -1 \\ -1 \\ -1 \end{bmatrix}\qquad\text{and}\qquad
+          \mathbf{p}_2 = \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix}
+        \]
+        and evaluate the accuracy by computing:
+        \begin{itemize}
+          \item The relative error between approximated and exact eigenvalues.
+          \item The error in the $\mathbf{M}$-norm between approximated and exact eigenvectors.
+        \end{itemize}
+
+        %\item Investigate the sensitivity of convergence to the choice of initial vectors. Repeat the computation using the alternative initial matrix:
+        %   \[
+        %    \mathbf{P}_{(0)} = \frac{1}{\sqrt{\rho A \ell}} \begin{bmatrix}
+        %      1 & 0 \\
+        %      4 & 1 \\
+        %      1 & 0
+        %    \end{bmatrix}
+        %  \]
+        %  and discuss the observed changes in convergence behavior.
+\end{enumerate}
+
+
+\end{document}

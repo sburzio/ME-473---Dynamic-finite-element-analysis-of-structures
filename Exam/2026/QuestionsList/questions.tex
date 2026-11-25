@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+
+\input{preamble}
+
+\newcommand{\T}{^{T}}
+\newcommand{\bK}{\overline{\mathbf K}}
+\newcommand{\bM}{\overline{\mathbf M}}
+\newcommand{\vct}[1]{\mathbf{#1}}
+\newcommand{\colv}[1]{\begin{bmatrix}#1\end{bmatrix}}
+
+
+\begin{document}
+
+\noindent ME473 - Dynamic finite element analysis of structures\hfill EPFL\\
+Stefano Burzio \hfill 2025\\
+\vspace{0.3cm}
+
+\hspace*{\fill}\textbf{\Large Exam questions}\hspace*{\fill}
+
+\hrulefill
+
+\subsection*{Question 1}
+Let
+        \[
+          \vct K=\colv{3&1\\1&7},\qquad \vct M=\colv{1&1\\1&4}.
+        \]
+        First apply the standard angle in Jacobi method chosen from $\vct K$ and check the mass
+        off-diagonal entry. Then compute $x,\alpha,\gamma$ using the generalieed Jacobi method.
+     Reads  the two generalised eigenvalues from the diagonal entries of the rotated matrices. 
+
+For the given stiffness block, $\tan(2\theta)=-1/2$.
+The small-angle branch has $\cos(2\theta)=2/\sqrt5$ and
+$\sin(2\theta)=-1/\sqrt5$. It clears the stiffness pivot, but the rotated
+mass still has the off-diagonal entry
+\[
+   m'_{ij}=m_{ij}\cos(2\theta)-\tfrac12(m_{ii}-m_{jj})\sin(2\theta)
+   =\frac{2}{\sqrt5}-\frac{3}{2\sqrt5}=\frac{1}{2\sqrt5}.
+\]
+For the generalized transformation the intermediate quantities are
+\[
+   \bar k_{ii}=3(1)-1(1)=2,\qquad
+   \bar k_{jj}=7(1)-4(1)=3,\qquad
+   \bar k=\tfrac12[3(4)-7(1)]=\tfrac52 .
+\]
+The square root is $7/2$, so $x=6$ and
+\[
+   \boxed{\alpha=\tfrac12,\qquad\gamma=-\tfrac13},\qquad
+   \vct J=\colv{1&1/2\\-1/3&1}.
+\]
+Here $\det\vct J=7/6$. Direct multiplication gives
+\[
+   \vct J\T\vct K_p\vct J=\colv{28/9&0\\0&35/4},\qquad
+   \vct J\T\vct M_p\vct J=\colv{7/9&0\\0&21/4}.
+\]
+The diagonal ratios are $4$ and $5/3$, respectively. The corresponding
+columns of $\vct J$ are eigenvectors of the original pencil. As an
+independent check, $\det(\vct K_p-\lambda\vct M_p)
+   =3\lambda^2-17\lambda+20=(\lambda-4)(3\lambda-5)$.
+   
+\end{document}
